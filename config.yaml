@@ -1,4 +1,4 @@
-baseurl: https://example.com
+baseurl: https://j-buss.github.io/jrem_me_blog_v1/
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
