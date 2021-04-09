@@ -2,7 +2,7 @@ baseurl: http://jrem.me
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
-title: Example Site
+title: Jeremy Buss
 
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
@@ -34,11 +34,11 @@ params:
         lastUpdated: Jan 02, 2006 15:04 MST
 
     sidebar:
-        emoji: 🍥
-        subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        emoji: 
+        subtitle: explore. share.
         avatar:
             local: true
-            src: img/avatar.png
+            src: img/jb_headshot.jpg
 
     article:
         math: false

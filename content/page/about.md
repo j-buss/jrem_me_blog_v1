@@ -1,33 +1,38 @@
 ---
 title: About
-description: Hugo, the world's fastest framework for building websites
-date: '2019-02-28'
+description: Jeremy Buss
+date: '2019-12-10'
 aliases:
   - about-us
   - about-hugo
   - contact
 license: CC BY-NC-ND
-lastmod: '2020-10-09'
+lastmod: '2021-04-08'
 menu:
     main: 
         weight: -90
         pre: user
 ---
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+My name is Jeremy Buss and throughout my life I have been inquisitive.
+In elementary school this passion took the shape as a love of reading. I would spend most evenings after school reading anything I could get my hands on.
+I especially loved reading stories about people and the impact they made. 
+It felt like I had a backstage pass to the lives of influential individuals.
 
-Hugo makes use of a variety of open source projects including:
+As I progressed through high school and into college this inquisitive nature 
+led me to study physics and mathematics. Attending 
+[University Wisconsin Oshkosh](https://uwosh.edu/) gave me the opportunity to 
+perform astrophysics research at some exotic destinations and become a [published researcher](https://www.google.com/url?q=https%3A%2F%2Farxiv.org%2Fsearch%2F%3Fquery%3DBuss%252C%2BJeremy%26searchtype%3Dauthor%26abstracts%3Dshow%26order%3D-announced_date_first%26size%3D50&sa=D&sntz=1&usg=AFQjCNElu2OBAQWkc3y39AJJWORXxcqJQA). 
+ 
+In the recent past my interests have led me to data and cloud computing. With the tools available in cloud anyone can build systems that were unimaginable just a few years ago. 
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+This site is a personal journey to hold me accountable to live my two guiding principles:
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+1. Explore
+2. Share
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
+If you have any questions or comments, please feel free to contact me at: jeremy.f.buss@gmail.com
 
-Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+---
 
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+{{< simple_quotes quote="The journey, not the arrival matters." cite="T. S. Elliot" >}}
