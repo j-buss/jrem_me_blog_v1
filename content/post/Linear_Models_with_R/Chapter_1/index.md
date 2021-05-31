@@ -14,4 +14,10 @@ categories: [
 	]
 image: "introduction.jpg"
 ---
+Hello
+\\[\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}\\]
 
+hello little demond \\(\sum_{j=1}\\)
+Now normal text and markdown 
+## Big Section
+little words
