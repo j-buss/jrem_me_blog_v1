@@ -1,4 +1,4 @@
-baseurl: http://jrem.me
+baseurl: http://jrem.me/
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
@@ -47,7 +47,7 @@ params:
             default: Licensed under CC BY-NC-SA 4.0
 
     comments:
-        enabled: true
+        enabled: false
         provider: disqus
 
         utterances:
