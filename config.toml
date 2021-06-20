@@ -10,11 +10,6 @@ googleAnalytics = ""
 
 preserveTaxonomyNames = true
 
-[blackfriday]
-  hrefTargetBlank = true
-  nofollowLinks = true
-  noreferrerLinks = true
-
 [Permalinks]
  posts = "/:year/:filename/"
 
