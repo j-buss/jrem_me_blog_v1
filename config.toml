@@ -42,7 +42,7 @@ preserveTaxonomyNames = true
 [params]
     since = 2019
     author = "Jeremy Buss"                           # Author's name
-    avatar = "/images/me/avatar.jpeg"           # Author's avatar
+    avatar = "/images/me/avatar_01.png"           # Author's avatar
     subtitle = "explore. share."         # Subtitle
     cdn_url = ""           # Base CDN URL
     home_mode = "" # post or other
