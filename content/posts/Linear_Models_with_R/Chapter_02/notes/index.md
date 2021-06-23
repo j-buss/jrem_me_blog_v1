@@ -18,7 +18,11 @@ katex: true
 ---
 ### 2.1 Linear Model
 Generic Linear Model: 
-$$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\epsilon$$
+$$
+\begin{equation}
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\epsilon
+\end{equation}
+$$
 Where $\beta_i,i=0,1,2,3$ are unknown parameters
 
 **Linear** refers to the parameters entering linearly; however the predictors do not have to be linear
@@ -32,7 +36,11 @@ Sources of models:
 
 Matrix Linear Formula:
 
-$y=X\beta+\epsilon$
+$$
+\begin{equation}
+y=X\beta+\epsilon
+\end{equation}
+$$
 
 where $y=(y_1,\ldots,y_n)^T,\epsilon=(\epsilon_1,\ldots,\epsilon_n)^T,\beta=(\beta_1,\ldots,\beta_n)^T$ and:
 
@@ -52,29 +60,45 @@ $$X=\left( \begin{array}{cccc}
 
 ### 2.4 Least Squares Estimation
 
-**Total Sum of Squares (TSS):** Sum over all squared differences between observations and the overall mean $\overline{y}$
+
+#### Total Sum of Squares (TSS): "How much variation are we trying to explain?"
+Sum of squared differences between observations $\y_{i}$ and the mean $\overline{y}$; 
 
 $$TSS=\sum_{n=1}^{n} ({y_i}-\overline{y})^2$$
-$y_{i}=$value in a sample; $\overline{y}=$mean value of a sample
 
-__Explained Sum of Squares (ESS):__ Sum of the squares of the deviations of the predicted values from the mean value of a response variable; "how much of the variation is explained by our model?"
+
+#### Explained Sum of Squares (ESS): "How much of the variation is explained by our model?"
+
+Sum of the squared differences between predicted values $\hat{y_i} and the mean $\overline{y}$
 
 $$ESS=\sum_{n=1}^{n} (\hat{y_i}-\overline{y})^2$$
-$$y_{i}=value in sample$$
-$$\overline{y}=mean value of a sample$$
 
-**Residual Sum of Squares (RSS):** Sum of the squares of the deviations of the predicted values from the true values of the response variable
+
+#### Residual Sum of Squares (RSS): "How much variation is left-over...that our model can't explain?"
+
+Sum of the squared differences between the predicted values $\hat{y_i}$ and the observed values $y_{i}$
+
 $$RSS=\sum_{n=1}^{n} ({y_i}-\hat{y_i})^2$$
-$$y_{i}=value in sample$$
-$$\hat{y_i}=predicted value of a sample$$
 
-Total Sum of Squares (TSS) = Explained Sum of Squares (ESS) + Residual Sum of Squares (RSS)
+#### Relation among Sum of Squares:
 
-[Sum of squares](https://www.youtube.com/watch?v=I8cRj0wefi8)
+We can piece together the three components as follows:
 
-#### 2.4.1 Least Squares Derivation
+$$
+\begin{equation}
+TSS = ESS + RSS
+\end{equation}
+$$
+
+#### 2.4.1 Deriving the Least Squares
+
+Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest.
+
+In order to minimize the RSS we would take the derivative with respect to $\beta$ and set it equal to 0 and solve the values for $\beta$. 
+
 
 Reference:
+1. [Sum of squares](https://www.youtube.com/watch?v=I8cRj0wefi8) 
 1. [Deriving Least Squares Estimators - part 1](https://www.youtube.com/watch?v=Hi5EJnBHFB4)
 2. [Deriving Least Squares Estimators - part 2](https://www.youtube.com/watch?v=hGv9fnmlYaU)
 3. [Deriving Least Squares Estimators - part 3](https://www.youtube.com/watch?v=jF3_s2wqPGQ)
