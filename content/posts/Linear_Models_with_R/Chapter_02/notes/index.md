@@ -62,23 +62,38 @@ $$X=\left( \begin{array}{cccc}
 
 
 #### Total Sum of Squares (TSS): "How much variation are we trying to explain?"
-Sum of squared differences between observations $\y_{i}$ and the mean $\overline{y}$; 
+Sum of squared differences between observations $y_{i}$ and the mean $\overline{y}$; 
 
-$$TSS=\sum_{n=1}^{n} ({y_i}-\overline{y})^2$$
+{{< img src="TSS.png" >}}
+
+$$\begin{equation}
+TSS=\sum_{n=1}^{n} ({y_i}-\overline{y})^2
+\end{equation}$$
 
 
 #### Explained Sum of Squares (ESS): "How much of the variation is explained by our model?"
 
-Sum of the squared differences between predicted values $\hat{y_i} and the mean $\overline{y}$
+Sum of the squared differences between predicted values $\hat{y_i}4 and the mean $\overline{y}$
 
-$$ESS=\sum_{n=1}^{n} (\hat{y_i}-\overline{y})^2$$
+{{< img src="ESS.png" >}}
 
+$$
+\begin{equation}
+ESS=\sum_{n=1}^{n} (\hat{y_i}-\overline{y})^2
+\end{equation}
+$$
 
 #### Residual Sum of Squares (RSS): "How much variation is left-over...that our model can't explain?"
 
 Sum of the squared differences between the predicted values $\hat{y_i}$ and the observed values $y_{i}$
 
-$$RSS=\sum_{n=1}^{n} ({y_i}-\hat{y_i})^2$$
+{{< img src="RSS.png" >}}
+
+$$
+\begin{equation}
+RSS=\sum_{n=1}^{n} ({y_i}-\hat{y_i})^2
+\end{equation}
+$$
 
 #### Relation among Sum of Squares:
 
@@ -94,7 +109,54 @@ $$
 
 Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest.
 
-In order to minimize the RSS we would take the derivative with respect to $\beta$ and set it equal to 0 and solve the values for $\beta$. 
+In order to minimize the RSS we take the derivative of equation 5 with respect to $\epsilon$ and $\beta$ and set them equal to 0 and solve. 
+
+$$
+\frac{\partial RSS}{\partial \hat{\epsilon}} = 0
+$$
+$$
+\frac{\partial RSS}{\partial \hat{\beta}} = 0
+$$
+
+Replacing the value of $\hat{y_i}$ yields
+
+
+$$
+RSS=\sum_{n=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i})^2
+$$
+
+
+$$
+\begin{equation}
+\frac{\partial RSS}{\partial \hat{\epsilon}} = -2\sum_{n=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
+\end{equation}
+$$
+$$
+\begin{equation}
+\frac{\partial RSS}{\partial \hat{\beta}} = -2\sum_{n=1}^{n} {x_i}({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
+\end{equation}
+$$
+
+Before we go further there are a few formulas that will help make quick work of our derivations.
+1. The sum of a set of numbers is equal to the average of that set multiplied by the number in the set
+
+$$
+\frac{1}{n}\sum_{n=1}^{n} {x_i}={\overline{x}}
+$$
+
+$$
+\begin{equation}
+\sum_{n=1}^{n} {x_i}=n{\overline{x}}
+\end{equation}
+$$
+$$
+\frac{1}{n}\sum_{n=1}^{n} {y_i}={\overline{y}}
+$$
+$$
+\begin{equation}
+\sum_{n=1}^{n} {y_i}=n{\overline{y}}
+\end{equation}
+$$
 
 
 Reference:
