@@ -67,19 +67,19 @@ Sum of squared differences between observations $y_{i}$ and the mean $\overline{
 {{< img src="TSS.png" >}}
 
 $$\begin{equation}
-TSS=\sum_{n=1}^{n} ({y_i}-\overline{y})^2
+TSS=\sum_{i=1}^{n} ({y_i}-\overline{y})^2
 \end{equation}$$
 
 
 #### Explained Sum of Squares (ESS): "How much of the variation is explained by our model?"
 
-Sum of the squared differences between predicted values $\hat{y_i}4 and the mean $\overline{y}$
+Sum of the squared differences between predicted values $\hat{y_i}$ and the mean $\overline{y}$
 
 {{< img src="ESS.png" >}}
 
 $$
 \begin{equation}
-ESS=\sum_{n=1}^{n} (\hat{y_i}-\overline{y})^2
+ESS=\sum_{i=1}^{n} (\hat{y_i}-\overline{y})^2
 \end{equation}
 $$
 
@@ -91,7 +91,7 @@ Sum of the squared differences between the predicted values $\hat{y_i}$ and the 
 
 $$
 \begin{equation}
-RSS=\sum_{n=1}^{n} ({y_i}-\hat{y_i})^2
+RSS=\sum_{i=1}^{n} ({y_i}-\hat{y_i})^2
 \end{equation}
 $$
 
@@ -109,7 +109,7 @@ $$
 
 Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest.
 
-In order to minimize the RSS we take the derivative of equation 5 with respect to $\epsilon$ and $\beta$ and set them equal to 0 and solve. 
+In order to minimize the RSS we take the derivative of equation 5 with respect to $\epsilon$ and $\beta$ (or more precisely the "hatted" versions representing our solved version of the equation) and set them equal to 0 and solve. 
 
 $$
 \frac{\partial RSS}{\partial \hat{\epsilon}} = 0
@@ -118,22 +118,22 @@ $$
 \frac{\partial RSS}{\partial \hat{\beta}} = 0
 $$
 
-Replacing the value of $\hat{y_i}$ yields
+However, the formula does not actually have $\hat{\epsilon}$ nor $\hat{\beta}$. We need to replace the value of $\hat{y_i}$ with our general linear equation: 
 
 
 $$
-RSS=\sum_{n=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i})^2
+RSS=\sum_{i=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i})^2
 $$
 
 
 $$
 \begin{equation}
-\frac{\partial RSS}{\partial \hat{\epsilon}} = -2\sum_{n=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
+\frac{\partial RSS}{\partial \hat{\epsilon}} = -2\sum_{i=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
 \end{equation}
 $$
 $$
 \begin{equation}
-\frac{\partial RSS}{\partial \hat{\beta}} = -2\sum_{n=1}^{n} {x_i}({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
+\frac{\partial RSS}{\partial \hat{\beta}} = -2\sum_{i=1}^{n} {x_i}({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
 \end{equation}
 $$
 
@@ -141,22 +141,64 @@ Before we go further there are a few formulas that will help make quick work of 
 1. The sum of a set of numbers is equal to the average of that set multiplied by the number in the set
 
 $$
-\frac{1}{n}\sum_{n=1}^{n} {x_i}={\overline{x}}
+\frac{1}{n}\sum_{i=1}^{n} {x_i}={\overline{x}}
 $$
 
 $$
 \begin{equation}
-\sum_{n=1}^{n} {x_i}=n{\overline{x}}
+\sum_{i=1}^{n} {x_i}=n{\overline{x}}
 \end{equation}
 $$
+
 $$
-\frac{1}{n}\sum_{n=1}^{n} {y_i}={\overline{y}}
+\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}} 
 $$
+
+$$
+\begin{equation} 
+\sum_{i=1}^{n} {y_i}=n{\overline{y}} 
+\end{equation}
+$$
+
+2. Foil with sums and averages
+
 $$
 \begin{equation}
-\sum_{n=1}^{n} {y_i}=n{\overline{y}}
+\sum_{i=1}^n({x_i}-\overline{x})({y_i}-\overline{y})=\sum_{i=1}^n{x_i}({y_i}-\overline{y})=\sum_{i=1}^n{y_i}({x_i}-\overline{x})
 \end{equation}
 $$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Let's start with the left side and show that it equals the first term  
+
+$$
+\sum_{i=1}^n({x_i}-\overline{x})({y_i}-\overline{y})
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expand the terms by performing the "FOIL"
+$$
+\sum_{i=1}^n({x_i}{y_i} - {x_i}\overline{y} - \overline{x}{y_i} + \overline{x}\overline{y})
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Essentially "distribute" the sum
+$$
+\sum_{i=1}^{n}{x_i}{y_i} - \overline{y}\sum_{i=1}^n{x_i} - \overline{x}\sum_{i=1}^n{y_i} + \overline{x}\overline{y}\sum_{i=1}^n1
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substitute the "sums and averages" from equations (9) and (10) 
+$$
+\sum_{i=1}^{n}{x_i}{y_i} - n\overline{y}\overline{x} - n\overline{y}\overline{x} + n\overline{y}\overline{x}
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remove the opposite terms
+$$
+\sum_{i=1}^{n}{x_i}{y_i} - n\overline{y}\overline{x}
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substitute the "sums and averages" from equation (10) into the second term
+$$
+\sum_{i=1}^{n}{x_i}{y_i} - \overline{x}\sum_{i=1}^n{y_i}
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Pull out" the sum and we see that it matches the last 
+$$
+\sum_{i=1}^{n}{x_i}{y_i} - \overline{x}\sum_{i=1}^n{y_i}
+$$
+
+
 
 
 Reference:
