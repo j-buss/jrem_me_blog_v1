@@ -109,6 +109,8 @@ $$
 
 Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest.
 
+##### A. Derivatives 
+
 In order to minimize the RSS we take the derivative of equation 5 with respect to $\epsilon$ and $\beta$ (or more precisely the "hatted" versions representing our solved version of the equation) and set them equal to 0 and solve. 
 
 $$
@@ -138,7 +140,9 @@ $$
 $$
 
 Before we go further there are a few formulas that will help make quick work of our derivations.
-1. The sum of a set of numbers is equal to the average of that set multiplied by the number in the set
+
+##### B. Sums and Averages
+The sum of a set of numbers is equal to the average of that set multiplied by the number in the set
 
 $$
 \frac{1}{n}\sum_{i=1}^{n} {x_i}={\overline{x}}
@@ -160,7 +164,7 @@ $$
 \end{equation}
 $$
 
-2. Foil with sums and averages
+##### C. "Foil" some Sums and Averages
 
 $$
 \begin{equation}
@@ -193,13 +197,19 @@ $$
 $$
 \sum_{i=1}^{n}{x_i}{y_i} - \overline{x}\sum_{i=1}^n{y_i}
 $$
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Pull out" the sum and we see that it matches the last 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Factor out the sum and we see that the result is the last terms from equation (11).
 $$
-\sum_{i=1}^{n}{x_i}{y_i} - \overline{x}\sum_{i=1}^n{y_i}
+\sum_{i=1}^{n}{y_i}({x_i} - \overline{x})
 $$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So that in fact we see that Factor out the sum and we see that the result is the last terms from equation (11).
+$$
+\sum_{i=1}^n({x_i}-\overline{x})({y_i}-\overline{y})=\sum_{i=1}^n{y_i}({x_i}-\overline{x})
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We would perform very similar steps to solve for the middle terms from equation (11). The difference being that in the previous step we would have used equation (9) to substitute in.
 
+##### D. 
 
-
+# FINISH DERIVATIONS FROM BEN:
 
 Reference:
 1. [Sum of squares](https://www.youtube.com/watch?v=I8cRj0wefi8) 
@@ -211,12 +221,30 @@ Reference:
 
 #### 2.4.2 Lease Squares Derivation - Matrix
 
+# Do the derivation from BEN:
+
+Reference:
+1. [Ordinary Least Squares Estimatores - derivation in matrix form - part 2](https://www.youtube.com/watch?v=qeezdYISDlU)
+2. [Ordinary Least Squares Estimatores - derivation in matrix form - part 2](https://www.youtube.com/watch?v=qeezdYISDlU)
+3. [Ordinary Least Squares Estimatores - derivation in matrix form - part 3](https://www.youtube.com/watch?v=C-uW45FSsNQ)
+
 ### 2.5 Examples of Calculating $\widehat\beta$
 
 ### 2.6 Example
 
 ### 2.7 QR Decomposition
+
+Reference:
+1. [QR Decomposition](https://www.youtube.com/watch?v=J41Ypt6Mftc)
+
 ### 2.8 Gauss-Markov Theorem
+
+Reference:
+1. [Proof Gauss Markov Theorem (Regression - OLS)](https://www.youtube.com/watch?v=GOzVOcPEWdE)
+
 ### 2.9 Goodness of Fit
 ### 2.10 Identifiability
 ### 2.11 Orthogonality
+
+### References:
+1. [Graduate Level Econometrics](https://www.youtube.com/watch?v=OlXtkc4hbrA&list=PLFDbGp5YzjqXj-nXiNzO1aaItNDm30e01)
