@@ -52,30 +52,64 @@ v_{1}\\\\v_{2}\\\\v_{3}
 \end{bmatrix}
 \=
 \begin{bmatrix}
-u_{1}+v_{1}\\\\u_{2}+v_{2}\\\\u_{2}+v_{2}
+u_{1}+v_{1}\\\\u_{2}+v_{2}\\\\u_{3}+v_{3}
 \end{bmatrix}
 $$
 
-#### Scalar Multiplications: multiply each 
+#### Scalar Multiplications: multiply each item in the vector by the scalar
 
 $$
-\overrightarrow{u}+\overrightarrow{v}= 
+\alpha \cdot \overrightarrow{u}= 
+\begin{bmatrix}
+\alpha \cdot u_{1}\\\\ \alpha \cdot u_{2}\\\\ \alpha \cdot u_{3}
+\end{bmatrix}
+$$
+
+#### Vector Length: determine length of vecotor using the pythagorean theorem across all dimensions of the vector 
+
+$$
+\|| \overrightarrow{u} \|| = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
+$$
+
+#### Dot Product: a multiplication step that results in a scalar; calculated 2 ways
+
+##### A. each member of a vector is multipled by the corresponding member of the other vector;
+
+$$
+\overrightarrow{u}\cdot\overrightarrow{v}= 
 \begin{bmatrix}
 u_{1}\\\\u_{2}\\\\u_{3}
 \end{bmatrix}
-+
+\cdot
 \begin{bmatrix}
 v_{1}\\\\v_{2}\\\\v_{3}
 \end{bmatrix}
 \=
-\begin{bmatrix}
-u_{1}+v_{1}\\\\u_{2}+v_{2}\\\\u_{2}+v_{2}
-\end{bmatrix}
+u_{1} \cdot v_{1} + u_{2} \cdot v_{2} + u_{3} \cdot v_{3}
 $$
 
-## Dot Product
+##### B. the length of each vector is multiplied together in addition to the cosine of the angle between
 
-## Cross Product
+
+$$
+\overrightarrow{u}\cdot\overrightarrow{v}= 
+\|| \overrightarrow{u} \|| \cdot \|| \overrightarrow{v} \|| \cdot \cos{\theta}
+$$
+
+##### Note: the two vectors are orthogonal if the dot product is 0
+
+$$
+\overrightarrow{u}\cdot\overrightarrow{v}= 
+\|| \overrightarrow{u} \|| \cdot \|| \overrightarrow{v} \|| \cdot \cos{90 \degree} = 0
+$$
+
+#### Cross Product: a multiplication operation that results in a vector
+
+
+
+##### Cross Product Norm: 
+
+##### Right hand rule: 
 
 # Matrix Operations
 
