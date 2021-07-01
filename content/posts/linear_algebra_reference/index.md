@@ -68,7 +68,7 @@ $$
 #### Vector Length: determine length of vecotor using the pythagorean theorem across all dimensions of the vector 
 
 $$
-\|| \overrightarrow{u} \|| = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
+\Vert \overrightarrow{u} \Vert = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
 $$
 
 #### Dot Product: a multiplication step that results in a scalar; calculated 2 ways
@@ -93,25 +93,53 @@ $$
 
 $$
 \overrightarrow{u}\cdot\overrightarrow{v}= 
-\|| \overrightarrow{u} \|| \cdot \|| \overrightarrow{v} \|| \cdot \cos{\theta}
+\Vert \overrightarrow{u} \Vert \cdot \Vert \overrightarrow{v} \Vert \cdot \cos{\theta}
 $$
 
-##### Note: the two vectors are orthogonal if the dot product is 0
+##### Note: the two vectors are orthogonal if the dot product is 0; 
+$$ \overrightarrow{u}\cdot\overrightarrow{v}= \Vert \overrightarrow{u} \Vert \cdot \Vert \overrightarrow{v} \Vert \cdot \cos{90 \degree} = 0 $$
+
+#### Cross Product: a type of multiplication operation that results in a vector
+
+ignoring a horizontal line at a time; cross multiply remaining terms
 
 $$
-\overrightarrow{u}\cdot\overrightarrow{v}= 
-\|| \overrightarrow{u} \|| \cdot \|| \overrightarrow{v} \|| \cdot \cos{90 \degree} = 0
+\overrightarrow{u}\times\overrightarrow{v}= 
+\begin{bmatrix}
+u_{1}\\\\u_{2}\\\\u_{3}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+v_{1}\\\\v_{2}\\\\v_{3}
+\end{bmatrix}
+\=
+\begin{bmatrix}
+u_{2}v_{3}-u_{3}v_{2}\\\\u_{3}v_{1}-u_{1}v_{3}\\\\u_{1}v_{2}-u_{2}v_{1}
+\end{bmatrix}
 $$
-
-#### Cross Product: a multiplication operation that results in a vector
-
-
 
 ##### Cross Product Norm: 
 
+$$
+\Vert \overrightarrow{u} \times \overrightarrow{v} \Vert =
+\Vert \overrightarrow{u} \Vert \cdot \Vert \overrightarrow{v} \Vert \cdot \sin{\theta}
+$$
+
+##### Cummutative Property for Cross Product does __NOT__ hold
+$$
+\overrightarrow{u} \times \overrightarrow{v} \neq \overrightarrow{v} \times \overrightarrow{u}
+$$
+$$
+\overrightarrow{u} \times \overrightarrow{v} = -\overrightarrow{v} \times \overrightarrow{u}
+$$
+
 ##### Right hand rule: 
 
-# Matrix Operations
+{{< imgproc right_hand_rule.png Resize "200x" "right" />}}
+
+### Matrix Operations
+
+In m
 
 ## Matrix Addition
 
