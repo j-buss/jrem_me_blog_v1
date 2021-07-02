@@ -31,6 +31,8 @@ $$
 
 #### Matrix: A matrix $A \in R^{m \times n}$ is a rectangular array of real numbers with $m$ rows and $n$ columns
 
+Refer to the values in the matrix as $a_{ij}$ where $i$ is the row number and $j$ is the column number. So $a_{32}$ is the element in the 3rdd row and 2nd column of the matrix.
+
 $$
 A=\begin{bmatrix}
 a_{11}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
@@ -139,13 +141,53 @@ $$
 
 ### Matrix Operations
 
-In m
 
-## Matrix Addition
+#### Matrix Addition
 
-## Matrix Subtraction
+For matrix addition all the matrixes being added must be of the same size. Adding matrices you add each of the corresponding values from the two matricesyou add each of the corresponding values from the two matrices
 
-## Matrix Product
+$$
+C = A + B
+\Leftrightarrow
+c_{ij} = a_{ij} + b_{ij}
+$$ 
+
+#### Matrix Subtraction
+
+Matrix subtraction is the same but with an inverse:
+
+$$
+C = A - B
+\Leftrightarrow
+c_{ij} = a_{ij} - b_{ij}
+$$ 
+
+#### Matrix Product
+
+If: 
+$$
+A \in R ^{3 \times 2};\thickspace\thickspace B \in R ^{2 \times 2}; \thickspace\thickspace C \in R ^{3 \times 2}
+$$
+Then:
+$$
+AB=C
+$$
+
+$$
+AB = 
+\begin{bmatrix}
+a_{11}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+b_{11}&b_{12}\\\\b_{12}&b_{22}
+\end{bmatrix} = 
+\begin{bmatrix}
+a_{11}b_{11}+a_{12}b_{12}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
+\end{bmatrix}
+$$
+
+lkj
 
 ## Transpose
 
