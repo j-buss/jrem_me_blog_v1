@@ -35,13 +35,14 @@ Refer to the values in the matrix as $a_{ij}$ where $i$ is the row number and $j
 
 $$
 A=\begin{bmatrix}
-a_{11}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
+a_{11}&a_{12}\\\\a_{21}&a_{22}\\\\a_{31}&a_{32}
 \end{bmatrix}\in
 R^{3 \times 2}$$
 
 ### Vector Operations
 
-#### Vector Addition: each value is added to corresponding value on the other vector; all the vecotrs are teh same size
+#### Vector Addition: 
+each value is added to corresponding value on the other vector; all the vecotrs are teh same size
 
 $$
 \overrightarrow{u}+\overrightarrow{v}= 
@@ -58,7 +59,8 @@ u_{1}+v_{1}\\\\u_{2}+v_{2}\\\\u_{3}+v_{3}
 \end{bmatrix}
 $$
 
-#### Scalar Multiplications: multiply each item in the vector by the scalar
+#### Scalar Multiplications: 
+multiply each item in the vector by the scalar
 
 $$
 \alpha \cdot \overrightarrow{u}= 
@@ -67,13 +69,15 @@ $$
 \end{bmatrix}
 $$
 
-#### Vector Length: determine length of vecotor using the pythagorean theorem across all dimensions of the vector 
+#### Vector Length: 
+determine length of vector using the pythagorean theorem across all dimensions of the vector 
 
 $$
 \Vert \overrightarrow{u} \Vert = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
 $$
 
-#### Dot Product: a multiplication step that results in a scalar; calculated 2 ways
+#### Dot Product: 
+a multiplication step that results in a scalar; calculated 2 ways
 
 ##### A. each member of a vector is multipled by the corresponding member of the other vector;
 
@@ -127,7 +131,7 @@ $$
 \Vert \overrightarrow{u} \Vert \cdot \Vert \overrightarrow{v} \Vert \cdot \sin{\theta}
 $$
 
-##### Cummutative Property for Cross Product does __NOT__ hold
+##### Commutative Property for Cross Product does __NOT__ hold
 $$
 \overrightarrow{u} \times \overrightarrow{v} \neq \overrightarrow{v} \times \overrightarrow{u}
 $$
@@ -137,7 +141,7 @@ $$
 
 ##### Right hand rule: 
 
-{{< imgproc right_hand_rule.png Resize "200x" "right" />}}
+{{< imgproc right_hand_rule.png Resize "200x" />}}
 
 ### Matrix Operations
 
@@ -146,6 +150,22 @@ $$
 
 For matrix addition all the matrixes being added must be of the same size. Adding matrices you add each of the corresponding values from the two matricesyou add each of the corresponding values from the two matrices
 
+$$
+A + B = 
+\begin{bmatrix}
+a_{11}&a_{12}\\\\a_{21}&a_{22}
+\end{bmatrix}
++
+\begin{bmatrix}
+b_{11}&b_{12}\\\\b_{21}&b_{22}
+\end{bmatrix} = 
+\begin{bmatrix}
+a_{11}+b_{11}&a_{12}+b_{12}\\\\a_{21}+b_{21}&a_{22}+b_{22}
+\end{bmatrix}
+$$
+
+
+In shorthand this becomes:
 $$
 C = A + B
 \Leftrightarrow
@@ -156,6 +176,19 @@ $$
 
 Matrix subtraction is the same but with an inverse:
 
+$$ A - B = 
+\begin{bmatrix}
+a_{11}&a_{12}\\\\a_{21}&a_{22}
+\end{bmatrix} -
+\begin{bmatrix}
+b_{11}&b_{12}\\\\b_{21}&b_{22}
+\end{bmatrix} = 
+\begin{bmatrix}
+a_{11}-b_{11}&a_{12}-b_{12}\\\\a_{21}-b_{21}&a_{22}-b_{22}
+\end{bmatrix}
+$$
+
+In shorthand this becomes:
 $$
 C = A - B
 \Leftrightarrow
@@ -176,22 +209,77 @@ $$
 $$
 AB = 
 \begin{bmatrix}
-a_{11}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
+a_{11}&a_{12}\\\\a_{21}&a_{22}\\\\a_{31}&a_{32}
 \end{bmatrix}
 \times
 \begin{bmatrix}
-b_{11}&b_{12}\\\\b_{12}&b_{22}
+b_{11}&b_{12}\\\\b_{21}&b_{22}
 \end{bmatrix} = 
 \begin{bmatrix}
-a_{11}b_{11}+a_{12}b_{12}&a_{12}\\\\a_{12}&a_{22}\\\\a_{31}&a_{32}
+a_{11}b_{11}+a_{12}b_{21}&a_{11}b_{12}+a_{12}b_{22}\\\\a_{21}b_{11}+a_{22}b_{21}&a_{21}b_{12}+a_{22}b_{22}\\\\a_{31}b_{11}+a_{32}b_{21}&a_{31}b_{12}+a_{32}b_{22}
+\end{bmatrix} = C
+$$
+
+##### Commutative property for Matrix multiplication does __NOT__ hold
+
+$$
+AB \neq BA
+$$
+
+#### Transpose
+This operation flips a matrix over its diagnoal; that is, it switches the row and column indices of the matrix; the transpose of $A$ is depicted $A^{T}$
+
+$$
+A^{T} = 
+\begin{bmatrix}
+\alpha_{1}&\beta_{1}\\\\\alpha_{2}&\beta_{2}\\\\\alpha_{3}&\beta_{3}
+\end{bmatrix}^{T}=
+\begin{bmatrix}
+\alpha_{1}&\alpha_{2}&\alpha_{3}\\\\\beta_{1}&\beta_{2}&\beta_{3}
 \end{bmatrix}
 $$
 
-lkj
+A vector transpose is a special case; essentially as a 1-column matrix
 
-## Transpose
+$$
+\overrightarrow{u}= 
+\begin{bmatrix}
+u_{1}\\\\u_{2}\\\\u_{3}
+\end{bmatrix};\hspace3ex
+\overrightarrow{u}^{T}= 
+\begin{bmatrix}
+u_{1}&u_{2}&u_{3}
+\end{bmatrix}
+$$
 
-## Inverse
+#### Inverse
+The inverse of a matrix $A$ is depicted by $A^{-1}$; 
+$$AA^{-1} = I$$ 
+Where $I$ is the Identity Matrix
+$$
+I =
+\begin{bmatrix}
+1&\hspace2ex&0\\\\\space&\ddots&\space\\\\0&\hspace2ex&1
+\end{bmatrix}
+$$
+Given this property of the inverse it is extremely useful in solving equations to remove a term from one side of an equation. In the following example we "hit" the equation with $A^{-1}$ to remove it from the left side.
+
+$$
+\begin{align*}
+XA&=B\\\\XAA^{-1}&=BA^{-1}\\\\X&=BA^{-1}
+\end{align*}
+$$
+
+The steps can be duplicated for multiple variables, but care must be taken to ensure correct ordering and direction:
+- $C^{-1}$ from the right
+- $A^{-1}$ from the left
+- $B^{-1}$ from the left
+
+$$
+\begin{align}
+ABXC&=D\\\\ABXCC^{-1}&=DC^{-1}\\\\A^{-1}ABX&=A^{-1}DC^{-1}
+\end{align}
+$$
 
 # Matrix-Vector Product
 
