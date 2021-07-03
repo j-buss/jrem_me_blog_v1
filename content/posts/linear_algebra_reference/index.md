@@ -271,18 +271,88 @@ XA&=B\\\\XAA^{-1}&=BA^{-1}\\\\X&=BA^{-1}
 $$
 
 The steps can be duplicated for multiple variables, but care must be taken to ensure correct ordering and direction:
-- $C^{-1}$ from the right
-- $A^{-1}$ from the left
-- $B^{-1}$ from the left
 
 $$
-\begin{align}
-ABXC&=D\\\\ABXCC^{-1}&=DC^{-1}\\\\A^{-1}ABX&=A^{-1}DC^{-1}
-\end{align}
+\begin{align*}
+ABXC&=D
+\end{align*}
 $$
 
-# Matrix-Vector Product
+1. $C^{-1}$ from the right
+$$
+\begin{align*}
+ABXCC^{-1}&=DC^{-1}\\\\ABXI&=DC^{-1}\\\\ABX&=DC^{-1}
+\end{align*}
+$$
+2. $A^{-1}$ from the left
+$$
+\begin{align*}
+A^{-1}ABX&=A^{-1}DC^{-1}\\\\IBX&=A^{-1}DC^{-1}\\\\BX&=A^{-1}DC^{-1}
+\end{align*}
+$$
+3. $B^{-1}$ from the left
 
-## Gauss-Jordan for Solving Systems of Equations
+$$
+\begin{align*}
+B^{-1}BX&=B^{-1}A^{-1}DC^{-1}\\\\IX&=B^{-1}A^{-1}DC^{-1}\\\\X&=B^{-1}A^{-1}DC^{-1}
+\end{align*}
+$$
 
+#### Matrix-Vector Product
+
+An important case of matrix-matrix product; $3 \times 2$ matrix $A$ and the $2 \times 1$ column vector $\overrightarrow{x}$ result in the $3 \times 1$ vector $\overrightarrow{y}$ given by: 
+$$
+\begin{align*}
+\overrightarrow{y}=A\overrightarrow{x}
+\Leftrightarrow 
+\begin{bmatrix}
+y_{1}\\\\y_{2}\\\\y_{3}
+\end{bmatrix}
+&=\begin{bmatrix}
+a_{11}&a_{12}\\\\a_{21}&a_{22}\\\\a_{31}&a_{32}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+x_{1}\\\\x_{2}
+\end{bmatrix}
+=\begin{bmatrix}
+a_{11}x_{1}+a_{12}x_{2}\\\\a_{21}x_{1}+a_{22}x_{2}\\\\a_{31}x_{1}+a_{32}x_{2}
+\end{bmatrix}\\\\&=x_{1}
+\begin{bmatrix}
+a_{11}\\\\a_{21}\\\\a_{31}
+\end{bmatrix}+x_{2}
+\begin{bmatrix}
+a_{12}\\\\a_{22}\\\\a_{32}
+\end{bmatrix}
+\end{align*}
+$$
+
+#### Gaussian Elimination / Row Reduction / Gauss-Jordan 
+
+A set of operations, by many names, in order to solve systems of linear equations. 
+
+There are 3 types of row opearations:
+1. Swapping 2 rows
+2. Multiplying a row by a nonzero number
+3. Adding a multiple of one row to another row
+
+When these steps are completed on a matrix then the matrix is said to be an [upper triangular matrix](https://en.wikipedia.org/wiki/Triangular_matrix) or a matrix in [row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form) if the following conditions are met:
+1. All rows consisting of only zeroes are at the bottom
+2. Leading coefficients (also called the pivot) of a nonzero row is always strictly to the right of the leading coefficient of the row above it
+
+Example: Solving the system
+
+$$
+\begin{align*}
+1x_{1}+2x_{2}&=5\\\\3x_{1}+9x_{2}&=21
+\end{align*}
+$$
+
+Create an augmented matrix to represent the system:
+
+$$
+\left [\begin{array}{rr|r}
+1 & 2 & 5 \\\\ 3 & 9 & 21
+\end{array}\right ]
+$$
 ## Compute Matrix Inverse
