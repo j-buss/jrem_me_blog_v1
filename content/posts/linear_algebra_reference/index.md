@@ -1,10 +1,8 @@
 ---
 title: "Reference - Linear Algebra"
 date: 2021-06-27T14:29:01-05:00
-draft: true
+draft: false
 tags: [
-	"python",
-	"r",
 	"Reference"
 ]
 categories: [
@@ -340,7 +338,7 @@ When these steps are completed on a matrix then the matrix is said to be an [upp
 1. All rows consisting of only zeroes are at the bottom
 2. Leading coefficients (also called the pivot) of a nonzero row is always strictly to the right of the leading coefficient of the row above it
 
-Example: Solving the system
+##### Example: Solving the system
 
 $$
 \begin{align*}
@@ -348,11 +346,114 @@ $$
 \end{align*}
 $$
 
-Create an augmented matrix to represent the system:
+1. Create an augmented matrix to represent the system:
 
 $$
 \left [\begin{array}{rr|r}
 1 & 2 & 5 \\\\ 3 & 9 & 21
 \end{array}\right ]
 $$
-## Compute Matrix Inverse
+
+2. Use the first row to eliminate the variable $x_{1}$ in the second row. $Row_{2} - 3 \times Row_{1} \rightarrow NewRow_{2}$
+
+$$
+\left [\begin{array}{rr|r}
+1 & 2 & 5 \\\\ 0 & 3 & 6
+\end{array}\right ]
+$$
+
+3. Create pivot in the $x_2$ position in the second row. ${1 \over 3}Row_{2} \rightarrow NewRow_{2}$
+
+$$
+\left [\begin{array}{rr|r}
+1 & 2 & 5 \\\\ 0 & 1 & 2
+\end{array}\right ]
+$$
+
+4. Now use the second row to remove the $x_2$ term from the first row. $Row_{1} - 2 \times Row_2 \rightarrow NewRow_{1}$
+
+$$
+\left [\begin{array}{rr|r}
+1 & 0 & 1 \\\\ 0 & 1 & 2
+\end{array}\right ]
+$$
+
+Now the matrix is in __reduced row exchelon form__ (RREF); The solutions are: 
+$$
+\begin{align*}
+x_1&=1\\\\x_2&=2
+\end{align*}
+$$
+
+#### Compute Matrix Inverse
+
+One approach for computing the inverse is to use the Gaussian elimination procedure.
+
+1. Create an augmented matrix with an Identity matrix on the right side:
+
+$$
+\left [\begin{array}{rr|rr}
+1 & 2 & 1 & 0 \\\\ 3 & 9 & 0 & 1
+\end{array}\right ]
+$$
+
+2. Use the first row to eliminate the variable $x_{1}$ in the second row. $Row_{2} - 3 \times Row_{1} \rightarrow NewRow_{2}$
+
+$$
+\left [\begin{array}{rr|rr}
+1 & 2 & 1 & 0 \\\\ 0 & 3 & -3 & 1
+\end{array}\right ]
+$$
+
+3. Create pivot in the $x_2$ position in the second row. ${1 \over 3}Row_{2} \rightarrow NewRow_{2}$
+
+$$
+\left [\begin{array}{rr|rr}
+1 & 2 & 1 & 0 \\\\ 0 & 1 & -1 & \small{{1 \over 3}}
+\end{array}\right ]
+$$
+
+4. Now use the second row to remove the $x_2$ term from the first row. $Row_{1} - 2 \times Row_2 \rightarrow NewRow_{1}$
+
+$$
+\left [\begin{array}{rr|rr}
+1 & 0 & 3 & \small{-{2 \over 3}} \\\\ 0 & 1 & -1 & \small{{1 \over 3}}
+\end{array}\right ]
+$$
+
+Now the inverse matrix is on the right side:
+
+$$
+A^{-1} = 
+\begin{bmatrix}
+3&\small{-{2 \over 3}}\\\\-1&\small{1 \over 3}
+\end{bmatrix}
+$$
+
+##### Example: Solving the system
+Here is an alternate way to solve the system of equations using the inverse matrix.
+
+Let $A$ be a $2 \times 2$ matrix; $\overrightarrow{x}$ be the vector of unknowns and $\overrightarrow{b}$ be a vector of constants.
+
+$$
+\begin{align*}
+\begin{bmatrix}
+1&2\\\\3&9
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\\\x_2
+\end{bmatrix}&=
+\begin{bmatrix}
+5\\\\21
+\end{bmatrix}\\\\A\overrightarrow{x}&=\overrightarrow{b}\\\\A^{-1}A\overrightarrow{x} &= A^{-1}\overrightarrow{b}\\\\I\space\overrightarrow{x} &= A^{-1}\overrightarrow{b}\\\\\overrightarrow{x} & = A^{-1}\overrightarrow{b}\\\\&=
+\begin{bmatrix}
+3&\small{-{2 \over 3}}\\\\-1&\small{1 \over 3}
+\end{bmatrix}
+\begin{bmatrix}
+5\\\\21
+\end{bmatrix}\\\\&=
+\begin{bmatrix}
+1\\\\2
+\end{bmatrix}
+\end{align*}
+$$
