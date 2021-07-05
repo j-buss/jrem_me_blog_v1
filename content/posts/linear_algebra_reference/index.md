@@ -13,7 +13,7 @@ katex: true
 ---
 # Background
 
-This page will likely not be enough for someone to learn linear algebra from scratch. The impetus for this page was a reference for someone who learned linear algebra in the past, but is in need of a refresher. As I am that person in this case, I wanted something to force me to make my notes accessible to some one else in a similar situation. Most of the focus is upon pragmatic ways of performing calculations and less on the background.
+This page is a refresher. The impetus for this page was a reference for someone who learned linear algebra in the past, but is in need of a refresher.
 
 This page borrows __very__ heavily from the excellent document [Linear algebra explained in four pages](https://minireference.com/static/tutorials/linear_algebra_in_4_pages.pdf) by Ivan Savov.
 
