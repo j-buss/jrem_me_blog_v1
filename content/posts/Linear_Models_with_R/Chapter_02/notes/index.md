@@ -44,9 +44,12 @@ $$
 
 where $y=(y_1,\ldots,y_n)^T,\epsilon=(\epsilon_1,\ldots,\epsilon_n)^T,\beta=(\beta_1,\ldots,\beta_n)^T$ and:
 
-$$X=\left( \begin{array}{cccc}
+$$
+X=
+\begin{bmatrix}
 1&x_{11}&x_{12}&x_{13}\\\\ 1&x_{21}&x_{22}&x_{23}\\\\\cdots&\cdots&\cdots&\cdots\\\\1&x_{n1}&x_{n2}&x_{n3}
-\end{array} \right)$$
+\end{bmatrix}
+$$
 
 ### 2.3 Estimating $\beta$
 
@@ -64,36 +67,43 @@ $$X=\left( \begin{array}{cccc}
 #### Total Sum of Squares (TSS): "How much variation are we trying to explain?"
 Sum of squared differences between observations $y_{i}$ and the mean $\overline{y}$; 
 
-{{< img src="TSS.png" >}}
-
-$$\begin{equation}
+$$
+\begin{equation}
 TSS=\sum_{i=1}^{n} ({y_i}-\overline{y})^2
-\end{equation}$$
+\end{equation}
+$$
+
+- In the following picuture TSS is depicted by the green lines:
+
+{{< imgproc TSS.png Resize "250x" />}}
 
 
 #### Explained Sum of Squares (ESS): "How much of the variation is explained by our model?"
 
 Sum of the squared differences between predicted values $\hat{y_i}$ and the mean $\overline{y}$
 
-{{< img src="ESS.png" >}}
-
 $$
 \begin{equation}
 ESS=\sum_{i=1}^{n} (\hat{y_i}-\overline{y})^2
 \end{equation}
 $$
+- In the following pictures ESS is depicted by the light blue lines:
+ 
+{{< imgproc ESS.png Resize "250x" />}}
 
 #### Residual Sum of Squares (RSS): "How much variation is left-over...that our model can't explain?"
 
 Sum of the squared differences between the predicted values $\hat{y_i}$ and the observed values $y_{i}$
-
-{{< img src="RSS.png" >}}
 
 $$
 \begin{equation}
 RSS=\sum_{i=1}^{n} ({y_i}-\hat{y_i})^2
 \end{equation}
 $$
+
+- In the following pictures RSS is depicted by the light blue lines:
+
+{{< imgproc RSS.png Resize "250x" />}}
 
 #### Relation among Sum of Squares:
 
@@ -107,36 +117,37 @@ $$
 
 #### 2.4.1 Deriving the Least Squares
 
-Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest.
+Based on the definitions of the three Sum of Squared values the better fit model would lead us to minimize the "Residual Sum of Squares". Essentially, make the "unexplained" bit the smallest. The following steps will help us determine the minimized RSS functions.
 
 ##### A. Derivatives 
 
 In order to minimize the RSS we take the derivative of equation 5 with respect to $\epsilon$ and $\beta$ (or more precisely the "hatted" versions representing our solved version of the equation) and set them equal to 0 and solve. 
 
 $$
-\frac{\partial RSS}{\partial \hat{\epsilon}} = 0
-$$
-$$
-\frac{\partial RSS}{\partial \hat{\beta}} = 0
+\begin{align*}
+\frac{\partial RSS}{\partial \hat{\epsilon}} &= 0\\\\\frac{\partial RSS}{\partial \hat{\beta}} &= 0
+\end{align*}
 $$
 
-However, the formula does not actually have $\hat{\epsilon}$ nor $\hat{\beta}$. We need to replace the value of $\hat{y_i}$ with our general linear equation: 
+However, the formula does not actually have $\hat{\epsilon}$ nor $\hat{\beta}$. We need to replace the value of $\hat{y_i}$ with our general linear equation. 
 
+Start with our definition of $RSS$:
+
+$$
+RSS=\sum_{i=1}^{n} ({y_i}-\hat{y_i})^2
+$$
+
+Replace $\hat{y_i}$ with the general linear equation: $\hat{y_i}=X \hat{\beta} + \hat{\epsilon}$ 
 
 $$
 RSS=\sum_{i=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i})^2
 $$
 
-
+Now we can get back to the derivatives:
 $$
-\begin{equation}
-\frac{\partial RSS}{\partial \hat{\epsilon}} = -2\sum_{i=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
-\end{equation}
-$$
-$$
-\begin{equation}
-\frac{\partial RSS}{\partial \hat{\beta}} = -2\sum_{i=1}^{n} {x_i}({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
-\end{equation}
+\begin{align}
+\frac{\partial RSS}{\partial \hat{\epsilon}}&= -2\sum_{i=1}^{n} ({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0\\\\\frac{\partial RSS}{\partial \hat{\beta}}&= -2\sum_{i=1}^{n} {x_i}({y_i}-\hat{\epsilon}-\hat\beta{x_i}) = 0
+\end{align}
 $$
 
 Before we go further there are a few formulas that will help make quick work of our derivations.
@@ -145,23 +156,15 @@ Before we go further there are a few formulas that will help make quick work of 
 The sum of a set of numbers is equal to the average of that set multiplied by the number in the set
 
 $$
-\frac{1}{n}\sum_{i=1}^{n} {x_i}={\overline{x}}
+\begin{align}
+\frac{1}{n}\sum_{i=1}^{n} {x_i}&={\overline{x}}\\\\\sum_{i=1}^{n} {x_i}&=n{\overline{x}}
+\end{align}
 $$
 
 $$
-\begin{equation}
-\sum_{i=1}^{n} {x_i}=n{\overline{x}}
-\end{equation}
-$$
-
-$$
-\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}} 
-$$
-
-$$
-\begin{equation} 
-\sum_{i=1}^{n} {y_i}=n{\overline{y}} 
-\end{equation}
+\begin{align} 
+\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}}\\\\\sum_{i=1}^{n} {y_i}=n{\overline{y}} 
+\end{align}
 $$
 
 ##### C. "Foil" some Sums and Averages
