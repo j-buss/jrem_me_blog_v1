@@ -11,7 +11,7 @@ googleAnalytics = ""
 preserveTaxonomyNames = true
 
 [Permalinks]
- posts = "/:year/:filename/"
+ posts = "/:year/:month/:title/"
 
 [menu]
   [[menu.main]]
