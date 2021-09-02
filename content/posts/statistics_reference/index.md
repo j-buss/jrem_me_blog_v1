@@ -81,6 +81,23 @@ $$
 		- $\sigma_{x}$ = standard deviation of the sample
 		- $\sigma_{\overline{x}}$ = standard deviation of the mean
 		- $\widehat{\sigma_{\overline{x}}}$ = estimator of the standard deviation of the mean (standard error)
+- **Normal Distribution (aka Gaussian Distribution):** A type of continuous probability distribution for real-valued random variables
+	- Generalized probability density function (pdf)
+$$
+f(x) = {1 \over {\sigma \sqrt{2 \pi}} } \hspace1ex e^{{-1 \over 2}{\left({x - \mu} \over \sigma \right)^2}}
+$$
+	- X is a normally distributed random variable with mean $\mu$ and standard deviation $\sigma$
+$$
+X \sim N(\mu, \sigma^2)
+$$
+	- To standardize the distribution subtract $\mu$ from x and divide it by the standard deviation $\sigma$
+$$
+Z = {{x - \mu} \over \sigma}
+$$
+	- Then we say that Z has a standard normal distribution where:
+$$
+Z \sim N(0, 1)
+$$
 - **Joint Probability:** the probability of events A and B occurring
 	- $P(A \space and \space B) = P(A) \times P(B)$ when events $A$ and $B$ are independent
 - **Union of Events:** the probability of either event A or event B occurring
