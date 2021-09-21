@@ -63,3 +63,17 @@ Var(Y_i|X_i) &amp;= Var(\beta_0+\beta_1 X_i + \epsilon_i)\\
 </ul>
 </div>
 </div>
+<div id="parameter-estimation-and-model-fitting" class="section level3">
+<h3>Parameter Estimation and Model Fitting</h3>
+<p>Given that we have sample data <span class="math inline">\({(x_1, y_1),(x_2, y_2),...(x_n,y_n)}\)</span> we wish to find the <em>best</em> sample regression line.</p>
+<p>We are interested in the values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the following <em>sample</em> regression model:
+<span class="math display">\[
+\begin{align*}
+y_i &amp;= f(x_i) + \epsilon_i\\
+&amp;= \beta_0 + \beta_1 x_i + \epsilon_i
+\end{align*}
+\]</span></p>
+<p>or using sample statistics <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> computed from the training data to estimate them:
+<span class="math display">\[\hat{y_i} = b_0 + b_1 x_i\]</span>
+where <span class="math inline">\(\hat{y_i}\)</span> is a point estimate of <span class="math inline">\(y_i\)</span> and mean <span class="math inline">\(\mu_{Y|X=x_i}=E(Y|X=x_i)\)</span></p>
+</div>

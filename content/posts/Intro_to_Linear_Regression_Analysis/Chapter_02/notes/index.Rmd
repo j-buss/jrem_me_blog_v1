@@ -58,7 +58,19 @@ $$
   * $Y_i|X_i = N(\beta_0 + \beta_1 X_i, \sigma^2)$
 
 
+### Parameter Estimation and Model Fitting
 
+Given that we have sample data ${(x_1, y_1),(x_2, y_2),...(x_n,y_n)}$ we wish to find the _best_ sample regression line.
 
+We are interested in the values of $\beta_0$ and $\beta_1$ in the following _sample_ regression model:
+$$
+\begin{align*}
+y_i &= f(x_i) + \epsilon_i\\
+&= \beta_0 + \beta_1 x_i + \epsilon_i
+\end{align*}
+$$
 
+or using sample statistics $b_0$ and $b_1$ computed from the training data to estimate them: 
+$$\hat{y_i} = b_0 + b_1 x_i$$
+where $\hat{y_i}$ is a point estimate of $y_i$ and mean $\mu_{Y|X=x_i}=E(Y|X=x_i)$
 
