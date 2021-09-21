@@ -10,7 +10,7 @@ categories:
 tags:
   - R
   - linear regression
-draft: no
+draft: false
 katex: yes
 ---
 
