@@ -13,7 +13,9 @@ categories: [
 ]
 katex: true
 ---
-Example Text
+Example Text part 2
+
+$$e=mc^2$$
 
 ## Residuals (as defined from Montgomery/Peck/Vining)
 

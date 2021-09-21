@@ -1,0 +1,65 @@
+---
+title: Chapter 2 - Simple Linear Regression
+author: Jeremy Buss
+date: '2021-09-20'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: yes
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="simple-linear-regression" class="section level3">
+<h3>Simple Linear Regression</h3>
+<p>The characteristice of a <strong>Simple Linear Regression</strong> are as follows:</p>
+<ul>
+<li>One predictor <span class="math inline">\(X\)</span> that is known and constant</li>
+<li>One response variable <span class="math inline">\(Y\)</span></li>
+<li>Linear function <span class="math inline">\(y=\beta_0 + \beta_1 x\)</span></li>
+</ul>
+<p><br></p>
+<div id="simple-linear-regression---population" class="section level4">
+<h4>Simple Linear Regression - Population</h4>
+<p>The above is an idealized representation. Instead we have a set of n-pairs of data <span class="math inline">\((x_i, y_i)\)</span> where <span class="math inline">\(i=1, 2, ... n\)</span>. Additionally, the data will not perfectly fit the line. As a result we add an error term <span class="math inline">\(\epsilon\)</span>.</p>
+<ul>
+<li><p>Linear function <span class="math inline">\(Y_i=\beta_0 + \beta_1 x_i + \epsilon_i\)</span> for <span class="math inline">\(i=1,2,...n\)</span></p></li>
+<li><p>Error term <span class="math inline">\(\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)\)</span></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables"><span class="math inline">\(iid\)</span></a>: identically, and independently distributed</li>
+<li><span class="math inline">\(E(\epsilon_i)=0\)</span></li>
+<li><span class="math inline">\(Var(\epsilon_i)=\sigma^2\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(Y_i\)</span> is the <span class="math inline">\(i\)</span>-th value of the response</p></li>
+<li><p><span class="math inline">\(X_i\)</span> is the <span class="math inline">\(i\)</span>-th value of the fixed value of the predictor</p></li>
+<li><p><span class="math inline">\(\beta_0, \beta_1,\)</span> are model coefficients</p></li>
+<li><p><span class="math inline">\(\beta_0, \beta_1,\)</span> and <span class="math inline">\(\sigma^2\)</span> are fixed unknown parameters of the model</p></li>
+<li><p>The mean response <span class="math inline">\(\mu_{Y|X}=E(Y|X)\)</span> has a straightline relationship with <span class="math inline">\(X\)</span> given by the population regression line
+<span class="math display">\[
+\begin{align*}
+\mu_{Y_i|X_i}=E(Y_i|X_i)&amp;=E(\beta_0+\beta_1 X_i + \epsilon_i)\\
+&amp;=\beta_0+\beta_1 X_i + E(\epsilon_i)\\
+&amp;=\beta_0+\beta_1 X_i
+\end{align*}
+\]</span></p></li>
+<li><p>The variance of <span class="math inline">\(Y\)</span> does not depend on <span class="math inline">\(X\)</span>
+<span class="math display">\[
+\begin{align*}
+Var(Y_i|X_i) &amp;= Var(\beta_0+\beta_1 X_i + \epsilon_i)\\
+&amp;=Var(\epsilon_i)
+\end{align*}
+\]</span></p></li>
+<li><p>Any fixed value of <span class="math inline">\(X_i=x\)</span>, the response variable <span class="math inline">\(Y_i\)</span> varies with <span class="math inline">\(N(\mu_{Y_i|X_i=x},\sigma^2)\)</span></p>
+<ul>
+<li><span class="math inline">\(Y_i|X_i = N(\beta_0 + \beta_1 X_i, \sigma^2)\)</span></li>
+</ul></li>
+</ul>
+</div>
+</div>

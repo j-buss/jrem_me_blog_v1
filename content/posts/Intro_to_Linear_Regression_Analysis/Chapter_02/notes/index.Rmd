@@ -1,0 +1,64 @@
+---
+title: Chapter 2 - Simple Linear Regression
+author: Jeremy Buss
+date: '2021-09-20'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: yes
+katex: yes
+---
+
+### Simple Linear Regression
+
+The characteristice of a **Simple Linear Regression** are as follows:
+
+* One predictor $X$ that is known and constant
+* One response variable $Y$
+* Linear function $y=\beta_0 + \beta_1 x$
+
+<br>
+
+
+#### Simple Linear Regression - Population
+
+The above is an idealized representation. Instead we have a set of n-pairs of data $(x_i, y_i)$ where $i=1, 2, ... n$. Additionally, the data will not perfectly fit the line. As a result we add an error term $\epsilon$. 
+
+* Linear function  $Y_i=\beta_0 + \beta_1 x_i + \epsilon_i$ for $i=1,2,...n$
+* Error term $\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)$
+  * [$iid$](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables): identically, and independently distributed
+  * $E(\epsilon_i)=0$
+  * $Var(\epsilon_i)=\sigma^2$
+* $Y_i$ is the $i$-th value of the response
+* $X_i$ is the $i$-th value of the fixed value of the predictor
+* $\beta_0, \beta_1,$ are model coefficients
+* $\beta_0, \beta_1,$ and $\sigma^2$ are fixed unknown parameters of the model
+* The mean response $\mu_{Y|X}=E(Y|X)$ has a straightline relationship with $X$ given by the population regression line
+$$
+\begin{align*}
+\mu_{Y_i|X_i}=E(Y_i|X_i)&=E(\beta_0+\beta_1 X_i + \epsilon_i)\\
+&=\beta_0+\beta_1 X_i + E(\epsilon_i)\\
+&=\beta_0+\beta_1 X_i
+\end{align*}
+$$
+* The variance of $Y$ does not depend on $X$
+$$
+\begin{align*}
+Var(Y_i|X_i) &= Var(\beta_0+\beta_1 X_i + \epsilon_i)\\
+&=Var(\epsilon_i)
+\end{align*}
+$$
+
+* Any fixed value of $X_i=x$, the response variable $Y_i$ varies with $N(\mu_{Y_i|X_i=x},\sigma^2)$
+  * $Y_i|X_i = N(\beta_0 + \beta_1 X_i, \sigma^2)$
+
+
+
+
+
+
