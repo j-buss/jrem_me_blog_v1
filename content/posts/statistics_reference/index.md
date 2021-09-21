@@ -10,6 +10,8 @@ categories: [
 ]
 katex: true
 ---
+CHANGES
+
 ## Background
 This page is a refresher. Someone, may have studied statistics long ago and is in need of a reference.
 
@@ -24,6 +26,10 @@ This page borrows quite heavily from the [MIT Statistics Cheat Sheet](https://we
 	- $\overline{x}$ = sample mean
 - **Median:** the value separating the higher half of a sample/population from lower half 
 	- It is the middle value when all values arranged lowest to highest (or avg of middle two if even number of items)
+- **IQR:** the middle 50%, calculated as Q3 - Q1
+- **1.5 * IQR Outlier:** identification of outliers
+	- Q1 - 1.5 IQR
+	- Q3 + 1.5 IQR
 - **Variance:** Measures dispersion around the mean; squared units  
 	- Of population:
 $$
@@ -90,7 +96,7 @@ $$
 $$
 X \sim N(\mu, \sigma^2)
 $$
-	- To standardize the distribution subtract $\mu$ from x and divide it by the standard deviation $\sigma$
+	- To standardize the distribution, or finding the **z-score**, subtract $\mu$ from x and divide it by the standard deviation $\sigma$
 $$
 Z = {{x - \mu} \over \sigma}
 $$
@@ -110,3 +116,7 @@ or
 \hspace7ex
 P(A \vert B) = {P(B \vert A) \times P(A) \over P(B)}
 $$
+- **Pearson's Correlation Coefficient for a sample**
+	- $$r_{xy} = {\sum_{i=1}^{n} (x_1 - \overline{x})(y_i = \overline{y}) \over sqrt{ \sum_{i=1}TBD....$$
+- **Coefficient of DEtermination** - $r^2$tells us what percent of the variability in the y variable is accounted for by the regression on the x variable.
+	- $$r^2 = 1 - {SS_{res} \over SS_{tot}}$$
