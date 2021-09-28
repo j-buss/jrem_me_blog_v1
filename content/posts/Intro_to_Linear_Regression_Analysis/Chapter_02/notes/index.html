@@ -1,5 +1,5 @@
 ---
-title: Chapter 2 - Simple Linear Regression
+title: Intro. to Linear Regression Analysis - Chapter 2 - Simple Linear Regression
 author: Jeremy Buss
 date: '2021-09-20'
 slug: []
@@ -19,7 +19,7 @@ katex: yes
 
 <div id="simple-linear-regression" class="section level3">
 <h3>Simple Linear Regression</h3>
-<p>The characteristice of a <strong>Simple Linear Regression</strong> are as follows:</p>
+<p>The characteristics of a <strong>Simple Linear Regression</strong> are as follows:</p>
 <ul>
 <li>One predictor <span class="math inline">\(X\)</span> that is known and constant</li>
 <li>One response variable <span class="math inline">\(Y\)</span></li>
@@ -30,7 +30,7 @@ katex: yes
 <h4>Simple Linear Regression - Population</h4>
 <p>The above is an idealized representation. Instead we have a set of n-pairs of data <span class="math inline">\((x_i, y_i)\)</span> where <span class="math inline">\(i=1, 2, ... n\)</span>. Additionally, the data will not perfectly fit the line. As a result we add an error term <span class="math inline">\(\epsilon\)</span>.</p>
 <ul>
-<li><p>Linear function <span class="math inline">\(Y_i=\beta_0 + \beta_1 x_i + \epsilon_i\)</span> for <span class="math inline">\(i=1,2,...n\)</span></p></li>
+<li><p>Linear function <span class="math inline">\(Y_i=\beta_0 + \beta_1 X_i + \epsilon_i\)</span> for <span class="math inline">\(i=1,2,...n\)</span></p></li>
 <li><p>Error term <span class="math inline">\(\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)\)</span></p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables"><span class="math inline">\(iid\)</span></a>: identically, and independently distributed</li>
@@ -65,7 +65,7 @@ Var(Y_i|X_i) &amp;= Var(\beta_0+\beta_1 X_i + \epsilon_i)\\
 </div>
 <div id="parameter-estimation-and-model-fitting" class="section level3">
 <h3>Parameter Estimation and Model Fitting</h3>
-<p>Given that we have sample data <span class="math inline">\({(x_1, y_1),(x_2, y_2),...(x_n,y_n)}\)</span> we wish to find the <em>best</em> sample regression line.</p>
+<p>Given that we have sample data <span class="math inline">\(\{(x_1, y_1),(x_2, y_2),...(x_n,y_n)\}\)</span> we wish to find the <em>best</em> sample regression line.</p>
 <p>We are interested in the values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the following <em>sample</em> regression model:
 <span class="math display">\[
 \begin{align*}
@@ -75,5 +75,39 @@ y_i &amp;= f(x_i) + \epsilon_i\\
 \]</span></p>
 <p>or using sample statistics <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> computed from the training data to estimate them:
 <span class="math display">\[\hat{y_i} = b_0 + b_1 x_i\]</span>
-where <span class="math inline">\(\hat{y_i}\)</span> is a point estimate of <span class="math inline">\(y_i\)</span> and mean <span class="math inline">\(\mu_{Y|X=x_i}=E(Y|X=x_i)\)</span></p>
+where <span class="math inline">\(\hat{y_i}\)</span> is a point estimate of <span class="math inline">\(y_i\)</span> with mean <span class="math inline">\(\mu_{Y|X=x_i}=E(Y|X=x_i)\)</span></p>
+<div id="ordinary-least-squares-ols" class="section level4">
+<h4>Ordinary Least Squares (OLS)</h4>
+<p>We choose <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that minimize the <strong>sum of squared residuals</strong> <span class="math inline">\(SS_{res}\)</span> or <strong>residual sum of squares</strong> <span class="math inline">\(RSS\)</span></p>
+<ul>
+<li><strong>residual</strong> <span class="math inline">\(e_i\)</span> is a point estimate of <span class="math inline">\(\epsilon_i\)</span> and defined as the difference between our estimate of <span class="math inline">\(y_i\)</span> (i.e. <span class="math inline">\(\hat{y_i}\)</span>) and the true value of <span class="math inline">\(y_i\)</span>
+<ul>
+<li><span class="math inline">\(e_i = y_i - \hat{y_i} = y_i - (b_0 + b_i x_i)\)</span></li>
+</ul></li>
+<li>The sample regression line minimizes <span class="math inline">\(SS_{res}\)</span>
+<span class="math display">\[
+\begin{align*}
+SS_{res}&amp;=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
+&amp;=(y_1 - b_0 + b_1 x_1)^2 + (y_2 - b_0 + b_1 x_2)^2 + \cdots + (y_n - b_0 + b_1 x_n)^2\\
+&amp;= \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2\\
+\end{align*}
+\]</span></li>
+</ul>
+</div>
+<div id="least-squares-estimate-lse" class="section level4">
+<h4>Least Squares Estimate (LSE)</h4>
+<p>With the least squares estimate approach we choose <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> to minimize <span class="math inline">\(SS_{res}\)</span></p>
+<p><span class="math display">\[
+(b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
+\]</span>
+Taking the derivative and setting equal to 0:</p>
+<p><span class="math display">\[ 
+\begin{align*}
+\frac {3}{4}\bigg\vert \\
+\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &amp;= \sum_{i=1}^n -2(y_i-b_0-b_1x_i)\\
+\\
+\frac{\partial SS_{res}}{\partial {\beta_1}} &amp;= \sum_{i=1}^n -2x_i(y_i-b_0-b_1x_i)
+\end{align*}
+\]</span></p>
+</div>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: Chapter 2 - Simple Linear Regression
+title: Intro. to Linear Regression Analysis - Chapter 2 - Simple Linear Regression
 author: Jeremy Buss
 date: '2021-09-20'
 slug: []
@@ -16,7 +16,7 @@ katex: yes
 
 ### Simple Linear Regression
 
-The characteristice of a **Simple Linear Regression** are as follows:
+The characteristics of a **Simple Linear Regression** are as follows:
 
 * One predictor $X$ that is known and constant
 * One response variable $Y$
@@ -29,7 +29,7 @@ The characteristice of a **Simple Linear Regression** are as follows:
 
 The above is an idealized representation. Instead we have a set of n-pairs of data $(x_i, y_i)$ where $i=1, 2, ... n$. Additionally, the data will not perfectly fit the line. As a result we add an error term $\epsilon$. 
 
-* Linear function  $Y_i=\beta_0 + \beta_1 x_i + \epsilon_i$ for $i=1,2,...n$
+* Linear function  $Y_i=\beta_0 + \beta_1 X_i + \epsilon_i$ for $i=1,2,...n$
 * Error term $\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)$
   * [$iid$](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables): identically, and independently distributed
   * $E(\epsilon_i)=0$
@@ -60,7 +60,7 @@ $$
 
 ### Parameter Estimation and Model Fitting
 
-Given that we have sample data ${(x_1, y_1),(x_2, y_2),...(x_n,y_n)}$ we wish to find the _best_ sample regression line.
+Given that we have sample data $\{(x_1, y_1),(x_2, y_2),...(x_n,y_n)\}$ we wish to find the _best_ sample regression line.
 
 We are interested in the values of $\beta_0$ and $\beta_1$ in the following _sample_ regression model:
 $$
@@ -72,5 +72,37 @@ $$
 
 or using sample statistics $b_0$ and $b_1$ computed from the training data to estimate them: 
 $$\hat{y_i} = b_0 + b_1 x_i$$
-where $\hat{y_i}$ is a point estimate of $y_i$ and mean $\mu_{Y|X=x_i}=E(Y|X=x_i)$
+where $\hat{y_i}$ is a point estimate of $y_i$ with mean $\mu_{Y|X=x_i}=E(Y|X=x_i)$
 
+#### Ordinary Least Squares (OLS)
+
+We choose $b_0$ and $b_1$ that minimize the **sum of squared residuals** $SS_{res}$ or **residual sum of squares** $RSS$
+
+* **residual** $e_i$ is a point estimate of $\epsilon_i$ and defined as the difference between our estimate of $y_i$ (i.e. $\hat{y_i}$) and the true value of $y_i$
+  * $e_i = y_i - \hat{y_i} = y_i - (b_0 + b_i x_i)$
+* The sample regression line minimizes $SS_{res}$
+$$
+\begin{align*}
+SS_{res}&=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
+&=(y_1 - b_0 + b_1 x_1)^2 + (y_2 - b_0 + b_1 x_2)^2 + \cdots + (y_n - b_0 + b_1 x_n)^2\\
+&= \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2\\
+\end{align*}
+$$
+
+#### Least Squares Estimate (LSE)
+
+With the least squares estimate approach we choose $b_0$ and $b_1$ to minimize $SS_{res}$
+
+$$
+(b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
+$$
+Taking the derivative and setting equal to 0:
+
+$$ 
+\begin{align*}
+\frac {3}{4}\bigg\vert \\
+\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &= \sum_{i=1}^n -2(y_i-b_0-b_1x_i)\\
+\\
+\frac{\partial SS_{res}}{\partial {\beta_1}} &= \sum_{i=1}^n -2x_i(y_i-b_0-b_1x_i)
+\end{align*}
+$$
