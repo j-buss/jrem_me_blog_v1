@@ -100,14 +100,67 @@ SS_{res}&amp;=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
 <p><span class="math display">\[
 (b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
 \]</span>
-Taking the derivative and setting equal to 0:</p>
+Taking the derivative and set them equal to 0 to arrive at the <strong>normal equations</strong>:</p>
 <p><span class="math display">\[ 
+\begin{align}
+\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n (y_i-b_0-b_1x_i)\\
+\frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n x_i(y_i-b_0-b_1x_i)
+\end{align}
+\]</span>
+#### Least Squares Estimates: Solving for _0 and _1</p>
+<ul>
+<li><p>Solving for <span class="math inline">\(\beta_0\)</span> given <span class="math inline">\(b_1\)</span>:
+<span class="math display">\[b_0 = \overline{y} - b_1 \overline {x}\]</span></p></li>
+<li><p>Solving for <span class="math inline">\(\beta_1\)</span> given that <span class="math inline">\(b_0 = \overline{y} - b_1 \overline {x}\)</span>:
+<span class="math display">\[
 \begin{align*}
-\frac {3}{4}\bigg\vert \\
-\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &amp;= \sum_{i=1}^n -2(y_i-b_0-b_1x_i)\\
-\\
-\frac{\partial SS_{res}}{\partial {\beta_1}} &amp;= \sum_{i=1}^n -2x_i(y_i-b_0-b_1x_i)
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
+\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+=\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=
+\frac{S_{xy}}{S_{xx}}
 \end{align*}
+\]</span></p></li>
+</ul>
+</div>
+</div>
+<div id="properties-of-least-square-estimators" class="section level3">
+<h3>Properties of Least Square Estimators</h3>
+<div id="b_0-and-b_1-are-linear-combinations-of-y_i" class="section level4">
+<h4>1. <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span></h4>
+<p>for example for <span class="math inline">\(b_1\)</span> we use one of the forms:
+<span class="math display">\[
+\begin{align*}
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+\end{align*}
+\]</span>
+To clean up the equation we use the term <span class="math inline">\(c_i = \frac{x_i-\overline{x}}{S_{xx}}\)</span> for <span class="math inline">\(i=1,2,\dots n\)</span> and the equation becomes simply a constant multiplied by <span class="math inline">\(y_i\)</span>:
+<span class="math display">\[
+\begin{align*}
+b_1 = \sum_{i=1}^ny_i c_i
+\end{align*}
+\]</span></p>
+</div>
+<div id="b_0-and-b_1-are-unbiased-estimators-of-beta_0-and-beta_1" class="section level4">
+<h4>2. <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are unbiased estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h4>
+<p>To show that <span class="math inline">\(b_0\)</span> is an unbiased estimator we want to show that <span class="math inline">\(E(b_0)=\beta_0\)</span>. Let us simply start by substituting in the value for <span class="math inline">\(b_0\)</span> from the normal equations.</p>
+<p><span class="math display">\[
+E(b_0) = E(\overline{y} - b_1\overline{x})
+\]</span>
+We use the helper function <span class="math inline">\(\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}}\)</span> and pull out any values from the sum or Expected value function that are not dependent on them
+<span class="math display">\[
+E(b_0) = \frac{1}{n}\sum_{i=1}^n E({y_i}) - E(b_1)\overline{x}
+\]</span>
+Now substitute our equation for <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span> and <span class="math inline">\(E(b_1)=\beta_1\)</span> in addition to the fact that <span class="math inline">\(\beta_0, \beta_1, x_i\)</span> are constant values the Expected Value of those individual items is simply the value of those items…
+<span class="math display">\[
+E(b_0) = \frac{1}{n}\sum_{i=1}^n (\beta_0 + \beta_1 x_i) - \beta_1 \overline{x}
+\]</span>
+Again we use a helper function for <span class="math inline">\(\sum_{i=1}^{n} {x_i}=n{\overline{x}}\)</span>
+<span class="math display">\[
+E(b_0) = \frac{1}{n}(n\beta_0 + n\beta_1 \overline{x}) - \beta_1 \overline{x}
+\]</span>
+Combining like terms we are left with simply:
+<span class="math display">\[
+E(b_0) = \beta_0 
 \]</span></p>
 </div>
 </div>

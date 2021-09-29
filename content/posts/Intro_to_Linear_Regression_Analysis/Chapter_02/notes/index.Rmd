@@ -96,13 +96,66 @@ With the least squares estimate approach we choose $b_0$ and $b_1$ to minimize $
 $$
 (b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
 $$
-Taking the derivative and setting equal to 0:
+Taking the derivative and set them equal to 0 to arrive at the **normal equations**:
 
 $$ 
+\begin{align}
+\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &= -2\sum_{i=1}^n (y_i-b_0-b_1x_i)\\
+\frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} &= -2\sum_{i=1}^n x_i(y_i-b_0-b_1x_i)
+\end{align}
+$$
+#### Least Squares Estimates: Solving for \beta_0 and \beta_1
+
+* Solving for $\beta_0$ given $b_1$:
+$$b_0 = \overline{y} - b_1 \overline {x}$$
+
+* Solving for $\beta_1$ given that $b_0 = \overline{y} - b_1 \overline {x}$:
+$$
 \begin{align*}
-\frac {3}{4}\bigg\vert \\
-\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &= \sum_{i=1}^n -2(y_i-b_0-b_1x_i)\\
-\\
-\frac{\partial SS_{res}}{\partial {\beta_1}} &= \sum_{i=1}^n -2x_i(y_i-b_0-b_1x_i)
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
+\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+=\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=
+\frac{S_{xy}}{S_{xx}}
 \end{align*}
+$$
+
+### Properties of Least Square Estimators
+
+#### 1. $b_0$ and $b_1$ are linear combinations of $y_i$ 
+
+for example for $b_1$ we use one of the forms:
+$$
+\begin{align*}
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+\end{align*}
+$$
+To clean up the equation we use the term $c_i = \frac{x_i-\overline{x}}{S_{xx}}$ for $i=1,2,\dots n$ and the equation becomes simply a constant multiplied by $y_i$:
+$$
+\begin{align*}
+b_1 = \sum_{i=1}^ny_i c_i
+\end{align*}
+$$
+
+#### 2. $b_0$ and $b_1$ are unbiased estimators of $\beta_0$ and $\beta_1$
+
+To show that $b_0$ is an unbiased estimator we want to show that $E(b_0)=\beta_0$. Let us simply start by substituting in the value for $b_0$ from the normal equations.
+
+$$
+E(b_0) = E(\overline{y} - b_1\overline{x})
+$$
+We use the helper function $\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}}$ and pull out any values from the sum or Expected value function that are not dependent on them
+$$
+E(b_0) = \frac{1}{n}\sum_{i=1}^n E({y_i}) - E(b_1)\overline{x}
+$$
+Now substitute our equation for $y_i = \beta_0 + \beta_1 x_i$ and $E(b_1)=\beta_1$ in addition to the fact that $\beta_0, \beta_1, x_i$ are constant values the Expected Value of those individual items is simply the value of those items...
+$$
+E(b_0) = \frac{1}{n}\sum_{i=1}^n (\beta_0 + \beta_1 x_i) - \beta_1 \overline{x}
+$$
+Again we use a helper function for $\sum_{i=1}^{n} {x_i}=n{\overline{x}}$
+$$
+E(b_0) = \frac{1}{n}(n\beta_0 + n\beta_1 \overline{x}) - \beta_1 \overline{x}
+$$
+Combining like terms we are left with simply:
+$$
+E(b_0) = \beta_0 
 $$

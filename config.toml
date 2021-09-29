@@ -57,13 +57,13 @@ preserveTaxonomyNames = true
 [markup]
   [markup.highlight]
     anchorLineNos = false
-    codeFences = false
+    codeFences = true
     guessSyntax = false
-    hl_Lines = ""
-    lineAnchors = ""
+    hl_Lines = ''
+    lineAnchors = ''
     lineNoStart = 1
     lineNos = false
-    lineNumbersInTable = false
+    lineNumbersInTable = true
     noClasses = true
-    style = "monokai"
+    style = 'monokai'
     tabWidth = 4
