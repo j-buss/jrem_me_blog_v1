@@ -13,8 +13,10 @@ tags:
 draft: false
 katex: yes
 ---
-
-### Simple Linear Regression
+```{r echo=FALSE}
+library(blogdown)
+```
+# Simple Linear Regression
 
 The characteristics of a **Simple Linear Regression** are as follows:
 
@@ -25,7 +27,7 @@ The characteristics of a **Simple Linear Regression** are as follows:
 <br>
 
 
-#### Simple Linear Regression - Population
+## Simple Linear Regression - Population
 
 The above is an idealized representation. Instead we have a set of n-pairs of data $(x_i, y_i)$ where $i=1, 2, ... n$. Additionally, the data will not perfectly fit the line. As a result we add an error term $\epsilon$. 
 
@@ -58,7 +60,7 @@ $$
   * $Y_i|X_i = N(\beta_0 + \beta_1 X_i, \sigma^2)$
 
 
-### Parameter Estimation and Model Fitting
+## Parameter Estimation and Model Fitting
 
 Given that we have sample data $\{(x_1, y_1),(x_2, y_2),...(x_n,y_n)\}$ we wish to find the _best_ sample regression line.
 
@@ -74,7 +76,7 @@ or using sample statistics $b_0$ and $b_1$ computed from the training data to es
 $$\hat{y_i} = b_0 + b_1 x_i$$
 where $\hat{y_i}$ is a point estimate of $y_i$ with mean $\mu_{Y|X=x_i}=E(Y|X=x_i)$
 
-#### Ordinary Least Squares (OLS)
+## Ordinary Least Squares (OLS)
 
 We choose $b_0$ and $b_1$ that minimize the **sum of squared residuals** $SS_{res}$ or **residual sum of squares** $RSS$
 
@@ -89,7 +91,7 @@ SS_{res}&=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
 \end{align*}
 $$
 
-#### Least Squares Estimate (LSE)
+## Least Squares Estimate (LSE)
 
 With the least squares estimate approach we choose $b_0$ and $b_1$ to minimize $SS_{res}$
 
@@ -104,7 +106,8 @@ $$
 \frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} &= -2\sum_{i=1}^n x_i(y_i-b_0-b_1x_i)
 \end{align}
 $$
-#### Least Squares Estimates: Solving for \beta_0 and \beta_1
+
+### Least Squares Estimates: Solving for $\beta_0$ and $\beta_1$
 
 * Solving for $\beta_0$ given $b_1$:
 $$b_0 = \overline{y} - b_1 \overline {x}$$
@@ -121,9 +124,103 @@ $$
 
 ### Properties of Least Square Estimators
 
-#### 1. $b_0$ and $b_1$ are linear combinations of $y_i$ 
+#### 1. Best:
 
-for example for $b_1$ we use one of the forms:
+For the estimators to be the "best" they need to have minimum variance. 
+
+##### Variance of $\beta_1$
+
+$$
+\begin{align*}
+Var(b_1)&=Var \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i^2 Var(y_i)
+\end{align*}
+$$
+
+Since the observations $y_i$ are uncorrelated then the variance of the sum is just the sum of the variances. Since the $Var(y_i)=\sigma^2$
+
+$$
+\begin{align*}
+Var(b_1)&= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}} = \frac{\sigma^2}{S_{xx}}
+\end{align*}
+$$
+
+##### The Variance of $b_0$
+
+$$
+\begin{align*}
+Var(b_0) &= Var(\overline{y} - b_1 \overline {x})
+\end{align*}
+$$
+Using the [properties of variance](https://en.wikipedia.org/wiki/Variance#Properties) for the difference of two random variables this becomes:
+$$
+\begin{align}
+Var(b_0) &= Var(\overline{y}) + \overline{x}^2 Var (b_1) - 2 \overline{x} Cov(\overline{y},b_1)
+\end{align}
+$$
+To simplify this further we need to find $Var(\overline{y})$
+
+$$
+\begin{align*}
+Var(\overline {y}) &= Var \left ( \frac{y_1+y_2+\dots+y_n}{n} \right )\\
+&= \left ( \frac {1}{n} \right )^2 (y_1+y_2+\dots+y_n)\\
+&= \left ( \frac {1}{n} \right )^2 (\sigma^2+\sigma^2+\dots+\sigma^2)\\
+&= \left ( \frac {1}{n} \right )^2 n \sigma^2\\
+&= \frac {\sigma^2}{n} 
+\end{align*}
+$$
+Additionally we can simplify the last term in equation #3 and focus on the Covariance.
+
+Let us start by simply filling in the values for $\overline{y}$ and $b_1$.
+
+$$
+Cov(\overline{y},b_1)=
+Cov\left(\frac{1}{n}\sum_{i=1}^ny_i,    \frac {\sum_{i=1}^ny_i(x_i-\overline{x})} {S_{xx}} \right)
+$$
+A constant can be pulled out of the covariance and simply multiplied. 
+$$
+Cov(\overline{y},b_1)=
+\frac{1}{n}Cov\left(\sum_{i=1}^ny_i,    \frac {\sum_{i=1}^ny_i(x_i-\overline{x})} {S_{xx}} \right)
+$$
+Next we let $c_i = \frac{(x_i - \overline{x})}{S_{xx}}$:
+
+
+$$
+Cov(\overline{y},b_1)=
+\frac{1}{n}Cov\left(\sum_{i=1}^ny_i,    \sum_{i=1}^nc_iy_i \right)
+$$
+
+Now since $\overline{y}$ and $b_1$ are independently distributed normal variables we can pull the $c_i$ term out of the $Cov$
+
+$$
+\begin{split}
+Cov(\overline{y},b_1) =
+\frac{1}{n}\sum_{i=1}^nc_i \cdot Cov\left(\sum_{i=1}^ny_i,    \sum_{i=1}^ny_i \right)\\
+\\
+Cov(\overline{y},b_1)= \frac{1}{n}\sum_{i=1}^nc_i \cdot Var(y_i)\\
+\\
+Cov(\overline{y},b_1)= \frac{\sigma^2}{n}\sum_{i=1}^nc_i\\
+\end{split}
+$$
+Now if we remember that $c_i = \frac{(x_i - \overline{x})}{S_{xx}}$ and sum of which will be 0 so:
+$$
+\begin{split}
+Cov(\overline{y},b_1)&= \frac{\sigma^2}{n}\sum_{i=1}^n \frac{(x_i - \overline{x})}{S_{xx}}\\
+\\
+Cov(\overline{y},b_1)&= \frac{\sigma^2}{n} \cdot 0\\
+\\
+Cov(\overline{y},b_1)&= 0\\
+\end{split}
+$$
+So we see that the last term in equation #3 is 0. So we are left with:
+
+
+
+#### 2. Linear:
+
+
+
+
+$b_0$ and $b_1$ are linear combinations of $y_i$ for example for $b_1$ we use one of the forms:
 $$
 \begin{align*}
 b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
@@ -136,9 +233,11 @@ b_1 = \sum_{i=1}^ny_i c_i
 \end{align*}
 $$
 
-#### 2. $b_0$ and $b_1$ are unbiased estimators of $\beta_0$ and $\beta_1$
+#### 3. Unbiased
 
-To show that $b_0$ is an unbiased estimator we want to show that $E(b_0)=\beta_0$. Let us simply start by substituting in the value for $b_0$ from the normal equations.
+$b_0$ and $b_1$ are unbiased estimators of $\beta_0$ and $\beta_1$
+
+For $b_0$ to be an unbiased estimator we want to show that $E(b_0)=\beta_0$. Let us simply start by substituting in the value for $b_0$ from the normal equations.
 
 $$
 E(b_0) = E(\overline{y} - b_1\overline{x})
@@ -158,4 +257,18 @@ $$
 Combining like terms we are left with simply:
 $$
 E(b_0) = \beta_0 
+$$
+
+Similarly for $\beta_1$:
+
+$$
+\begin{align*}
+E(b_1)&=E \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i E(y_i)\\
+&=\sum_{i=1}^n c_i (b_0 + b_1 x_i)=b_0 \sum_{i=1}^n c_i + b_1 \sum_{i=1}^n c_i x_i
+\end{align*}
+$$
+
+Now $\sum_{i=1}^n c_i =0$ and $\sum_{i=1}^n c_i x_i =1$ so
+$$
+E(b_1)=\beta_1
 $$

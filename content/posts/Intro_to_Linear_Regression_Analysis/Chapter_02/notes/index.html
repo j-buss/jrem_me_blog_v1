@@ -17,8 +17,8 @@ katex: yes
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<div id="simple-linear-regression" class="section level3">
-<h3>Simple Linear Regression</h3>
+<div id="simple-linear-regression" class="section level1">
+<h1>Simple Linear Regression</h1>
 <p>The characteristics of a <strong>Simple Linear Regression</strong> are as follows:</p>
 <ul>
 <li>One predictor <span class="math inline">\(X\)</span> that is known and constant</li>
@@ -26,8 +26,8 @@ katex: yes
 <li>Linear function <span class="math inline">\(y=\beta_0 + \beta_1 x\)</span></li>
 </ul>
 <p><br></p>
-<div id="simple-linear-regression---population" class="section level4">
-<h4>Simple Linear Regression - Population</h4>
+<div id="simple-linear-regression---population" class="section level2">
+<h2>Simple Linear Regression - Population</h2>
 <p>The above is an idealized representation. Instead we have a set of n-pairs of data <span class="math inline">\((x_i, y_i)\)</span> where <span class="math inline">\(i=1, 2, ... n\)</span>. Additionally, the data will not perfectly fit the line. As a result we add an error term <span class="math inline">\(\epsilon\)</span>.</p>
 <ul>
 <li><p>Linear function <span class="math inline">\(Y_i=\beta_0 + \beta_1 X_i + \epsilon_i\)</span> for <span class="math inline">\(i=1,2,...n\)</span></p></li>
@@ -62,9 +62,8 @@ Var(Y_i|X_i) &amp;= Var(\beta_0+\beta_1 X_i + \epsilon_i)\\
 </ul></li>
 </ul>
 </div>
-</div>
-<div id="parameter-estimation-and-model-fitting" class="section level3">
-<h3>Parameter Estimation and Model Fitting</h3>
+<div id="parameter-estimation-and-model-fitting" class="section level2">
+<h2>Parameter Estimation and Model Fitting</h2>
 <p>Given that we have sample data <span class="math inline">\(\{(x_1, y_1),(x_2, y_2),...(x_n,y_n)\}\)</span> we wish to find the <em>best</em> sample regression line.</p>
 <p>We are interested in the values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the following <em>sample</em> regression model:
 <span class="math display">\[
@@ -76,8 +75,9 @@ y_i &amp;= f(x_i) + \epsilon_i\\
 <p>or using sample statistics <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> computed from the training data to estimate them:
 <span class="math display">\[\hat{y_i} = b_0 + b_1 x_i\]</span>
 where <span class="math inline">\(\hat{y_i}\)</span> is a point estimate of <span class="math inline">\(y_i\)</span> with mean <span class="math inline">\(\mu_{Y|X=x_i}=E(Y|X=x_i)\)</span></p>
-<div id="ordinary-least-squares-ols" class="section level4">
-<h4>Ordinary Least Squares (OLS)</h4>
+</div>
+<div id="ordinary-least-squares-ols" class="section level2">
+<h2>Ordinary Least Squares (OLS)</h2>
 <p>We choose <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that minimize the <strong>sum of squared residuals</strong> <span class="math inline">\(SS_{res}\)</span> or <strong>residual sum of squares</strong> <span class="math inline">\(RSS\)</span></p>
 <ul>
 <li><strong>residual</strong> <span class="math inline">\(e_i\)</span> is a point estimate of <span class="math inline">\(\epsilon_i\)</span> and defined as the difference between our estimate of <span class="math inline">\(y_i\)</span> (i.e. <span class="math inline">\(\hat{y_i}\)</span>) and the true value of <span class="math inline">\(y_i\)</span>
@@ -94,8 +94,8 @@ SS_{res}&amp;=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
 \]</span></li>
 </ul>
 </div>
-<div id="least-squares-estimate-lse" class="section level4">
-<h4>Least Squares Estimate (LSE)</h4>
+<div id="least-squares-estimate-lse" class="section level2">
+<h2>Least Squares Estimate (LSE)</h2>
 <p>With the least squares estimate approach we choose <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> to minimize <span class="math inline">\(SS_{res}\)</span></p>
 <p><span class="math display">\[
 (b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
@@ -106,8 +106,9 @@ Taking the derivative and set them equal to 0 to arrive at the <strong>normal eq
 \frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n (y_i-b_0-b_1x_i)\\
 \frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n x_i(y_i-b_0-b_1x_i)
 \end{align}
-\]</span>
-#### Least Squares Estimates: Solving for _0 and _1</p>
+\]</span></p>
+<div id="least-squares-estimates-solving-for-beta_0-and-beta_1" class="section level3">
+<h3>Least Squares Estimates: Solving for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h3>
 <ul>
 <li><p>Solving for <span class="math inline">\(\beta_0\)</span> given <span class="math inline">\(b_1\)</span>:
 <span class="math display">\[b_0 = \overline{y} - b_1 \overline {x}\]</span></p></li>
@@ -122,12 +123,91 @@ b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{
 \]</span></p></li>
 </ul>
 </div>
-</div>
 <div id="properties-of-least-square-estimators" class="section level3">
 <h3>Properties of Least Square Estimators</h3>
-<div id="b_0-and-b_1-are-linear-combinations-of-y_i" class="section level4">
-<h4>1. <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span></h4>
-<p>for example for <span class="math inline">\(b_1\)</span> we use one of the forms:
+<div id="best" class="section level4">
+<h4>1. Best:</h4>
+<p>For the estimators to be the “best” they need to have minimum variance.</p>
+<div id="variance-of-beta_1" class="section level5">
+<h5>Variance of <span class="math inline">\(\beta_1\)</span></h5>
+<p><span class="math display">\[
+\begin{align*}
+Var(b_1)&amp;=Var \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i^2 Var(y_i)
+\end{align*}
+\]</span></p>
+<p>Since the observations <span class="math inline">\(y_i\)</span> are uncorrelated then the variance of the sum is just the sum of the variances. Since the <span class="math inline">\(Var(y_i)=\sigma^2\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+Var(b_1)&amp;= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}} = \frac{\sigma^2}{S_{xx}}
+\end{align*}
+\]</span></p>
+</div>
+<div id="the-variance-of-b_0" class="section level5">
+<h5>The Variance of <span class="math inline">\(b_0\)</span></h5>
+<p><span class="math display">\[
+\begin{align*}
+Var(b_0) &amp;= Var(\overline{y} - b_1 \overline {x})
+\end{align*}
+\]</span>
+Using the <a href="https://en.wikipedia.org/wiki/Variance#Properties">properties of variance</a> for the difference of two random variables this becomes:
+<span class="math display">\[
+\begin{align}
+Var(b_0) &amp;= Var(\overline{y}) + \overline{x}^2 Var (b_1) - 2 \overline{x} Cov(\overline{y},b_1)
+\end{align}
+\]</span>
+To simplify this further we need to find <span class="math inline">\(Var(\overline{y})\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+Var(\overline {y}) &amp;= Var \left ( \frac{y_1+y_2+\dots+y_n}{n} \right )\\
+&amp;= \left ( \frac {1}{n} \right )^2 (y_1+y_2+\dots+y_n)\\
+&amp;= \left ( \frac {1}{n} \right )^2 (\sigma^2+\sigma^2+\dots+\sigma^2)\\
+&amp;= \left ( \frac {1}{n} \right )^2 n \sigma^2\\
+&amp;= \frac {\sigma^2}{n} 
+\end{align*}
+\]</span>
+Additionally we can simplify the last term in equation #3 and focus on the Covariance.</p>
+<p>Let us start by simply filling in the values for <span class="math inline">\(\overline{y}\)</span> and <span class="math inline">\(b_1\)</span>.</p>
+<p><span class="math display">\[
+Cov(\overline{y},b_1)=
+Cov\left(\frac{1}{n}\sum_{i=1}^ny_i,    \frac {\sum_{i=1}^ny_i(x_i-\overline{x})} {S_{xx}} \right)
+\]</span>
+A constant can be pulled out of the covariance and simply multiplied.
+<span class="math display">\[
+Cov(\overline{y},b_1)=
+\frac{1}{n}Cov\left(\sum_{i=1}^ny_i,    \frac {\sum_{i=1}^ny_i(x_i-\overline{x})} {S_{xx}} \right)
+\]</span>
+Next we let <span class="math inline">\(c_i = \frac{(x_i - \overline{x})}{S_{xx}}\)</span>:</p>
+<p><span class="math display">\[
+Cov(\overline{y},b_1)=
+\frac{1}{n}Cov\left(\sum_{i=1}^ny_i,    \sum_{i=1}^nc_iy_i \right)
+\]</span></p>
+<p>Now since <span class="math inline">\(\overline{y}\)</span> and <span class="math inline">\(b_1\)</span> are independently distributed normal variables we can pull the <span class="math inline">\(c_i\)</span> term out of the <span class="math inline">\(Cov\)</span></p>
+<p><span class="math display">\[
+\begin{split}
+Cov(\overline{y},b_1) =
+\frac{1}{n}\sum_{i=1}^nc_i \cdot Cov\left(\sum_{i=1}^ny_i,    \sum_{i=1}^ny_i \right)\\
+\\
+Cov(\overline{y},b_1)= \frac{1}{n}\sum_{i=1}^nc_i \cdot Var(y_i)\\
+\\
+Cov(\overline{y},b_1)= \frac{\sigma^2}{n}\sum_{i=1}^nc_i\\
+\end{split}
+\]</span>
+Now if we remember that <span class="math inline">\(c_i = \frac{(x_i - \overline{x})}{S_{xx}}\)</span> and sum of which will be 0 so:
+<span class="math display">\[
+\begin{split}
+Cov(\overline{y},b_1)&amp;= \frac{\sigma^2}{n}\sum_{i=1}^n \frac{(x_i - \overline{x})}{S_{xx}}\\
+\\
+Cov(\overline{y},b_1)&amp;= \frac{\sigma^2}{n} \cdot 0\\
+\\
+Cov(\overline{y},b_1)&amp;= 0\\
+\end{split}
+\]</span>
+So we see that the last term in equation #3 is 0. So we are left with:</p>
+</div>
+</div>
+<div id="linear" class="section level4">
+<h4>2. Linear:</h4>
+<p><span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span> for example for <span class="math inline">\(b_1\)</span> we use one of the forms:
 <span class="math display">\[
 \begin{align*}
 b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
@@ -140,9 +220,10 @@ b_1 = \sum_{i=1}^ny_i c_i
 \end{align*}
 \]</span></p>
 </div>
-<div id="b_0-and-b_1-are-unbiased-estimators-of-beta_0-and-beta_1" class="section level4">
-<h4>2. <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are unbiased estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h4>
-<p>To show that <span class="math inline">\(b_0\)</span> is an unbiased estimator we want to show that <span class="math inline">\(E(b_0)=\beta_0\)</span>. Let us simply start by substituting in the value for <span class="math inline">\(b_0\)</span> from the normal equations.</p>
+<div id="unbiased" class="section level4">
+<h4>3. Unbiased</h4>
+<p><span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are unbiased estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></p>
+<p>For <span class="math inline">\(b_0\)</span> to be an unbiased estimator we want to show that <span class="math inline">\(E(b_0)=\beta_0\)</span>. Let us simply start by substituting in the value for <span class="math inline">\(b_0\)</span> from the normal equations.</p>
 <p><span class="math display">\[
 E(b_0) = E(\overline{y} - b_1\overline{x})
 \]</span>
@@ -162,5 +243,18 @@ Combining like terms we are left with simply:
 <span class="math display">\[
 E(b_0) = \beta_0 
 \]</span></p>
+<p>Similarly for <span class="math inline">\(\beta_1\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+E(b_1)&amp;=E \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i E(y_i)\\
+&amp;=\sum_{i=1}^n c_i (b_0 + b_1 x_i)=b_0 \sum_{i=1}^n c_i + b_1 \sum_{i=1}^n c_i x_i
+\end{align*}
+\]</span></p>
+<p>Now <span class="math inline">\(\sum_{i=1}^n c_i =0\)</span> and <span class="math inline">\(\sum_{i=1}^n c_i x_i =1\)</span> so
+<span class="math display">\[
+E(b_1)=\beta_1
+\]</span></p>
+</div>
+</div>
 </div>
 </div>
