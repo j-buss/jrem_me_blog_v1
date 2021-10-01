@@ -123,8 +123,8 @@ b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{
 \]</span></p></li>
 </ul>
 </div>
-<div id="properties-of-least-square-estimators" class="section level3">
-<h3>Properties of Least Square Estimators</h3>
+<div id="best-linear-unbiased-estimators-blue" class="section level3">
+<h3>Best Linear Unbiased Estimators (BLUE)</h3>
 <div id="best" class="section level4">
 <h4>1. Best:</h4>
 <p>For the estimators to be the “best” they need to have minimum variance.</p>
@@ -203,6 +203,14 @@ Cov(\overline{y},b_1)&amp;= 0\\
 \end{split}
 \]</span>
 So we see that the last term in equation #3 is 0. So we are left with:</p>
+<p><span class="math display">\[
+\begin{align*}
+Var(b_0) &amp;= Var(\overline{y}) + \overline{x}^2 Var (b_1)\\
+&amp;= Var(\overline{y}) + \overline{x}^2 Var (b_1)\\
+&amp;= \frac{\sigma^2}{n} + \frac{\overline{x}^2\sigma^2}{S_{xx}}\\
+Var(b_0)&amp;= \sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}} \right )
+\end{align*}
+\]</span></p>
 </div>
 </div>
 <div id="linear" class="section level4">
@@ -255,6 +263,53 @@ E(b_1)&amp;=E \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i E(y_i)\\
 E(b_1)=\beta_1
 \]</span></p>
 </div>
+<div id="properties-of-least-squares-fit" class="section level4">
+<h4>Properties of Least Squares Fit</h4>
+<ol style="list-style-type: decimal">
+<li>Sum of residuals is zero <span class="math inline">\(\sum_{i=1}^n(y_i - \hat {y_i}) = \sum_{i=1}^n e_i = 0\)</span></li>
+<li>The sum of observations <span class="math inline">\(y_i\)</span> and the sum of fitted values <span class="math inline">\(\hat{y_i}\)</span> are the same <span class="math inline">\(\sum_{i=1}^ny_i = \sum_{i=1}^n \hat{y}\)</span></li>
+<li>The Least Squares Regression line passes through the centroid point <span class="math inline">\((\overline{x},\overline{y})\)</span></li>
+<li>Inner product of residual and predictor is zero <span class="math inline">\(\sum_{i=1}^n e_i x_i = 0\)</span></li>
+<li>Inner product of residual and predicted values is zero <span class="math inline">\(\sum_{i=1}^n e_i \hat{y_i} = 0\)</span></li>
+</ol>
+</div>
+<div id="estimation-for-sigma2" class="section level4">
+<h4>Estimation for <span class="math inline">\(\sigma^2\)</span></h4>
+<p>The <strong>error</strong> or <strong>residual sum of squares</strong> is:
+<span class="math display">\[SS_{res} = \sum_{i=1}^n e_i^2 = \sum_{i=1}^n (y_i - \hat{y_i})^2\]</span></p>
+<p>The residual sum of squares has <span class="math inline">\(n-2\)</span> degrees of freedom, because two degrees of freedom are associated with the estimators <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> involved in obtaining <span class="math inline">\(\hat{y_i}\)</span>. Dividing the residual sum of squares by the degrees of freedom we arrive at the <strong>residual mean square</strong></p>
+<p><span class="math display">\[\hat{\sigma}^2 = \frac {SS_{Res}}{n-2}=MS_{Res}\]</span>
+<span class="math inline">\(\hat{\sigma}^2\)</span> is an unbiased estimator for <span class="math inline">\(\sigma^2\)</span>, i.e. <span class="math inline">\(E(MS_{Res})=\sigma^2\)</span></p>
+</div>
+</div>
+<div id="interval-estimation" class="section level3">
+<h3>Interval Estimation</h3>
+<p>We know that the errors <span class="math inline">\(\epsilon_i\)</span> are <span class="math inline">\(NID(0,\sigma^2)\)</span> and the observations <span class="math inline">\(y_i\)</span> are <span class="math inline">\(NID(\beta_0 + \beta_1 x_i, \sigma^2)\)</span>. Also, <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span>. Therefore <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are normally distributed. We can synthesize the information this way:</p>
+<p><span class="math display">\[
+\begin{align*}
+b_1 &amp; \sim NID \left ( \beta_1,\frac{\sigma^2}{S_{xx}} \right )\\
+b_0 &amp; \sim NID \left ( \beta_0,\sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}}\right ) \right )
+\end{align*}
+\]</span>
+Since we just said that they are normal we could standardize them:</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac {b_1 - \beta_1}{\sqrt{\sigma^2/S_{xx}}} &amp; \sim NID (0,1)\\
+\frac {b_0 - \beta_0}{\sqrt{ \sigma^2 (1/n + \overline{x}^2/S_{xx})}} &amp; \sim NID (0,1)\\
+\end{align*}
+\]</span>
+However, we don’t know the true value of <span class="math inline">\(\sigma^2\)</span>. Therefore we can use the estimate of <span class="math inline">\(\sigma\)</span> that we found earlier: <span class="math inline">\(\hat{\sigma}^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac {b_1 - \beta_1}{\sqrt{\hat{\sigma}^2/S_{xx}}} &amp; \sim t_{n-2}\\
+\frac {b_0 - \beta_0}{\sqrt{\hat{\sigma}^2 (1/n + \overline{x}^2/S_{xx})}} &amp; \sim t_{n-2}\\
+\end{align*}
+\]</span>
+We can use this information to construct a <span class="math inline">\((1-\alpha)100%\)</span> confidence intervals:</p>
+<ul>
+<li><span class="math inline">\(\beta_1\)</span>: <span class="math inline">\(b_1 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2/S_{xx}}\)</span></li>
+<li><span class="math inline">\(\beta_0\)</span>: <span class="math inline">\(b_0 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2/S_{xx}}\)</span></li>
+</ul>
 </div>
 </div>
 </div>
