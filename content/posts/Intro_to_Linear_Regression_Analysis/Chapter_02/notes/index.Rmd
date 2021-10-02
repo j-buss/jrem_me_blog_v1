@@ -1,5 +1,5 @@
 ---
-title: Intro. to Linear Regression Analysis - Chapter 2 - Simple Linear Regression
+title: Simple Linear Regression
 author: Jeremy Buss
 date: '2021-09-20'
 slug: []
@@ -358,3 +358,118 @@ The denominator of the test statistics (equations #4 and #5) are often referred 
 
 * $se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}$
 * $se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}$
+
+#### Hypothesis Testing 
+
+We reject $H_0$ in favor of $H_1$ if
+
+* Critical Value Method: $\vert t_{test} \vert > t_{\alpha/2,n-2}$
+* P-Value Method: p-value = $2P(t_{n-2} > \vert t_{test} \vert ) < \alpha$
+
+##### $\beta_1$
+
+* Null Hypothesis: $H_0$: $\beta_1=\beta_1^0$
+* Alternative Hypothesis: $H_1$: $\beta_1 \ne \beta_1^0$
+* Standard error: $se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}$
+* Test statistic: $t_{test} = \frac {b_1 - \beta_1^0}{se(b_1)} \sim t_{n-2}$ under $H_0$
+
+##### $\beta_0$
+
+* Null Hypothesis: $H_0$: $\beta_0=\beta_0^0$
+* Alternative Hypothesis: $H_1$: $\beta_0 \ne \beta_0^0$
+* Standard error: $se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}$
+* Test statistic: $t_{test} = \frac {b_0 - \beta_0^0}{se(b_0)} \sim t_{n-2}$ under $H_0$
+
+### Analysis of Variance (ANOVA)
+
+The **analysis of variance** approach involves partitioning the total variability in the response variable y into different pieces. We start by examining the total variability.
+
+If $x$ and $y$ are linearly related, but you have no information about $x$; How would you predict a value of $y$?
+
+Well...we would use the average of $y$, or $\overline{y}$ as a prediction of $y$
+
+And the difference between that estimate the the true value could be described as 
+
+$$(y_i - \overline{y}) = (\hat{y_i} - \overline{y}) + (y_i - \hat{y_i}) $$
+If we square both sides and sum over all observations:
+
+$$
+\sum_{i=1}^n (y_i - \overline{y})^2 = \sum_{i=1}^n (\hat{y_i} - \overline{y})^2 + \sum_{i=1}^n (y_i - \hat{y_i})^2 + 2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i})
+$$
+The third term in this last equation can be rewritten as:
+
+$$\begin{align*}
+2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i}) &= 
+2\sum_{i=1}^n \hat{y_i} (y_i - \hat{y_i}) - 
+2\overline{y}\sum_{i=1}^n (y_i - \hat{y_i})\\
+&=2\sum_{i=1}^n \hat{y_i} e_i - 
+2\overline{y}\sum_{i=1}^n e_i\\
+\end{align*}
+$$
+Now we can leverage two of the Properties of Least Squares Fit from above. Namely #1 where the sum of residuals is 0 and #5 where the inner product of residuals and predicted values is zero.
+
+Therefore the entire third term is 0
+
+$$\begin{align*}
+2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i}) &= 
+2\sum_{i=1}^n \hat{y_i} e_i - 
+2\overline{y}\sum_{i=1}^n e_i\\
+&=0
+\end{align*}
+$$
+
+So the total variability can be described as:
+
+$$
+\begin{align*}
+\sum_{i=1}^n (y_i - \overline{y})^2 &= \sum_{i=1}^n (\hat{y_i} - \overline{y})^2 + \sum_{i=1}^n (y_i - \hat{y_i})^2\\
+SS_T &= SS_R + SS_{Res}
+\end{align*}
+$$
+Where the terms are:
+
+* **Sum of Squares - Total** $(SS_T)$ : $\sum_{i=1}^n (y_i - \overline{y})^2$
+* **Sum of Squares - Regression** $(SS_R)$: $\sum_{i=1}^n (\hat{y_i} - \overline{y})^2$
+* **Sum of Squares - Residual** $(SS_Res)$: $\sum_{i=1}^n (y_i - \hat{y_i})^2$
+
+Furthermore the degrees of freedom (df) are as follows:
+
+* $\textcolor{blue}{df_T = n-1}$ Lose 1 df with constraint $\sum_{i=1}^n (y_i = \overline{y})=0$
+* $\textcolor{blue}{df_R=1}$ all $\hat{y_i}$ are on the regression line with 2 df (intercept and slope), but with constraint $\sum_{i=1}^n (\hat{y_i} = \overline{y})=0$
+* $\textcolor{blue}{df_{res}=n-2}$ Lose 2 dfs because $\beta_0$ and $\beta_1$ are estimated by $b_0$ and $b_1$ which are linear combo of $y_i$
+
+#### Analysis of Variance F test
+
+We can define an F statistic:
+
+$$
+F_{test}=\frac {SS_R/df_R}{SS_{Res}/df_{Res}}=\frac {SS_R/1}{SS_{Res}/{(n-2)}}=\frac{MS_R}{MS_{Res}}
+$$
+Therefore, to test the hypothesis $H_0: \beta_1 = 0$ compute $F_{test}$ and reject $H_0$ if 
+
+* $F_{test} > F_{\alpha,1,n-2}$
+* p-value = $P(F_{1,n-2} > F_{test}) > \alpha$
+
+Combining all these definitions we have...
+
+
+```{r echo=FALSE, results='asis'}
+x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
+                "Sum of Squares" = c("$SS_R=\\hat{\\beta_1}S_{xy}$","$SS_{Res}=SS_T - {\\beta_1}S_{xy}$","$SS_T$"),
+                "Degrees of Freedom" = c("1", "n-2", "n-1"),
+                "Mean Square" = c("$MS_R$", "$MS_{Res}$",""),
+                "$F_0$" = c("$MS_R/MS_{Res}$", "","")
+                )
+knitr::kable(x=x,caption = "ANOVA Table",format="markdown", escape=FALSE, col.names=c("Source of Variation","Sum of Squares","Degrees of Freedom","Mean Square","$F_{test}$"))
+
+```
+
+In SLR, the $F$-test of ANOVA give the same result as a two-sided $t$-test of $H_0$:$\beta_1$=0
+
+### Coefficient of Determination
+
+The **coefficient of determination** is defined as the following:
+
+$$
+R^2 = \frac {SS_R}{SS_T}=1-\frac {SS_{Res}}{SS_T}
+$$

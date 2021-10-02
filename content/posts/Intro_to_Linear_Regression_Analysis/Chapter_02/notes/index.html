@@ -1,5 +1,5 @@
 ---
-title: Intro. to Linear Regression Analysis - Chapter 2 - Simple Linear Regression
+title: Simple Linear Regression
 author: Jeremy Buss
 date: '2021-09-20'
 slug: []
@@ -341,6 +341,137 @@ SS_{res} &amp; \sim \sigma^2 \chi_{n-2}^2\\
 <li><span class="math inline">\(se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}\)</span></li>
 </ul>
 </div>
+<div id="hypothesis-testing-1" class="section level4">
+<h4>Hypothesis Testing</h4>
+<p>We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if</p>
+<ul>
+<li>Critical Value Method: <span class="math inline">\(\vert t_{test} \vert &gt; t_{\alpha/2,n-2}\)</span></li>
+<li>P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{test} \vert ) &lt; \alpha\)</span></li>
+</ul>
+<div id="beta_1" class="section level5">
+<h5><span class="math inline">\(\beta_1\)</span></h5>
+<ul>
+<li>Null Hypothesis: <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_1=\beta_1^0\)</span></li>
+<li>Alternative Hypothesis: <span class="math inline">\(H_1\)</span>: <span class="math inline">\(\beta_1 \ne \beta_1^0\)</span></li>
+<li>Standard error: <span class="math inline">\(se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}\)</span></li>
+<li>Test statistic: <span class="math inline">\(t_{test} = \frac {b_1 - \beta_1^0}{se(b_1)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></li>
+</ul>
+</div>
+<div id="beta_0" class="section level5">
+<h5><span class="math inline">\(\beta_0\)</span></h5>
+<ul>
+<li>Null Hypothesis: <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_0=\beta_0^0\)</span></li>
+<li>Alternative Hypothesis: <span class="math inline">\(H_1\)</span>: <span class="math inline">\(\beta_0 \ne \beta_0^0\)</span></li>
+<li>Standard error: <span class="math inline">\(se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}\)</span></li>
+<li>Test statistic: <span class="math inline">\(t_{test} = \frac {b_0 - \beta_0^0}{se(b_0)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="analysis-of-variance-anova" class="section level3">
+<h3>Analysis of Variance (ANOVA)</h3>
+<p>The <strong>analysis of variance</strong> approach involves partitioning the total variability in the response variable y into different pieces. We start by examining the total variability.</p>
+<p>If <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are linearly related, but you have no information about <span class="math inline">\(x\)</span>; How would you predict a value of <span class="math inline">\(y\)</span>?</p>
+<p>Well…we would use the average of <span class="math inline">\(y\)</span>, or <span class="math inline">\(\overline{y}\)</span> as a prediction of <span class="math inline">\(y\)</span></p>
+<p>And the difference between that estimate the the true value could be described as</p>
+<p><span class="math display">\[(y_i - \overline{y}) = (\hat{y_i} - \overline{y}) + (y_i - \hat{y_i}) \]</span>
+If we square both sides and sum over all observations:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (y_i - \overline{y})^2 = \sum_{i=1}^n (\hat{y_i} - \overline{y})^2 + \sum_{i=1}^n (y_i - \hat{y_i})^2 + 2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i})
+\]</span>
+The third term in this last equation can be rewritten as:</p>
+<p><span class="math display">\[\begin{align*}
+2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i}) &amp;= 
+2\sum_{i=1}^n \hat{y_i} (y_i - \hat{y_i}) - 
+2\overline{y}\sum_{i=1}^n (y_i - \hat{y_i})\\
+&amp;=2\sum_{i=1}^n \hat{y_i} e_i - 
+2\overline{y}\sum_{i=1}^n e_i\\
+\end{align*}
+\]</span>
+Now we can leverage two of the Properties of Least Squares Fit from above. Namely #1 where the sum of residuals is 0 and #5 where the inner product of residuals and predicted values is zero.</p>
+<p>Therefore the entire third term is 0</p>
+<p><span class="math display">\[\begin{align*}
+2\sum_{i=1}^n (\hat{y_i} - \overline{y})(y_i - \hat{y_i}) &amp;= 
+2\sum_{i=1}^n \hat{y_i} e_i - 
+2\overline{y}\sum_{i=1}^n e_i\\
+&amp;=0
+\end{align*}
+\]</span></p>
+<p>So the total variability can be described as:</p>
+<p><span class="math display">\[
+\begin{align*}
+\sum_{i=1}^n (y_i - \overline{y})^2 &amp;= \sum_{i=1}^n (\hat{y_i} - \overline{y})^2 + \sum_{i=1}^n (y_i - \hat{y_i})^2\\
+SS_T &amp;= SS_R + SS_{Res}
+\end{align*}
+\]</span>
+Where the terms are:</p>
+<ul>
+<li><strong>Sum of Squares - Total</strong> <span class="math inline">\((SS_T)\)</span> : <span class="math inline">\(\sum_{i=1}^n (y_i - \overline{y})^2\)</span></li>
+<li><strong>Sum of Squares - Regression</strong> <span class="math inline">\((SS_R)\)</span>: <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} - \overline{y})^2\)</span></li>
+<li><strong>Sum of Squares - Residual</strong> <span class="math inline">\((SS_Res)\)</span>: <span class="math inline">\(\sum_{i=1}^n (y_i - \hat{y_i})^2\)</span></li>
+</ul>
+<p>Furthermore the degrees of freedom (df) are as follows:</p>
+<ul>
+<li><span class="math inline">\(\textcolor{blue}{df_T = n-1}\)</span> Lose 1 df with constraint <span class="math inline">\(\sum_{i=1}^n (y_i = \overline{y})=0\)</span></li>
+<li><span class="math inline">\(\textcolor{blue}{df_R=1}\)</span> all <span class="math inline">\(\hat{y_i}\)</span> are on the regression line with 2 df (intercept and slope), but with constraint <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} = \overline{y})=0\)</span></li>
+<li><span class="math inline">\(\textcolor{blue}{df_{res}=n-2}\)</span> Lose 2 dfs because <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are estimated by <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> which are linear combo of <span class="math inline">\(y_i\)</span></li>
+</ul>
+<div id="analysis-of-variance-f-test" class="section level4">
+<h4>Analysis of Variance F test</h4>
+<p>We can define an F statistic:</p>
+<p><span class="math display">\[
+F_{test}=\frac {SS_R/df_R}{SS_{Res}/df_{Res}}=\frac {SS_R/1}{SS_{Res}/{(n-2)}}=\frac{MS_R}{MS_{Res}}
+\]</span>
+Therefore, to test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span> compute <span class="math inline">\(F_{test}\)</span> and reject <span class="math inline">\(H_0\)</span> if</p>
+<ul>
+<li><span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span></li>
+<li>p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></li>
+</ul>
+<p>Combining all these definitions we have…</p>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>ANOVA Table</caption>
+<thead>
+<tr class="header">
+<th align="left">Source of Variation</th>
+<th align="left">Sum of Squares</th>
+<th align="left">Degrees of Freedom</th>
+<th align="left">Mean Square</th>
+<th align="left"><span class="math inline">\(F_{test}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Regression</td>
+<td align="left"><span class="math inline">\(SS_R=\hat{\beta_1}S_{xy}\)</span></td>
+<td align="left">1</td>
+<td align="left"><span class="math inline">\(MS_R\)</span></td>
+<td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Residual</td>
+<td align="left"><span class="math inline">\(SS_{Res}=SS_T - {\beta_1}S_{xy}\)</span></td>
+<td align="left">n-2</td>
+<td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left"><span class="math inline">\(SS_T\)</span></td>
+<td align="left">n-1</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>In SLR, the <span class="math inline">\(F\)</span>-test of ANOVA give the same result as a two-sided <span class="math inline">\(t\)</span>-test of <span class="math inline">\(H_0\)</span>:<span class="math inline">\(\beta_1\)</span>=0</p>
+</div>
+</div>
+<div id="coefficient-of-determination" class="section level3">
+<h3>Coefficient of Determination</h3>
+<p>The <strong>coefficient of determination</strong> is defined as the following:</p>
+<p><span class="math display">\[
+R^2 = \frac {SS_R}{SS_T}=1-\frac {SS_{Res}}{SS_T}
+\]</span></p>
 </div>
 </div>
 </div>
