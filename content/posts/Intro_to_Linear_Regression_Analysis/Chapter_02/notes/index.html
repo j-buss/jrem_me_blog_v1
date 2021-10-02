@@ -282,8 +282,11 @@ E(b_1)=\beta_1
 <span class="math inline">\(\hat{\sigma}^2\)</span> is an unbiased estimator for <span class="math inline">\(\sigma^2\)</span>, i.e. <span class="math inline">\(E(MS_{Res})=\sigma^2\)</span></p>
 </div>
 </div>
-<div id="interval-estimation" class="section level3">
-<h3>Interval Estimation</h3>
+<div id="sampling-distribution" class="section level3">
+<h3>Sampling Distribution</h3>
+<p>We do not know the true values of <span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span>. Therefore we must derive them from the data. As such we must take into account how these values are derived and what the likelihood of the true value being within a certain range.</p>
+<div id="sampling-distribution-of-beta_0-and-beta_1" class="section level4">
+<h4>Sampling Distribution of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h4>
 <p>We know that the errors <span class="math inline">\(\epsilon_i\)</span> are <span class="math inline">\(NID(0,\sigma^2)\)</span> and the observations <span class="math inline">\(y_i\)</span> are <span class="math inline">\(NID(\beta_0 + \beta_1 x_i, \sigma^2)\)</span>. Also, <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span>. Therefore <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are normally distributed. We can synthesize the information this way:</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -300,16 +303,44 @@ Since we just said that they are normal we could standardize them:</p>
 \]</span>
 However, we don’t know the true value of <span class="math inline">\(\sigma^2\)</span>. Therefore we can use the estimate of <span class="math inline">\(\sigma\)</span> that we found earlier: <span class="math inline">\(\hat{\sigma}^2\)</span>.</p>
 <p><span class="math display">\[
-\begin{align*}
+\begin{align}
 \frac {b_1 - \beta_1}{\sqrt{\hat{\sigma}^2/S_{xx}}} &amp; \sim t_{n-2}\\
 \frac {b_0 - \beta_0}{\sqrt{\hat{\sigma}^2 (1/n + \overline{x}^2/S_{xx})}} &amp; \sim t_{n-2}\\
-\end{align*}
+\end{align}
 \]</span>
 We can use this information to construct a <span class="math inline">\((1-\alpha)100%\)</span> confidence intervals:</p>
 <ul>
 <li><span class="math inline">\(\beta_1\)</span>: <span class="math inline">\(b_1 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2/S_{xx}}\)</span></li>
-<li><span class="math inline">\(\beta_0\)</span>: <span class="math inline">\(b_0 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2/S_{xx}}\)</span></li>
+<li><span class="math inline">\(\beta_0\)</span>: <span class="math inline">\(b_0 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2 (1/n + \overline{x}^2/S_{xx})}\)</span></li>
 </ul>
+</div>
+<div id="sampling-distribution-of-hatsigma2" class="section level4">
+<h4>Sampling Distribution of <span class="math inline">\(\hat{\sigma^2}\)</span></h4>
+<p>It can be shown that <span class="math inline">\(\frac {SS_{res}}{\sigma^2}\)</span> follows a chi-squared distribution. We can use that fact to the sampling distribution of <span class="math inline">\(\hat{\sigma^2}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+\frac {SS_{res}}{\sigma^2} &amp; \sim \chi_{n-2}^2\\
+SS_{res} &amp; \sim \sigma^2 \chi_{n-2}^2\\
+\frac {1}{n-2}SS_{res} &amp; \sim \frac {1}{n-2} \sigma^2 \chi_{n-2}^2\\
+\hat{\sigma^2} = MS_{res} &amp; \sim \sigma^2 \frac {\chi_{n-2}^2}{n-2}  \\
+\end{align*}
+\]</span></p>
+<p>We can use this information to construct a <span class="math inline">\((1-\alpha)100%\)</span> confidence interval:</p>
+<ul>
+<li><span class="math inline">\(\sigma^2\)</span>: <span class="math inline">\(\left ( \frac{SS_{res}}{{\chi_{\alpha/2,n-2}^2}}, \frac{SS_{res}}{{\chi_{1-\alpha/2,n-2}^2}}\right )\)</span></li>
+</ul>
+</div>
+</div>
+<div id="hypothesis-testing" class="section level3">
+<h3>Hypothesis Testing</h3>
+<div id="standard-error" class="section level4">
+<h4>Standard Error</h4>
+<p>The denominator of the test statistics (equations #4 and #5) are often referred to as the <strong>standard error</strong>. Rewriting each of the terms as:</p>
+<ul>
+<li><span class="math inline">\(se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}\)</span></li>
+<li><span class="math inline">\(se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}\)</span></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
