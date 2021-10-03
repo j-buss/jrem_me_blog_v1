@@ -470,8 +470,92 @@ Therefore, to test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)
 <h3>Coefficient of Determination</h3>
 <p>The <strong>coefficient of determination</strong> is defined as the following:</p>
 <p><span class="math display">\[
-R^2 = \frac {SS_R}{SS_T}=1-\frac {SS_{Res}}{SS_T}
+R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
 \]</span></p>
+<p>Since <span class="math inline">\(SS_T\)</span> is the measure of variability in y without considering the effect of the regressor variable <span class="math inline">\(x\)</span> and <span class="math inline">\(SS_{Res}\)</span> is a measure of the variability in <span class="math inline">\(y\)</span> remaining after <span class="math inline">\(x\)</span> has been considered.</p>
+<p><span class="math inline">\(R^2\)</span> is often called the proportion of variation explained by the regressor <span class="math inline">\(x\)</span>.</p>
+</div>
+<div id="prediction" class="section level3">
+<h3>Prediction</h3>
+<div id="mean-response" class="section level4">
+<h4>Mean Response</h4>
+<p>If <span class="math inline">\(x_0\)</span> is within the range of <span class="math inline">\(x\)</span>, an unbiased point estimate of <span class="math inline">\(E(y|x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\widehat{E(y|x_0)}=\hat{\mu_{y|x_0}}=b_0+b_1x_0
+\]</span></p>
+<p>The variance of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:
+<span class="math display">\[
+\begin{align*}
+Var(\hat{\mu_{y|x_0}}) &amp;= Var(b_0+b_1 x_0) = Var(\overline{y} + b_1(x_0-\overline{x}))\\
+&amp;=\frac{\sigma^2}{n}+ \frac{\sigma^2 (x_0 - \overline{x})^2}{S_{xx}}=\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )
+\end{align*}
+\]</span></p>
+<p>So the sampling distribution of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:</p>
+<p><span class="math display">\[
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+So now we have
+<span class="math display">\[
+(\widehat{\mu_{y|x_0}}=b_0+b_1 x_0)
+\sim
+N \left ( \beta_0+\beta_1 x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+And we take the steps to normalize the standard distribution:</p>
+<p><span class="math display">\[
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\sigma \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+\]</span></p>
+<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
+<p><span class="math display">\[
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+\]</span></p>
+<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Confidence interval for <span class="math inline">\(E(y|x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+\]</span></p>
+<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
+<span class="math display">\[
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+\]</span></p>
+</div>
+<div id="point-estimate" class="section level4">
+<h4>Point Estimate</h4>
+<p>The sampling distribution of <span class="math inline">\(\hat{y_0}\)</span> is:</p>
+<p><span class="math display">\[
+\hat{y_0}=b_0+b_1 x_0 \sim 
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+The sampling distribution of <span class="math inline">\(y_0\)</span> is:</p>
+<p><span class="math display">\[
+y_0 \sim 
+N ( \beta_0+\beta_1x_0,\sigma^2)
+\]</span>
+So the distribution of <span class="math inline">\(y_0 -\hat{y_0}\)</span> is:</p>
+<p><span class="math display">\[
+y_0 -\hat{y_0}
+\sim
+N \left ( 0,\sigma^2 \left ( 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+And we take the steps to normalize the standard distribution:</p>
+<p><span class="math display">\[
+\frac {y_0 - \hat{y_0}}{\sigma \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+\]</span></p>
+<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
+<p><span class="math display">\[
+\frac {y_0 - \hat{y_0}}{\hat{\sigma} \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+\]</span></p>
+<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Prediction Interval for <span class="math inline">\(y_0(x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\hat{y_0} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+\]</span></p>
+<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
+<span class="math display">\[
+\hat{y_0}  \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left (1 +  \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+\]</span></p>
+</div>
 </div>
 </div>
 </div>

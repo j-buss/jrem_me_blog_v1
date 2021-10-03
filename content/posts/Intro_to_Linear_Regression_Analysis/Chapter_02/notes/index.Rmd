@@ -471,5 +471,110 @@ In SLR, the $F$-test of ANOVA give the same result as a two-sided $t$-test of $H
 The **coefficient of determination** is defined as the following:
 
 $$
-R^2 = \frac {SS_R}{SS_T}=1-\frac {SS_{Res}}{SS_T}
+R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
 $$
+
+Since $SS_T$ is the measure of variability in y without considering the effect of the regressor variable $x$ and $SS_{Res}$ is a measure of the variability in $y$ remaining after $x$ has been considered.
+
+$R^2$ is often called the proportion of variation explained by the regressor $x$.
+
+### Prediction
+
+#### Mean Response 
+
+If $x_0$ is within the range of $x$, an unbiased point estimate of $E(y|x_0)$ is:
+
+$$
+\widehat{E(y|x_0)}=\hat{\mu_{y|x_0}}=b_0+b_1x_0
+$$
+
+The variance of $\hat{\mu_{y|x_0}}$ is:
+$$
+\begin{align*}
+Var(\hat{\mu_{y|x_0}}) &= Var(b_0+b_1 x_0) = Var(\overline{y} + b_1(x_0-\overline{x}))\\
+&=\frac{\sigma^2}{n}+ \frac{\sigma^2 (x_0 - \overline{x})^2}{S_{xx}}=\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )
+\end{align*}
+$$
+
+So the sampling distribution of $\hat{\mu_{y|x_0}}$ is:
+
+$$
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+$$
+So now we have
+$$
+(\widehat{\mu_{y|x_0}}=b_0+b_1 x_0)
+\sim
+N \left ( \beta_0+\beta_1 x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+$$
+And we take the steps to normalize the standard distribution:
+
+$$
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\sigma \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+$$
+
+We don't know the value of $\sigma$ so we use the "hatted" version and use a $t$ distribution:
+
+$$
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+$$
+
+So we have the $(1-\alpha)100%$ Confidence interval for $E(y|x_0)$ is:
+
+$$
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+$$
+
+Or written slightly differently using the relationship of $\hat{\sigma^2} = MS_{Res}$:
+$$
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+$$
+
+#### Point Estimate
+
+The sampling distribution of $\hat{y_0}$ is:
+
+$$
+\hat{y_0}=b_0+b_1 x_0 \sim 
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+$$
+The sampling distribution of $y_0$ is:
+
+$$
+y_0 \sim 
+N ( \beta_0+\beta_1x_0,\sigma^2)
+$$
+So the distribution of $y_0 -\hat{y_0}$ is:
+
+$$
+y_0 -\hat{y_0}
+\sim
+N \left ( 0,\sigma^2 \left ( 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+$$
+And we take the steps to normalize the standard distribution:
+
+$$
+\frac {y_0 - \hat{y_0}}{\sigma \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+$$
+
+We don't know the value of $\sigma$ so we use the "hatted" version and use a $t$ distribution:
+
+$$
+\frac {y_0 - \hat{y_0}}{\hat{\sigma} \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+$$
+
+So we have the $(1-\alpha)100%$ Prediction Interval for $y_0(x_0)$ is:
+
+$$
+\hat{y_0} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+$$
+
+Or written slightly differently using the relationship of $\hat{\sigma^2} = MS_{Res}$:
+$$
+\hat{y_0}  \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left (1 +  \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+$$
+
