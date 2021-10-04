@@ -348,7 +348,16 @@ $$
 
 We can use this information to construct a $(1-\alpha)100%$ confidence interval:
 
-* $\sigma^2$: $\left ( \frac{SS_{res}}{{\chi_{\alpha/2,n-2}^2}}, \frac{SS_{res}}{{\chi_{1-\alpha/2,n-2}^2}}\right )$
+$\sigma^2$:
+
+$$\left ( 
+\frac{SS_{Res}}
+{\chi_{\alpha/2,n-2}^2}, 
+\frac{SS_{Res}}
+{\chi_{1-\alpha/2,n-2}^2}
+\right )
+$$
+
 
 ### Hypothesis Testing
 
