@@ -578,3 +578,98 @@ $$
 \sqrt{MS_{Res} \left (1 +  \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
 $$
 
+### Maximum Likelihood Estimation
+
+We can also use the **method of maximum likelihood** to derive the linear regression estimators.
+
+Let's start with what we know:
+
+* $Y_i = \beta_0 + \beta_1 x_i + \epsilon_i$
+* $\epsilon \overset{iid}{\sim} NID(0,\sigma^2)$ 
+
+This means that the sampling distribution of $Y_i$:
+$$
+Y_i \overset{iid}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2)
+$$
+Now let's write the probability density function (pdf) for the distribution of $Y_i$:
+$$
+f(y_i|\beta_0,\beta_1,\sigma^2) = \frac{e^{\frac
+{-(y_i-\beta_0-\beta_i x_i)^2}
+{2\sigma^2}}}
+{\sqrt{2 \pi \sigma^2}}
+$$
+
+Well, that is one function. Now to get the distribution for all n we take the product over all n:
+
+$$
+\begin{align*}
+L(\beta_0,\beta_1,\sigma^2|Y_i) &= \prod_{i=1}^n f(y_i|\beta_0,\beta_1,\sigma^2)\\
+&= \prod_{i=1}^n 
+e^{\frac
+{-(y_i-\beta_0-\beta_i x_i)^2}
+{2\sigma^2}}
+\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
+\end{align*}
+$$
+
+Now we use the product rule for exponents:
+
+$$
+\begin{align*}
+L(\beta_0,\beta_1,\sigma^2|Y_i) &= 
+&=  
+\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
+e^{\frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2}
+\end{align*}
+$$
+
+Now we take the natural log to get the log likelihood:
+
+$$
+\begin{align*}
+l(\beta_0,\beta_1,\sigma^2|Y_i) &= 
+\frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
+&= \frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
+&= \frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi ) - \frac {n}{2} ln(\sigma^2 )\\
+\end{align*}
+$$
+Now to find the values of $\beta_0, \beta_1$ and $\sigma^2$ we take the derivative with respect to each and set it equal to 0:
+
+$$ 
+\begin{align*}
+\frac{\partial l} {\partial {\beta_0}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &= 
+\frac{1}{\hat{\sigma}^2}
+\sum_{i=1}^n (y_i-\hat{\beta_0}-\hat{\beta}_1x_i) = 0\\
+\frac{\partial l}{\partial {\beta_1}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &= \frac{1}{\hat{\sigma}^2} \sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)x_i = 0\\
+\frac{\partial l}{\partial {\sigma^2}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &= 
+-\frac{1}{2\hat{\sigma}^2} +
+\frac{1}{2\hat{\sigma}^4} 
+\sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2 = 0\\
+\end{align*}
+$$
+
+Solving those equations leaves us with the following:
+
+$$
+\begin{align*}
+\hat{\beta_0} &= 
+\overline{y} - \hat{\beta_1} \overline {x}=b_0\\
+\hat{\beta_1} &= 
+\frac{\sum_{i=1}^n(x_i - \overline{x})y_i}
+{\sum_{i=1}^n(x_i -\overline{x})^2} 
+= b_1\\
+\hat{\sigma^2} &= 
+\frac{\sum_{i=1}^n(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)^2}
+{n} 
+\end{align*}
+$$
+
+Notes about MLE:
+
+* $\hat{\sigma^2}$ is biased
+* MLE requires full distributional assumptions whereas LSE does not
+* In general MLE have better statistical properties than LSE
