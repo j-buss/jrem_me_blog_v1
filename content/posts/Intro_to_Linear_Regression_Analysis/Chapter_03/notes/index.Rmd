@@ -1,0 +1,147 @@
+---
+title: Multiple Linear Regression
+author: Jeremy Buss
+date: '2021-10-09'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+```{r echo=FALSE}
+library(blogdown)
+```
+## Multiple Linear Regression (MLR)
+
+We have $k$ distinct predictors: 
+$$
+\begin{align}
+Y_i = \beta_0 + \beta_1 X_{i1} + \dots + \beta_k X_{ik} + \epsilon_i
+\end{align}
+$$
+
+### Sample MLR Model
+
+Given data $(x_{11},\dots,x_{1k},y_1),(x_{21},\dots,x_{2k},y_2),\dots,(x_{n1},\dots,x_{nk},y_n)$
+
+$$
+\begin{align*}
+y_i &= \beta_0 + \beta_1 x_{i1} + \dots + \beta_k x_{ik} + \epsilon_i\\
+&= \beta_0 + \sum_{j=1}^k\beta_j x_{ij} + \epsilon_i,\quad i=1,2,\dots,n\\
+\end{align*}
+$$
+
+The fit to this equation will be a hyperplane rather than a line as in SLR.
+
+A model with **interaction effects** may result if there is a term $x_1x_2$. It is still linear in $\beta_{12}$ and we could rewrite it as $x_3 = x_1x_2$ and let $\beta_3 = \beta_{12}$. Additionally **second order model interactions** like $...+\beta_{11}x_1^2+...$ could be rewritten as $x_3=x_1^2$ and $\beta_3 = \beta_{11}$
+
+In summary:
+
+> Any regression model that is linear in the parameters (i.e. the $\beta$'s) is a linear regression model, regardless of the shape of the surface that it generates 
+:Montgomer, Peck, Vinning pg. 69
+
+### Point Estimation of Model Parameters
+
+The Least Squares function is
+
+$$
+S(\beta_0, \beta_1,\dots,\beta_k) = \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left ( y_i - \beta_0 - \sum_{j=1}^k \beta_j x_{ij} \right )^2
+$$
+
+
+We minimize $S$ with respect to the coefficients $\beta_0,\beta_1,\dots,\beta_k$
+
+$$ 
+\begin{align}
+\frac{\partial S}{\partial {\beta_0}} \bigg\vert_{b_0,b_1,\dots,b_k} &= -2\sum_{i=1}^n \left ( y_i - b_0 - \sum_{j=1}^k b_j x_{ij} \right ) = 0\\
+\frac{\partial S}{\partial {\beta_j}} \bigg\vert_{b_0,b_1,\dots,b_k} &= -2\sum_{i=1}^n \left ( y_i-b_0-\sum_{j=1}^k b_j x_{ij} \right ) x_{ij} = 0
+\end{align}
+$$
+
+* $p=k+1$ equations with $p$ unknown parameters
+* The ordinary least squares estimators are the solutions to the normal equations.
+
+### Regression Model in Matrix Form
+
+$$
+\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}
+$$
+
+where
+$$
+\mathbf{y} = 
+\begin{bmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_n
+\end{bmatrix},
+\mathbf{X} = 
+\begin{bmatrix}
+1 & x_{11} & x_{12} & \dots & x_{1k}\\
+1 & x_{21} & x_{22} & \dots & x_{2k}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+1 & x_{n1} & x_{n2} & \dots & x_{nk}\\
+\end{bmatrix},
+\mathbf{\beta} = 
+\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_k
+\end{bmatrix},
+\mathbf{\epsilon} = 
+\begin{bmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\vdots\\
+\epsilon_n
+\end{bmatrix}
+$$
+
+* $\mathbf{X}$: Design matrix
+* $\mathbf{\epsilon} \sim N(\mathbf{0},\sigma^2 \mathbf{I})$
+
+### Least Squares Estimation in Matrix Form
+
+$$
+\begin{align*}
+S(\mathbf{\beta}) = \sum_{i=1}^n \epsilon_i^2 &= \mathbf{\epsilon^\intercal} \mathbf{\epsilon} = (\mathbf{y} - \mathbf{X}\mathbf{\beta})^\intercal(\mathbf{y} - \mathbf{X}\mathbf{\beta})\\
+&=\mathbf{y}^\intercal\mathbf{y}-
+\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}-
+\mathbf{y^\intercal}\mathbf{X}\mathbf{\beta}+
+\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}
+\end{align*}
+$$
+Since $\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}$ is a $1\times1$ matrix and it's transpose $\mathbf{y^\intercal}\mathbf{X}\mathbf{\beta}$ is the same scalar we will combine the two terms and we are left with:
+
+$$
+\begin{align}
+S(\mathbf{\beta}) &=\mathbf{y}^\intercal\mathbf{y}-
+2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}+
+\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}
+\end{align}
+$$
+
+Before we go further we need to know a few calculus matrix rules:
+
+1. $\frac{\partial{\mathbf{t}^\intercal} \mathbf{a}}{\partial{t}} = \frac{\partial{\mathbf{a}^\intercal} \mathbf{t}}{\partial{t}} = \mathbf{a}$
+2. $\frac{\partial{\mathbf{t}^\intercal} \mathbf{A} \mathbf{t}}{\partial{t}} = 2 \mathbf{A}\mathbf{t}$
+
+With regards to equation $\textcolor{red}{(4)}$ we take each of the terms in order:
+
+* The $\mathbf{y}^\intercal\mathbf{y}$ term does not have a $\beta$ term and therefore the derivative is 0
+* With the second term: $-2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}$ we will use the first 
+
+#### Normal Equation
+
+
+
+$$
+\frac{\partial{S}}{\partial\beta}\bigg\vert_{\mathbf{b}} = -2 \mathbf{X^\intercal} \mathbf{y} + 2 \mathbf{X^\intercal} \mathbf{X} \mathbf{b} = 0
+$$

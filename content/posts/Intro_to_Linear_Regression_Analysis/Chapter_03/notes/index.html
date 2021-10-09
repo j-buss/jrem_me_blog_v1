@@ -1,0 +1,140 @@
+---
+title: Multiple Linear Regression
+author: Jeremy Buss
+date: '2021-10-09'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="multiple-linear-regression-mlr" class="section level2">
+<h2>Multiple Linear Regression (MLR)</h2>
+<p>We have <span class="math inline">\(k\)</span> distinct predictors:
+<span class="math display">\[
+\begin{align}
+Y_i = \beta_0 + \beta_1 X_{i1} + \dots + \beta_k X_{ik} + \epsilon_i
+\end{align}
+\]</span></p>
+<div id="sample-mlr-model" class="section level3">
+<h3>Sample MLR Model</h3>
+<p>Given data <span class="math inline">\((x_{11},\dots,x_{1k},y_1),(x_{21},\dots,x_{2k},y_2),\dots,(x_{n1},\dots,x_{nk},y_n)\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+y_i &amp;= \beta_0 + \beta_1 x_{i1} + \dots + \beta_k x_{ik} + \epsilon_i\\
+&amp;= \beta_0 + \sum_{j=1}^k\beta_j x_{ij} + \epsilon_i,\quad i=1,2,\dots,n\\
+\end{align*}
+\]</span></p>
+<p>The fit to this equation will be a hyperplane rather than a line as in SLR.</p>
+<p>A model with <strong>interaction effects</strong> may result if there is a term <span class="math inline">\(x_1x_2\)</span>. It is still linear in <span class="math inline">\(\beta_{12}\)</span> and we could rewrite it as <span class="math inline">\(x_3 = x_1x_2\)</span> and let <span class="math inline">\(\beta_3 = \beta_{12}\)</span>. Additionally <strong>second order model interactions</strong> like <span class="math inline">\(...+\beta_{11}x_1^2+...\)</span> could be rewritten as <span class="math inline">\(x_3=x_1^2\)</span> and <span class="math inline">\(\beta_3 = \beta_{11}\)</span></p>
+<p>In summary:</p>
+<blockquote>
+<p>Any regression model that is linear in the parameters (i.e. the <span class="math inline">\(\beta\)</span>’s) is a linear regression model, regardless of the shape of the surface that it generates
+:Montgomer, Peck, Vinning pg. 69</p>
+</blockquote>
+</div>
+<div id="point-estimation-of-model-parameters" class="section level3">
+<h3>Point Estimation of Model Parameters</h3>
+<p>The Least Squares function is</p>
+<p><span class="math display">\[
+S(\beta_0, \beta_1,\dots,\beta_k) = \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left ( y_i - \beta_0 - \sum_{j=1}^k \beta_j x_{ij} \right )^2
+\]</span></p>
+<p>We minimize <span class="math inline">\(S\)</span> with respect to the coefficients <span class="math inline">\(\beta_0,\beta_1,\dots,\beta_k\)</span></p>
+<p><span class="math display">\[ 
+\begin{align}
+\frac{\partial S}{\partial {\beta_0}} \bigg\vert_{b_0,b_1,\dots,b_k} &amp;= -2\sum_{i=1}^n \left ( y_i - b_0 - \sum_{j=1}^k b_j x_{ij} \right ) = 0\\
+\frac{\partial S}{\partial {\beta_j}} \bigg\vert_{b_0,b_1,\dots,b_k} &amp;= -2\sum_{i=1}^n \left ( y_i-b_0-\sum_{j=1}^k b_j x_{ij} \right ) x_{ij} = 0
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(p=k+1\)</span> equations with <span class="math inline">\(p\)</span> unknown parameters</li>
+<li>The ordinary least squares estimators are the solutions to the normal equations.</li>
+</ul>
+</div>
+<div id="regression-model-in-matrix-form" class="section level3">
+<h3>Regression Model in Matrix Form</h3>
+<p><span class="math display">\[
+\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}
+\]</span></p>
+<p>where
+<span class="math display">\[
+\mathbf{y} = 
+\begin{bmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_n
+\end{bmatrix},
+\mathbf{X} = 
+\begin{bmatrix}
+1 &amp; x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k}\\
+1 &amp; x_{21} &amp; x_{22} &amp; \dots &amp; x_{2k}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+1 &amp; x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nk}\\
+\end{bmatrix},
+\mathbf{\beta} = 
+\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_k
+\end{bmatrix},
+\mathbf{\epsilon} = 
+\begin{bmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\vdots\\
+\epsilon_n
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathbf{X}\)</span>: Design matrix</li>
+<li><span class="math inline">\(\mathbf{\epsilon} \sim N(\mathbf{0},\sigma^2 \mathbf{I})\)</span></li>
+</ul>
+</div>
+<div id="least-squares-estimation-in-matrix-form" class="section level3">
+<h3>Least Squares Estimation in Matrix Form</h3>
+<p><span class="math display">\[
+\begin{align*}
+S(\mathbf{\beta}) = \sum_{i=1}^n \epsilon_i^2 &amp;= \mathbf{\epsilon^\intercal} \mathbf{\epsilon} = (\mathbf{y} - \mathbf{X}\mathbf{\beta})^\intercal(\mathbf{y} - \mathbf{X}\mathbf{\beta})\\
+&amp;=\mathbf{y}^\intercal\mathbf{y}-
+\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}-
+\mathbf{y^\intercal}\mathbf{X}\mathbf{\beta}+
+\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}
+\end{align*}
+\]</span>
+Since <span class="math inline">\(\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}\)</span> is a <span class="math inline">\(1\times1\)</span> matrix and it’s transpose <span class="math inline">\(\mathbf{y^\intercal}\mathbf{X}\mathbf{\beta}\)</span> is the same scalar we will combine the two terms and we are left with:</p>
+<p><span class="math display">\[
+\begin{align}
+S(\mathbf{\beta}) &amp;=\mathbf{y}^\intercal\mathbf{y}-
+2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}+
+\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}
+\end{align}
+\]</span></p>
+<p>Before we go further we need to know a few calculus matrix rules:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\frac{\partial{\mathbf{t}^\intercal} \mathbf{a}}{\partial{t}} = \frac{\partial{\mathbf{a}^\intercal} \mathbf{t}}{\partial{t}} = \mathbf{a}\)</span></li>
+<li><span class="math inline">\(\frac{\partial{\mathbf{t}^\intercal} \mathbf{A} \mathbf{t}}{\partial{t}} = 2 \mathbf{A}\mathbf{t}\)</span></li>
+</ol>
+<p>With regards to equation <span class="math inline">\(\textcolor{red}{(4)}\)</span> we take each of the terms in order:</p>
+<ul>
+<li>The <span class="math inline">\(\mathbf{y}^\intercal\mathbf{y}\)</span> term does not have a <span class="math inline">\(\beta\)</span> term and therefore the derivative is 0</li>
+<li>With the second term: <span class="math inline">\(-2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}\)</span> we will use the first</li>
+</ul>
+<div id="normal-equation" class="section level4">
+<h4>Normal Equation</h4>
+<p><span class="math display">\[
+\frac{\partial{S}}{\partial\beta}\bigg\vert_{\mathbf{b}} = -2 \mathbf{X^\intercal} \mathbf{y} + 2 \mathbf{X^\intercal} \mathbf{X} \mathbf{b} = 0
+\]</span></p>
+</div>
+</div>
+</div>
