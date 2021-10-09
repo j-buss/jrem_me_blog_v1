@@ -138,7 +138,7 @@ Var(b_1)&amp;=Var \left (\sum_{i=1}^n c_i y_i \right ) = \sum_{i=1}^n c_i^2 Var(
 <p>Since the observations <span class="math inline">\(y_i\)</span> are uncorrelated then the variance of the sum is just the sum of the variances. Since the <span class="math inline">\(Var(y_i)=\sigma^2\)</span></p>
 <p><span class="math display">\[
 \begin{align*}
-Var(b_1)&amp;= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}} = \frac{\sigma^2}{S_{xx}}
+Var(b_1)&amp;= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}^2} = \frac{\sigma^2}{S_{xx}}
 \end{align*}
 \]</span></p>
 </div>
@@ -412,8 +412,8 @@ SS_T &amp;= SS_R + SS_{Res}
 Where the terms are:</p>
 <ul>
 <li><strong>Sum of Squares - Total</strong> <span class="math inline">\((SS_T)\)</span> : <span class="math inline">\(\sum_{i=1}^n (y_i - \overline{y})^2\)</span></li>
-<li><strong>Sum of Squares - Regression</strong> <span class="math inline">\((SS_R)\)</span>: <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} - \overline{y})^2\)</span></li>
-<li><strong>Sum of Squares - Residual</strong> <span class="math inline">\((SS_Res)\)</span>: <span class="math inline">\(\sum_{i=1}^n (y_i - \hat{y_i})^2\)</span></li>
+<li><strong>Sum of Squares - Regression</strong> <span class="math inline">\((SS_R)\)</span>: <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} - \overline{y})^2\)</span> or <span class="math inline">\(\hat{\beta_1}S_{xy}\)</span></li>
+<li><strong>Sum of Squares - Residual</strong> <span class="math inline">\((SS_{Res})\)</span>: <span class="math inline">\(\sum_{i=1}^n (y_i - \hat{y_i})^2\)</span> or <span class="math inline">\(SS_T - \hat{\beta_1}S_{xy}\)</span></li>
 </ul>
 <p>Furthermore the degrees of freedom (df) are as follows:</p>
 <ul>
@@ -447,14 +447,14 @@ Therefore, to test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)
 <tbody>
 <tr class="odd">
 <td align="left">Regression</td>
-<td align="left"><span class="math inline">\(SS_R=\hat{\beta_1}S_{xy}\)</span></td>
+<td align="left"><span class="math inline">\(SS_R\)</span></td>
 <td align="left">1</td>
 <td align="left"><span class="math inline">\(MS_R\)</span></td>
 <td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Residual</td>
-<td align="left"><span class="math inline">\(SS_{Res}=SS_T - {\beta_1}S_{xy}\)</span></td>
+<td align="left"><span class="math inline">\(SS_{Res}\)</span></td>
 <td align="left">n-2</td>
 <td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
 <td align="left"></td>

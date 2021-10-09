@@ -140,7 +140,7 @@ Since the observations $y_i$ are uncorrelated then the variance of the sum is ju
 
 $$
 \begin{align*}
-Var(b_1)&= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}} = \frac{\sigma^2}{S_{xx}}
+Var(b_1)&= \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}^2} = \frac{\sigma^2}{S_{xx}}
 \end{align*}
 $$
 
@@ -438,8 +438,8 @@ $$
 Where the terms are:
 
 * **Sum of Squares - Total** $(SS_T)$ : $\sum_{i=1}^n (y_i - \overline{y})^2$
-* **Sum of Squares - Regression** $(SS_R)$: $\sum_{i=1}^n (\hat{y_i} - \overline{y})^2$
-* **Sum of Squares - Residual** $(SS_Res)$: $\sum_{i=1}^n (y_i - \hat{y_i})^2$
+* **Sum of Squares - Regression** $(SS_R)$: $\sum_{i=1}^n (\hat{y_i} - \overline{y})^2$ or $\hat{\beta_1}S_{xy}$
+* **Sum of Squares - Residual** $(SS_{Res})$: $\sum_{i=1}^n (y_i - \hat{y_i})^2$ or $SS_T - \hat{\beta_1}S_{xy}$
 
 Furthermore the degrees of freedom (df) are as follows:
 
@@ -462,9 +462,9 @@ Therefore, to test the hypothesis $H_0: \beta_1 = 0$ compute $F_{test}$ and reje
 Combining all these definitions we have...
 
 
-```{r echo=FALSE, results='asis'}
+```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
-                "Sum of Squares" = c("$SS_R=\\hat{\\beta_1}S_{xy}$","$SS_{Res}=SS_T - {\\beta_1}S_{xy}$","$SS_T$"),
+                "Sum of Squares" = c("$SS_R$","$SS_{Res}$","$SS_T$"),
                 "Degrees of Freedom" = c("1", "n-2", "n-1"),
                 "Mean Square" = c("$MS_R$", "$MS_{Res}$",""),
                 "$F_0$" = c("$MS_R/MS_{Res}$", "","")
