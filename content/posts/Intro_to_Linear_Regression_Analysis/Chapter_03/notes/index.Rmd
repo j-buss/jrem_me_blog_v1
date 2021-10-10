@@ -136,7 +136,10 @@ Before we go further we need to know a few calculus matrix rules:
 With regards to equation $\textcolor{red}{(4)}$ we take each of the terms in order:
 
 * The $\mathbf{y}^\intercal\mathbf{y}$ term does not have a $\beta$ term and therefore the derivative is 0
-* With the second term: $-2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}$ we will use the first 
+* With the second term: $-2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}$ we will use the first of the derivative rules and simply end up with $-2\mathbf{X}^\intercal\mathbf{y}$
+* With the third term $\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}$ we use the 2nd matrix derivative rule. So see this we let $\beta$ equal to the $t$ in the rule and $\mathbf{X}^\intercal\mathbf{X}$ be equal to the $\mathbf{A}$ and substituting in $\mathbf{b}$ for $\mathbf{\beta}$
+
+So together we are left with:
 
 #### Normal Equation
 
@@ -145,3 +148,37 @@ With regards to equation $\textcolor{red}{(4)}$ we take each of the terms in ord
 $$
 \frac{\partial{S}}{\partial\beta}\bigg\vert_{\mathbf{b}} = -2 \mathbf{X^\intercal} \mathbf{y} + 2 \mathbf{X^\intercal} \mathbf{X} \mathbf{b} = 0
 $$
+and then solving for $\mathbf{b}$ we have:
+
+$$
+\begin{align}
+\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}
+\end{align}
+$$
+
+#### Hat Matrix
+
+The vector of fitted values $\hat{y_i}$ corresponding to $y_i$ is:
+
+$$
+\mathbf{\hat{y}} = \mathbf{X} \mathbf{b} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} \mathbf{y} = \mathbf{H} \mathbf{y}
+$$
+
+Whereby the $n \times n$ matrix $\mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}$ is called the **hat matrix**.
+
+The vector of residuals $e_i = y_i = \hat{y_i}$ is:
+
+$$
+\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y}
+$$
+
+Note:
+
+* Both $\mathbf{H}$ and $\mathbf{I-H}$ are __symmetric__ and __idempotent__. In other words, they are **projection** matrices
+* $\mathbf{H}$ projects $\mathbf{y}$ to $\mathbf{\hat{y}}$ on the $p$-dimension space spanned by columns of $\mathbf{X}$, or the column space of $\mathbf{X}$, $Col(\mathbf{X})$
+* $\mathbf{I-H}$ projects $\mathbf{y}$ to $\mathbf{e}$ on the space **perpendicular** to $Col(\mathbf{x})$, or $Col(X)^\bot$
+
+lkjhlkjh
+
+![](images/Geometricl_Interpretation_of_Least_Squares.png)
+lkjhlkjh
