@@ -1,0 +1,269 @@
+---
+title: "Linear Regression - Cheat Sheet"
+author: "Jeremy Buss"
+date: '2021-10-10'
+output: pdf_document
+categories:
+- Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+- Applied Stats
+- Regression Analysis
+tags:
+- R
+- linear regression
+draft: yes
+katex: yes
+slug: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p><span class="math inline">\(y=\beta_0 + \beta_1 x\)</span></p>
+<p><span class="math inline">\(e_i = y_i - \hat{y_i} = y_i - (b_0 + b_i x_i)\)</span></p>
+<p><span class="math inline">\(SS_{res} = \sum_{i=1}^n e_i^2= \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2\)</span></p>
+<p><span class="math inline">\(\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} = -2\sum_{i=1}^n(y_i-b_0-b_1x_i)\)</span></p>
+<p><span class="math inline">\(\frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} = -2\sum_{i=1}^nx_i(y_i-b_0-b_1x_i)\)</span></p>
+<p><span class="math inline">\(b_0 = \overline{y} - b_1 \overline {x}\)</span></p>
+<p><span class="math inline">\(b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = \frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})} =\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=\frac{S_{xy}}{S_{xx}}\)</span></p>
+<p><span class="math inline">\(Var(b_1) = \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}^2} = \frac{\sigma^2}{S_{xx}}\)</span></p>
+<p><span class="math inline">\(Var(b_0) = \sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}} \right )\)</span></p>
+<p><span class="math inline">\(E(b_0) = \beta_0; E(b_1)=\beta_1\)</span></p>
+<p><span class="math inline">\(\sum_{i=1}^n(y_i - \hat {y_i}) = \sum_{i=1}^n e_i = 0\)</span></p>
+<p><span class="math inline">\(\sum_{i=1}^ny_i = \sum_{i=1}^n \hat{y}\)</span></p>
+<p>Least Squares Regression line passes through the centroid point <span class="math inline">\((\overline{x},\overline{y})\)</span></p>
+<p><span class="math inline">\(\sum_{i=1}^n e_i x_i = 0\)</span></p>
+<p><span class="math inline">\(\sum_{i=1}^n e_i \hat{y_i} = 0\)</span></p>
+<p><span class="math inline">\(\hat{\sigma}^2 = \frac {SS_{Res}}{n-2}=MS_{Res}\)</span></p>
+<p><span class="math inline">\(\beta_1\)</span>: <span class="math inline">\(b_1 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2/S_{xx}}\)</span></p>
+<p><span class="math inline">\(\beta_0\)</span>: <span class="math inline">\(b_0 \pm t_{\alpha/2,n-2} \sqrt{\hat{\sigma}^2 (1/n + \overline{x}^2/S_{xx})}\)</span></p>
+<p><span class="math inline">\(\hat{\sigma^2} = MS_{res} \sim \sigma^2 \frac {\chi_{n-2}^2}{n-2}\)</span></p>
+<p><span class="math inline">\(\hat{\sigma^2} \space \text{range} \space (\frac{SS_{Res}}{\chi_{\alpha/2,n-2}^2},\frac{SS_{Res}}{\chi_{1-\alpha/2,n-2}^2})\)</span></p>
+<p><span class="math inline">\(se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}\)</span></p>
+<p><span class="math inline">\(se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}\)</span></p>
+<p>Reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if Critical Value Method: <span class="math inline">\(\vert t_{test} \vert &gt; t_{\alpha/2,n-2}\)</span>
+P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{test} \vert ) &lt; \alpha\)</span></p>
+<p>Test statistic: <span class="math inline">\(t_{test} = \frac {b_1 - \beta_1^0}{se(b_1)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></p>
+<p>Test statistic: <span class="math inline">\(t_{test} = \frac {b_0 - \beta_0^0}{se(b_0)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></p>
+<p><span class="math inline">\((SS_T)\)</span> : <span class="math inline">\(\sum_{i=1}^n (y_i - \overline{y})^2\)</span></p>
+<p><span class="math inline">\((SS_R)\)</span>: <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} - \overline{y})^2\)</span> or <span class="math inline">\(\hat{\beta_1}S_{xy}\)</span></p>
+<p><span class="math inline">\((SS_{Res})\)</span>: <span class="math inline">\(\sum_{i=1}^n (y_i - \hat{y_i})^2\)</span> or <span class="math inline">\(SS_T - \hat{\beta_1}S_{xy}\)</span></p>
+<p><span class="math inline">\(F_{test}=\frac {SS_R/df_R}{SS_{Res}/df_{Res}}=\frac{SS_R/1}{SS_{Res}/{(n-2)}}=\frac{MS_R}{MS_{Res}}\)</span></p>
+<p>Therefore, to test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span> compute <span class="math inline">\(F_{test}\)</span> and reject <span class="math inline">\(H_0\)</span> if</p>
+<ul>
+<li><span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span></li>
+<li>p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></li>
+</ul>
+<p>Combining all these definitions we have…</p>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>ANOVA Table</caption>
+<thead>
+<tr class="header">
+<th align="left">Source of Variation</th>
+<th align="left">Sum of Squares</th>
+<th align="left">Degrees of Freedom</th>
+<th align="left">Mean Square</th>
+<th align="left"><span class="math inline">\(F_{test}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Regression</td>
+<td align="left"><span class="math inline">\(SS_R\)</span></td>
+<td align="left">1</td>
+<td align="left"><span class="math inline">\(MS_R\)</span></td>
+<td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Residual</td>
+<td align="left"><span class="math inline">\(SS_{Res}\)</span></td>
+<td align="left">n-2</td>
+<td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left"><span class="math inline">\(SS_T\)</span></td>
+<td align="left">n-1</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>In SLR, the <span class="math inline">\(F\)</span>-test of ANOVA give the same result as a two-sided <span class="math inline">\(t\)</span>-test of <span class="math inline">\(H_0\)</span>:<span class="math inline">\(\beta_1\)</span>=0</p>
+<div id="coefficient-of-determination" class="section level3">
+<h3>Coefficient of Determination</h3>
+<p>The <strong>coefficient of determination</strong> is defined as the following:</p>
+<p><span class="math display">\[
+R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
+\]</span></p>
+<p>Since <span class="math inline">\(SS_T\)</span> is the measure of variability in y without considering the effect of the regressor variable <span class="math inline">\(x\)</span> and <span class="math inline">\(SS_{Res}\)</span> is a measure of the variability in <span class="math inline">\(y\)</span> remaining after <span class="math inline">\(x\)</span> has been considered.</p>
+<p><span class="math inline">\(R^2\)</span> is often called the proportion of variation explained by the regressor <span class="math inline">\(x\)</span>.</p>
+</div>
+<div id="prediction" class="section level3">
+<h3>Prediction</h3>
+<div id="mean-response" class="section level4">
+<h4>Mean Response</h4>
+<p>If <span class="math inline">\(x_0\)</span> is within the range of <span class="math inline">\(x\)</span>, an unbiased point estimate of <span class="math inline">\(E(y|x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\widehat{E(y|x_0)}=\hat{\mu_{y|x_0}}=b_0+b_1x_0
+\]</span></p>
+<p>The variance of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:
+<span class="math display">\[
+\begin{align*}
+Var(\hat{\mu_{y|x_0}}) &amp;= Var(b_0+b_1 x_0) = Var(\overline{y} + b_1(x_0-\overline{x}))\\
+&amp;=\frac{\sigma^2}{n}+ \frac{\sigma^2 (x_0 - \overline{x})^2}{S_{xx}}=\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )
+\end{align*}
+\]</span></p>
+<p>So the sampling distribution of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:</p>
+<p><span class="math display">\[
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+So now we have
+<span class="math display">\[
+(\widehat{\mu_{y|x_0}}=b_0+b_1 x_0)
+\sim
+N \left ( \beta_0+\beta_1 x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+And we take the steps to normalize the standard distribution:</p>
+<p><span class="math display">\[
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\sigma \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+\]</span></p>
+<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
+<p><span class="math display">\[
+\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+\]</span></p>
+<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Confidence interval for <span class="math inline">\(E(y|x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+\]</span></p>
+<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
+<span class="math display">\[
+\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+\]</span></p>
+</div>
+<div id="point-estimate" class="section level4">
+<h4>Point Estimate</h4>
+<p>The sampling distribution of <span class="math inline">\(\hat{y_0}\)</span> is:</p>
+<p><span class="math display">\[
+\hat{y_0}=b_0+b_1 x_0 \sim 
+N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+The sampling distribution of <span class="math inline">\(y_0\)</span> is:</p>
+<p><span class="math display">\[
+y_0 \sim 
+N ( \beta_0+\beta_1x_0,\sigma^2)
+\]</span>
+So the distribution of <span class="math inline">\(y_0 -\hat{y_0}\)</span> is:</p>
+<p><span class="math display">\[
+y_0 -\hat{y_0}
+\sim
+N \left ( 0,\sigma^2 \left ( 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
+\]</span>
+And we take the steps to normalize the standard distribution:</p>
+<p><span class="math display">\[
+\frac {y_0 - \hat{y_0}}{\sigma \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
+\]</span></p>
+<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
+<p><span class="math display">\[
+\frac {y_0 - \hat{y_0}}{\hat{\sigma} \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
+\]</span></p>
+<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Prediction Interval for <span class="math inline">\(y_0(x_0)\)</span> is:</p>
+<p><span class="math display">\[
+\hat{y_0} \pm t_{\alpha/2,n-2} 
+\hat{\sigma} \sqrt{1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
+\]</span></p>
+<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
+<span class="math display">\[
+\hat{y_0}  \pm t_{\alpha/2,n-2} 
+\sqrt{MS_{Res} \left (1 +  \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
+\]</span></p>
+</div>
+</div>
+<div id="maximum-likelihood-estimation" class="section level3">
+<h3>Maximum Likelihood Estimation</h3>
+<p>We can also use the <strong>method of maximum likelihood</strong> to derive the linear regression estimators.</p>
+<p>Let’s start with what we know:</p>
+<ul>
+<li><span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span></li>
+<li><span class="math inline">\(\epsilon \overset{iid}{\sim} NID(0,\sigma^2)\)</span></li>
+</ul>
+<p>This means that the sampling distribution of <span class="math inline">\(Y_i\)</span>:
+<span class="math display">\[
+Y_i \overset{iid}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2)
+\]</span>
+Now let’s write the probability density function (pdf) for the distribution of <span class="math inline">\(Y_i\)</span>:
+<span class="math display">\[
+f(y_i|\beta_0,\beta_1,\sigma^2) = \frac{e^{\frac
+{-(y_i-\beta_0-\beta_i x_i)^2}
+{2\sigma^2}}}
+{\sqrt{2 \pi \sigma^2}}
+\]</span></p>
+<p>Well, that is one function. Now to get the distribution for all n we take the product over all n:</p>
+<p><span class="math display">\[
+\begin{align*}
+L(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= \prod_{i=1}^n f(y_i|\beta_0,\beta_1,\sigma^2)\\
+&amp;= \prod_{i=1}^n 
+e^{\frac
+{-(y_i-\beta_0-\beta_i x_i)^2}
+{2\sigma^2}}
+\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
+\end{align*}
+\]</span></p>
+<p>Now we use the product rule for exponents:</p>
+<p><span class="math display">\[
+\begin{align*}
+L(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= 
+&amp;=  
+\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
+e^{\frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2}
+\end{align*}
+\]</span></p>
+<p>Now we take the natural log to get the log likelihood:</p>
+<p><span class="math display">\[
+\begin{align*}
+l(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= 
+\frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
+&amp;= \frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
+&amp;= \frac{-1}{2\sigma^2}
+\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi ) - \frac {n}{2} ln(\sigma^2 )\\
+\end{align*}
+\]</span>
+Now to find the values of <span class="math inline">\(\beta_0, \beta_1\)</span> and <span class="math inline">\(\sigma^2\)</span> we take the derivative with respect to each and set it equal to 0:</p>
+<p><span class="math display">\[ 
+\begin{align*}
+\frac{\partial l} {\partial {\beta_0}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= 
+\frac{1}{\hat{\sigma}^2}
+\sum_{i=1}^n (y_i-\hat{\beta_0}-\hat{\beta}_1x_i) = 0\\
+\frac{\partial l}{\partial {\beta_1}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= \frac{1}{\hat{\sigma}^2} \sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)x_i = 0\\
+\frac{\partial l}{\partial {\sigma^2}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= 
+-\frac{1}{2\hat{\sigma}^2} +
+\frac{1}{2\hat{\sigma}^4} 
+\sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2 = 0\\
+\end{align*}
+\]</span></p>
+<p>Solving those equations leaves us with the following:</p>
+<p><span class="math display">\[
+\begin{align*}
+\hat{\beta_0} &amp;= 
+\overline{y} - \hat{\beta_1} \overline {x}=b_0\\
+\hat{\beta_1} &amp;= 
+\frac{\sum_{i=1}^n(x_i - \overline{x})y_i}
+{\sum_{i=1}^n(x_i -\overline{x})^2} 
+= b_1\\
+\hat{\sigma^2} &amp;= 
+\frac{\sum_{i=1}^n(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)^2}
+{n} 
+\end{align*}
+\]</span></p>
+<p>Notes about MLE:</p>
+<ul>
+<li><span class="math inline">\(\hat{\sigma^2}\)</span> is biased</li>
+<li>MLE requires full distributional assumptions whereas LSE does not</li>
+<li>In general MLE have better statistical properties than LSE</li>
+</ul>
+</div>
