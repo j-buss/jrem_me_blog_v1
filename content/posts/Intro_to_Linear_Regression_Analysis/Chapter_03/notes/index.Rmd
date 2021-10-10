@@ -178,7 +178,137 @@ Note:
 * $\mathbf{H}$ projects $\mathbf{y}$ to $\mathbf{\hat{y}}$ on the $p$-dimension space spanned by columns of $\mathbf{X}$, or the column space of $\mathbf{X}$, $Col(\mathbf{X})$
 * $\mathbf{I-H}$ projects $\mathbf{y}$ to $\mathbf{e}$ on the space **perpendicular** to $Col(\mathbf{x})$, or $Col(X)^\bot$
 
-lkjhlkjh
+### Geometrical Interpretation of Least Squares
+
+* $Col(\mathbf{X}) = \{ \mathbf{X}\mathbf{b}: \mathbf{b} \in \mathbf{R}^p \}$
+* $\mathbf{y} \notin Col(\mathbf{X})$
+* $\hat{\mathbf{y}} = \mathbf{Xb} = \mathbf{Hy} \in Col(\mathbf{X})$
+* Minimize the distance of $\textcolor{red}{A}$ to $Col(\mathbf{X})$: Find the point in $Col(\mathbf{X})$ that is closest to $\textcolor{red}{A}$...that is $\textcolor{red}{C}$  
+* Distance is minimized when the point in spaces is the foot of the line from $\textcolor{red}{A}$ **normal** to the space. That is point $\textcolor{red}{C}$
+* $\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y} \bot Col(\mathbf{X})$
+* $\mathbf{X^\intercal} (\mathbf{y} - \mathbf{Xb})=0$
+* Searching for the LS solution **b** that minimizes $SS_{Res}$ is the same as locatin the point $\mathbf{Xb} \in Col(\mathbf{X})$ that is as clost to $\mathbf{y}$ as possible!
 
 ![](images/Geometricl_Interpretation_of_Least_Squares.png)
-lkjhlkjh
+
+### Properties of Least Square Estimators
+
+Similar to Simple Linear Regression **b** is BLUE or Best Linear Unbiased Estimator.
+
+#### 1. Best
+
+A least square estimator is best if the variance is least.
+
+$$
+\begin{align*}
+Cov(\mathbf{b}) &= E [(\mathbf{b} - E(\mathbf{b}))(\mathbf{b} - E(\mathbf{b}))^\intercal]\\
+Var(\mathbf{b}) &= Var [(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}]\\
+&=\sigma^2(\mathbf{X}^\intercal \mathbf{X})^{-1}
+\end{align*}
+$$
+
+#### 2. Linear
+
+A least square estimator is a linear combination of y, which we see from equation $\textcolor{red}{(5)}$
+
+#### 3. Unbiased
+
+A least square estimator is unbiased if the expected value of the estimator is the same as the actual $\mathbf{\beta}$
+
+$$
+\begin{align*}
+E(\mathbf{b})&=E[(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}]\\
+&=E[(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal (\mathbf{X \beta} + \mathbf{\epsilon})]\\
+&=\mathbf{\beta}
+\end{align*}
+$$
+
+### Estimate of $\sigma^2$
+
+$$
+\begin{align*}
+SS_{Res}= \sum_{i=1}^n (y_i - \hat{y_i})^2 &= \sum_{i=1}^n e_i^2 \\
+&= \mathbf{e^\intercal e}\\
+&= \mathbf{(y-Xb)^\intercal(y-Xb)}\\
+&= \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y} - \mathbf{y^\intercal Xb} +  \mathbf{b^\intercal X^\intercal  X b}
+\end{align*}
+$$
+
+However, just as we saw with equation $\textcolor{red}{(4)}$ above $\mathbf{b^\intercal}\mathbf{X}^\intercal\mathbf{y}$ is a $1\times1$ matrix and it's transpose $\mathbf{y^\intercal}\mathbf{X}\mathbf{b}$ is the same scalar we will combine the two terms and we are left with:
+
+$$
+\begin{align*}
+SS_{Res}=  \mathbf{y^\intercal y} - 2\mathbf{b^\intercal X^\intercal y} +  \mathbf{b^\intercal X^\intercal  X b}
+\end{align*}
+$$
+
+However, since $\mathbf{X^\intercal X b} = \mathbf{X^\intercal y}$  we can clean up. Additionally looking at the relationship between $MS_{res}$ and $SS_{res}$:
+
+$$
+\begin{align}
+SS_{Res} &=  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\\
+MS_{Res} &= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
+\end{align}
+$$
+
+* $\hat{\sigma^2}=MS_{Res}$ is an unbiased estimator for $\sigma^2$, i.e. $E[MS_{Res}] = \sigma^2$
+* $\hat{\sigma^2}$ of SLR may be larger than the $\hat{\sigma^2}$ of MLR.
+* $\hat{\sigma^2}$ measures the variation of the _unexplained_ noise about the fitted regression line/hyperplane, so we prefer a small residual mean square.
+
+### Test for Significance of Regression
+
+Test for significance: Determine if there is a **linear** relationship between the response and **andy** of the regressor varaibles.
+
+* $H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0$ 
+* $H_1: \beta_j \ne 0$ for at least one $j$
+
+* $F_{test} > F_{\alpha,1,n-2}$
+* p-value = $P(F_{1,n-2} > F_{test}) > \alpha$
+
+Combining all these definitions we have...
+
+
+```{r echo=FALSE, results='asis', escape=FALSE}
+x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
+                "Sum of Squares" = c("$SS_R$","$SS_{Res}$","$SS_T$"),
+                "Degrees of Freedom" = c("k", "n-k-1", "n-1"),
+                "Mean Square" = c("$MS_R$", "$MS_{Res}$",""),
+                "$F_0$" = c("$MS_R/MS_{Res}$", "","")
+                )
+knitr::kable(x=x,caption = "ANOVA Table",format="markdown", escape=FALSE, col.names=c("Source of Variation","Sum of Squares","Degrees of Freedom","Mean Square","$F_{test}$"))
+
+```
+* _Note that this table is nearly the same as for an SLR. The difference being the degrees of freedom. variable k which depicts the # of coefficients for the regressors. For SLR this is 1 so the degrees of freedom are 1, n-2, n-1 respectively, but for MLR we see it is updated to k, n-k-1, n-1; which upon further inspection is exaclty the same as SLR with a k=1._
+
+We have determined $SS_{Res}$ in equation $\textcolor{red}{(6)}$ from above. So let's look at how we can find $SS_T$
+
+$$
+\begin{align*}
+SS_T &= \sum_{i=1}^n (y_i - \overline{y})^2\\
+&= \sum_{i=1}^n y_i^2 + \sum_{i=1}^n -2y_i\overline{y} + \sum_{i=1}^n \overline{y}^2\\
+&= \sum_{i=1}^n y_i^2 + -2 \overline{y} \sum_{i=1}^n y_i + \overline{y}^2 \sum_{i=1}^n 1\\
+\end{align*}
+$$
+
+Now we leverage a relationship: $\sum_{i=1}^n y_i = n \overline{y}$ to adjust the second term and cleaning up the last term whereby $\sum_{i=1}^n 1 = n$:
+
+$$
+\begin{align*}
+SS_T &= \sum_{i=1}^n y_i^2 + -2 \overline{y} n \overline{y} + \overline{y}^2 n\\
+&= \sum_{i=1}^n y_i^2 + -2 n \overline{y}^2 + n \overline{y}^2\\
+&= \sum_{i=1}^n y_i^2 + - n \overline{y}^2\\
+\end{align*}
+$$
+We make two more substitution: $\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i$ and the fact that $\sum_{i=1}^n y_i^2 = \mathbf{y^\intercal y}$
+
+$$
+\begin{align*}
+SS_T &= \mathbf{y^\intercal y} + - n \left ( \frac{1}{n} \sum_{i=1}^n y_i\right )^2\\
+&= \mathbf{y^\intercal y} + - \frac{n}{n^2} \sum_{i=1}^n y_i^2\\
+&= \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\\
+\end{align*}
+$$
+
+* $SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
+* $SS_{Res} =  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}$
+* $SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$

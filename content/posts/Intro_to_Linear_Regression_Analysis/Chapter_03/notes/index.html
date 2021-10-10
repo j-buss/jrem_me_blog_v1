@@ -161,9 +161,158 @@ and then solving for <span class="math inline">\(\mathbf{b}\)</span> we have:</p
 <li><span class="math inline">\(\mathbf{H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> to <span class="math inline">\(\mathbf{\hat{y}}\)</span> on the <span class="math inline">\(p\)</span>-dimension space spanned by columns of <span class="math inline">\(\mathbf{X}\)</span>, or the column space of <span class="math inline">\(\mathbf{X}\)</span>, <span class="math inline">\(Col(\mathbf{X})\)</span></li>
 <li><span class="math inline">\(\mathbf{I-H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> to <span class="math inline">\(\mathbf{e}\)</span> on the space <strong>perpendicular</strong> to <span class="math inline">\(Col(\mathbf{x})\)</span>, or <span class="math inline">\(Col(X)^\bot\)</span></li>
 </ul>
-<p>lkjhlkjh</p>
-<p><img src="images/Geometricl_Interpretation_of_Least_Squares.png" />
-lkjhlkjh</p>
 </div>
+</div>
+<div id="geometrical-interpretation-of-least-squares" class="section level3">
+<h3>Geometrical Interpretation of Least Squares</h3>
+<ul>
+<li><span class="math inline">\(Col(\mathbf{X}) = \{ \mathbf{X}\mathbf{b}: \mathbf{b} \in \mathbf{R}^p \}\)</span></li>
+<li><span class="math inline">\(\mathbf{y} \notin Col(\mathbf{X})\)</span></li>
+<li><span class="math inline">\(\hat{\mathbf{y}} = \mathbf{Xb} = \mathbf{Hy} \in Col(\mathbf{X})\)</span></li>
+<li>Minimize the distance of <span class="math inline">\(\textcolor{red}{A}\)</span> to <span class="math inline">\(Col(\mathbf{X})\)</span>: Find the point in <span class="math inline">\(Col(\mathbf{X})\)</span> that is closest to <span class="math inline">\(\textcolor{red}{A}\)</span>…that is <span class="math inline">\(\textcolor{red}{C}\)</span><br />
+</li>
+<li>Distance is minimized when the point in spaces is the foot of the line from <span class="math inline">\(\textcolor{red}{A}\)</span> <strong>normal</strong> to the space. That is point <span class="math inline">\(\textcolor{red}{C}\)</span></li>
+<li><span class="math inline">\(\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y} \bot Col(\mathbf{X})\)</span></li>
+<li><span class="math inline">\(\mathbf{X^\intercal} (\mathbf{y} - \mathbf{Xb})=0\)</span></li>
+<li>Searching for the LS solution <strong>b</strong> that minimizes <span class="math inline">\(SS_{Res}\)</span> is the same as locatin the point <span class="math inline">\(\mathbf{Xb} \in Col(\mathbf{X})\)</span> that is as clost to <span class="math inline">\(\mathbf{y}\)</span> as possible!</li>
+</ul>
+<p><img src="images/Geometricl_Interpretation_of_Least_Squares.png" /></p>
+</div>
+<div id="properties-of-least-square-estimators" class="section level3">
+<h3>Properties of Least Square Estimators</h3>
+<p>Similar to Simple Linear Regression <strong>b</strong> is BLUE or Best Linear Unbiased Estimator.</p>
+<div id="best" class="section level4">
+<h4>1. Best</h4>
+<p>A least square estimator is best if the variance is least.</p>
+<p><span class="math display">\[
+\begin{align*}
+Cov(\mathbf{b}) &amp;= E [(\mathbf{b} - E(\mathbf{b}))(\mathbf{b} - E(\mathbf{b}))^\intercal]\\
+Var(\mathbf{b}) &amp;= Var [(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}]\\
+&amp;=\sigma^2(\mathbf{X}^\intercal \mathbf{X})^{-1}
+\end{align*}
+\]</span></p>
+</div>
+<div id="linear" class="section level4">
+<h4>2. Linear</h4>
+<p>A least square estimator is a linear combination of y, which we see from equation <span class="math inline">\(\textcolor{red}{(5)}\)</span></p>
+</div>
+<div id="unbiased" class="section level4">
+<h4>3. Unbiased</h4>
+<p>A least square estimator is unbiased if the expected value of the estimator is the same as the actual <span class="math inline">\(\mathbf{\beta}\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+E(\mathbf{b})&amp;=E[(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal \mathbf{y}]\\
+&amp;=E[(\mathbf{X}^\intercal \mathbf{X})^{-1}\mathbf{X}^\intercal (\mathbf{X \beta} + \mathbf{\epsilon})]\\
+&amp;=\mathbf{\beta}
+\end{align*}
+\]</span></p>
+</div>
+</div>
+<div id="estimate-of-sigma2" class="section level3">
+<h3>Estimate of <span class="math inline">\(\sigma^2\)</span></h3>
+<p><span class="math display">\[
+\begin{align*}
+SS_{Res}= \sum_{i=1}^n (y_i - \hat{y_i})^2 &amp;= \sum_{i=1}^n e_i^2 \\
+&amp;= \mathbf{e^\intercal e}\\
+&amp;= \mathbf{(y-Xb)^\intercal(y-Xb)}\\
+&amp;= \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y} - \mathbf{y^\intercal Xb} +  \mathbf{b^\intercal X^\intercal  X b}
+\end{align*}
+\]</span></p>
+<p>However, just as we saw with equation <span class="math inline">\(\textcolor{red}{(4)}\)</span> above <span class="math inline">\(\mathbf{b^\intercal}\mathbf{X}^\intercal\mathbf{y}\)</span> is a <span class="math inline">\(1\times1\)</span> matrix and it’s transpose <span class="math inline">\(\mathbf{y^\intercal}\mathbf{X}\mathbf{b}\)</span> is the same scalar we will combine the two terms and we are left with:</p>
+<p><span class="math display">\[
+\begin{align*}
+SS_{Res}=  \mathbf{y^\intercal y} - 2\mathbf{b^\intercal X^\intercal y} +  \mathbf{b^\intercal X^\intercal  X b}
+\end{align*}
+\]</span></p>
+<p>However, since <span class="math inline">\(\mathbf{X^\intercal X b} = \mathbf{X^\intercal y}\)</span> we can clean up. Additionally looking at the relationship between <span class="math inline">\(MS_{res}\)</span> and <span class="math inline">\(SS_{res}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+SS_{Res} &amp;=  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\\
+MS_{Res} &amp;= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{\sigma^2}=MS_{Res}\)</span> is an unbiased estimator for <span class="math inline">\(\sigma^2\)</span>, i.e. <span class="math inline">\(E[MS_{Res}] = \sigma^2\)</span></li>
+<li><span class="math inline">\(\hat{\sigma^2}\)</span> of SLR may be larger than the <span class="math inline">\(\hat{\sigma^2}\)</span> of MLR.</li>
+<li><span class="math inline">\(\hat{\sigma^2}\)</span> measures the variation of the <em>unexplained</em> noise about the fitted regression line/hyperplane, so we prefer a small residual mean square.</li>
+</ul>
+</div>
+<div id="test-for-significance-of-regression" class="section level3">
+<h3>Test for Significance of Regression</h3>
+<p>Test for significance: Determine if there is a <strong>linear</strong> relationship between the response and <strong>andy</strong> of the regressor varaibles.</p>
+<ul>
+<li><p><span class="math inline">\(H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0\)</span></p></li>
+<li><p><span class="math inline">\(H_1: \beta_j \ne 0\)</span> for at least one <span class="math inline">\(j\)</span></p></li>
+<li><p><span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span></p></li>
+<li><p>p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></p></li>
+</ul>
+<p>Combining all these definitions we have…</p>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>ANOVA Table</caption>
+<thead>
+<tr class="header">
+<th align="left">Source of Variation</th>
+<th align="left">Sum of Squares</th>
+<th align="left">Degrees of Freedom</th>
+<th align="left">Mean Square</th>
+<th align="left"><span class="math inline">\(F_{test}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Regression</td>
+<td align="left"><span class="math inline">\(SS_R\)</span></td>
+<td align="left">k</td>
+<td align="left"><span class="math inline">\(MS_R\)</span></td>
+<td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Residual</td>
+<td align="left"><span class="math inline">\(SS_{Res}\)</span></td>
+<td align="left">n-k-1</td>
+<td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left"><span class="math inline">\(SS_T\)</span></td>
+<td align="left">n-1</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><em>Note that this table is nearly the same as for an SLR. The difference being the degrees of freedom. variable k which depicts the # of coefficients for the regressors. For SLR this is 1 so the degrees of freedom are 1, n-2, n-1 respectively, but for MLR we see it is updated to k, n-k-1, n-1; which upon further inspection is exaclty the same as SLR with a k=1.</em></li>
+</ul>
+<p>We have determined <span class="math inline">\(SS_{Res}\)</span> in equation <span class="math inline">\(\textcolor{red}{(6)}\)</span> from above. So let’s look at how we can find <span class="math inline">\(SS_T\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \sum_{i=1}^n (y_i - \overline{y})^2\\
+&amp;= \sum_{i=1}^n y_i^2 + \sum_{i=1}^n -2y_i\overline{y} + \sum_{i=1}^n \overline{y}^2\\
+&amp;= \sum_{i=1}^n y_i^2 + -2 \overline{y} \sum_{i=1}^n y_i + \overline{y}^2 \sum_{i=1}^n 1\\
+\end{align*}
+\]</span></p>
+<p>Now we leverage a relationship: <span class="math inline">\(\sum_{i=1}^n y_i = n \overline{y}\)</span> to adjust the second term and cleaning up the last term whereby <span class="math inline">\(\sum_{i=1}^n 1 = n\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \sum_{i=1}^n y_i^2 + -2 \overline{y} n \overline{y} + \overline{y}^2 n\\
+&amp;= \sum_{i=1}^n y_i^2 + -2 n \overline{y}^2 + n \overline{y}^2\\
+&amp;= \sum_{i=1}^n y_i^2 + - n \overline{y}^2\\
+\end{align*}
+\]</span>
+We make two more substitution: <span class="math inline">\(\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> and the fact that <span class="math inline">\(\sum_{i=1}^n y_i^2 = \mathbf{y^\intercal y}\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \mathbf{y^\intercal y} + - n \left ( \frac{1}{n} \sum_{i=1}^n y_i\right )^2\\
+&amp;= \mathbf{y^\intercal y} + - \frac{n}{n^2} \sum_{i=1}^n y_i^2\\
+&amp;= \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\\
+\end{align*}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
+<li><span class="math inline">\(SS_{Res} = \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\)</span></li>
+<li><span class="math inline">\(SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
+</ul>
 </div>
 </div>
