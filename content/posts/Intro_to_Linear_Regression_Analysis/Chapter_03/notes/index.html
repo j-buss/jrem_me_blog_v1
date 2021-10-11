@@ -283,7 +283,7 @@ MS_{Res} &amp;= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
 </tbody>
 </table>
 <ul>
-<li><em>Note that this table is nearly the same as for an SLR. The difference being the degrees of freedom. variable k which depicts the # of coefficients for the regressors. For SLR this is 1 so the degrees of freedom are 1, n-2, n-1 respectively, but for MLR we see it is updated to k, n-k-1, n-1; which upon further inspection is exaclty the same as SLR with a k=1.</em></li>
+<li><em>Note: k is # of coefficients for regressors. For SLR k = 1</em></li>
 </ul>
 <p>We have determined <span class="math inline">\(SS_{Res}\)</span> in equation <span class="math inline">\(\textcolor{red}{(6)}\)</span> from above. So let’s look at how we can find <span class="math inline">\(SS_T\)</span></p>
 <p><span class="math display">\[
@@ -313,6 +313,81 @@ SS_T &amp;= \mathbf{y^\intercal y} + - n \left ( \frac{1}{n} \sum_{i=1}^n y_i\ri
 <li><span class="math inline">\(SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
 <li><span class="math inline">\(SS_{Res} = \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\)</span></li>
 <li><span class="math inline">\(SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(F_{test} &gt; F_{\alpha,k,n-k-1}\)</span></li>
+<li><span class="math inline">\(E[MS_{Res}] = \sigma^2\)</span></li>
+<li><span class="math inline">\(E[MS_R] = \sigma^2 + \frac{\beta_{1:k}^\intercal \mathbf{X_c ^\intercal X_c \beta_{1:k}}}{k\sigma^2}\)</span> where <span class="math inline">\(\beta_{1:k}=(\beta_1,\dots,\beta_k)^\intercal\)</span></li>
+<li><span class="math inline">\(\mathbf{X_c} = \begin{bmatrix} x_{11} - \overline{x_1} &amp; x_{12} - \overline{x_2} &amp; \dots &amp; x_{1k}- \overline{x_k}\\ x_{21} - \overline{x_1} &amp; x_{22} - \overline{x_2} &amp; \dots &amp; x_{2k}- \overline{x_k}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\ x_{n1} - \overline{x_1} &amp; x_{n2} - \overline{x_2} &amp; \dots &amp; x_{nk}- \overline{x_k}\\ \end{bmatrix}\)</span></li>
 </ul>
+</div>
+<div id="r2-and-adjusted-r2" class="section level3">
+<h3><span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></h3>
+<div id="r2" class="section level4">
+<h4><span class="math inline">\(R^2\)</span></h4>
+<ul>
+<li>Calculated the same as SLR
+<span class="math display">\[
+R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
+\]</span></li>
+<li>The model with one additional predictor always gets a higher <span class="math inline">\(R^2\)</span></li>
+<li>Measures the proportion of variability in <span class="math inline">\(Y\)</span> that is explained by the regression model or the <span class="math inline">\(k\)</span> predictors</li>
+</ul>
+</div>
+<div id="adjusted-r2" class="section level4">
+<h4>Adjusted <span class="math inline">\(R^2\)</span></h4>
+<p><span class="math display">\[
+R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
+\]</span></p>
+<ul>
+<li>Applies a penalty (through p) for the number of variables included in the model</li>
+</ul>
+</div>
+</div>
+<div id="test-on-individual-regression-coefficients" class="section level3">
+<h3>Test on Individual Regression Coefficients</h3>
+<div id="partialmarginal-test" class="section level4">
+<h4>Partial/Marginal Test</h4>
+<ul>
+<li>Tests the contribution of <span class="math inline">\(X_j\)</span> given all other regressors in the model</li>
+<li><span class="math inline">\(H_0:\beta_j = 0\)</span> and <span class="math inline">\(H_1: \beta_j \ne 0\)</span></li>
+<li><span class="math inline">\(t_{test} = \frac{b_j}{\sqrt{\hat\sigma^2 C_{jj}}}\)</span>, where <span class="math inline">\(C_{jj}\)</span> is the <span class="math inline">\(j\)</span>-th diagonal element of <span class="math inline">\((\mathbf{X^\intercal X})^{-1}\)</span></li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\vert t_{test} \vert \gt t_{\alpha/2,n-k-1}\)</span></li>
+</ul>
+</div>
+<div id="reduced-model-vs.-full-model" class="section level4">
+<h4>Reduced Model vs. Full Model</h4>
+<ul>
+<li>Overall test of significance: <em>all</em> predictors vs. Marginal <span class="math inline">\(t\)</span>-test: <em>one single</em> predictor</li>
+<li>Test any subset</li>
+<li><strong>Full</strong>: <span class="math inline">\(y=\beta_0+\beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \epsilon\)</span></li>
+<li><span class="math inline">\(H_0: \beta_2 = \beta_4 = 0\)</span></li>
+<li><strong>Reduced</strong> (under <span class="math inline">\(H_0\)</span>): <span class="math inline">\(y=\beta_0+\beta_1 x_1 + \beta_3 x_3 + \epsilon\)</span></li>
+<li>Like to see if <span class="math inline">\(x_2\)</span> and <span class="math inline">\(X_4\)</span> contribute to model when <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_3\)</span> are in model
+<ul>
+<li>If yes, <span class="math inline">\(\beta_2 \ne 0\)</span> and/or <span class="math inline">\(\beta_4 \ne 0\)</span> (Reject <span class="math inline">\(H_0\)</span>)</li>
+<li>Otherwise, <span class="math inline">\(\beta_2=\beta_4=0\)</span> (Do not reject <span class="math inline">\(H_0\)</span>)</li>
+</ul></li>
+</ul>
+</div>
+<div id="extra-sum-of-squares" class="section level4">
+<h4>Extra Sum-of-Squares</h4>
+<ul>
+<li>Full Model:<span class="math inline">\(\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}\)</span></li>
+<li>Partition coefficient vector:</li>
+</ul>
+<p><span class="math display">\[
+\beta_{p\times1} = 
+\begin{bmatrix}
+\frac{\beta_1}{\beta_2}
+\end{bmatrix}
+\]</span></p>
+<p>Where <span class="math inline">\(\beta_1\)</span> is <span class="math inline">\((p-r) \times 1\)</span> and <span class="math inline">\(\beta_2\)</span> is <span class="math inline">\(r \times 1\)</span></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>:<span class="math inline">\(\mathbf{\beta_2 = 0}\)</span></li>
+<li><span class="math inline">\(H_1\)</span>:<span class="math inline">\(\mathbf{\beta_2 \ne 0}\)</span>
+<ul>
+<li>Example: <span class="math inline">\(p=5\)</span>, <span class="math inline">\(r=2\)</span>, $_1 =</li>
+</ul></li>
+</ul>
+</div>
 </div>
 </div>

@@ -278,7 +278,7 @@ x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
 knitr::kable(x=x,caption = "ANOVA Table",format="markdown", escape=FALSE, col.names=c("Source of Variation","Sum of Squares","Degrees of Freedom","Mean Square","$F_{test}$"))
 
 ```
-* _Note that this table is nearly the same as for an SLR. The difference being the degrees of freedom. variable k which depicts the # of coefficients for the regressors. For SLR this is 1 so the degrees of freedom are 1, n-2, n-1 respectively, but for MLR we see it is updated to k, n-k-1, n-1; which upon further inspection is exaclty the same as SLR with a k=1._
+* _Note: k is # of coefficients for regressors. For SLR k = 1_
 
 We have determined $SS_{Res}$ in equation $\textcolor{red}{(6)}$ from above. So let's look at how we can find $SS_T$
 
@@ -312,3 +312,68 @@ $$
 * $SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
 * $SS_{Res} =  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}$
 * $SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
+* Reject $H_0$ if $F_{test} > F_{\alpha,k,n-k-1}$
+* $E[MS_{Res}] = \sigma^2$
+* $E[MS_R] = \sigma^2 + \frac{\beta_{1:k}^\intercal \mathbf{X_c ^\intercal X_c \beta_{1:k}}}{k\sigma^2}$ where $\beta_{1:k}=(\beta_1,\dots,\beta_k)^\intercal$ 
+* $\mathbf{X_c} = 
+\begin{bmatrix}
+x_{11} - \overline{x_1} & x_{12} - \overline{x_2} & \dots & x_{1k}- \overline{x_k}\\
+x_{21} - \overline{x_1} & x_{22} - \overline{x_2} & \dots & x_{2k}- \overline{x_k}\\
+\vdots & \vdots &  \ddots & \vdots\\
+x_{n1} - \overline{x_1} & x_{n2} - \overline{x_2} & \dots & x_{nk}- \overline{x_k}\\
+\end{bmatrix}$
+
+### $R^2$ and Adjusted $R^2$
+
+#### $R^2$
+* Calculated the same as SLR
+$$
+R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
+$$
+* The model with one additional predictor always gets a higher $R^2$
+* Measures the proportion of variability in $Y$ that is explained by the regression model or the $k$ predictors
+
+#### Adjusted $R^2$
+$$
+R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
+$$
+
+* Applies a penalty (through p) for the number of variables included in the model
+
+### Test on Individual Regression Coefficients
+
+#### Partial/Marginal Test
+
+* Tests the contribution of $X_j$ given all other regressors in the model
+* $H_0:\beta_j = 0$ and $H_1: \beta_j \ne 0$
+* $t_{test} = \frac{b_j}{\sqrt{\hat\sigma^2 C_{jj}}}$, where $C_{jj}$ is the $j$-th diagonal element of $(\mathbf{X^\intercal X})^{-1}$
+* Reject $H_0$ if $\vert t_{test} \vert \gt t_{\alpha/2,n-k-1}$
+
+#### Reduced Model vs. Full Model
+
+* Overall test of significance: _all_ predictors vs. Marginal $t$-test: _one single_ predictor
+* Test any subset
+* **Full**: $y=\beta_0+\beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \epsilon$
+* $H_0: \beta_2 = \beta_4 = 0$
+* **Reduced** (under $H_0$): $y=\beta_0+\beta_1 x_1 + \beta_3 x_3 + \epsilon$
+* Like to see if $x_2$ and $X_4$ contribute to model when $x_1$ and $x_3$ are in model
+  - If yes, $\beta_2 \ne 0$ and/or $\beta_4 \ne 0$ (Reject $H_0$)
+  - Otherwise, $\beta_2=\beta_4=0$ (Do not reject $H_0$)
+  
+#### Extra Sum-of-Squares
+
+* Full Model:$\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
+* Partition coefficient vector:
+
+$$
+\beta_{p\times1} = 
+\begin{bmatrix}
+\frac{\beta_1}{\beta_2}
+\end{bmatrix}
+$$
+
+Where $\beta_1$ is $(p-r) \times 1$ and $\beta_2$ is $r \times 1$
+
+* $H_0$:$\mathbf{\beta_2 = 0}$
+* $H_1$:$\mathbf{\beta_2 \ne 0}$
+  * Example: $p=5$, $r=2$, $\beta_1 = 

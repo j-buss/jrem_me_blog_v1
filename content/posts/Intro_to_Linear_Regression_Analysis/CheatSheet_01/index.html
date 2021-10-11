@@ -24,13 +24,13 @@ slug: []
 <p><span class="math inline">\(\frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} = -2\sum_{i=1}^n(y_i-b_0-b_1x_i)\)</span></p>
 <p><span class="math inline">\(\frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} = -2\sum_{i=1}^nx_i(y_i-b_0-b_1x_i)\)</span></p>
 <p><span class="math inline">\(b_0 = \overline{y} - b_1 \overline {x}\)</span></p>
-<p><span class="math inline">\(b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = \frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})} =\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=\frac{S_{xy}}{S_{xx}}\)</span></p>
+<p><span class="math inline">\(b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} =\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=\frac{S_{xy}}{S_{xx}}\)</span></p>
 <p><span class="math inline">\(Var(b_1) = \sigma^2 \sum_{i=1}^n c_i^2 = \frac {\sigma^2 \sum_{i=1}^n (x_i-\overline {x})^2}{S_{xx}^2} = \frac{\sigma^2}{S_{xx}}\)</span></p>
 <p><span class="math inline">\(Var(b_0) = \sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}} \right )\)</span></p>
 <p><span class="math inline">\(E(b_0) = \beta_0; E(b_1)=\beta_1\)</span></p>
 <p><span class="math inline">\(\sum_{i=1}^n(y_i - \hat {y_i}) = \sum_{i=1}^n e_i = 0\)</span></p>
 <p><span class="math inline">\(\sum_{i=1}^ny_i = \sum_{i=1}^n \hat{y}\)</span></p>
-<p>Least Squares Regression line passes through the centroid point <span class="math inline">\((\overline{x},\overline{y})\)</span></p>
+<p>LRM contains centroid <span class="math inline">\((\overline{x},\overline{y})\)</span></p>
 <p><span class="math inline">\(\sum_{i=1}^n e_i x_i = 0\)</span></p>
 <p><span class="math inline">\(\sum_{i=1}^n e_i \hat{y_i} = 0\)</span></p>
 <p><span class="math inline">\(\hat{\sigma}^2 = \frac {SS_{Res}}{n-2}=MS_{Res}\)</span></p>
@@ -40,18 +40,86 @@ slug: []
 <p><span class="math inline">\(\hat{\sigma^2} \space \text{range} \space (\frac{SS_{Res}}{\chi_{\alpha/2,n-2}^2},\frac{SS_{Res}}{\chi_{1-\alpha/2,n-2}^2})\)</span></p>
 <p><span class="math inline">\(se(\hat{\beta_1}) = \sqrt{\frac{MS_{Res}}{S_{xx}}}\)</span></p>
 <p><span class="math inline">\(se(\hat{\beta_0}) = \sqrt{MS_{Res} (1/n + \overline{x}^2/S_{xx})}\)</span></p>
-<p>Reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if Critical Value Method: <span class="math inline">\(\vert t_{test} \vert &gt; t_{\alpha/2,n-2}\)</span>
-P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{test} \vert ) &lt; \alpha\)</span></p>
+<p>Reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span></p>
+<p>if Critical Value Method: <span class="math inline">\(\vert t_{test} \vert &gt; t_{\alpha/2,n-2}\)</span></p>
+<p>P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{test} \vert ) &lt; \alpha\)</span></p>
 <p>Test statistic: <span class="math inline">\(t_{test} = \frac {b_1 - \beta_1^0}{se(b_1)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></p>
 <p>Test statistic: <span class="math inline">\(t_{test} = \frac {b_0 - \beta_0^0}{se(b_0)} \sim t_{n-2}\)</span> under <span class="math inline">\(H_0\)</span></p>
 <p><span class="math inline">\((SS_T)\)</span> : <span class="math inline">\(\sum_{i=1}^n (y_i - \overline{y})^2\)</span></p>
 <p><span class="math inline">\((SS_R)\)</span>: <span class="math inline">\(\sum_{i=1}^n (\hat{y_i} - \overline{y})^2\)</span> or <span class="math inline">\(\hat{\beta_1}S_{xy}\)</span></p>
 <p><span class="math inline">\((SS_{Res})\)</span>: <span class="math inline">\(\sum_{i=1}^n (y_i - \hat{y_i})^2\)</span> or <span class="math inline">\(SS_T - \hat{\beta_1}S_{xy}\)</span></p>
 <p><span class="math inline">\(F_{test}=\frac {SS_R/df_R}{SS_{Res}/df_{Res}}=\frac{SS_R/1}{SS_{Res}/{(n-2)}}=\frac{MS_R}{MS_{Res}}\)</span></p>
-<p>Therefore, to test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span> compute <span class="math inline">\(F_{test}\)</span> and reject <span class="math inline">\(H_0\)</span> if</p>
+<p>reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span> or p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></p>
+<p><span class="math inline">\(R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}\)</span></p>
+<p><span class="math inline">\(\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} \hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}\)</span></p>
+<p><span class="math inline">\(\hat{y_0} \pm t_{\alpha/2,n-2} \hat{\sigma} \sqrt{1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}\)</span></p>
+<p><span class="math inline">\(f(y_i|\beta_0,\beta_1,\sigma^2) = \frac{e^{\frac{-(y_i-\beta_0-\beta_i x_i)^2}{2\sigma^2}}}{\sqrt{2 \pi \sigma^2}}\)</span></p>
+<p><span class="math inline">\(L(\beta_0,\beta_1,\sigma^2|Y_i) = \prod_{i=1}^n e^{\frac{-(y_i-\beta_0-\beta_i x_i)^2}{2\sigma^2}}\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n\)</span></p>
+<p><span class="math inline">\(l(\beta_0,\beta_1,\sigma^2|Y_i) = \frac{-1}{2\sigma^2}\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi ) - \frac {n}{2} ln(\sigma^2 )\)</span></p>
+<p><span class="math inline">\(\frac{\partial l} {\partial {\beta_0}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} = \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n (y_i-\hat{\beta_0}-\hat{\beta}_1x_i) = 0\)</span></p>
+<p><span class="math inline">\(\frac{\partial l}{\partial {\beta_1}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} = \frac{1}{\hat{\sigma}^2} \sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)x_i = 0\)</span></p>
+<p><span class="math inline">\(\frac{\partial l}{\partial {\sigma^2}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} = -\frac{1}{2\hat{\sigma}^2} + \frac{1}{2\hat{\sigma}^4} \sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2 = 0\)</span></p>
+<p><span class="math inline">\(\hat{\beta_0} = \overline{y} - \hat{\beta_1} \overline {x}=b_0\)</span></p>
+<p><span class="math inline">\(\hat{\beta_1} =\frac{\sum_{i=1}^n(x_i - \overline{x})y_i}{\sum_{i=1}^n(x_i -\overline{x})^2} = b_1\)</span></p>
+<p><span class="math inline">\(\hat{\sigma^2} =\frac{\sum_{i=1}^n(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)^2}{n}\)</span></p>
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{i1} + \dots + \beta_k X_{ik} + \epsilon_i\)</span></p>
+<p><span class="math inline">\(y_i= \beta_0 + \sum_{j=1}^k\beta_j x_{ij} + \epsilon_i,\quad i=1,2,\dots,n\)</span></p>
+<p><span class="math inline">\(S(\beta_0, \beta_1,\dots,\beta_k) = \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n \left ( y_i - \beta_0 - \sum_{j=1}^k \beta_j x_{ij} \right )^2\)</span></p>
+<p><span class="math inline">\(\frac{\partial S}{\partial {\beta_0}} \bigg\vert_{b_0,b_1,\dots,b_k} = -2\sum_{i=1}^n ( y_i - b_0 -\sum_{j=1}^k b_j x_{ij} ) = 0\)</span></p>
+<p><span class="math inline">\(\frac{\partial S}{\partial {\beta_j}} \bigg\vert_{b_0,b_1,\dots,b_k} = -2\sum_{i=1}^n \left ( y_i-b_0-\sum_{j=1}^k b_j x_{ij} \right ) x_{ij} = 0\)</span></p>
+<p><span class="math inline">\(\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon} \space, \mathbf{y} = \begin{bmatrix}y_1\\y_2\\\vdots\\y_n\end{bmatrix}\)</span></p>
+<p><span class="math inline">\(\mathbf{X} = \begin{bmatrix}1 &amp; x_{11} &amp; x_{12} &amp; \dots &amp; x_{1k}\\1 &amp; x_{21} &amp; x_{22} &amp; \dots &amp;x_{2k}\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\1 &amp; x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{nk}\\\end{bmatrix}\)</span></p>
+<p><span class="math inline">\(\mathbf{\beta} = \begin{bmatrix} \beta_0\\ \beta_1\\ \vdots\\ \beta_k \end{bmatrix}, \space \mathbf{\epsilon} = \begin{bmatrix} \epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n \end{bmatrix}\)</span></p>
+<p><span class="math inline">\(\mathbf{X}\)</span>: Design matrix <span class="math inline">\(\mathbf{\epsilon} \sim N(\mathbf{0},\sigma^2 \mathbf{I})\)</span></p>
+<p><span class="math inline">\(S(\mathbf{\beta}) =\mathbf{y}^\intercal\mathbf{y}-2\mathbf{\beta^\intercal}\mathbf{X}^\intercal\mathbf{y}+\mathbf{\beta^\intercal}\mathbf{X^\intercal}\mathbf{X}\mathbf{\beta}\)</span></p>
+<p><span class="math inline">\(\frac{\partial{\mathbf{t}^\intercal} \mathbf{a}}{\partial{t}} = \frac{\partial{\mathbf{a}^\intercal} \mathbf{t}}{\partial{t}} = \mathbf{a}\)</span></p>
+<p><span class="math inline">\(\frac{\partial{\mathbf{t}^\intercal} \mathbf{A} \mathbf{t}}{\partial{t}} = 2 \mathbf{A}\mathbf{t}\)</span></p>
+<p><span class="math inline">\(\frac{\partial{S}}{\partial\beta}\bigg\vert_{\mathbf{b}} = -2 \mathbf{X^\intercal} \mathbf{y} + 2 \mathbf{X^\intercal} \mathbf{X} \mathbf{b} = 0\)</span></p>
+<p><span class="math inline">\(\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}\)</span></p>
+<p><span class="math inline">\(\mathbf{\hat{y}} = \mathbf{X} \mathbf{b} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} \mathbf{y} = \mathbf{H} \mathbf{y}\)</span></p>
+<p><strong>hat matrix</strong> <span class="math inline">\(\mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}\)</span></p>
+<p><span class="math inline">\(\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y}\)</span></p>
 <ul>
-<li><span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span></li>
-<li>p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></li>
+<li><p>Both <span class="math inline">\(\mathbf{H}\)</span> and <span class="math inline">\(\mathbf{I-H}\)</span> are <strong>symmetric</strong> and <strong>idempotent</strong> <strong>projection</strong> matrices</p></li>
+<li><p><span class="math inline">\(\mathbf{H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> to <span class="math inline">\(\mathbf{\hat{y}}\)</span> on column space of <span class="math inline">\(\mathbf{X}\)</span>, <span class="math inline">\(Col(\mathbf{X})\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{I-H}\)</span> projects <span class="math inline">\(\mathbf{y}\)</span> to <span class="math inline">\(\mathbf{e}\)</span> on the space <strong>perpendicular</strong> to <span class="math inline">\(Col(\mathbf{x})\)</span>, or <span class="math inline">\(Col(X)^\bot\)</span></p></li>
+<li><p><span class="math inline">\(Col(\mathbf{X}) = \{ \mathbf{X}\mathbf{b}: \mathbf{b} \in \mathbf{R}^p \}\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{y} \notin Col(\mathbf{X})\)</span></p></li>
+<li><p><span class="math inline">\(\hat{\mathbf{y}} = \mathbf{Xb} = \mathbf{Hy} \in Col(\mathbf{X})\)</span></p></li>
+<li><p>Minimize the distance of <span class="math inline">\(\textcolor{red}{A}\)</span> to <span class="math inline">\(Col(\mathbf{X})\)</span>: Find the point in <span class="math inline">\(Col(\mathbf{X})\)</span> that is closest to <span class="math inline">\(\textcolor{red}{A}\)</span>…that is <span class="math inline">\(\textcolor{red}{C}\)</span><br />
+</p></li>
+<li><p>Distance is minimized when the point in spaces is the foot of the line from <span class="math inline">\(\textcolor{red}{A}\)</span> <strong>normal</strong> to the space. That is point <span class="math inline">\(\textcolor{red}{C}\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y} \bot Col(\mathbf{X})\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{X^\intercal} (\mathbf{y} - \mathbf{Xb})=0\)</span></p></li>
+<li><p>Searching for the LS solution <strong>b</strong> that minimizes <span class="math inline">\(SS_{Res}\)</span> is the same as locatin the point <span class="math inline">\(\mathbf{Xb} \in Col(\mathbf{X})\)</span> that is as clost to <span class="math inline">\(\mathbf{y}\)</span> as possible!</p></li>
+</ul>
+<p><img src="images/Geometricl_Interpretation_of_Least_Squares.png" /></p>
+<p><span class="math inline">\(Var(\mathbf{b})=\sigma^2(\mathbf{X}^\intercal \mathbf{X})^{-1}\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+SS_{Res}=  \mathbf{y^\intercal y} - 2\mathbf{b^\intercal X^\intercal y} +  \mathbf{b^\intercal X^\intercal  X b}
+\end{align*}
+\]</span></p>
+<p>However, since <span class="math inline">\(\mathbf{X^\intercal X b} = \mathbf{X^\intercal y}\)</span> we can clean up. Additionally looking at the relationship between <span class="math inline">\(MS_{res}\)</span> and <span class="math inline">\(SS_{res}\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+SS_{Res} &amp;=  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\\
+MS_{Res} &amp;= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{\sigma^2}=MS_{Res}\)</span> is an unbiased estimator for <span class="math inline">\(\sigma^2\)</span>, i.e. <span class="math inline">\(E[MS_{Res}] = \sigma^2\)</span></li>
+<li><span class="math inline">\(\hat{\sigma^2}\)</span> of SLR may be larger than the <span class="math inline">\(\hat{\sigma^2}\)</span> of MLR.</li>
+<li><span class="math inline">\(\hat{\sigma^2}\)</span> measures the variation of the <em>unexplained</em> noise about the fitted regression line/hyperplane, so we prefer a small residual mean square.</li>
+</ul>
+<div id="test-for-significance-of-regression" class="section level3">
+<h3>Test for Significance of Regression</h3>
+<p>Test for significance: Determine if there is a <strong>linear</strong> relationship between the response and <strong>andy</strong> of the regressor varaibles.</p>
+<ul>
+<li><p><span class="math inline">\(H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0\)</span></p></li>
+<li><p><span class="math inline">\(H_1: \beta_j \ne 0\)</span> for at least one <span class="math inline">\(j\)</span></p></li>
+<li><p><span class="math inline">\(F_{test} &gt; F_{\alpha,1,n-2}\)</span></p></li>
+<li><p>p-value = <span class="math inline">\(P(F_{1,n-2} &gt; F_{test}) &gt; \alpha\)</span></p></li>
 </ul>
 <p>Combining all these definitions we have…</p>
 <table>
@@ -69,14 +137,14 @@ P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{t
 <tr class="odd">
 <td align="left">Regression</td>
 <td align="left"><span class="math inline">\(SS_R\)</span></td>
-<td align="left">1</td>
+<td align="left">k</td>
 <td align="left"><span class="math inline">\(MS_R\)</span></td>
 <td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Residual</td>
 <td align="left"><span class="math inline">\(SS_{Res}\)</span></td>
-<td align="left">n-2</td>
+<td align="left">n-k-1</td>
 <td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
 <td align="left"></td>
 </tr>
@@ -89,181 +157,90 @@ P-Value Method: p-value = <span class="math inline">\(2P(t_{n-2} &gt; \vert t_{t
 </tr>
 </tbody>
 </table>
-<p>In SLR, the <span class="math inline">\(F\)</span>-test of ANOVA give the same result as a two-sided <span class="math inline">\(t\)</span>-test of <span class="math inline">\(H_0\)</span>:<span class="math inline">\(\beta_1\)</span>=0</p>
-<div id="coefficient-of-determination" class="section level3">
-<h3>Coefficient of Determination</h3>
-<p>The <strong>coefficient of determination</strong> is defined as the following:</p>
+<ul>
+<li><em>Note: k is # of coefficients for regressors. For SLR k = 1</em></li>
+</ul>
+<p>We have determined <span class="math inline">\(SS_{Res}\)</span> in equation <span class="math inline">\(\textcolor{red}{(6)}\)</span> from above. So let’s look at how we can find <span class="math inline">\(SS_T\)</span></p>
 <p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \sum_{i=1}^n (y_i - \overline{y})^2\\
+&amp;= \sum_{i=1}^n y_i^2 + \sum_{i=1}^n -2y_i\overline{y} + \sum_{i=1}^n \overline{y}^2\\
+&amp;= \sum_{i=1}^n y_i^2 + -2 \overline{y} \sum_{i=1}^n y_i + \overline{y}^2 \sum_{i=1}^n 1\\
+\end{align*}
+\]</span></p>
+<p>Now we leverage a relationship: <span class="math inline">\(\sum_{i=1}^n y_i = n \overline{y}\)</span> to adjust the second term and cleaning up the last term whereby <span class="math inline">\(\sum_{i=1}^n 1 = n\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \sum_{i=1}^n y_i^2 + -2 \overline{y} n \overline{y} + \overline{y}^2 n\\
+&amp;= \sum_{i=1}^n y_i^2 + -2 n \overline{y}^2 + n \overline{y}^2\\
+&amp;= \sum_{i=1}^n y_i^2 + - n \overline{y}^2\\
+\end{align*}
+\]</span>
+We make two more substitution: <span class="math inline">\(\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> and the fact that <span class="math inline">\(\sum_{i=1}^n y_i^2 = \mathbf{y^\intercal y}\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+SS_T &amp;= \mathbf{y^\intercal y} + - n \left ( \frac{1}{n} \sum_{i=1}^n y_i\right )^2\\
+&amp;= \mathbf{y^\intercal y} + - \frac{n}{n^2} \sum_{i=1}^n y_i^2\\
+&amp;= \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\\
+\end{align*}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
+<li><span class="math inline">\(SS_{Res} = \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\)</span></li>
+<li><span class="math inline">\(SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(F_{test} &gt; F_{\alpha,k,n-k-1}\)</span></li>
+<li><span class="math inline">\(E[MS_{Res}] = \sigma^2\)</span></li>
+<li><span class="math inline">\(E[MS_R] = \sigma^2 + \frac{\beta_{1:k}^\intercal \mathbf{X_c ^\intercal X_c \beta_{1:k}}}{k\sigma^2}\)</span> where <span class="math inline">\(\beta_{1:k}=(\beta_1,\dots,\beta_k)^\intercal\)</span></li>
+<li><span class="math inline">\(\mathbf{X_c} = \begin{bmatrix} x_{11} - \overline{x_1} &amp; x_{12} - \overline{x_2} &amp; \dots &amp; x_{1k}- \overline{x_k}\\ x_{21} - \overline{x_1} &amp; x_{22} - \overline{x_2} &amp; \dots &amp; x_{2k}- \overline{x_k}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\ x_{n1} - \overline{x_1} &amp; x_{n2} - \overline{x_2} &amp; \dots &amp; x_{nk}- \overline{x_k}\\ \end{bmatrix}\)</span></li>
+</ul>
+</div>
+<div id="r2-and-adjusted-r2" class="section level3">
+<h3><span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></h3>
+<div id="r2" class="section level4">
+<h4><span class="math inline">\(R^2\)</span></h4>
+<ul>
+<li>Calculated the same as SLR
+<span class="math display">\[
 R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
-\]</span></p>
-<p>Since <span class="math inline">\(SS_T\)</span> is the measure of variability in y without considering the effect of the regressor variable <span class="math inline">\(x\)</span> and <span class="math inline">\(SS_{Res}\)</span> is a measure of the variability in <span class="math inline">\(y\)</span> remaining after <span class="math inline">\(x\)</span> has been considered.</p>
-<p><span class="math inline">\(R^2\)</span> is often called the proportion of variation explained by the regressor <span class="math inline">\(x\)</span>.</p>
-</div>
-<div id="prediction" class="section level3">
-<h3>Prediction</h3>
-<div id="mean-response" class="section level4">
-<h4>Mean Response</h4>
-<p>If <span class="math inline">\(x_0\)</span> is within the range of <span class="math inline">\(x\)</span>, an unbiased point estimate of <span class="math inline">\(E(y|x_0)\)</span> is:</p>
-<p><span class="math display">\[
-\widehat{E(y|x_0)}=\hat{\mu_{y|x_0}}=b_0+b_1x_0
-\]</span></p>
-<p>The variance of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:
-<span class="math display">\[
-\begin{align*}
-Var(\hat{\mu_{y|x_0}}) &amp;= Var(b_0+b_1 x_0) = Var(\overline{y} + b_1(x_0-\overline{x}))\\
-&amp;=\frac{\sigma^2}{n}+ \frac{\sigma^2 (x_0 - \overline{x})^2}{S_{xx}}=\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )
-\end{align*}
-\]</span></p>
-<p>So the sampling distribution of <span class="math inline">\(\hat{\mu_{y|x_0}}\)</span> is:</p>
-<p><span class="math display">\[
-N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
-\]</span>
-So now we have
-<span class="math display">\[
-(\widehat{\mu_{y|x_0}}=b_0+b_1 x_0)
-\sim
-N \left ( \beta_0+\beta_1 x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
-\]</span>
-And we take the steps to normalize the standard distribution:</p>
-<p><span class="math display">\[
-\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\sigma \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
-\]</span></p>
-<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
-<p><span class="math display">\[
-\frac {(b_0+b_1 x_0)-(\beta_0+\beta_1 x_0)}{\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
-\]</span></p>
-<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Confidence interval for <span class="math inline">\(E(y|x_0)\)</span> is:</p>
-<p><span class="math display">\[
-\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
-\hat{\sigma} \sqrt{\frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
-\]</span></p>
-<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
-<span class="math display">\[
-\hat{\mu_{y|x_0}} \pm t_{\alpha/2,n-2} 
-\sqrt{MS_{Res} \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
-\]</span></p>
-</div>
-<div id="point-estimate" class="section level4">
-<h4>Point Estimate</h4>
-<p>The sampling distribution of <span class="math inline">\(\hat{y_0}\)</span> is:</p>
-<p><span class="math display">\[
-\hat{y_0}=b_0+b_1 x_0 \sim 
-N \left ( \beta_0+\beta_1x_0,\sigma^2 \left ( \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
-\]</span>
-The sampling distribution of <span class="math inline">\(y_0\)</span> is:</p>
-<p><span class="math display">\[
-y_0 \sim 
-N ( \beta_0+\beta_1x_0,\sigma^2)
-\]</span>
-So the distribution of <span class="math inline">\(y_0 -\hat{y_0}\)</span> is:</p>
-<p><span class="math display">\[
-y_0 -\hat{y_0}
-\sim
-N \left ( 0,\sigma^2 \left ( 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right ) \right )
-\]</span>
-And we take the steps to normalize the standard distribution:</p>
-<p><span class="math display">\[
-\frac {y_0 - \hat{y_0}}{\sigma \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim NID(0,1)
-\]</span></p>
-<p>We don’t know the value of <span class="math inline">\(\sigma\)</span> so we use the “hatted” version and use a <span class="math inline">\(t\)</span> distribution:</p>
-<p><span class="math display">\[
-\frac {y_0 - \hat{y_0}}{\hat{\sigma} \sqrt{ 1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}} \sim t_{n-2}
-\]</span></p>
-<p>So we have the <span class="math inline">\((1-\alpha)100%\)</span> Prediction Interval for <span class="math inline">\(y_0(x_0)\)</span> is:</p>
-<p><span class="math display">\[
-\hat{y_0} \pm t_{\alpha/2,n-2} 
-\hat{\sigma} \sqrt{1 + \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}}}
-\]</span></p>
-<p>Or written slightly differently using the relationship of <span class="math inline">\(\hat{\sigma^2} = MS_{Res}\)</span>:
-<span class="math display">\[
-\hat{y_0}  \pm t_{\alpha/2,n-2} 
-\sqrt{MS_{Res} \left (1 +  \frac{1}{n}+\frac{(x_0-\overline{x})^2}{S_{xx}} \right )}
-\]</span></p>
-</div>
-</div>
-<div id="maximum-likelihood-estimation" class="section level3">
-<h3>Maximum Likelihood Estimation</h3>
-<p>We can also use the <strong>method of maximum likelihood</strong> to derive the linear regression estimators.</p>
-<p>Let’s start with what we know:</p>
-<ul>
-<li><span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span></li>
-<li><span class="math inline">\(\epsilon \overset{iid}{\sim} NID(0,\sigma^2)\)</span></li>
+\]</span></li>
+<li>The model with one additional predictor always gets a higher <span class="math inline">\(R^2\)</span></li>
+<li>Measures the proportion of variability in <span class="math inline">\(Y\)</span> that is explained by the regression model or the <span class="math inline">\(k\)</span> predictors</li>
 </ul>
-<p>This means that the sampling distribution of <span class="math inline">\(Y_i\)</span>:
-<span class="math display">\[
-Y_i \overset{iid}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2)
-\]</span>
-Now let’s write the probability density function (pdf) for the distribution of <span class="math inline">\(Y_i\)</span>:
-<span class="math display">\[
-f(y_i|\beta_0,\beta_1,\sigma^2) = \frac{e^{\frac
-{-(y_i-\beta_0-\beta_i x_i)^2}
-{2\sigma^2}}}
-{\sqrt{2 \pi \sigma^2}}
-\]</span></p>
-<p>Well, that is one function. Now to get the distribution for all n we take the product over all n:</p>
+</div>
+<div id="adjusted-r2" class="section level4">
+<h4>Adjusted <span class="math inline">\(R^2\)</span></h4>
 <p><span class="math display">\[
-\begin{align*}
-L(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= \prod_{i=1}^n f(y_i|\beta_0,\beta_1,\sigma^2)\\
-&amp;= \prod_{i=1}^n 
-e^{\frac
-{-(y_i-\beta_0-\beta_i x_i)^2}
-{2\sigma^2}}
-\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
-\end{align*}
+R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
 \]</span></p>
-<p>Now we use the product rule for exponents:</p>
-<p><span class="math display">\[
-\begin{align*}
-L(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= 
-&amp;=  
-\left ( \frac{1}{\sqrt{2 \pi \sigma^2}} \right )^n
-e^{\frac{-1}{2\sigma^2}
-\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2}
-\end{align*}
-\]</span></p>
-<p>Now we take the natural log to get the log likelihood:</p>
-<p><span class="math display">\[
-\begin{align*}
-l(\beta_0,\beta_1,\sigma^2|Y_i) &amp;= 
-\frac{-1}{2\sigma^2}
-\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
-&amp;= \frac{-1}{2\sigma^2}
-\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi \sigma^2)\\
-&amp;= \frac{-1}{2\sigma^2}
-\sum_{i=1}^n(y_i-\beta_0-\beta_i x_i)^2 - \frac {n}{2} ln(2 \pi ) - \frac {n}{2} ln(\sigma^2 )\\
-\end{align*}
-\]</span>
-Now to find the values of <span class="math inline">\(\beta_0, \beta_1\)</span> and <span class="math inline">\(\sigma^2\)</span> we take the derivative with respect to each and set it equal to 0:</p>
-<p><span class="math display">\[ 
-\begin{align*}
-\frac{\partial l} {\partial {\beta_0}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= 
-\frac{1}{\hat{\sigma}^2}
-\sum_{i=1}^n (y_i-\hat{\beta_0}-\hat{\beta}_1x_i) = 0\\
-\frac{\partial l}{\partial {\beta_1}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= \frac{1}{\hat{\sigma}^2} \sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)x_i = 0\\
-\frac{\partial l}{\partial {\sigma^2}} \bigg\vert_{\hat{\beta_0},\hat{\beta_1},\hat{\sigma}} &amp;= 
--\frac{1}{2\hat{\sigma}^2} +
-\frac{1}{2\hat{\sigma}^4} 
-\sum_{i=1}^n (y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2 = 0\\
-\end{align*}
-\]</span></p>
-<p>Solving those equations leaves us with the following:</p>
-<p><span class="math display">\[
-\begin{align*}
-\hat{\beta_0} &amp;= 
-\overline{y} - \hat{\beta_1} \overline {x}=b_0\\
-\hat{\beta_1} &amp;= 
-\frac{\sum_{i=1}^n(x_i - \overline{x})y_i}
-{\sum_{i=1}^n(x_i -\overline{x})^2} 
-= b_1\\
-\hat{\sigma^2} &amp;= 
-\frac{\sum_{i=1}^n(y_i - \hat{\beta_0} - \hat{\beta_1}x_i)^2}
-{n} 
-\end{align*}
-\]</span></p>
-<p>Notes about MLE:</p>
 <ul>
-<li><span class="math inline">\(\hat{\sigma^2}\)</span> is biased</li>
-<li>MLE requires full distributional assumptions whereas LSE does not</li>
-<li>In general MLE have better statistical properties than LSE</li>
+<li>Applies a penalty (through p) for the number of variables included in the model</li>
 </ul>
+</div>
+</div>
+<div id="test-on-individual-regression-coefficients" class="section level3">
+<h3>Test on Individual Regression Coefficients</h3>
+<div id="partialmarginal-test" class="section level4">
+<h4>Partial/Marginal Test</h4>
+<ul>
+<li>Tests the contribution of <span class="math inline">\(X_j\)</span> given all other regressors in the model</li>
+<li><span class="math inline">\(H_0:\beta_j = 0\)</span> and <span class="math inline">\(H_1: \beta_j \ne 0\)</span></li>
+<li><span class="math inline">\(t_{test} = \frac{b_j}{\sqrt{\hat\sigma^2 C_{jj}}}\)</span>, where <span class="math inline">\(C_{jj}\)</span> is the <span class="math inline">\(j\)</span>-th diagonal element of <span class="math inline">\((\mathbf{X^\intercal X})^{-1}\)</span></li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\vert t_{test} \vert \gt t_{\alpha/2,n-k-1}\)</span></li>
+</ul>
+</div>
+<div id="reduced-model-vs.-full-model" class="section level4">
+<h4>Reduced Model vs. Full Model</h4>
+<ul>
+<li>Overall test of significance: <em>all</em> predictors vs. Marginal <span class="math inline">\(t\)</span>-test: <em>one single</em> predictor</li>
+<li>Test any subset</li>
+<li><strong>Full</strong>: <span class="math inline">\(y=\beta_0+\beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \epsilon\)</span></li>
+<li><span class="math inline">\(H_0: \beta_2 = \beta_4 = 0\)</span></li>
+<li><strong>Reduced</strong> (under <span class="math inline">\(H_0\)</span>): <span class="math inline">\(y=\beta_0+\beta_1 x_1 + \beta_3 x_3 + \epsilon\)</span></li>
+<li>Like to see if <span class="math inline">\(x_2\)</span> and <span class="math inline">\(X_4\)</span> contribute to model when <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_3\)</span> are in model
+<ul>
+<li>If yes, <span class="math inline">\(\beta_2 \ne 0\)</span> and/or <span class="math inline">\(\beta_4 \ne 0\)</span> (Reject <span class="math inline">\(H_0\)</span>)</li>
+<li>Otherwise, <span class="math inline">\(\beta_2=\beta_4=0\)</span> (Do not reject <span class="math inline">\(H_0\)</span>)</li>
+</ul></li>
+</ul>
+</div>
 </div>
