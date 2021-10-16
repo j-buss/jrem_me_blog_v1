@@ -1,0 +1,141 @@
+---
+title: Model Adequacy Checking
+author: Jeremy Buss
+date: '2021-10-16'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="assumptions-of-linear-regression" class="section level2">
+<h2>Assumptions of Linear Regression</h2>
+<p>Linear Regression:</p>
+<p><span class="math display">\[
+\begin{align*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \dots + \beta_k X_{ik} + \epsilon_i
+\end{align*}
+\]</span></p>
+<p><img src="images/Screenshot%202021-10-16%2013.23.21.png" /></p>
+<p>The major assumptions that we have made concerning Linear Regression are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_i\)</span> is linear</li>
+<li><span class="math inline">\(E(\epsilon_i)=0\)</span></li>
+<li><span class="math inline">\(Var(\epsilon_i)=\sigma^2\)</span></li>
+<li><span class="math inline">\(Cov(\epsilon_i, \epsilon_j)=0\)</span> for all <span class="math inline">\(i \ne j\)</span></li>
+<li><span class="math inline">\(\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)\)</span></li>
+</ol>
+<ul>
+<li>If assumptions are violated, a different sample could lead to different model with opposite conclusions!</li>
+<li>All the inferences are based on the assumption that the model is correct.</li>
+<li>We cannot detect departure from underlying assumptions by examining standard summary statistics. <span class="math inline">\(R^2\)</span>, <span class="math inline">\(t\)</span> or <span class="math inline">\(F\)</span> statistics are “global” model properties, and as such they do not ensure model adequacy</li>
+</ul>
+</div>
+<div id="definition-of-residuals" class="section level2">
+<h2>Definition of Residuals</h2>
+<p>We previously learned that residuals are defined as:</p>
+<p><span class="math display">\[
+e_i = y_i - \hat{y_i}, \space i=1,2,...,n
+\]</span>
+However there are a few other constructive ways to view the residuals:</p>
+<ul>
+<li><strong>deviation</strong> between observed <strong>data</strong> and the <strong>fitted</strong> values</li>
+<li><strong>unexplained variability</strong> in the response variable from the model</li>
+<li><strong>realized</strong> or <strong>observed values</strong> of <span class="math inline">\(\epsilon_i\)</span></li>
+</ul>
+<p>The residuals have several important properties:</p>
+<ul>
+<li>Zero mean or <span class="math inline">\(\sum_{i=1}^n e_i =0\)</span></li>
+<li>Approximate variance:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\sum_{i=1}^n (e_i - \overline{e_i})^2}{n-p} = \frac{\sum_{i=1}^n e_i^2}{n-p} = \frac{SS_{Res}}{n-p} = MS_{Res} = \hat{\sigma}^2
+\]</span>
+where <span class="math inline">\(p=\)</span> # of parameters</p>
+<ul>
+<li>Unlike <span class="math inline">\(\epsilon_i\)</span>, <span class="math inline">\(e_i\)</span> are not independent:
+<ul>
+<li><span class="math inline">\(n\)</span> residuals have only <span class="math inline">\(n-p\)</span> degrees of freedom</li>
+</ul></li>
+</ul>
+<p><strong>Scaled Residuals</strong>: Helpful in finding <strong>outliers</strong>, the <strong>unusual or extreme points</strong> that are considerably different from other data points in <span class="math inline">\(y\)</span> or <span class="math inline">\(x\)</span> directions</p>
+</div>
+<div id="standardized-residuals" class="section level2">
+<h2>Standardized Residuals</h2>
+<p>Approximate average variance of a residual is estimated by <span class="math inline">\(MS_{Res}\)</span>.</p>
+<p><span class="math display">\[
+d_i = \frac{e_i}{\sqrt{MS_{Res}}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(d_i\)</span>s have mean zero and <em>approximate</em> unit variance</li>
+<li><span class="math inline">\(\vert d_i \vert &gt; 3\)</span> may indicate an outlier</li>
+</ul>
+</div>
+<div id="variance-covariance-of-residuals" class="section level2">
+<h2>Variance-Covariance of Residuals</h2>
+<p>Hat Matrix</p>
+<p><span class="math display">\[
+ \mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} 
+\]</span></p>
+<p><span class="math display">\[
+Var(\mathbf{e} = \sigma^2(\mathbf{I}-\mathbf{H}))
+\]</span></p>
+<ul>
+<li><span class="math inline">\(Var(e_i) = \sigma^2(1-h_{ii})\)</span>, where <span class="math inline">\(h_{ii}\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></li>
+<li><span class="math inline">\(Cov(e_i,e_j) = -\sigma^2h_{ij}\)</span>, where <span class="math inline">\(h_{ij}\)</span> is the <span class="math inline">\(ij\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></li>
+</ul>
+<p><em><span class="math inline">\(h_{ii} \in [0,1]\)</span> measures the location of the <span class="math inline">\(i\)</span>-th point in <span class="math inline">\(\mathbf{x}\)</span> space
+</em> the <strong>smaller</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>closer</strong> the point <span class="math inline">\(\mathbf{x_i}\)</span> lies to the centroid of the <span class="math inline">\(\mathbf{X}\)</span> space
+* the <strong>larger</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>smaller</strong> the <span class="math inline">\(Var(e_i)\)</span> is
+* <span class="math inline">\(MS_{res}&gt;MS_{res}(1-h_{ii})\)</span> overestimates <span class="math inline">\(Var(e_i)\)</span></p>
+</div>
+<div id="studentized-residuals" class="section level2">
+<h2>Studentized Residuals</h2>
+<p><span class="math display">\[
+r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
+\]</span></p>
+</div>
+<div id="press-residuals" class="section level2">
+<h2>PRESS Residuals</h2>
+<p><strong>PR</strong>ediction <strong>E</strong>ror <strong>S</strong>um of <strong>S</strong>quares <strong>(PRESS):</strong></p>
+<p><span class="math display">\[
+\sum_{i=1}^n \left ( y_i - \hat{y_{(i)}} \right )^2
+\]</span></p>
+</div>
+<div id="standardized-press-residuals" class="section level2">
+<h2>Standardized PRESS Residuals</h2>
+<p><span class="math display">\[
+Var[e_{(i)}]=Var \left [ \frac{e_i}{1-h_{ii}} \right ] = \frac{\sigma^2}{1-h_{ii}}
+\]</span></p>
+<p><span class="math display">\[
+\frac{e_{(i)}}{\sqrt{Var(e_{(i)}})} = \frac{e_{i}/(1-h_{ii})}{\sqrt{\sigma^2/(1 - h_{ii})}} = \frac{e_{i}}{\sqrt{\sigma^2(1 - h_{ii})}}
+\]</span></p>
+</div>
+<div id="r-student-residuals" class="section level2">
+<h2>R-Student Residuals</h2>
+<ul>
+<li><span class="math inline">\(MS_{res}\)</span> uses all <span class="math inline">\(n\)</span> observations to estimate <span class="math inline">\(\sigma^2\)</span></li>
+<li><span class="math inline">\(S_{(i)}^2\)</span> estimates <span class="math inline">\(\sigma^2\)</span> based on the data with the <span class="math inline">\(i\)</span>-th observation removed:</li>
+</ul>
+<p><span class="math display">\[
+S_{(i)}^2 = \frac{(n-p)MS_{res}-e_i^2/(1-h_{ii})}{n-p-1}
+\]</span></p>
+<div id="r-student-residual" class="section level3">
+<h3>R-Student residual:</h3>
+<p><span class="math display">\[
+t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(i\)</span>-th observation is influential, <span class="math inline">\(S_{(i)}^2\)</span> is significantly different from <span class="math inline">\(MS_{res}\)</span></li>
+</ul>
+</div>
+</div>

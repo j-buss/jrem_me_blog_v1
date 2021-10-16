@@ -22,7 +22,7 @@ The characteristics of a **Simple Linear Regression** are as follows:
 
 * One predictor $X$ that is known and constant
 * One response variable $Y$
-* Linear function $y=\beta_0 + \beta_1 x$
+* Linear function $y=\beta_0 + \beta_1 x + \epsilon$
 
 <br>
 

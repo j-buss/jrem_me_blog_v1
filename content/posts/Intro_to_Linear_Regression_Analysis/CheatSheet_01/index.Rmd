@@ -143,56 +143,37 @@ $\mathbf{\hat{y}} = \mathbf{X} \mathbf{b} = \mathbf{X} ( \mathbf{X^\intercal} \m
 
 $\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y}$
 
-* Both $\mathbf{H}$ and $\mathbf{I-H}$ are __symmetric__ and __idempotent__ **projection** matrices
+$\mathbf{H}$, $\mathbf{I-H}$ __symmetric__  __idempotent__ **projection** matrices
 
-* $\mathbf{H}$ projects $\mathbf{y}$ to $\mathbf{\hat{y}}$ on column space of $\mathbf{X}$, $Col(\mathbf{X})$
-* $\mathbf{I-H}$ projects $\mathbf{y}$ to $\mathbf{e}$ on the space **perpendicular** to $Col(\mathbf{x})$, or $Col(X)^\bot$
+$\mathbf{H}$ projects $\mathbf{y}$ to $\mathbf{\hat{y}}$ on column space $\mathbf{X}$, $Col(\mathbf{X})$
 
-* $Col(\mathbf{X}) = \{ \mathbf{X}\mathbf{b}: \mathbf{b} \in \mathbf{R}^p \}$
-* $\mathbf{y} \notin Col(\mathbf{X})$
-* $\hat{\mathbf{y}} = \mathbf{Xb} = \mathbf{Hy} \in Col(\mathbf{X})$
-* Minimize the distance of $\textcolor{red}{A}$ to $Col(\mathbf{X})$: Find the point in $Col(\mathbf{X})$ that is closest to $\textcolor{red}{A}$...that is $\textcolor{red}{C}$  
-* Distance is minimized when the point in spaces is the foot of the line from $\textcolor{red}{A}$ **normal** to the space. That is point $\textcolor{red}{C}$
-* $\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y} \bot Col(\mathbf{X})$
-* $\mathbf{X^\intercal} (\mathbf{y} - \mathbf{Xb})=0$
-* Searching for the LS solution **b** that minimizes $SS_{Res}$ is the same as locatin the point $\mathbf{Xb} \in Col(\mathbf{X})$ that is as clost to $\mathbf{y}$ as possible!
+$\mathbf{I-H}$ projects $\mathbf{y}$ to $\mathbf{e}$ on space **perpendicular** to $Col(\mathbf{x})$
 
-![](images/Geometricl_Interpretation_of_Least_Squares.png)
+$Col(\mathbf{X}) = \{ \mathbf{X}\mathbf{b}: \mathbf{b} \in \mathbf{R}^p \}$
+
+$\mathbf{y} \notin Col(\mathbf{X})$
+
+$\hat{\mathbf{y}} = \mathbf{Xb} = \mathbf{Hy} \in Col(\mathbf{X})$
+
+Minimize distance of $\textcolor{red}{A}$ to $Col(\mathbf{X})$: Find the point in $Col(\mathbf{X})$ that is closest to $\textcolor{red}{A}$
+
+$\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{Xb} = \mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y} \bot Col(\mathbf{X})$
+
+$\mathbf{X^\intercal} (\mathbf{y} - \mathbf{Xb})=0$
 
 $Var(\mathbf{b})=\sigma^2(\mathbf{X}^\intercal \mathbf{X})^{-1}$
 
+$SS_{Res} =  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}$
 
-$$
-\begin{align*}
-SS_{Res}=  \mathbf{y^\intercal y} - 2\mathbf{b^\intercal X^\intercal y} +  \mathbf{b^\intercal X^\intercal  X b}
-\end{align*}
-$$
+$MS_{Res} = \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1$
 
-However, since $\mathbf{X^\intercal X b} = \mathbf{X^\intercal y}$  we can clean up. Additionally looking at the relationship between $MS_{res}$ and $SS_{res}$:
+$\hat{\sigma^2}=MS_{Res}$ is an unbiased estimator for $\sigma^2$, i.e. $E[MS_{Res}] = \sigma^2$
 
-$$
-\begin{align}
-SS_{Res} &=  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\\
-MS_{Res} &= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
-\end{align}
-$$
+$\hat{\sigma^2}$ measures __unexplained__ var. prefer small residual mean square.
 
-* $\hat{\sigma^2}=MS_{Res}$ is an unbiased estimator for $\sigma^2$, i.e. $E[MS_{Res}] = \sigma^2$
-* $\hat{\sigma^2}$ of SLR may be larger than the $\hat{\sigma^2}$ of MLR.
-* $\hat{\sigma^2}$ measures the variation of the _unexplained_ noise about the fitted regression line/hyperplane, so we prefer a small residual mean square.
+$H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0$ 
 
-### Test for Significance of Regression
-
-Test for significance: Determine if there is a **linear** relationship between the response and **andy** of the regressor varaibles.
-
-* $H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0$ 
-* $H_1: \beta_j \ne 0$ for at least one $j$
-
-* $F_{test} > F_{\alpha,1,n-2}$
-* p-value = $P(F_{1,n-2} > F_{test}) > \alpha$
-
-Combining all these definitions we have...
-
+$H_1: \beta_j \ne 0$ for at least one $j$
 
 ```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
@@ -206,42 +187,19 @@ knitr::kable(x=x,caption = "ANOVA Table",format="markdown", escape=FALSE, col.na
 ```
 * _Note: k is # of coefficients for regressors. For SLR k = 1_
 
-We have determined $SS_{Res}$ in equation $\textcolor{red}{(6)}$ from above. So let's look at how we can find $SS_T$
+$SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
 
-$$
-\begin{align*}
-SS_T &= \sum_{i=1}^n (y_i - \overline{y})^2\\
-&= \sum_{i=1}^n y_i^2 + \sum_{i=1}^n -2y_i\overline{y} + \sum_{i=1}^n \overline{y}^2\\
-&= \sum_{i=1}^n y_i^2 + -2 \overline{y} \sum_{i=1}^n y_i + \overline{y}^2 \sum_{i=1}^n 1\\
-\end{align*}
-$$
+$SS_{Res} =  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}$
 
-Now we leverage a relationship: $\sum_{i=1}^n y_i = n \overline{y}$ to adjust the second term and cleaning up the last term whereby $\sum_{i=1}^n 1 = n$:
+$SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
 
-$$
-\begin{align*}
-SS_T &= \sum_{i=1}^n y_i^2 + -2 \overline{y} n \overline{y} + \overline{y}^2 n\\
-&= \sum_{i=1}^n y_i^2 + -2 n \overline{y}^2 + n \overline{y}^2\\
-&= \sum_{i=1}^n y_i^2 + - n \overline{y}^2\\
-\end{align*}
-$$
-We make two more substitution: $\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i$ and the fact that $\sum_{i=1}^n y_i^2 = \mathbf{y^\intercal y}$
+Reject $H_0$ if $F_{test} > F_{\alpha,k,n-k-1}$
 
-$$
-\begin{align*}
-SS_T &= \mathbf{y^\intercal y} + - n \left ( \frac{1}{n} \sum_{i=1}^n y_i\right )^2\\
-&= \mathbf{y^\intercal y} + - \frac{n}{n^2} \sum_{i=1}^n y_i^2\\
-&= \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\\
-\end{align*}
-$$
+$E[MS_{Res}] = \sigma^2$
 
-* $SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
-* $SS_{Res} =  \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}$
-* $SS_R = SS_T - SS_{Res} = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2$
-* Reject $H_0$ if $F_{test} > F_{\alpha,k,n-k-1}$
-* $E[MS_{Res}] = \sigma^2$
-* $E[MS_R] = \sigma^2 + \frac{\beta_{1:k}^\intercal \mathbf{X_c ^\intercal X_c \beta_{1:k}}}{k\sigma^2}$ where $\beta_{1:k}=(\beta_1,\dots,\beta_k)^\intercal$ 
-* $\mathbf{X_c} = 
+$E[MS_R] = \sigma^2 + \frac{\beta_{1:k}^\intercal \mathbf{X_c ^\intercal X_c \beta_{1:k}}}{k\sigma^2}$ where $\beta_{1:k}=(\beta_1,\dots,\beta_k)^\intercal$ 
+
+$\mathbf{X_c} = 
 \begin{bmatrix}
 x_{11} - \overline{x_1} & x_{12} - \overline{x_2} & \dots & x_{1k}- \overline{x_k}\\
 x_{21} - \overline{x_1} & x_{22} - \overline{x_2} & \dots & x_{2k}- \overline{x_k}\\
@@ -249,39 +207,60 @@ x_{21} - \overline{x_1} & x_{22} - \overline{x_2} & \dots & x_{2k}- \overline{x_
 x_{n1} - \overline{x_1} & x_{n2} - \overline{x_2} & \dots & x_{nk}- \overline{x_k}\\
 \end{bmatrix}$
 
-### $R^2$ and Adjusted $R^2$
+$R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}$
 
-#### $R^2$
-* Calculated the same as SLR
-$$
-R^2 = \frac {SS_R}{SS_T}= \frac {SS_T - SS_{Res}}{SS_T} = 1-\frac {SS_{Res}}{SS_T}
-$$
-* The model with one additional predictor always gets a higher $R^2$
-* Measures the proportion of variability in $Y$ that is explained by the regression model or the $k$ predictors
+$R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}$
 
-#### Adjusted $R^2$
-$$
-R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
-$$
+Penalty (through p) for the number of variables in model
 
-* Applies a penalty (through p) for the number of variables included in the model
+Partial: Tests the contribution of $X_j$ given all other regressors in the model
 
-### Test on Individual Regression Coefficients
+$H_0:\beta_j = 0$ and $H_1: \beta_j \ne 0$
 
-#### Partial/Marginal Test
+$t_{test} = \frac{b_j}{\sqrt{\hat\sigma^2 C_{jj}}}$, where $C_{jj}$ is the $j$-th diagonal element of $(\mathbf{X^\intercal X})^{-1}$
 
-* Tests the contribution of $X_j$ given all other regressors in the model
-* $H_0:\beta_j = 0$ and $H_1: \beta_j \ne 0$
-* $t_{test} = \frac{b_j}{\sqrt{\hat\sigma^2 C_{jj}}}$, where $C_{jj}$ is the $j$-th diagonal element of $(\mathbf{X^\intercal X})^{-1}$
-* Reject $H_0$ if $\vert t_{test} \vert \gt t_{\alpha/2,n-k-1}$
+$E(a+cY) = a+cE(Y)$
 
-#### Reduced Model vs. Full Model
+$Var(a+cY) = c^2 Var(Y)$
 
-* Overall test of significance: _all_ predictors vs. Marginal $t$-test: _one single_ predictor
-* Test any subset
-* **Full**: $y=\beta_0+\beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \epsilon$
-* $H_0: \beta_2 = \beta_4 = 0$
-* **Reduced** (under $H_0$): $y=\beta_0+\beta_1 x_1 + \beta_3 x_3 + \epsilon$
-* Like to see if $x_2$ and $X_4$ contribute to model when $x_1$ and $x_3$ are in model
-  - If yes, $\beta_2 \ne 0$ and/or $\beta_4 \ne 0$ (Reject $H_0$)
-  - Otherwise, $\beta_2=\beta_4=0$ (Do not reject $H_0$)
+$Cov(X,Y)=E[(X-E(X))(Y-E(Y))]$
+
+$Cov(a+cX, b+dY)=cdCov(X,Y)$
+
+$E(\sum_{i=1}^n a_i Y_i) \sum_{i=1}^n a_i E(Y_i)$
+
+$Var(\sum_{i=1}^n a_i Y_i) = \sum_{i=1}^n \sum_{j=1}^n a_i a_j Cov(Y_i, Y_j)$
+
+If $Y_1, Y_2,...$ inde. $Cov(Y_i,Y_j)=0$ for $i \ne j$ and $Var(\sum_{i=1}^n a_i Y_i) = \sum_{i=1}^n a_i^2 Var(Y_i)$
+
+$Y\sim N(\mu, \sigma^2), Z=\frac{Y-\mu}{\sigma}\sim N(0,1)$
+
+$Y_i \overset{iid}{\sim} N(\mu_i, \sigma_i^2)$, then distr. $N(\sum_{i=1}^n a_i \mu_i, \sum_{i=1}^n a_i^2, \sigma_i^2)$
+
+If $Z\sim N(0,1)$ then $Z^2 \sim \chi_1^2$
+
+If $Z_i \overset {iid}{\sim} N(0,1)$ then $\sum_{i=1}^n Z^2 \sim \chi_n^2$
+
+rank = # of Linearly Independent columns
+
+Idempotent $AA=A$
+
+Orthogonal: $A^{-1}=A^\intercal$ and $A^{\intercal}A=I$
+
+Symmetric: $A = A^\intercal$
+
+Inverse: $A^{-1}A = AA^{-1}=I$
+
+Quadratic: $y^\intercal A y = \sum_{i=1}^n \sum_{j=1}^n a_{ij} y_i y_j$
+
+trace: sum of diags
+
+$\mathbf{A} \mathbf{x} = \lambda \mathbf{x}$
+
+$E(\mathbf{By})=\mathbf{B}E(\mathbf{y})$
+
+$Var(\mathbf{By})=\mathbf{B}Var(\mathbf{y})\mathbf{B^\intercal} = \mathbf{B \Sigma B^\intercal}$
+
+$\mathbf{y} \sim N_n(\mathbf{\mu},\sigma^2 \mathbf{I})$ and $\overline{y} = \frac{1}{n} \mathbf{1^\intercal Y}$
+
+$\overline{y} \sim N(\frac{1}{n}\mathbf{1^\intercal Y},\frac{1}{n}\mathbf{1^\intercal}(\sigma^2 \mathbf{I})\frac{1}{n}\mathbf{1})=N(\mu,\frac{\sigma^2}{n})$

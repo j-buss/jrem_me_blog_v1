@@ -1,0 +1,143 @@
+---
+title: Model Adequacy Checking
+author: Jeremy Buss
+date: '2021-10-16'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+```{r echo=FALSE}
+library(blogdown)
+```
+
+## Assumptions of Linear Regression
+
+Linear Regression:
+
+$$
+\begin{align*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \dots + \beta_k X_{ik} + \epsilon_i
+\end{align*}
+$$
+
+![](images/Screenshot 2021-10-16 13.23.21.png)
+
+The major assumptions that we have made concerning Linear Regression are as follows:
+
+1. Relationship between $Y$ and $X_i$ is linear
+2. $E(\epsilon_i)=0$
+3. $Var(\epsilon_i)=\sigma^2$
+4. $Cov(\epsilon_i, \epsilon_j)=0$ for all $i \ne j$
+5. $\epsilon_i {\overset {iid}{\sim}} N(0,\sigma^2)$
+
+* If assumptions are violated, a different sample could lead to different model with opposite conclusions!
+* All the inferences are based on the assumption that the model is correct.
+* We cannot detect departure from underlying assumptions by examining standard summary statistics. $R^2$, $t$ or $F$ statistics are "global" model properties, and as such they do not ensure model adequacy
+
+## Definition of Residuals
+
+We previously learned that residuals are defined as:
+
+$$
+e_i = y_i - \hat{y_i}, \space i=1,2,...,n
+$$
+However there are a few other constructive ways to view the residuals:
+
+* **deviation** between observed **data** and the **fitted** values
+* **unexplained variability** in the response variable from the model
+* **realized** or **observed values** of $\epsilon_i$
+
+The residuals have several important properties:
+
+* Zero mean or $\sum_{i=1}^n e_i =0$
+* Approximate variance: 
+
+$$
+\frac{\sum_{i=1}^n (e_i - \overline{e_i})^2}{n-p} = \frac{\sum_{i=1}^n e_i^2}{n-p} = \frac{SS_{Res}}{n-p} = MS_{Res} = \hat{\sigma}^2
+$$
+where $p=$ # of parameters
+
+* Unlike $\epsilon_i$, $e_i$ are not independent:
+  * $n$ residuals have only $n-p$ degrees of freedom
+
+**Scaled Residuals**: Helpful in finding **outliers**, the **unusual or extreme points** that are considerably different from other data points in $y$ or $x$ directions
+
+## Standardized Residuals
+
+Approximate average variance of a residual is estimated by $MS_{Res}$.
+
+$$
+d_i = \frac{e_i}{\sqrt{MS_{Res}}}
+$$
+
+* $d_i$s have mean zero and _approximate_ unit variance
+* $\vert d_i \vert > 3$ may indicate an outlier
+
+## Variance-Covariance of Residuals
+
+Hat Matrix 
+
+$$
+ \mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} 
+$$
+
+$$
+Var(\mathbf{e} = \sigma^2(\mathbf{I}-\mathbf{H}))
+$$
+
+* $Var(e_i) = \sigma^2(1-h_{ii})$, where $h_{ii}$ is the $i$-th diagonal element of $\mathbf{H}$
+* $Cov(e_i,e_j) = -\sigma^2h_{ij}$, where $h_{ij}$ is the $ij$-th diagonal element of $\mathbf{H}$
+
+*$h_{ii} \in [0,1]$ measures the location of the $i$-th point in $\mathbf{x}$ space
+* the __smaller__ the $h_{ii}$ is, the __closer__ the point $\mathbf{x_i}$ lies to the centroid of the $\mathbf{X}$ space
+* the __larger__ the $h_{ii}$ is, the __smaller__ the $Var(e_i)$ is
+* $MS_{res}>MS_{res}(1-h_{ii})$ overestimates $Var(e_i)$
+
+## Studentized Residuals
+
+$$
+r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
+$$
+
+## PRESS Residuals
+
+**PR**ediction **E**ror **S**um of **S**quares **(PRESS):**
+
+$$
+\sum_{i=1}^n \left ( y_i - \hat{y_{(i)}} \right )^2
+$$
+
+
+## Standardized PRESS Residuals
+
+$$
+Var[e_{(i)}]=Var \left [ \frac{e_i}{1-h_{ii}} \right ] = \frac{\sigma^2}{1-h_{ii}}
+$$
+
+$$
+\frac{e_{(i)}}{\sqrt{Var(e_{(i)}})} = \frac{e_{i}/(1-h_{ii})}{\sqrt{\sigma^2/(1 - h_{ii})}} = \frac{e_{i}}{\sqrt{\sigma^2(1 - h_{ii})}}
+$$
+
+## R-Student Residuals
+
+* $MS_{res}$ uses all $n$ observations to estimate $\sigma^2$
+* $S_{(i)}^2$ estimates $\sigma^2$ based on the data with the $i$-th observation removed:
+
+$$
+S_{(i)}^2 = \frac{(n-p)MS_{res}-e_i^2/(1-h_{ii})}{n-p-1}
+$$
+
+### R-Student residual:
+
+$$
+t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
+$$
+
+* If $i$-th observation is influential, $S_{(i)}^2$ is significantly different from $MS_{res}$
