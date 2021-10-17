@@ -82,9 +82,18 @@ d_i = \frac{e_i}{\sqrt{MS_{Res}}}
 </div>
 <div id="variance-covariance-of-residuals" class="section level2">
 <h2>Variance-Covariance of Residuals</h2>
-<p>Hat Matrix</p>
+<p>Remember our definition of the Hat Matrix:</p>
 <p><span class="math display">\[
  \mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} 
+\]</span></p>
+<p>The Hat Matrix has the following properties:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{H}\)</span> is symmetric and idempotent</li>
+<li><span class="math inline">\(\mathbf{I-H}\)</span> is symmetric and idempotent</li>
+</ul>
+<p>We can show that residuals can be written in matrix notation as</p>
+<p><span class="math display">\[
+\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{X}
 \]</span></p>
 <p><span class="math display">\[
 Var(\mathbf{e} = \sigma^2(\mathbf{I}-\mathbf{H}))

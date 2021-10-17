@@ -82,11 +82,24 @@ $$
 
 ## Variance-Covariance of Residuals
 
-Hat Matrix 
+Remember our definition of the Hat Matrix: 
 
 $$
  \mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal} 
 $$
+
+The Hat Matrix has the following properties:
+
+* $\mathbf{H}$ is symmetric and idempotent
+* $\mathbf{I-H}$ is symmetric and idempotent
+
+We can show that residuals can be written in matrix notation as
+
+$$
+\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{X}
+$$
+
+
 
 $$
 Var(\mathbf{e} = \sigma^2(\mathbf{I}-\mathbf{H}))
