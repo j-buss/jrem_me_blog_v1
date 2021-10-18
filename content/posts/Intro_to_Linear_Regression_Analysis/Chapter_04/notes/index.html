@@ -91,34 +91,79 @@ d_i = \frac{e_i}{\sqrt{MS_{Res}}}
 <li><span class="math inline">\(\mathbf{H}\)</span> is symmetric and idempotent</li>
 <li><span class="math inline">\(\mathbf{I-H}\)</span> is symmetric and idempotent</li>
 </ul>
-<p>We can show that residuals can be written in matrix notation as</p>
+<p>Also remember that we can show residuals in matrix notation as:</p>
 <p><span class="math display">\[
-\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{X}
-\]</span></p>
+\mathbf{e} = \mathbf{y}-\mathbf{\hat{y}} = \mathbf{y} - \mathbf{X\hat{\beta}}=\mathbf{y}-\mathbf{Hy}=(\mathbf{I}-\mathbf{H})\mathbf{y}
+\]</span>
+We can take that last equation, properties of the Hat matrix and substituting <span class="math inline">\(\mathbf{y=X\beta+\epsilon}\)</span> into:</p>
 <p><span class="math display">\[
-Var(\mathbf{e} = \sigma^2(\mathbf{I}-\mathbf{H}))
+\begin{align*}
+\mathbf{e} &amp;= (\mathbf{I}-\mathbf{H})(\mathbf{X\beta+\epsilon})\\
+&amp;= \mathbf{X\beta}-\mathbf{HX\beta}+(\mathbf{I-H})\mathbf{\epsilon}\\
+&amp;= \mathbf{X\beta}-\mathbf{\mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}}\mathbf{X\beta}+(\mathbf{I-H})\mathbf{\epsilon}\\
+&amp;= \mathbf{X\beta}-\mathbf{\mathbf{X} [( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}}\mathbf{X}]\mathbf{\beta}+(\mathbf{I-H})\mathbf{\epsilon}\\
+&amp;= \mathbf{X\beta}-\mathbf{X} \mathbf{\beta}+(\mathbf{I-H})\mathbf{\epsilon}\\
+&amp;=(\mathbf{I-H})\mathbf{\epsilon}\\
+\end{align*}\\
 \]</span></p>
+<p>Therefore we see that the residuals are the same linear transformation of the observations <span class="math inline">\(\mathbf{y}\)</span> and the errors <span class="math inline">\(\mathbf{\epsilon}\)</span>, or in mathematical terms:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{e}=(\mathbf{I} - \mathbf{H})\mathbf{y}\)</span></li>
+<li><span class="math inline">\(\mathbf{e}=(\mathbf{I} - \mathbf{H})\mathbf{\epsilon}\)</span></li>
+</ol>
+<p>Using the second equation we can find the variance of <span class="math inline">\(\mathbf{e}\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+Var(\mathbf{e}) &amp;= Var[(\mathbf{I} - \mathbf{H})\mathbf{\epsilon}]\\
+\end{align*}
+\]</span>
+And leveraging the variance of matrices property:
+<span class="math display">\[
+Var(\mathbf{A}\mathbf{X}) = \mathbf{A}(Var(\mathbf{X}))\mathbf{A^\intercal}
+\]</span></p>
+<p>Where:</p>
 <ul>
-<li><span class="math inline">\(Var(e_i) = \sigma^2(1-h_{ii})\)</span>, where <span class="math inline">\(h_{ii}\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></li>
-<li><span class="math inline">\(Cov(e_i,e_j) = -\sigma^2h_{ij}\)</span>, where <span class="math inline">\(h_{ij}\)</span> is the <span class="math inline">\(ij\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></li>
+<li><span class="math inline">\(\mathbf{X} \in \mathbb{R}^{\ell \times 1}\)</span> is a random column vector</li>
+<li><span class="math inline">\(\mathbf{A} \in \mathbb{R}^{k \times \ell}\)</span> is a constant matrix</li>
 </ul>
-<p><em><span class="math inline">\(h_{ii} \in [0,1]\)</span> measures the location of the <span class="math inline">\(i\)</span>-th point in <span class="math inline">\(\mathbf{x}\)</span> space
-</em> the <strong>smaller</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>closer</strong> the point <span class="math inline">\(\mathbf{x_i}\)</span> lies to the centroid of the <span class="math inline">\(\mathbf{X}\)</span> space
-* the <strong>larger</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>smaller</strong> the <span class="math inline">\(Var(e_i)\)</span> is
-* <span class="math inline">\(MS_{res}&gt;MS_{res}(1-h_{ii})\)</span> overestimates <span class="math inline">\(Var(e_i)\)</span></p>
+<p>So back to our variance:</p>
+<p><span class="math display">\[
+\begin{align*}
+Var(\mathbf{e}) &amp;= Var[(\mathbf{I} - \mathbf{H})\mathbf{\epsilon}]\\
+&amp;= (\mathbf{I} - \mathbf{H}) Var(\mathbf{\epsilon}) (\mathbf{I} - \mathbf{H}) ^\intercal\\
+&amp;= \sigma^2 (\mathbf{I} - \mathbf{H})
+\end{align*}
+\]</span></p>
+<p>Since the <span class="math inline">\(Var(\mathbf{\epsilon})=\sigma^2 \mathbf{I}\)</span> and <span class="math inline">\(\mathbf{I}-\mathbf{H}\)</span> is symmetric and idempotent. The matrix <span class="math inline">\(\mathbf{I}-\mathbf{H}\)</span> is generally not diagonal, so the residuals have different variances and they are correlated:</p>
+<ul>
+<li><p><span class="math inline">\(Var(e_i) = \sigma^2(1-h_{ii})\)</span>, where <span class="math inline">\(h_{ii}\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></p></li>
+<li><p><span class="math inline">\(Cov(e_i,e_j) = -\sigma^2h_{ij}\)</span>, where <span class="math inline">\(h_{ij}\)</span> is the <span class="math inline">\(ij\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></p></li>
+<li><p><span class="math inline">\(h_{ii} \in [0,1]\)</span> measures the location of the <span class="math inline">\(i\)</span>-th point in <span class="math inline">\(\mathbf{x}\)</span> space</p>
+<ul>
+<li>the <strong>smaller</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>closer</strong> the point <span class="math inline">\(\mathbf{x_i}\)</span> lies to the centroid of the <span class="math inline">\(\mathbf{X}\)</span> space</li>
+<li>the <strong>larger</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>smaller</strong> the <span class="math inline">\(Var(e_i)\)</span> is</li>
+<li><span class="math inline">\(MS_{res}&gt;MS_{res}(1-h_{ii})\)</span> overestimates <span class="math inline">\(Var(e_i)\)</span></li>
+</ul></li>
+</ul>
 </div>
 <div id="studentized-residuals" class="section level2">
 <h2>Studentized Residuals</h2>
 <p><span class="math display">\[
 r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
 \]</span></p>
+<ul>
+<li><span class="math inline">\(r_i\)</span>s have mean zero and unit variance, regardless of the location of <span class="math inline">\(\mathbf{x_i}\)</span> when the model form is correct</li>
+<li>Larger than <span class="math inline">\(d_i\)</span></li>
+<li>When <span class="math inline">\(n\)</span> is large, stadardized <span class="math inline">\(d_i\)</span> and studentized <span class="math inline">\(r_i\)</span> are similar</li>
+</ul>
 </div>
 <div id="press-residuals" class="section level2">
 <h2>PRESS Residuals</h2>
 <p><strong>PR</strong>ediction <strong>E</strong>ror <strong>S</strong>um of <strong>S</strong>quares <strong>(PRESS):</strong></p>
 <p><span class="math display">\[
-\sum_{i=1}^n \left ( y_i - \hat{y_{(i)}} \right )^2
-\]</span></p>
+\sum_{i=1}^n \left ( y_i - \hat{y}_{(i)} \right )^2
+\]</span>
+### PRESS residuals:</p>
 </div>
 <div id="standardized-press-residuals" class="section level2">
 <h2>Standardized PRESS Residuals</h2>
