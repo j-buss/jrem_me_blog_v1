@@ -150,11 +150,53 @@ Since the $Var(\mathbf{\epsilon})=\sigma^2 \mathbf{I}$ and $\mathbf{I}-\mathbf{H
 
 * $h_{ii} \in [0,1]$ measures the location of the $i$-th point in $\mathbf{x}$ space
 
-  * the __smaller__ the $h_{ii}$ is, the __closer__ the point $\mathbf{x_i}$ lies to the centroid of the $\mathbf{X}$ space
-  * the __larger__ the $h_{ii}$ is, the __smaller__ the $Var(e_i)$ is
+  * the __smaller__ $h_{ii}$ is:
+    * The __larger__ the $Var(e_i)$
+    * The __closer__ the point $\mathbf{x_i}$ lies to the centroid of the $\mathbf{X}$ space
+  * The __larger__ $h_{ii}$ is:
+    * The __smaller__ the $Var(e_i)$
   * $MS_{res}>MS_{res}(1-h_{ii})$ overestimates $Var(e_i)$
 
+### Leverage Points and Influential Points
+
+* **Leverage Point** - Leverage points are observations made at extreme values of the independent variables; the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.
+* **Influential Point** - Influential observations are those observations that have a relatively large effect on the regression model's predictions
+    * Drags the prediction to itself
+    * Remote point with large $h_{ii}$ may be influential
+* **Leverage vs. Influential** - An influential point will typically have high leverage; however a high leverage point is not necessarily an influential point.
+
+### Influential Points - Mathematical Insights
+
+* Let $y_n$ be the observed response for the $n^{th}$ data point
+* Let $\hat{y}_n^*$ be predicted value for response based on other n-1 data points
+* Let $\delta = y_n - \hat{y}_n^*$ or the difference between actual observed value vs. predicted value from "other" observations.
+
+![](images/MPV_InfluentialPoint_vs_LeveragePoint.png)
+_Model Adequacy Checking - Introduction to Linear Regression Analysis - 5th addition - Montgomery/Peck/Vining_
+
+Using the an image from Introduction to Linear Regression Analysis by Montgomery/Peck/Vining
+
+For $x=25$:
+
+* Figure 1: $\hat{y}_n^* = 25$ predicted value based on other points
+* Figure 2: $y_n=2$ actual value
+* $\delta = y_n - \hat{y}_n^*$ is -23: showing very influential point
+
+Furthermore if the $n^{th}$ data point is remote in terms of the space devined by data values for regressors, then $h_{nn}$ approaches 1 and $\hat{y}_n$ approaches $y_n$
+
+$$
+\begin{align*}
+\hat{y}_n&=\hat{y}_n^* + h_{nn}\delta\\
+&=\hat{y}_n^* + \left [ \frac{1}{n} + \left ( \frac{n-1}{n} \right )^2 \frac{(x_n-\overline{x}^*)^2}{S_{xx}} \right ]\delta\\
+\end{align*}
+$$
+
+Let $\overline{x}^*$ be the average value for the other $n$-1 regressors.
+
+
 ## Studentized Residuals
+
+A logical next step is to produce a residual with constant variance:
 
 $$
 r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
@@ -162,29 +204,67 @@ $$
 
 * $r_i$s have mean zero and unit variance, regardless of the location of $\mathbf{x_i}$ when the model form is correct
 * Larger than $d_i$
-* When $n$ is large, stadardized $d_i$ and studentized $r_i$ are similar
+* When $n$ is large, standardized $d_i$ and studentized $r_i$ are similar
 
+#### Practice: If there is only one regressor, show that studentized residuals are:
+
+$$
+r_i = \frac{e_i}
+{\sqrt{MS_{res}    \left [ 1- \left ( \frac{1}{n} + \frac{(x_i - \overline{x})^2}{S_{xx}} \right ) \right ]         }                 }
+$$
 
 ## PRESS Residuals
 
-**PR**ediction **E**ror **S**um of **S**quares **(PRESS):**
+Another alternative is to find $\hat{y}_{(i)}$: the fitted value of $y_i$ based on a model with all observations except $y_i$
+
+Define the prediction residual as:
 
 $$
-\sum_{i=1}^n \left ( y_i - \hat{y}_{(i)} \right )^2
+e_{(i)}=y_i - \hat{y}_{(i)}
 $$
-### PRESS residuals:
+
+#### Motivation:
+
+* If the $i$-th point $(\mathbf{x_i}, y_i)$ is unusual it can "overly" influence the regression model
+* If the point in question is used then $y_i \approx \hat{y}_{(i)}$ and it's hard to detect an outlier
+* If the point in question is not used then $\hat{y}_{(i)}$ cannot be influenced by it, and the residual will better reflect how unusual the point is
+
+#### Practice: It can be shown
+
+$$
+e_{(i)} = \frac{e_i}{1-h_{ii}}, \space i=1,2,\dots,n
+$$
+
+* When $h_{ii}$ is large, the PRESS residual is large, or the difference between $e_i$ and $e_{(i)} is large$
+* These points will generally be **high influence** points
+* (X_i,y_i) is a point where the model **fits** the data well, but a model built without the point **predicts** poorly
+
+
+#### The Sum of Squares becomes:
+(i.e. **PR**ediction **E**ror **S**um of **S**quares **(PRESS)**):
+
+
+$$
+\sum_{i=1}^n e_i = \sum_{i=1}^n \left ( y_i - \hat{y}_{(i)} \right )^2
+$$
 
 
 
-## Standardized PRESS Residuals
+### Standardized PRESS Residuals
+
+The variance of the $i$th PRESS residual is:
 
 $$
 Var[e_{(i)}]=Var \left [ \frac{e_i}{1-h_{ii}} \right ] = \frac{\sigma^2}{1-h_{ii}}
 $$
 
+so that a **standardized** PRESS residual is:
+
 $$
 \frac{e_{(i)}}{\sqrt{Var(e_{(i)}})} = \frac{e_{i}/(1-h_{ii})}{\sqrt{\sigma^2/(1 - h_{ii})}} = \frac{e_{i}}{\sqrt{\sigma^2(1 - h_{ii})}}
 $$
+
+which, if we use $MS_{Res}$ to estimate $\sigma^2$, is just the **studentized residual** discussed previously.
 
 ## R-Student Residuals
 

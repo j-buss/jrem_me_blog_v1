@@ -140,39 +140,120 @@ Var(\mathbf{e}) &amp;= Var[(\mathbf{I} - \mathbf{H})\mathbf{\epsilon}]\\
 <li><p><span class="math inline">\(Cov(e_i,e_j) = -\sigma^2h_{ij}\)</span>, where <span class="math inline">\(h_{ij}\)</span> is the <span class="math inline">\(ij\)</span>-th diagonal element of <span class="math inline">\(\mathbf{H}\)</span></p></li>
 <li><p><span class="math inline">\(h_{ii} \in [0,1]\)</span> measures the location of the <span class="math inline">\(i\)</span>-th point in <span class="math inline">\(\mathbf{x}\)</span> space</p>
 <ul>
-<li>the <strong>smaller</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>closer</strong> the point <span class="math inline">\(\mathbf{x_i}\)</span> lies to the centroid of the <span class="math inline">\(\mathbf{X}\)</span> space</li>
-<li>the <strong>larger</strong> the <span class="math inline">\(h_{ii}\)</span> is, the <strong>smaller</strong> the <span class="math inline">\(Var(e_i)\)</span> is</li>
+<li>the <strong>smaller</strong> <span class="math inline">\(h_{ii}\)</span> is:
+<ul>
+<li>The <strong>larger</strong> the <span class="math inline">\(Var(e_i)\)</span></li>
+<li>The <strong>closer</strong> the point <span class="math inline">\(\mathbf{x_i}\)</span> lies to the centroid of the <span class="math inline">\(\mathbf{X}\)</span> space</li>
+</ul></li>
+<li>The <strong>larger</strong> <span class="math inline">\(h_{ii}\)</span> is:
+<ul>
+<li>The <strong>smaller</strong> the <span class="math inline">\(Var(e_i)\)</span></li>
+</ul></li>
 <li><span class="math inline">\(MS_{res}&gt;MS_{res}(1-h_{ii})\)</span> overestimates <span class="math inline">\(Var(e_i)\)</span></li>
 </ul></li>
 </ul>
+<div id="leverage-points-and-influential-points" class="section level3">
+<h3>Leverage Points and Influential Points</h3>
+<ul>
+<li><strong>Leverage Point</strong> - Leverage points are observations made at extreme values of the independent variables; the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.</li>
+<li><strong>Influential Point</strong> - Influential observations are those observations that have a relatively large effect on the regression model’s predictions
+<ul>
+<li>Drags the prediction to itself</li>
+<li>Remote point with large <span class="math inline">\(h_{ii}\)</span> may be influential</li>
+</ul></li>
+<li><strong>Leverage vs. Influential</strong> - An influential point will typically have high leverage; however a high leverage point is not necessarily an influential point.</li>
+</ul>
+</div>
+<div id="influential-points---mathematical-insights" class="section level3">
+<h3>Influential Points - Mathematical Insights</h3>
+<ul>
+<li>Let <span class="math inline">\(y_n\)</span> be the observed response for the <span class="math inline">\(n^{th}\)</span> data point</li>
+<li>Let <span class="math inline">\(\hat{y}_n^*\)</span> be predicted value for response based on other n-1 data points</li>
+<li>Let <span class="math inline">\(\delta = y_n - \hat{y}_n^*\)</span> or the difference between actual observed value vs. predicted value from “other” observations.</li>
+</ul>
+<p><img src="images/MPV_InfluentialPoint_vs_LeveragePoint.png" />
+<em>Model Adequacy Checking - Introduction to Linear Regression Analysis - 5th addition - Montgomery/Peck/Vining</em></p>
+<p>Using the an image from Introduction to Linear Regression Analysis by Montgomery/Peck/Vining</p>
+<p>For <span class="math inline">\(x=25\)</span>:</p>
+<ul>
+<li>Figure 1: <span class="math inline">\(\hat{y}_n^* = 25\)</span> predicted value based on other points</li>
+<li>Figure 2: <span class="math inline">\(y_n=2\)</span> actual value</li>
+<li><span class="math inline">\(\delta = y_n - \hat{y}_n^*\)</span> is -23: showing very influential point</li>
+</ul>
+<p>Furthermore if the <span class="math inline">\(n^{th}\)</span> data point is remote in terms of the space devined by data values for regressors, then <span class="math inline">\(h_{nn}\)</span> approaches 1 and <span class="math inline">\(\hat{y}_n\)</span> approaches <span class="math inline">\(y_n\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+\hat{y}_n&amp;=\hat{y}_n^* + h_{nn}\delta\\
+&amp;=\hat{y}_n^* + \left [ \frac{1}{n} + \left ( \frac{n-1}{n} \right )^2 \frac{(x_n-\overline{x}^*)^2}{S_{xx}} \right ]\delta\\
+\end{align*}
+\]</span></p>
+<p>Let <span class="math inline">\(\overline{x}^*\)</span> be the average value for the other <span class="math inline">\(n\)</span>-1 regressors.</p>
+</div>
 </div>
 <div id="studentized-residuals" class="section level2">
 <h2>Studentized Residuals</h2>
+<p>A logical next step is to produce a residual with constant variance:</p>
 <p><span class="math display">\[
 r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(r_i\)</span>s have mean zero and unit variance, regardless of the location of <span class="math inline">\(\mathbf{x_i}\)</span> when the model form is correct</li>
 <li>Larger than <span class="math inline">\(d_i\)</span></li>
-<li>When <span class="math inline">\(n\)</span> is large, stadardized <span class="math inline">\(d_i\)</span> and studentized <span class="math inline">\(r_i\)</span> are similar</li>
+<li>When <span class="math inline">\(n\)</span> is large, standardized <span class="math inline">\(d_i\)</span> and studentized <span class="math inline">\(r_i\)</span> are similar</li>
 </ul>
+<div id="practice-if-there-is-only-one-regressor-show-that-studentized-residuals-are" class="section level4">
+<h4>Practice: If there is only one regressor, show that studentized residuals are:</h4>
+<p><span class="math display">\[
+r_i = \frac{e_i}
+{\sqrt{MS_{res}    \left [ 1- \left ( \frac{1}{n} + \frac{(x_i - \overline{x})^2}{S_{xx}} \right ) \right ]         }                 }
+\]</span></p>
+</div>
 </div>
 <div id="press-residuals" class="section level2">
 <h2>PRESS Residuals</h2>
-<p><strong>PR</strong>ediction <strong>E</strong>ror <strong>S</strong>um of <strong>S</strong>quares <strong>(PRESS):</strong></p>
+<p>Another alternative is to find <span class="math inline">\(\hat{y}_{(i)}\)</span>: the fitted value of <span class="math inline">\(y_i\)</span> based on a model with all observations except <span class="math inline">\(y_i\)</span></p>
+<p>Define the prediction residual as:</p>
 <p><span class="math display">\[
-\sum_{i=1}^n \left ( y_i - \hat{y}_{(i)} \right )^2
-\]</span>
-### PRESS residuals:</p>
+e_{(i)}=y_i - \hat{y}_{(i)}
+\]</span></p>
+<div id="motivation" class="section level4">
+<h4>Motivation:</h4>
+<ul>
+<li>If the <span class="math inline">\(i\)</span>-th point <span class="math inline">\((\mathbf{x_i}, y_i)\)</span> is unusual it can “overly” influence the regression model</li>
+<li>If the point in question is used then <span class="math inline">\(y_i \approx \hat{y}_{(i)}\)</span> and it’s hard to detect an outlier</li>
+<li>If the point in question is not used then <span class="math inline">\(\hat{y}_{(i)}\)</span> cannot be influenced by it, and the residual will better reflect how unusual the point is</li>
+</ul>
 </div>
-<div id="standardized-press-residuals" class="section level2">
-<h2>Standardized PRESS Residuals</h2>
+<div id="practice-it-can-be-shown" class="section level4">
+<h4>Practice: It can be shown</h4>
+<p><span class="math display">\[
+e_{(i)} = \frac{e_i}{1-h_{ii}}, \space i=1,2,\dots,n
+\]</span></p>
+<ul>
+<li>When <span class="math inline">\(h_{ii}\)</span> is large, the PRESS residual is large, or the difference between <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_{(i)} is large\)</span></li>
+<li>These points will generally be <strong>high influence</strong> points</li>
+<li>(X_i,y_i) is a point where the model <strong>fits</strong> the data well, but a model built without the point <strong>predicts</strong> poorly</li>
+</ul>
+</div>
+<div id="the-sum-of-squares-becomes" class="section level4">
+<h4>The Sum of Squares becomes:</h4>
+<p>(i.e. <strong>PR</strong>ediction <strong>E</strong>ror <strong>S</strong>um of <strong>S</strong>quares <strong>(PRESS)</strong>):</p>
+<p><span class="math display">\[
+\sum_{i=1}^n e_i = \sum_{i=1}^n \left ( y_i - \hat{y}_{(i)} \right )^2
+\]</span></p>
+</div>
+<div id="standardized-press-residuals" class="section level3">
+<h3>Standardized PRESS Residuals</h3>
+<p>The variance of the <span class="math inline">\(i\)</span>th PRESS residual is:</p>
 <p><span class="math display">\[
 Var[e_{(i)}]=Var \left [ \frac{e_i}{1-h_{ii}} \right ] = \frac{\sigma^2}{1-h_{ii}}
 \]</span></p>
+<p>so that a <strong>standardized</strong> PRESS residual is:</p>
 <p><span class="math display">\[
 \frac{e_{(i)}}{\sqrt{Var(e_{(i)}})} = \frac{e_{i}/(1-h_{ii})}{\sqrt{\sigma^2/(1 - h_{ii})}} = \frac{e_{i}}{\sqrt{\sigma^2(1 - h_{ii})}}
 \]</span></p>
+<p>which, if we use <span class="math inline">\(MS_{Res}\)</span> to estimate <span class="math inline">\(\sigma^2\)</span>, is just the <strong>studentized residual</strong> discussed previously.</p>
+</div>
 </div>
 <div id="r-student-residuals" class="section level2">
 <h2>R-Student Residuals</h2>
