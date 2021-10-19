@@ -232,7 +232,7 @@ e_{(i)} = \frac{e_i}{1-h_{ii}}, \space i=1,2,\dots,n
 <ul>
 <li>When <span class="math inline">\(h_{ii}\)</span> is large, the PRESS residual is large, or the difference between <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_{(i)} is large\)</span></li>
 <li>These points will generally be <strong>high influence</strong> points</li>
-<li>(X_i,y_i) is a point where the model <strong>fits</strong> the data well, but a model built without the point <strong>predicts</strong> poorly</li>
+<li><span class="math inline">\((\mathbf{x_i},y_i)\)</span> is a point where the model <strong>fits</strong> the data well, but a model built without the point <strong>predicts</strong> poorly</li>
 </ul>
 </div>
 <div id="the-sum-of-squares-becomes" class="section level4">
@@ -272,5 +272,63 @@ t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
 <ul>
 <li>If <span class="math inline">\(i\)</span>-th observation is influential, <span class="math inline">\(S_{(i)}^2\)</span> is significantly different from <span class="math inline">\(MS_{res}\)</span></li>
 </ul>
+</div>
+</div>
+<div id="residual-plots" class="section level2">
+<h2>Residual Plots</h2>
+<p>Normal probability (QQ-plot) of residuals:</p>
+<ul>
+<li><span class="math inline">\(t_{test}\)</span>, <span class="math inline">\(F_{test}\)</span>, CI and PI all depend on normality assumptions</li>
+<li>Heavy tailed error distributions often generate outliers that “pull” the LS fit too much in their direction</li>
+</ul>
+<p>Plot <span class="math inline">\(e_i\)</span> vs. fitted values <span class="math inline">\(\hat{y}_i\)</span>
+* Check for nonconstant variance
+* Check for nonlinearity
+* Look for outliers
+* We plot <span class="math inline">\(e_i\)</span> vs. fitted values <span class="math inline">\(\hat{y}_i\)</span> as <span class="math inline">\(e_i\)</span> and <span class="math inline">\(y_i\)</span> are usually correlated
+<strong>Why?</strong></p>
+<div id="other-residual-plots" class="section level3">
+<h3>Other Residual Plots</h3>
+<div id="e_i-vs.-x_j" class="section level4">
+<h4><span class="math inline">\(e_i\)</span> vs. <span class="math inline">\(x_j\)</span></h4>
+<ul>
+<li>Similar to <span class="math inline">\(e_i\)</span> to <span class="math inline">\(\hat{y}_i\)</span></li>
+<li>Not always effective revealing whether a transformation is required</li>
+</ul>
+</div>
+<div id="partial-regression-plot" class="section level4">
+<h4>Partial Regression Plot</h4>
+<ul>
+<li>Study <strong>marginal</strong> effect of a <span class="math inline">\(x_j\)</span> given all others in the model</li>
+<li>Evaluate whether we specified the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x_j\)</span> correctly</li>
+</ul>
+<div id="partial-regression-plot---how" class="section level5">
+<h5>Partial Regression Plot - How</h5>
+<ol style="list-style-type: decimal">
+<li>Regress <span class="math inline">\(y\)</span> on all regressors except <span class="math inline">\(x_j\)</span> and obtain residuals</li>
+</ol>
+<p><span class="math display">\[
+\hat{y}_i(x_{(j)}) = b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b{j+1}x_{i,j+1} + \dots + b_{k}x_{i1}
+\]</span></p>
+<p><span class="math display">\[
+e_i(y|x_{(j)}) = y_i - \hat{y}_{i}(x_{(j)})
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Regress <span class="math inline">\(x_j\)</span> on all other predictors and obtain residuals</li>
+</ol>
+<p><span class="math display">\[
+e_i(x_j|x_{(j)}) = x_{ij} - \hat{x}_{ij}(x_{(j)})
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Plot <span class="math inline">\(e_i(y|x_{(j)})\)</span> vs. <span class="math inline">\(e_i(x_j|x_{(j)})\)</span></li>
+</ol>
+<ul>
+<li>If the plot of <span class="math inline">\(e_i(y|x_{(j)})\)</span> vs. <span class="math inline">\(e_i(x_j|x_{(j)})\)</span> is linear, then a linear relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(x_j\)</span> seems reasonable</li>
+<li>The slope of the line will be the regression coefficient of <span class="math inline">\(x_j\)</span> in an MLR model</li>
+<li>If the plot is curvilinear, we may need some transformation such as <span class="math inline">\(x_j^2\)</span> or <span class="math inline">\(1/x_j\)</span></li>
+<li>If <span class="math inline">\(x_j\)</span> is a candidate variable, a horizontal band indicates there is no additional useful information in <span class="math inline">\(x_j\)</span> for predictin <span class="math inline">\(y\)</span></li>
+</ul>
+</div>
+</div>
 </div>
 </div>

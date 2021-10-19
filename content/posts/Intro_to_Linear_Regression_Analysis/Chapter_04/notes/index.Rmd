@@ -237,7 +237,7 @@ $$
 
 * When $h_{ii}$ is large, the PRESS residual is large, or the difference between $e_i$ and $e_{(i)} is large$
 * These points will generally be **high influence** points
-* (X_i,y_i) is a point where the model **fits** the data well, but a model built without the point **predicts** poorly
+* $(\mathbf{x_i},y_i)$ is a point where the model **fits** the data well, but a model built without the point **predicts** poorly
 
 
 #### The Sum of Squares becomes:
@@ -282,3 +282,54 @@ t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
 $$
 
 * If $i$-th observation is influential, $S_{(i)}^2$ is significantly different from $MS_{res}$
+
+## Residual Plots
+
+Normal probability (QQ-plot) of residuals:
+
+* $t_{test}$, $F_{test}$, CI and PI all depend on normality assumptions
+* Heavy tailed error distributions often generate outliers that "pull" the LS fit too much in their direction
+
+Plot $e_i$ vs. fitted values $\hat{y}_i$
+* Check for nonconstant variance
+* Check for nonlinearity
+* Look for outliers
+* We plot $e_i$ vs. fitted values $\hat{y}_i$ as $e_i$ and $y_i$ are usually correlated
+**Why?**
+
+### Other Residual Plots
+
+#### $e_i$ vs. $x_j$
+
+* Similar to $e_i$ to $\hat{y}_i$
+* Not always effective revealing whether a transformation is required
+
+#### Partial Regression Plot
+
+* Study **marginal** effect of a $x_j$ given all others in the model
+* Evaluate whether we specified the relationship between $y$ and $x_j$ correctly
+
+##### Partial Regression Plot - How
+
+1. Regress $y$ on all regressors except $x_j$ and obtain residuals
+
+$$
+\hat{y}_i(x_{(j)}) = b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b{j+1}x_{i,j+1} + \dots + b_{k}x_{i1}
+$$
+
+$$
+e_i(y|x_{(j)}) = y_i - \hat{y}_{i}(x_{(j)})
+$$
+  
+2. Regress $x_j$ on all other predictors and obtain residuals
+
+$$
+e_i(x_j|x_{(j)}) = x_{ij} - \hat{x}_{ij}(x_{(j)})
+$$
+
+3. Plot $e_i(y|x_{(j)})$ vs. $e_i(x_j|x_{(j)})$
+
+* If the plot of $e_i(y|x_{(j)})$ vs. $e_i(x_j|x_{(j)})$ is linear, then a linear relationship between $y$ and $x_j$ seems reasonable
+* The slope of the line will be the regression coefficient of $x_j$ in an MLR model
+* If the plot is curvilinear, we may need some transformation such as $x_j^2$ or $1/x_j$
+* If $x_j$ is a candidate variable, a horizontal band indicates there is no additional useful information in $x_j$ for predictin $y$
