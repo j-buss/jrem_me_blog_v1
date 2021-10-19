@@ -1,7 +1,7 @@
 ---
 title: Model Adequacy Checking
 author: Jeremy Buss
-date: '2021-10-16'
+date: '2021-10-19'
 slug: []
 categories:
   - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
@@ -10,7 +10,7 @@ categories:
 tags:
   - R
   - linear regression
-draft: true
+draft: false
 katex: yes
 ---
 
@@ -308,16 +308,19 @@ t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
 <li>Regress <span class="math inline">\(y\)</span> on all regressors except <span class="math inline">\(x_j\)</span> and obtain residuals</li>
 </ol>
 <p><span class="math display">\[
-\hat{y}_i(x_{(j)}) = b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b{j+1}x_{i,j+1} + \dots + b_{k}x_{i1}
-\]</span></p>
-<p><span class="math display">\[
-e_i(y|x_{(j)}) = y_i - \hat{y}_{i}(x_{(j)})
+\begin{align*}
+\hat{y}_i(x_{(j)})&amp;= b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b_{j+1}x_{i,j+1} + \dots + b_{k}x_{ik}\\
+e_i(y|x_{(j)})&amp;= y_i - \hat{y}_{i}(x_{(j)})
+\end{align*}
 \]</span></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Regress <span class="math inline">\(x_j\)</span> on all other predictors and obtain residuals</li>
 </ol>
 <p><span class="math display">\[
-e_i(x_j|x_{(j)}) = x_{ij} - \hat{x}_{ij}(x_{(j)})
+\begin{align*}
+\hat{x}_j(x_{(j)})&amp;= a_0 + a_1 x_{i1} + \dots + a_{j-1}x_{i,j-1} + a_{j+1}x_{i,j+1} + \dots + a_{k}x_{ik}\\
+e_i(x_j|x_{(j)}) &amp;= x_{ij} - \hat{x}_{ij}(x_{(j)})
+\end{align*}
 \]</span></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Plot <span class="math inline">\(e_i(y|x_{(j)})\)</span> vs. <span class="math inline">\(e_i(x_j|x_{(j)})\)</span></li>

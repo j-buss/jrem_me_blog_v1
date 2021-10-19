@@ -1,7 +1,7 @@
 ---
 title: Model Adequacy Checking
 author: Jeremy Buss
-date: '2021-10-16'
+date: '2021-10-19'
 slug: []
 categories:
   - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
@@ -10,7 +10,7 @@ categories:
 tags:
   - R
   - linear regression
-draft: true
+draft: false
 katex: yes
 ---
 ```{r echo=FALSE}
@@ -314,17 +314,20 @@ Plot $e_i$ vs. fitted values $\hat{y}_i$
 1. Regress $y$ on all regressors except $x_j$ and obtain residuals
 
 $$
-\hat{y}_i(x_{(j)}) = b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b{j+1}x_{i,j+1} + \dots + b_{k}x_{i1}
-$$
-
-$$
-e_i(y|x_{(j)}) = y_i - \hat{y}_{i}(x_{(j)})
+\begin{align*}
+\hat{y}_i(x_{(j)})&= b_0 + b_1 x_{i1} + \dots + b_{j-1}x_{i,j-1} + b_{j+1}x_{i,j+1} + \dots + b_{k}x_{ik}\\
+e_i(y|x_{(j)})&= y_i - \hat{y}_{i}(x_{(j)})
+\end{align*}
 $$
   
 2. Regress $x_j$ on all other predictors and obtain residuals
 
+
 $$
-e_i(x_j|x_{(j)}) = x_{ij} - \hat{x}_{ij}(x_{(j)})
+\begin{align*}
+\hat{x}_j(x_{(j)})&= a_0 + a_1 x_{i1} + \dots + a_{j-1}x_{i,j-1} + a_{j+1}x_{i,j+1} + \dots + a_{k}x_{ik}\\
+e_i(x_j|x_{(j)}) &= x_{ij} - \hat{x}_{ij}(x_{(j)})
+\end{align*}
 $$
 
 3. Plot $e_i(y|x_{(j)})$ vs. $e_i(x_j|x_{(j)})$
