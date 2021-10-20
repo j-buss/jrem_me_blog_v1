@@ -109,34 +109,60 @@ Taking the derivative of this equation with respect to <span class="math inline"
 \]</span></p>
 <div id="least-squares-estimates-solving-for-beta_0-and-beta_1" class="section level3">
 <h3>Least Squares Estimates: Solving for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h3>
-<p>Setting each of the derivatives equal to 0 we arive at the <strong>normal equations</strong></p>
+<p>Setting each of the derivatives equal to 0 we arrive at the <strong>normal equations</strong></p>
 <p><span class="math display">\[
 \begin{align*}
 nb_0 + b_1 \sum_{i=1}^n x_i &amp;= \sum_{i=1}^n y_i\\
 b_0 \sum_{i=1}^n x_i + b_1 \sum_{i=1}^n x_i^2 &amp;= \sum_{i=1}^n y_i x_i
 \end{align*}
 \]</span></p>
-<ul>
-<li><p>Solving for <span class="math inline">\(\beta_0\)</span> given <span class="math inline">\(b_1\)</span>:
-<span class="math display">\[b_0 = \overline{y} - b_1 \overline {x}\]</span></p></li>
-<li><p>Solving for <span class="math inline">\(\beta_1\)</span> given that <span class="math inline">\(b_0 = \overline{y} - b_1 \overline {x}\)</span>:
+<p>Solving the first equation (i.e. the “easy” one) for <span class="math inline">\(b_0\)</span>:
+<span class="math display">\[b_0 = \overline{y} - b_1 \overline {x}\]</span></p>
+<p>Solving the second equation (i.e. the “hard” one) for <span class="math inline">\(\beta_1\)</span>, given that <span class="math inline">\(b_0 = \overline{y} - b_1 \overline {x}\)</span>:
 <span class="math display">\[
 \begin{align*}
-b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
+b_1 = \frac{\sum_{i=1}^ny_ix_i - \frac{(\sum_{i=1}^n y_i)(\sum_{i=1}^n x_i)}{n}}{\sum_{i=1}^n x_i^2 - \frac{(\sum_{i=1}^n x_i)^2}{n}}
+= \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
 \frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
 =\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=
 \frac{S_{xy}}{S_{xx}}
 \end{align*}
-\]</span></p></li>
-</ul>
-<div id="practice-starting-at-least-squares-criterion-solve-for-b_0-and-b_1" class="section level4">
-<h4>Practice: Starting at Least Squares Criterion, solve for b_0 and b_1</h4>
+\]</span></p>
+<p>While we can observe these relationships from the equation above it is helpful to call them out explicitly:</p>
+<p><span class="math display">\[
+S_{xx}=\sum_{i=1}^n x_i^2 - \frac{(\sum_{i=1}^n x_i)^2}{n} = \sum_{i=1}^n(x_i-\overline{x})^2
+\]</span>
+and</p>
+<p><span class="math display">\[
+S_{xy} = \sum_{i=1}^ny_ix_i - \frac{(\sum_{i=1}^n y_i)(\sum_{i=1}^n x_i)}{n} = \sum_{i=1}^ny_i(x_i - \overline{x})
+\]</span></p>
+<div id="practice" class="section level4">
+<h4>Practice:</h4>
+<p>Starting at Least Squares Criterion, solve for <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> (try to do it from a blank sheet of paper)</p>
 </div>
 </div>
 <div id="best-linear-unbiased-estimators-blue" class="section level3">
 <h3>Best Linear Unbiased Estimators (BLUE)</h3>
+<p>In order for the most straightforward mathematical flow we will address <strong>Linear</strong> first:</p>
+<div id="linear" class="section level4">
+<h4>1. Linear:</h4>
+<p><span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span>.</p>
+<p>We start with <span class="math inline">\(b_1\)</span> in the following form:
+<span class="math display">\[
+\begin{align*}
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+\end{align*}
+\]</span>
+We can group and rename the terms that are not dependent upon <span class="math inline">\(y\)</span> for ease: <span class="math inline">\(c_i = \frac{x_i-\overline{x}}{S_{xx}}\)</span> for <span class="math inline">\(i=1,2,\dots n\)</span></p>
+<p>Now the equation simply becomes a constant multiplied by <span class="math inline">\(y_i\)</span>:
+<span class="math display">\[
+\begin{align*}
+b_1 = \sum_{i=1}^ny_i c_i
+\end{align*}
+\]</span></p>
+</div>
 <div id="best" class="section level4">
-<h4>1. Best:</h4>
+<h4>2. Best:</h4>
 <p>For the estimators to be the “best” they need to have minimum variance.</p>
 <div id="variance-of-beta_1" class="section level5">
 <h5>Variance of <span class="math inline">\(\beta_1\)</span></h5>
@@ -222,21 +248,6 @@ Var(b_0)&amp;= \sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}} \rig
 \end{align*}
 \]</span></p>
 </div>
-</div>
-<div id="linear" class="section level4">
-<h4>2. Linear:</h4>
-<p><span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are linear combinations of <span class="math inline">\(y_i\)</span> for example for <span class="math inline">\(b_1\)</span> we use one of the forms:
-<span class="math display">\[
-\begin{align*}
-b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
-\end{align*}
-\]</span>
-To clean up the equation we use the term <span class="math inline">\(c_i = \frac{x_i-\overline{x}}{S_{xx}}\)</span> for <span class="math inline">\(i=1,2,\dots n\)</span> and the equation becomes simply a constant multiplied by <span class="math inline">\(y_i\)</span>:
-<span class="math display">\[
-\begin{align*}
-b_1 = \sum_{i=1}^ny_i c_i
-\end{align*}
-\]</span></p>
 </div>
 <div id="unbiased" class="section level4">
 <h4>3. Unbiased</h4>

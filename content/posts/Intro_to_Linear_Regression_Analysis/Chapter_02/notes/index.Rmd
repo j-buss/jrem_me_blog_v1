@@ -108,7 +108,7 @@ $$
 
 ### Least Squares Estimates: Solving for $\beta_0$ and $\beta_1$
 
-Setting each of the derivatives equal to 0 we arive at the **normal equations**
+Setting each of the derivatives equal to 0 we arrive at the **normal equations**
 
 $$
 \begin{align*}
@@ -117,24 +117,58 @@ b_0 \sum_{i=1}^n x_i + b_1 \sum_{i=1}^n x_i^2 &= \sum_{i=1}^n y_i x_i
 \end{align*}
 $$
 
-* Solving for $\beta_0$ given $b_1$:
+Solving the first equation (i.e. the "easy" one) for $b_0$:
 $$b_0 = \overline{y} - b_1 \overline {x}$$
 
-* Solving for $\beta_1$ given that $b_0 = \overline{y} - b_1 \overline {x}$:
+Solving the second equation (i.e. the "hard" one) for $\beta_1$, given that $b_0 = \overline{y} - b_1 \overline {x}$:
 $$
 \begin{align*}
-b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
+b_1 = \frac{\sum_{i=1}^ny_ix_i - \frac{(\sum_{i=1}^n y_i)(\sum_{i=1}^n x_i)}{n}}{\sum_{i=1}^n x_i^2 - \frac{(\sum_{i=1}^n x_i)^2}{n}}
+= \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{x})} = 
 \frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
 =\frac{\sum_{i=1}^n(x_i - \overline{x})(y_i-\overline{y})}{\sum_{i=1}^n(x_i-\overline{x})^2}=
 \frac{S_{xy}}{S_{xx}}
 \end{align*}
 $$
 
-#### Practice: Starting at Least Squares Criterion, solve for b_0 and b_1
+While we can observe these relationships from the equation above it is helpful to call them out explicitly:
+
+$$
+S_{xx}=\sum_{i=1}^n x_i^2 - \frac{(\sum_{i=1}^n x_i)^2}{n} = \sum_{i=1}^n(x_i-\overline{x})^2
+$$
+and 
+
+$$
+S_{xy} = \sum_{i=1}^ny_ix_i - \frac{(\sum_{i=1}^n y_i)(\sum_{i=1}^n x_i)}{n} = \sum_{i=1}^ny_i(x_i - \overline{x})
+$$
+
+#### Practice: 
+Starting at Least Squares Criterion, solve for $b_0$ and $b_1$ (try to do it from a blank sheet of paper)
 
 ### Best Linear Unbiased Estimators (BLUE)
 
-#### 1. Best:
+In order for the most straightforward mathematical flow we will address **Linear** first:
+
+#### 1. Linear:
+
+$b_0$ and $b_1$ are linear combinations of $y_i$.
+
+We start with $b_1$ in the following form:
+$$
+\begin{align*}
+b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
+\end{align*}
+$$
+We can group and rename the terms that are not dependent upon $y$ for ease: $c_i = \frac{x_i-\overline{x}}{S_{xx}}$ for $i=1,2,\dots n$
+
+Now the equation simply becomes a constant multiplied by $y_i$:
+$$
+\begin{align*}
+b_1 = \sum_{i=1}^ny_i c_i
+\end{align*}
+$$
+
+#### 2. Best:
 
 For the estimators to be the "best" they need to have minimum variance. 
 
@@ -232,23 +266,6 @@ Var(b_0)&= \sigma^2 \left ( \frac{1}{n} + \frac{\overline{x}^2}{S_{xx}} \right )
 \end{align*}
 $$
 
-#### 2. Linear:
-
-
-
-
-$b_0$ and $b_1$ are linear combinations of $y_i$ for example for $b_1$ we use one of the forms:
-$$
-\begin{align*}
-b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^n(x_i-\overline{x})(x_i -\overline{x})}
-\end{align*}
-$$
-To clean up the equation we use the term $c_i = \frac{x_i-\overline{x}}{S_{xx}}$ for $i=1,2,\dots n$ and the equation becomes simply a constant multiplied by $y_i$:
-$$
-\begin{align*}
-b_1 = \sum_{i=1}^ny_i c_i
-\end{align*}
-$$
 
 #### 3. Unbiased
 
