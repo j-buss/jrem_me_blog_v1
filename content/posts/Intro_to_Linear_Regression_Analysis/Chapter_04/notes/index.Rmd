@@ -335,4 +335,4 @@ $$
 * If the plot of $e_i(y|x_{(j)})$ vs. $e_i(x_j|x_{(j)})$ is linear, then a linear relationship between $y$ and $x_j$ seems reasonable
 * The slope of the line will be the regression coefficient of $x_j$ in an MLR model
 * If the plot is curvilinear, we may need some transformation such as $x_j^2$ or $1/x_j$
-* If $x_j$ is a candidate variable, a horizontal band indicates there is no additional useful information in $x_j$ for predictin $y$
+* If $x_j$ is a candidate variable, a horizontal band indicates there is no additional useful information in $x_j$ for predicting $y$

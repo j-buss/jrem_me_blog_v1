@@ -23,7 +23,7 @@ katex: yes
 <ul>
 <li>One predictor <span class="math inline">\(X\)</span> that is known and constant</li>
 <li>One response variable <span class="math inline">\(Y\)</span></li>
-<li>Linear function <span class="math inline">\(y=\beta_0 + \beta_1 x\)</span></li>
+<li>Linear function <span class="math inline">\(y=\beta_0 + \beta_1 x + \epsilon\)</span></li>
 </ul>
 <p><br></p>
 <div id="simple-linear-regression---population" class="section level2">
@@ -100,8 +100,8 @@ SS_{res}&amp;=e_1^2 + e_2^2 + \cdots + e_n^2 = \sum_{i=1}^n e_i^2\\
 <p><span class="math display">\[
 (b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
 \]</span>
-Taking the derivative and set them equal to 0 to arrive at the <strong>normal equations</strong>:</p>
-<p><span class="math display">\[ 
+Taking the derivative of this equation with respect to <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> and set them equal to 0:
+<span class="math display">\[ 
 \begin{align}
 \frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n (y_i-b_0-b_1x_i)\\
 \frac{\partial SS_{res}}{\partial {\beta_1}} \bigg\vert_{b_0,b_1} &amp;= -2\sum_{i=1}^n x_i(y_i-b_0-b_1x_i)
@@ -109,6 +109,13 @@ Taking the derivative and set them equal to 0 to arrive at the <strong>normal eq
 \]</span></p>
 <div id="least-squares-estimates-solving-for-beta_0-and-beta_1" class="section level3">
 <h3>Least Squares Estimates: Solving for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span></h3>
+<p>Setting each of the derivatives equal to 0 we arive at the <strong>normal equations</strong></p>
+<p><span class="math display">\[
+\begin{align*}
+nb_0 + b_1 \sum_{i=1}^n x_i &amp;= \sum_{i=1}^n y_i\\
+b_0 \sum_{i=1}^n x_i + b_1 \sum_{i=1}^n x_i^2 &amp;= \sum_{i=1}^n y_i x_i
+\end{align*}
+\]</span></p>
 <ul>
 <li><p>Solving for <span class="math inline">\(\beta_0\)</span> given <span class="math inline">\(b_1\)</span>:
 <span class="math display">\[b_0 = \overline{y} - b_1 \overline {x}\]</span></p></li>
@@ -122,6 +129,9 @@ b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{
 \end{align*}
 \]</span></p></li>
 </ul>
+<div id="practice-starting-at-least-squares-criterion-solve-for-b_0-and-b_1" class="section level4">
+<h4>Practice: Starting at Least Squares Criterion, solve for b_0 and b_1</h4>
+</div>
 </div>
 <div id="best-linear-unbiased-estimators-blue" class="section level3">
 <h3>Best Linear Unbiased Estimators (BLUE)</h3>

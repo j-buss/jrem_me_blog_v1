@@ -98,8 +98,7 @@ With the least squares estimate approach we choose $b_0$ and $b_1$ to minimize $
 $$
 (b_0, b_1) = \text{arg} \; \underset {\beta_0, \beta_1}{\text{min}} \sum_{i=1}^n (y_i - b_0 + b_1 x_i)^2
 $$
-Taking the derivative and set them equal to 0 to arrive at the **normal equations**:
-
+Taking the derivative of this equation with respect to $\beta_0$ and $\beta_1$ and set them equal to 0:
 $$ 
 \begin{align}
 \frac{\partial SS_{res}}{\partial {\beta_0}} \bigg\vert_{b_0,b_1} &= -2\sum_{i=1}^n (y_i-b_0-b_1x_i)\\
@@ -108,6 +107,15 @@ $$
 $$
 
 ### Least Squares Estimates: Solving for $\beta_0$ and $\beta_1$
+
+Setting each of the derivatives equal to 0 we arive at the **normal equations**
+
+$$
+\begin{align*}
+nb_0 + b_1 \sum_{i=1}^n x_i &= \sum_{i=1}^n y_i\\
+b_0 \sum_{i=1}^n x_i + b_1 \sum_{i=1}^n x_i^2 &= \sum_{i=1}^n y_i x_i
+\end{align*}
+$$
 
 * Solving for $\beta_0$ given $b_1$:
 $$b_0 = \overline{y} - b_1 \overline {x}$$
@@ -121,6 +129,8 @@ b_1 = \frac{\sum_{i=1}^ny_i(x_i - \overline{x})}{\sum_{i=1}^nx_i(x_i -\overline{
 \frac{S_{xy}}{S_{xx}}
 \end{align*}
 $$
+
+#### Practice: Starting at Least Squares Criterion, solve for b_0 and b_1
 
 ### Best Linear Unbiased Estimators (BLUE)
 
