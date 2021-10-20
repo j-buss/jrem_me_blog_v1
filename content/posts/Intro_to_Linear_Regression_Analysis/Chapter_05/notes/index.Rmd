@@ -1,0 +1,77 @@
+---
+title: Transformations and Weighting to Correct Model Inadequacies
+author: Jeremy Buss
+date: '2021-10-20'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+```{r echo=FALSE}
+library(blogdown)
+```
+# Transformations and Weighting to Correct Model Inadequacies
+
+```{r echo=FALSE, results='asis', escape=FALSE}
+x <- data.frame("Relationship" = c("$\\sigma^2 \\propto \\text{constant}$",
+                                   "$\\sigma^2 \\propto E(y)$",
+                                   "$\\sigma^2 \\propto E(y)[1-E(y)]$",
+                                   "$\\sigma^2 \\propto [E(y)]^2$",
+                                   "$\\sigma^2 \\propto [E(y)]^3$",
+                                   "$\\sigma^2 \\propto [E(y)]^4$"
+                                   ),
+                "Transformation" = c("$y^\\prime = y$ (no transformation)",
+                                     "$y^\\prime = \\sqrt{y}$ (Square root; Poisson)",
+                                     "$y^\\prime = \\arcsin{(\\sqrt{y})}$ (arcsin; binomial proportions $0 \\leq y_i \\leq 1$)",
+                                     "$y^\\prime = \\ln{(y)}$ (natural log)",
+                                     "$y^\\prime = y^{-1/2}$ (reciprocal square root)",
+                                     "$y^\\prime = y^{-1}$ (reciprocal)"
+                                     )
+                )
+knitr::kable(x=x,
+             caption = "Useful Variance-Stabilizing Transformations",
+             format="markdown", escape=FALSE, 
+             col.names=c("Relationship of $\\sigma^2$ to $E(y)$","Transformation")
+             )
+
+```
+
+```{r echo=FALSE, results='asis', escape=FALSE}
+x <- data.frame(
+  
+  "Col1" = c(
+    "$y=\\beta_0 x^{\\beta_1}$",
+    "$y=\\beta_0 e^{\\beta_1 x}$",
+    "$y=\\beta_0 + \\beta_1 \\log {x}$",
+    "$y=\\frac{x}{\\beta_0x - \\beta_1}$"
+    ),
+  
+  "Col2" = c(
+    "$y^\\prime = \\log {y}, x^\\prime = \\log {x}$",
+    "$y^\\prime = \\ln{y}$",
+    "$x^\\prime = \\log{x}$",
+    "$y^\\prime = 1/y, x^\\prime = 1/x$"
+  ),
+    
+  "Col3" = c(
+    "$y^\\prime = \\log {y}$",
+    "$y^\\prime = \\sqrt{y}$ (Square root; Poisson)",
+    "$y^\\prime =$",
+    ""
+  )
+)
+knitr::kable(x=x,
+             caption = "Linearizable Functions and Corresponding Linear Form",
+             format="markdown", escape=FALSE, 
+             col.names=c("Linearizable Function",
+                         "Transformation",
+                         "Linear Form")
+             )
+
+```

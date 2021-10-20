@@ -1,0 +1,98 @@
+---
+title: Transformations and Weighting to Correct Model Inadequacies
+author: Jeremy Buss
+date: '2021-10-20'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="transformations-and-weighting-to-correct-model-inadequacies" class="section level1">
+<h1>Transformations and Weighting to Correct Model Inadequacies</h1>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>Useful Variance-Stabilizing Transformations</caption>
+<colgroup>
+<col width="30%" />
+<col width="69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Relationship of <span class="math inline">\(\sigma^2\)</span> to <span class="math inline">\(E(y)\)</span></th>
+<th align="left">Transformation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma^2 \propto \text{constant}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = y\)</span> (no transformation)</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma^2 \propto E(y)\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \sqrt{y}\)</span> (Square root; Poisson)</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma^2 \propto E(y)[1-E(y)]\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \arcsin{(\sqrt{y})}\)</span> (arcsin; binomial proportions <span class="math inline">\(0 \leq y_i \leq 1\)</span>)</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma^2 \propto [E(y)]^2\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \ln{(y)}\)</span> (natural log)</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\sigma^2 \propto [E(y)]^3\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = y^{-1/2}\)</span> (reciprocal square root)</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\sigma^2 \propto [E(y)]^4\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = y^{-1}\)</span> (reciprocal)</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<caption><span id="tab:unnamed-chunk-3">Table 2: </span>Linearizable Functions and Corresponding Linear Form</caption>
+<colgroup>
+<col width="27%" />
+<col width="35%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Linearizable Function</th>
+<th align="left">Transformation</th>
+<th align="left">Linear Form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(y=\beta_0 x^{\beta_1}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \log {y}, x^\prime = \log {x}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \log {y}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(y=\beta_0 e^{\beta_1 x}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \ln{y}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \sqrt{y}\)</span> (Square root; Poisson)</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(y=\beta_0 + \beta_1 \log {x}\)</span></td>
+<td align="left"><span class="math inline">\(x^\prime = \log{x}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime =\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(y=\frac{x}{\beta_0x - \beta_1}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = 1/y, x^\prime = 1/x\)</span></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
