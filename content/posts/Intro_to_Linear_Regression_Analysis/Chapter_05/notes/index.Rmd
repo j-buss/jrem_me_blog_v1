@@ -19,6 +19,8 @@ library(blogdown)
 
 ## Model Assumptions
 
+Regression model fitting has several implicit assumptions, including:
+
 * $\epsilon \overset{iid}{\sim} NID(0,\sigma^2)$: **mean 0**, **constant variance**, **normally distributed**, and **uncorrelated** 
 * The form of the model (**linearity**) and the specification of the predictors are correct.
 * Check model adequacy by residual plots and lack-of-fit tests
@@ -27,7 +29,14 @@ library(blogdown)
   * Generalized Least Squares (GLS)
   * Weighted Least Squares (WLS)
 
-### Data Transformation
+## Data Transformation
+
+### Variance Stabilization
+
+The constant variance assumption is often violated when the response $y$ follows a distribution which is related to the mean.  
+* Problems can be identified by examining the residual plots
+* Variance stabilizing transformations can be selected empirically
+  * If $\sigma^2$ is not constant, the coefficients will have larger standard errors (no longer BLUE)
 
 ```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame("Relationship" = c("$\\sigma^2 \\propto \\text{constant}$",
@@ -52,6 +61,15 @@ knitr::kable(x=x,
              )
 
 ```
+
+
+
+### Linearization
+
+* Nonlinearity may be detected by **lack-of-fit** test
+* **Intrinsically Linear** refers to a nonlinear function which can be transformed into a linear one
+* One should check the model assumptions on the transformed residuals
+
 
 ```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame(
@@ -87,6 +105,18 @@ knitr::kable(x=x,
 
 ```
 
-## Box-Cox Method
+* When these transformations are applied, the least squares estimator has least squares properties with the transformed data, not the original
 
-## Box and Tidwell
+## Methods for Selecting a Transformation
+
+While many transformations may be selected empirically, the following methods can be used to select the appropriate transformation more formally.
+
+### Box-Cox Method
+
+* Goal: Transform $y$ to correct non-normality or non-constant variance
+* **Power Transformation**: $y^{\lambda}$, where 
+
+
+### Box and Tidwell
+
+Transformation on x
