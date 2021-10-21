@@ -16,7 +16,18 @@ katex: yes
 ```{r echo=FALSE}
 library(blogdown)
 ```
-# Transformations and Weighting to Correct Model Inadequacies
+
+## Model Assumptions
+
+* $\epsilon \overset{iid}{\sim} NID(0,\sigma^2)$: **mean 0**, **constant variance**, **normally distributed**, and **uncorrelated** 
+* The form of the model (**linearity**) and the specification of the predictors are correct.
+* Check model adequacy by residual plots and lack-of-fit tests
+* Methods when some assumptions are violated:
+  * Data Transformation
+  * Generalized Least Squares (GLS)
+  * Weighted Least Squares (WLS)
+
+### Data Transformation
 
 ```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame("Relationship" = c("$\\sigma^2 \\propto \\text{constant}$",
@@ -60,10 +71,10 @@ x <- data.frame(
   ),
     
   "Col3" = c(
-    "$y^\\prime = \\log {y}$",
-    "$y^\\prime = \\sqrt{y}$ (Square root; Poisson)",
-    "$y^\\prime =$",
-    ""
+    "$y^\\prime = \\log {\\beta_0} + \\beta_1 x^\\prime$",
+    "$y^\\prime = \\ln {\\beta_0} + \\beta_1 x$",
+    "$y^\\prime = \\beta_0 + \\beta_1 x^\\prime$",
+    "$y^\\prime = \\beta_0 - \\beta_1 x^\\prime$"
   )
 )
 knitr::kable(x=x,
@@ -75,3 +86,7 @@ knitr::kable(x=x,
              )
 
 ```
+
+## Box-Cox Method
+
+## Box and Tidwell

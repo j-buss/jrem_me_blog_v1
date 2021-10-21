@@ -17,8 +17,21 @@ katex: yes
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<div id="transformations-and-weighting-to-correct-model-inadequacies" class="section level1">
-<h1>Transformations and Weighting to Correct Model Inadequacies</h1>
+<div id="model-assumptions" class="section level2">
+<h2>Model Assumptions</h2>
+<ul>
+<li><span class="math inline">\(\epsilon \overset{iid}{\sim} NID(0,\sigma^2)\)</span>: <strong>mean 0</strong>, <strong>constant variance</strong>, <strong>normally distributed</strong>, and <strong>uncorrelated</strong></li>
+<li>The form of the model (<strong>linearity</strong>) and the specification of the predictors are correct.</li>
+<li>Check model adequacy by residual plots and lack-of-fit tests</li>
+<li>Methods when some assumptions are violated:
+<ul>
+<li>Data Transformation</li>
+<li>Generalized Least Squares (GLS)</li>
+<li>Weighted Least Squares (WLS)</li>
+</ul></li>
+</ul>
+<div id="data-transformation" class="section level3">
+<h3>Data Transformation</h3>
 <table>
 <caption><span id="tab:unnamed-chunk-2">Table 1: </span>Useful Variance-Stabilizing Transformations</caption>
 <colgroup>
@@ -58,12 +71,12 @@ katex: yes
 </tr>
 </tbody>
 </table>
-<table style="width:100%;">
+<table>
 <caption><span id="tab:unnamed-chunk-3">Table 2: </span>Linearizable Functions and Corresponding Linear Form</caption>
 <colgroup>
-<col width="27%" />
-<col width="35%" />
-<col width="37%" />
+<col width="26%" />
+<col width="34%" />
+<col width="38%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -76,23 +89,30 @@ katex: yes
 <tr class="odd">
 <td align="left"><span class="math inline">\(y=\beta_0 x^{\beta_1}\)</span></td>
 <td align="left"><span class="math inline">\(y^\prime = \log {y}, x^\prime = \log {x}\)</span></td>
-<td align="left"><span class="math inline">\(y^\prime = \log {y}\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \log {\beta_0} + \beta_1 x^\prime\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(y=\beta_0 e^{\beta_1 x}\)</span></td>
 <td align="left"><span class="math inline">\(y^\prime = \ln{y}\)</span></td>
-<td align="left"><span class="math inline">\(y^\prime = \sqrt{y}\)</span> (Square root; Poisson)</td>
+<td align="left"><span class="math inline">\(y^\prime = \ln {\beta_0} + \beta_1 x\)</span></td>
 </tr>
 <tr class="odd">
 <td align="left"><span class="math inline">\(y=\beta_0 + \beta_1 \log {x}\)</span></td>
 <td align="left"><span class="math inline">\(x^\prime = \log{x}\)</span></td>
-<td align="left"><span class="math inline">\(y^\prime =\)</span></td>
+<td align="left"><span class="math inline">\(y^\prime = \beta_0 + \beta_1 x^\prime\)</span></td>
 </tr>
 <tr class="even">
 <td align="left"><span class="math inline">\(y=\frac{x}{\beta_0x - \beta_1}\)</span></td>
 <td align="left"><span class="math inline">\(y^\prime = 1/y, x^\prime = 1/x\)</span></td>
-<td align="left"></td>
+<td align="left"><span class="math inline">\(y^\prime = \beta_0 - \beta_1 x^\prime\)</span></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div id="box-cox-method" class="section level2">
+<h2>Box-Cox Method</h2>
+</div>
+<div id="box-and-tidwell" class="section level2">
+<h2>Box and Tidwell</h2>
 </div>
