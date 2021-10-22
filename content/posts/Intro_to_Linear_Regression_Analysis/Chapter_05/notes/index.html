@@ -10,7 +10,7 @@ categories:
 tags:
   - R
   - linear regression
-draft: true
+draft: false
 katex: yes
 ---
 
@@ -136,11 +136,52 @@ katex: yes
 <h3>Box-Cox Method</h3>
 <ul>
 <li>Goal: Transform <span class="math inline">\(y\)</span> to correct non-normality or non-constant variance</li>
-<li><strong>Power Transformation</strong>: <span class="math inline">\(y^{\lambda}\)</span>, where</li>
+<li><strong>Power Transformation</strong>: <span class="math inline">\(y^{\lambda}\)</span>, where <span class="math inline">\(\lambda\)</span> is a parameter to be determined</li>
 </ul>
+<p><a href="https://www.nuffield.ox.ac.uk/users/cox/cox72.pdf">Box and Cox (1964) - Method</a>:
+<span class="math display">\[
+y_i^{(\lambda)}=
+\begin{cases}
+   \frac{y_i^{\lambda}-1}{\lambda \dot{y}^{\lambda - 1}}, &amp; \lambda \ne 0\\
+   \dot{y} \ln{y_i}, &amp; \lambda = 0
+\end{cases}
+\]</span></p>
+<ul>
+<li>Where <span class="math inline">\(\dot{y} = \left ( \prod_{i=1}^n y_i \right )^{1/n}\)</span> is the geometric mean of the observations</li>
+<li>The units of measurement do not change as <span class="math inline">\(\lambda\)</span> changes</li>
+<li>Models with different <span class="math inline">\(\lambda\)</span> are comparable</li>
+</ul>
+<p>The model to be fit is:</p>
+<p><span class="math display">\[
+\mathbf{y}^{(\lambda)}=\mathbf{X\beta}+\mathbf{\epsilon}
+\]</span></p>
+<div id="computation-procedure" class="section level4">
+<h4>Computation Procedure</h4>
+<ol style="list-style-type: decimal">
+<li>Create a grid of <span class="math inline">\(\lambda\)</span> values</li>
+<li>For each value of <span class="math inline">\(\lambda\)</span> in the grid, regress <span class="math inline">\(y^{(\lambda)}\)</span> on the predictors, and obtain <span class="math inline">\(SS_{Res}(\lambda)\)</span></li>
+<li>Take the <span class="math inline">\(\lambda\)</span> that leads to the smallest <span class="math inline">\(SS_{Res}(\lambda)\)</span></li>
+</ol>
+<p>Once <span class="math inline">\(\lambda\)</span> is selected, we are free to fit the model using <span class="math inline">\(y^{\lambda}\)</span> as the response if <span class="math inline">\(\lambda \ne 0\)</span>, and <span class="math inline">\(\ln{y}\)</span> if <span class="math inline">\(\lambda = 0\)</span></p>
+</div>
 </div>
 <div id="box-and-tidwell" class="section level3">
 <h3>Box and Tidwell</h3>
-<p>Transformation on x</p>
+<ul>
+<li>Goal: the relationship between <span class="math inline">\(y\)</span> and the transformed regressors is approximately linear.</li>
+<li><span class="math inline">\(\epsilon \overset{iid}{\sim} NID(0,\sigma^2)\)</span> is at least approximately satisfied</li>
+<li>Box and Tidwell (1962) proposed a procedure for estimating <span class="math inline">\(\alpha_1, \alpha_2, \dots , \alpha_k\)</span> in a model of the type</li>
+</ul>
+<p><span class="math display">\[
+y=\beta_0+\beta_1 z_1+\dots+\beta_k z_k + \epsilon
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+z_j=
+\begin{cases}
+   x_j^{\alpha_j}, &amp; \alpha_j \ne 0\\
+   \ln{(x_j)}, &amp; \alpha_j = 0
+\end{cases}
+\]</span></p>
 </div>
 </div>

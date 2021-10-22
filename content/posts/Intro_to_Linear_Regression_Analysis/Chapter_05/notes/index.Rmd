@@ -10,7 +10,7 @@ categories:
 tags:
   - R
   - linear regression
-draft: true
+draft: false
 katex: yes
 ---
 ```{r echo=FALSE}
@@ -114,9 +114,51 @@ While many transformations may be selected empirically, the following methods ca
 ### Box-Cox Method
 
 * Goal: Transform $y$ to correct non-normality or non-constant variance
-* **Power Transformation**: $y^{\lambda}$, where 
+* **Power Transformation**: $y^{\lambda}$, where $\lambda$ is a parameter to be determined
 
+[Box and Cox (1964) - Method](https://www.nuffield.ox.ac.uk/users/cox/cox72.pdf):
+$$
+y_i^{(\lambda)}=
+\begin{cases}
+   \frac{y_i^{\lambda}-1}{\lambda \dot{y}^{\lambda - 1}}, & \lambda \ne 0\\
+   \dot{y} \ln{y_i}, & \lambda = 0
+\end{cases}
+$$
+
+* Where $\dot{y} = \left ( \prod_{i=1}^n y_i \right )^{1/n}$ is the geometric mean of the observations
+* The units of measurement do not change as $\lambda$ changes
+* Models with different $\lambda$ are comparable
+
+The model to be fit is:
+
+$$
+\mathbf{y}^{(\lambda)}=\mathbf{X\beta}+\mathbf{\epsilon}
+$$
+
+#### Computation Procedure
+
+1. Create a grid of $\lambda$ values
+2. For each value of $\lambda$ in the grid, regress $y^{(\lambda)}$ on the predictors, and obtain $SS_{Res}(\lambda)$
+3. Take the $\lambda$ that leads to the smallest $SS_{Res}(\lambda)$
+
+Once $\lambda$ is selected, we are free to fit the model using $y^{\lambda}$ as the response if $\lambda \ne 0$, and $\ln{y}$ if $\lambda = 0$
 
 ### Box and Tidwell
 
-Transformation on x
+* Goal: the relationship between $y$ and the transformed regressors is approximately linear.
+* $\epsilon \overset{iid}{\sim} NID(0,\sigma^2)$ is at least approximately satisfied
+* Box and Tidwell (1962) proposed a procedure for estimating $\alpha_1, \alpha_2, \dots , \alpha_k$ in a model of the type
+
+$$
+y=\beta_0+\beta_1 z_1+\dots+\beta_k z_k + \epsilon
+$$
+
+where
+
+$$
+z_j=
+\begin{cases}
+   x_j^{\alpha_j}, & \alpha_j \ne 0\\
+   \ln{(x_j)}, & \alpha_j = 0
+\end{cases}
+$$
