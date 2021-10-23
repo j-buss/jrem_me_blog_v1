@@ -8,7 +8,6 @@ categories:
   - Applied Stats
   - Regression Analysis
 tags:
-  - R
   - linear regression
 draft: true
 katex: yes
@@ -270,7 +269,10 @@ Combining all these definitions we have...
 
 ```{r echo=FALSE, results='asis', escape=FALSE}
 x <- data.frame("Source of Variation" = c("Regression","Residual","Total"),
-                "Sum of Squares" = c("$SS_R$","$SS_{Res}$","$SS_T$"),
+                "Sum of Squares" = c(
+        "$SS_R = \\mathbf{b^\\intercal X^\\intercal y} - \\frac{1}{n} \\sum_{i=1}^n y_i^2$",
+      "$SS_{Res} =  \\mathbf{y^\\intercal y} - \\mathbf{b^\\intercal X^\\intercal y}$",
+      "$SS_T = \\mathbf{y^\\intercal y} - \\frac{1}{n} \\sum_{i=1}^n y_i^2$"),
                 "Degrees of Freedom" = c("k", "n-k-1", "n-1"),
                 "Mean Square" = c("$MS_R$", "$MS_{Res}$",""),
                 "$F_0$" = c("$MS_R/MS_{Res}$", "","")
@@ -362,7 +364,7 @@ $$
   
 #### Extra Sum-of-Squares
 
-* Full Model:$\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
+* Full Model: $\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
 * Partition coefficient vector:
 
 $$
@@ -376,4 +378,20 @@ Where $\beta_1$ is $(p-r) \times 1$ and $\beta_2$ is $r \times 1$
 
 * $H_0$:$\mathbf{\beta_2 = 0}$
 * $H_1$:$\mathbf{\beta_2 \ne 0}$
-  * Example: $p=5$, $r=2$, $\beta_1 = 
+
+#### Example: 
+
+$p=5$, $r=2$, $\beta_1 = (\beta_0,\beta_1, \beta_3)^{\intercal}$, $\beta_2 = (\beta_2,\beta_4)^{\intercal}$ 
+  
+$$
+\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon} = \mathbf{X_1} \mathbf{\beta_1} + \mathbf{X_2} \mathbf{\beta_2} + \mathbf{\epsilon}
+$$
+
+* $n \times (p - r)$ matrix $\mathbf{X_1}$: the columns of $\mathbf{X}$ associated with $\mathbf{\beta_1}$
+* $n \times r$ matrix $\mathbf{X_2}$: the columns of $\mathbf{X}$ associated with $\mathbf{\beta_2}$
+
+**Full Model:** 
+
+* $\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon} = \mathbf{X_1} \mathbf{\beta_1} + \mathbf{X_2} \mathbf{\beta_2} + \mathbf{\epsilon}$
+* $\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}$
+* 

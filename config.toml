@@ -56,14 +56,11 @@ preserveTaxonomyNames = true
 
 [markup]
   [markup.highlight]
-    anchorLineNos = false
     codeFences = true
-    guessSyntax = false
-    hl_Lines = ''
-    lineAnchors = ''
+    hl_Lines = ""
     lineNoStart = 1
-    lineNos = true
-    lineNumbersInTable = false
+    lineNos = false
+    lineNumbersInTable = true
     noClasses = true
-    style = 'monokai'
+    style = "solarized-dark"
     tabWidth = 4

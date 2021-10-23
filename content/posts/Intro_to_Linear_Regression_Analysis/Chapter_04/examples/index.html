@@ -1,0 +1,64 @@
+---
+title: Model Adequacy Checking - Examples from Montgomery/Peck/Vining
+author: Jeremy Buss
+date: '2021-10-23'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - R
+  - linear regression
+draft: true
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>For the example data we will leverage the CRAN package “MPV”.</p>
+<pre class="r"><code>install.packages(&quot;MPV&quot;)</code></pre>
+<pre><code>## Installing package into &#39;/home/jeremyfbuss/R/x86_64-pc-linux-gnu-library/3.6&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre class="r"><code>library(MPV)</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: KernSmooth</code></pre>
+<pre><code>## KernSmooth 2.23 loaded
+## Copyright M. P. Wand 1997-2009</code></pre>
+<div id="example-4.1-the-delivery-time-data" class="section level1">
+<h1>Example 4.1: The Delivery Time Data</h1>
+<p>Let’s define the dataframe for the SoftDrink data and take a look at the first 5 rows:</p>
+<pre class="r"><code>SoftDrink &lt;- data.frame(MPV::softdrink)
+colnames(SoftDrink) &lt;- c(&quot;DeliveryTime&quot;, &quot;NumberCases&quot;, &quot;Distance&quot;)
+head(SoftDrink, 5)</code></pre>
+<pre><code>##   DeliveryTime NumberCases Distance
+## 1        16.68           7      560
+## 2        11.50           3      220
+## 3        12.03           3      340
+## 4        14.88           4       80
+## 5        13.75           6      150</code></pre>
+<p>With the data ready we will create a multivariate linear model and store the summary in the variable <em>SoftDrink.lm.sum</em> :</p>
+<pre class="r"><code>SoftDrink.lm &lt;- lm(DeliveryTime ~ NumberCases + Distance, data=SoftDrink)
+print(SoftDrink.lm$coefficients)</code></pre>
+<pre><code>## (Intercept) NumberCases    Distance 
+##  2.34123115  1.61590721  0.01438483</code></pre>
+<p>So we see that our equation is:</p>
+<p>DeliverTime = 2.3412311 + 1.6159072 x #ofCases + 0.0143848 x Distance</p>
+<p>With the question in had, let’s figure out some of the resdiuals</p>
+<div id="residual-vanilla" class="section level2">
+<h2>Residual (“vanilla”)</h2>
+<p>The basic, run o’ the mill residuals</p>
+<p><span class="math display">\[
+e_i = y_i - \hat{y}_i
+\]</span></p>
+<p>are available directly from the linear regression model:</p>
+<pre class="r"><code>SoftDrink.lm.residuals &lt;- SoftDrink.lm$residuals
+head(SoftDrink.lm.residuals,5)</code></pre>
+<pre><code>##          1          2          3          4          5 
+## -5.0280843  1.1463854 -0.0497937  4.9243539 -0.4443983</code></pre>
+</div>
+<div id="standardized-residuals" class="section level2">
+<h2>Standardized Residuals</h2>
+</div>
+</div>

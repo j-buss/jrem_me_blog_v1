@@ -8,7 +8,6 @@ categories:
   - Applied Stats
   - Regression Analysis
 tags:
-  - R
   - linear regression
 draft: true
 katex: yes
@@ -249,6 +248,13 @@ MS_{Res} &amp;= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
 <p>Combining all these definitions we have…</p>
 <table>
 <caption><span id="tab:unnamed-chunk-2">Table 1: </span>ANOVA Table</caption>
+<colgroup>
+<col width="13%" />
+<col width="53%" />
+<col width="13%" />
+<col width="8%" />
+<col width="11%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Source of Variation</th>
@@ -261,21 +267,21 @@ MS_{Res} &amp;= \frac{SS_{Res}}{n-p} \space \space \text{with} \space p=k+1
 <tbody>
 <tr class="odd">
 <td align="left">Regression</td>
-<td align="left"><span class="math inline">\(SS_R\)</span></td>
+<td align="left"><span class="math inline">\(SS_R = \mathbf{b^\intercal X^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></td>
 <td align="left">k</td>
 <td align="left"><span class="math inline">\(MS_R\)</span></td>
 <td align="left"><span class="math inline">\(MS_R/MS_{Res}\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Residual</td>
-<td align="left"><span class="math inline">\(SS_{Res}\)</span></td>
+<td align="left"><span class="math inline">\(SS_{Res} = \mathbf{y^\intercal y} - \mathbf{b^\intercal X^\intercal y}\)</span></td>
 <td align="left">n-k-1</td>
 <td align="left"><span class="math inline">\(MS_{Res}\)</span></td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">Total</td>
-<td align="left"><span class="math inline">\(SS_T\)</span></td>
+<td align="left"><span class="math inline">\(SS_T = \mathbf{y^\intercal y} - \frac{1}{n} \sum_{i=1}^n y_i^2\)</span></td>
 <td align="left">n-1</td>
 <td align="left"></td>
 <td align="left"></td>
@@ -371,7 +377,7 @@ R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
 <div id="extra-sum-of-squares" class="section level4">
 <h4>Extra Sum-of-Squares</h4>
 <ul>
-<li>Full Model:<span class="math inline">\(\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}\)</span></li>
+<li>Full Model: <span class="math inline">\(\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}\)</span></li>
 <li>Partition coefficient vector:</li>
 </ul>
 <p><span class="math display">\[
@@ -383,10 +389,24 @@ R_{adj}^2 = 1-\frac {SS_{Res}/(n-p)}{SS_T/(n-1)}
 <p>Where <span class="math inline">\(\beta_1\)</span> is <span class="math inline">\((p-r) \times 1\)</span> and <span class="math inline">\(\beta_2\)</span> is <span class="math inline">\(r \times 1\)</span></p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>:<span class="math inline">\(\mathbf{\beta_2 = 0}\)</span></li>
-<li><span class="math inline">\(H_1\)</span>:<span class="math inline">\(\mathbf{\beta_2 \ne 0}\)</span>
+<li><span class="math inline">\(H_1\)</span>:<span class="math inline">\(\mathbf{\beta_2 \ne 0}\)</span></li>
+</ul>
+</div>
+<div id="example" class="section level4">
+<h4>Example:</h4>
+<p><span class="math inline">\(p=5\)</span>, <span class="math inline">\(r=2\)</span>, <span class="math inline">\(\beta_1 = (\beta_0,\beta_1, \beta_3)^{\intercal}\)</span>, <span class="math inline">\(\beta_2 = (\beta_2,\beta_4)^{\intercal}\)</span></p>
+<p><span class="math display">\[
+\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon} = \mathbf{X_1} \mathbf{\beta_1} + \mathbf{X_2} \mathbf{\beta_2} + \mathbf{\epsilon}
+\]</span></p>
 <ul>
-<li>Example: <span class="math inline">\(p=5\)</span>, <span class="math inline">\(r=2\)</span>, $_1 =</li>
-</ul></li>
+<li><span class="math inline">\(n \times (p - r)\)</span> matrix <span class="math inline">\(\mathbf{X_1}\)</span>: the columns of <span class="math inline">\(\mathbf{X}\)</span> associated with <span class="math inline">\(\mathbf{\beta_1}\)</span></li>
+<li><span class="math inline">\(n \times r\)</span> matrix <span class="math inline">\(\mathbf{X_2}\)</span>: the columns of <span class="math inline">\(\mathbf{X}\)</span> associated with <span class="math inline">\(\mathbf{\beta_2}\)</span></li>
+</ul>
+<p><strong>Full Model:</strong></p>
+<ul>
+<li><span class="math inline">\(\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon} = \mathbf{X_1} \mathbf{\beta_1} + \mathbf{X_2} \mathbf{\beta_2} + \mathbf{\epsilon}\)</span></li>
+<li><span class="math inline">\(\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}\)</span></li>
+<li></li>
 </ul>
 </div>
 </div>
