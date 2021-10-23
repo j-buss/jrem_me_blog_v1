@@ -34,6 +34,8 @@ Regression model fitting has several implicit assumptions, including:
 ### Variance Stabilization
 
 The constant variance assumption is often violated when the response $y$ follows a distribution which is related to the mean.  
+
+
 * Problems can be identified by examining the residual plots
 * Variance stabilizing transformations can be selected empirically
   * If $\sigma^2$ is not constant, the coefficients will have larger standard errors (no longer BLUE)
@@ -162,3 +164,156 @@ z_j=
    \ln{(x_j)}, & \alpha_j = 0
 \end{cases}
 $$
+
+## Generalized and Weighted Least Squares
+
+
+
+### Generalized Least Squares (GLS)
+
+We can use a method called generalized least squares (GLS) for correlated errors with non-constant variance.
+
+Originally we had:
+
+* $\mathbf{y}=\mathbf{X\beta}+\mathbf{\epsilon}$
+* $E(\mathbf{\epsilon}) =0$
+* $Var(\mathbf{\epsilon}) = \sigma^2 \mathbf{I}$
+
+Sometimes the assumption is unreasonable, and the error variance structure is **known**. Therefore we consider the model:
+
+* $\mathbf{y}=\mathbf{X\beta}+\mathbf{\epsilon}$
+* $E(\mathbf{\epsilon}) =0$
+* $Var(\mathbf{\epsilon}) = \sigma^2 \mathbf{V}$
+
+Where $\mathbf{V}$ is a **known** $n \times n$ matrix:
+
+* If $\mathbf{V}$ is diagonal but with unequal diagonal elements: the observations $\mathbf{y}$ are **uncorrelated** but have **unequal** variances
+* If some of the off diagonal elements of $\mathbf{V}$ are nonzero: the observations $\mathbf{y}$ are **correlated**
+
+Using our standard $\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}$ is not BLUE anymore:
+
+* $\mathbf{b}$ is still unbiased for $\mathbf{\beta}$, i.e., $E(\mathbf{b})=\mathbf{\beta}$
+* However $\mathbf{b}$ does not have minimum variance. (not the "best")
+
+GLS estimator:
+
+$$
+\mathbf{\hat{\beta}} = (\mathbf{X^\intercal V^{-1}X})^{-1}\mathbf{X^\intercal V^{-1}y}
+$$
+
+* The GLS estimator is BLUE
+* $Var(\mathbf{\hat{\beta}}) =\sigma^2 (\mathbf{X^\intercal} \mathbf{V}^{-1} \mathbf{X})^{-1}$
+
+#### Anova Table for GLS
+
+```{r echo=FALSE, results='asis', escape=FALSE}
+x <- data.frame(
+  
+  "Col1" = c(
+    "Regression",
+    "Error",
+    "Total"
+    ),
+  
+  "Col2" = c(
+    "$$\\begin{align*}
+    SS_R&=\\mathbf{\\hat{\\beta}^\\intercal}\\mathbf{B^\\intercal}\\mathbf{z}\\\\
+    &=\\mathbf{y^{\\intercal}V}^{-1}\\mathbf{X}(\\mathbf{X^{\\intercal}V}^{-1}\\mathbf{X})^{-1}\\mathbf{X^{\\intercal}V}^{-1}\\mathbf{y}
+    \\end{align*}
+    $$",
+    "$$\\begin{align*}
+    SS_{Res}&=\\mathbf{z^{\\intercal}z}-\\mathbf{\\hat{\\beta}^{\\intercal}B^{\\intercal}z}\\\\
+    &=\\mathbf{y}^{\\intercal}\\mathbf{V}^{-1}\\mathbf{y}- \\mathbf{y^{\\intercal}V}^{-1}\\mathbf{X}(\\mathbf{X^{\\intercal}V}^{-1}\\mathbf{X})^{-1}\\mathbf{X^{\\intercal}V}^{-1}\\mathbf{y}
+    \\end{align*}
+    $$",
+    "$\\mathbf{z^{\\intercal}z}=\\mathbf{y}^{\\intercal}\\mathbf{V}^{-1}\\mathbf{y}$"
+  ),
+    
+  "Col3" = c(
+    "k",
+    "n-k-1",
+    "n-1"
+  ),
+  "Col4" = c(
+    "$SS_R/k$",
+    "$SS_{Res}/(n-k-1)$",
+    ""
+  ),
+  "Col5" = c(
+    "$MS_R/MS_{Res}$",
+    "",
+    ""
+  )
+)
+knitr::kable(x=x,
+             caption = "Analysis of Variance for Generalized Least Squares",
+             format="markdown", escape=FALSE, 
+             col.names=c("Source",
+                         "Sum of Squares",
+                         "Degrees of Freedom",
+                         "Mean Square",
+                         "$F_0$")
+             )
+
+```
+
+$\mathbf{y}$ is scaled to have mean zero
+
+### Weighted Least Squares (WLS)
+
+* Weighted Least Squares is a special case of GLS that $\mathbf{V}$ has a special form.
+* When $\mathbf{\epsilon}$ are _uncorrelated_ and have _unequal variances_ the covariance matrix of $\mathbf{\epsilon}$ is
+
+$$
+\sigma^2 \mathbf{V} = \sigma^2 
+\begin{bmatrix}
+\frac{1}{w_1} & \space & \space & 0 \\
+\space & \frac{1}{w_2} & \space \\
+\space & \space & \space & \ddots\\
+0 & \space & \space & \frac{1}{w_n}
+\end{bmatrix}
+$$
+
+* Let $\mathbf{W} = \mathbf{V}^{-1}. Then $\mathbf{W}$ is diagonal with diagonal elements or **weights** $w_1, w_2, \dots, w_n$
+* The WLS esitmator $\hat{\mathbf{\beta}} = (\mathbf{X}^{\intercal}\mathbf{WX})^{-1} \mathbf{X}^{\intercal}\mathbf{Wy}$
+* Observations with large variances will have smaller weights
+
+The weighted least squares function:
+
+$$
+S(\beta_0, \beta_1) = \sum_{i=1}^n w_i (y_i - \beta_0 + \beta_1 x_i)^2
+$$
+
+The resulting least squares Normal Equations:
+
+$$
+\begin{align*}
+\beta_0 \sum_{i=1}^n w_i + \beta_1 \sum_{i=1}^n w_i x_i &= \sum_{i=1}^n w_i y_i\\
+\beta_0 \sum_{i=1}^n w_i x_i + \beta_1 \sum_{i=1}^n w_i x_i^2 &= \sum_{i=1}^n w_i y_i x_i
+\end{align*}
+$$
+
+Which can be written as:
+
+$$
+\begin{align}
+( \mathbf{X}^\intercal \mathbf{WX}) \mathbf{\beta} = \mathbf{X}^\intercal \mathbf{Wy}
+\end{align}
+$$
+
+#### Methods of choosing weights
+
+* The weights, $w_i$, or in general $\mathbf{V}$ must be _known_
+* Prior information or knowledge
+* Residual Analysis:
+  * Var($\epsilon$) $\propto x_i$, suggests $w_i = 1\x_i$
+  * When $y_i$ is an average of $n_i$ observations at $x_i$, Var$(y_i)=\sigma^2/n_i$ and suggest $w_i = n_i$
+* Chosen inversely proportional to variances of measurement error
+
+If we have no idea of $\mathbf{W}$, consider **feasible GLS** estimator: 
+
+$$
+\mathbf{\hat{\beta}}_{FGLS} = ( \mathbf{X}^\intercal \mathbf{\hat{W}X})^{-1} \mathbf{X}^\intercal \mathbf{\hat{W}y}
+$$ 
+
+where $\mathbf{\hat{W}}$ is an estimate of $\mathbf{W}$ from some method.
