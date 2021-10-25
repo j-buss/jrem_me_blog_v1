@@ -8,6 +8,9 @@ enableEmoji = true
 enableRobotsTXT = true
 googleAnalytics = ""
 
+PygmentsCodeFences = true
+PygmentsStyle = "pygments"
+
 preserveTaxonomyNames = true
 
 [Permalinks]

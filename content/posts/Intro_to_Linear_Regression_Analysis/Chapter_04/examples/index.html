@@ -18,14 +18,8 @@ katex: yes
 
 
 <p>For the example data we will leverage the CRAN package “MPV”.</p>
-<pre class="r"><code>install.packages(&quot;MPV&quot;)</code></pre>
-<pre><code>## Installing package into &#39;/home/jeremyfbuss/R/x86_64-pc-linux-gnu-library/3.6&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre class="r"><code>library(MPV)</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Loading required package: KernSmooth</code></pre>
-<pre><code>## KernSmooth 2.23 loaded
-## Copyright M. P. Wand 1997-2009</code></pre>
+<pre class="r"><code>#install.packages(&quot;MPV&quot;)
+library(MPV)</code></pre>
 <div id="example-4.1-the-delivery-time-data" class="section level1">
 <h1>Example 4.1: The Delivery Time Data</h1>
 <p>Let’s define the dataframe for the SoftDrink data and take a look at the first 5 rows:</p>
@@ -38,21 +32,23 @@ head(SoftDrink, 5)</code></pre>
 ## 3        12.03           3      340
 ## 4        14.88           4       80
 ## 5        13.75           6      150</code></pre>
-<p>With the data ready we will create a multivariate linear model and store the summary in the variable <em>SoftDrink.lm.sum</em> :</p>
+<p>With the data ready we will create:</p>
+<ul>
+<li><strong>SoftDrink.lm</strong>: multivariate linear model</li>
+<li><strong>SoftDrink.lm.sum</strong>: the summary of the linear model</li>
+</ul>
 <pre class="r"><code>SoftDrink.lm &lt;- lm(DeliveryTime ~ NumberCases + Distance, data=SoftDrink)
-print(SoftDrink.lm$coefficients)</code></pre>
-<pre><code>## (Intercept) NumberCases    Distance 
-##  2.34123115  1.61590721  0.01438483</code></pre>
-<p>So we see that our equation is:</p>
-<p>DeliverTime = 2.3412311 + 1.6159072 x #ofCases + 0.0143848 x Distance</p>
-<p>With the question in had, let’s figure out some of the resdiuals</p>
+SoftDrink.lm.sum &lt;- summary(SoftDrink.lm)</code></pre>
+<p>From the linear model we see that our linear model equation is:</p>
+<p>DeliveryTime = 2.3412311 + 1.6159072 x #ofCases + 0.0143848 x Distance</p>
+<p>Now that we have the linear model let’s figure out some of the residuals:</p>
 <div id="residual-vanilla" class="section level2">
 <h2>Residual (“vanilla”)</h2>
 <p>The basic, run o’ the mill residuals</p>
 <p><span class="math display">\[
 e_i = y_i - \hat{y}_i
 \]</span></p>
-<p>are available directly from the linear regression model:</p>
+<p>These are available directly from the linear regression model:</p>
 <pre class="r"><code>SoftDrink.lm.residuals &lt;- SoftDrink.lm$residuals
 head(SoftDrink.lm.residuals,5)</code></pre>
 <pre><code>##          1          2          3          4          5 
@@ -60,5 +56,33 @@ head(SoftDrink.lm.residuals,5)</code></pre>
 </div>
 <div id="standardized-residuals" class="section level2">
 <h2>Standardized Residuals</h2>
+<p>For the standardized Residuals we use the basic residuals and divide by the square root of Mean Square Residual</p>
+<p><span class="math display">\[
+d_i = \frac{e_i}{\sqrt{MS_{Res}}}
+\]</span></p>
+<p>Within R we can grab the sigma value from the summary of the linear model and leverage the residuals that we defined in the previous step:</p>
+<pre class="r"><code>SoftDrink.lm.MS_res &lt;- SoftDrink.lm.sum$sigma^2
+SoftDrink.lm.StandardizedResiduals &lt;- SoftDrink.lm.residuals / sqrt(SoftDrink.lm.MS_res)
+head(SoftDrink.lm.StandardizedResiduals,5)</code></pre>
+<pre><code>##           1           2           3           4           5 
+## -1.54260631  0.35170879 -0.01527661  1.51078203 -0.13634053</code></pre>
+</div>
+<div id="studentized-residuals" class="section level2">
+<h2>Studentized Residuals</h2>
+<p>For the <strong>studentized residuals</strong> we need to adjust the denominator of the residual to have constant variance regardless of location of <span class="math inline">\(\mathbf{x_i}\)</span>.</p>
+<p>This gives us:</p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
+\]</span>
+However to determine this studentized residual we need to calculate the values of the <strong>Hat Matrix</strong> <span class="math inline">\(\mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}\)</span> for the given</p>
+<pre class="r"><code>lm.influence(SoftDrink.lm)$hat</code></pre>
+<pre><code>##          1          2          3          4          5          6          7 
+## 0.10180178 0.07070164 0.09873476 0.08537479 0.07501050 0.04286693 0.08179867 
+##          8          9         10         11         12         13         14 
+## 0.06372559 0.49829216 0.19629595 0.08613260 0.11365570 0.06112463 0.07824332 
+##         15         16         17         18         19         20         21 
+## 0.04111077 0.16594043 0.05943202 0.09626046 0.09644857 0.10168486 0.16527689 
+##         22         23         24         25 
+## 0.39157522 0.04126005 0.12060826 0.06664345</code></pre>
 </div>
 </div>

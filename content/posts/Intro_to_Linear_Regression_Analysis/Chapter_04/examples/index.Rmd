@@ -19,8 +19,8 @@ library(blogdown)
 
 For the example data we will leverage the CRAN package "MPV".
 
-```{r}
-install.packages("MPV")
+```{r message=FALSE}
+#install.packages("MPV")
 library(MPV)
 ```
 
@@ -35,19 +35,21 @@ colnames(SoftDrink) <- c("DeliveryTime", "NumberCases", "Distance")
 head(SoftDrink, 5)
 ```
 
-With the data ready we will create a multivariate linear model and store the summary in the variable _SoftDrink.lm.sum_ : 
+With the data ready we will create:
+
+* **SoftDrink.lm**: multivariate linear model
+* **SoftDrink.lm.sum**: the summary of the linear model 
 
 ```{r}
 SoftDrink.lm <- lm(DeliveryTime ~ NumberCases + Distance, data=SoftDrink)
-print(SoftDrink.lm$coefficients)
+SoftDrink.lm.sum <- summary(SoftDrink.lm)
 ```
 
+From the linear model we see that our linear model equation is: 
 
-So we see that our equation is: 
+DeliveryTime = `r SoftDrink.lm$coefficients[1]` + `r SoftDrink.lm$coefficients[2]` x #ofCases + `r SoftDrink.lm$coefficients[3]` x Distance
 
-DeliverTime = `r SoftDrink.lm$coefficients[1]` + `r SoftDrink.lm$coefficients[2]` x #ofCases + `r SoftDrink.lm$coefficients[3]` x Distance
-
-With the question in had, let's figure out some of the resdiuals
+Now that we have the linear model let's figure out some of the residuals:
 
 ## Residual ("vanilla")
 
@@ -57,7 +59,7 @@ $$
 e_i = y_i - \hat{y}_i
 $$
 
-are available directly from the linear regression model:
+These are available directly from the linear regression model:
 
 ```{r}
 SoftDrink.lm.residuals <- SoftDrink.lm$residuals
@@ -66,13 +68,13 @@ head(SoftDrink.lm.residuals,5)
 
 ## Standardized Residuals
 
-For the standardized Residuals we use the basic residuals and divide by the square root of Mean Square Residual:
+For the standardized Residuals we use the basic residuals and divide by the square root of Mean Square Residual
 
 $$
 d_i = \frac{e_i}{\sqrt{MS_{Res}}}
 $$
 
-In r this becomes:
+Within R we can grab the sigma value from the summary of the linear model and leverage the residuals that we defined in the previous step:
 
 ```{r}
 SoftDrink.lm.MS_res <- SoftDrink.lm.sum$sigma^2
@@ -81,3 +83,17 @@ head(SoftDrink.lm.StandardizedResiduals,5)
 ```
 
 ## Studentized Residuals 
+
+For the **studentized residuals** we need to adjust the denominator of the residual to have constant variance regardless of location of $\mathbf{x_i}$.
+
+This gives us:
+
+$$
+r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
+$$
+However to determine this studentized residual we need to calculate the values of the **Hat Matrix** $\mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}$ for the given 
+
+```{r}
+lm.influence(SoftDrink.lm)$hat
+```
+
