@@ -91,9 +91,36 @@ This gives us:
 $$
 r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
 $$
-However to determine this studentized residual we need to calculate the values of the **Hat Matrix** $\mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}$ for the given 
+We would generally need to determine the values for $h_{ii}$ to calculate this residual. The $h_{ii}$ values can be determined with the following:
 
 ```{r}
-lm.influence(SoftDrink.lm)$hat
+SoftDrink.lm.HatValues <- lm.influence(SoftDrink.lm)$hat
+head(SoftDrink.lm.HatValues,5)
+```
+
+However we are able to leverage a function to determined the studentized residuals straight away:
+
+```{r}
+SoftDrink.lm.StudentizedResiduals <- rstandard(SoftDrink.lm)
+head(SoftDrink.lm.StudentizedResiduals,5)
+```
+
+## PRESS Residuals
+
+The next flavor of residual is the **PRESS** residual which is the ordinary residual weighted by the diagonal elements of the hat matrix $h_{ii}$.
+
+$$
+e_{(i)}=y_i - \hat{y}_{(i)}
+$$
+
+```{r}
+SoftDrink.lm.PRESSResiduals <- SoftDrink.lm.residuals / (1 - SoftDrink.lm.HatValues)
+head(SoftDrink.lm.PRESSResiduals,5)
+```
+
+## R-Student Residuals
+
+```{r}
+PRESS(SoftDrink.lm, verbose=FALSE)$residuals
 ```
 
