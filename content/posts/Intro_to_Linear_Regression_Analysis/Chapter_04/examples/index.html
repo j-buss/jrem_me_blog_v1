@@ -1,16 +1,16 @@
 ---
-title: Model Adequacy Checking - Examples from Montgomery/Peck/Vining
-author: Jeremy Buss
+title: "Model Adequacy Checking - Examples from Montgomery/Peck/Vining"
+author: "Jeremy Buss"
 date: '2021-10-23'
 slug: []
 categories:
-  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
-  - Applied Stats
-  - Regression Analysis
+- Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+- Applied Stats
+- Regression Analysis
 tags:
-  - R
-  - linear regression
-draft: true
+- R
+- linear regression
+draft: yes
 katex: yes
 ---
 
@@ -74,15 +74,318 @@ head(SoftDrink.lm.StandardizedResiduals,5)</code></pre>
 <p><span class="math display">\[
 r_i = \frac{e_i}{\sqrt{MS_{res}(1-h_{ii})}}
 \]</span>
-However to determine this studentized residual we need to calculate the values of the <strong>Hat Matrix</strong> <span class="math inline">\(\mathbf{H} = \mathbf{X} ( \mathbf{X^\intercal} \mathbf{X})^{-1} \mathbf{X^\intercal}\)</span> for the given</p>
-<pre class="r"><code>lm.influence(SoftDrink.lm)$hat</code></pre>
-<pre><code>##          1          2          3          4          5          6          7 
-## 0.10180178 0.07070164 0.09873476 0.08537479 0.07501050 0.04286693 0.08179867 
-##          8          9         10         11         12         13         14 
-## 0.06372559 0.49829216 0.19629595 0.08613260 0.11365570 0.06112463 0.07824332 
-##         15         16         17         18         19         20         21 
-## 0.04111077 0.16594043 0.05943202 0.09626046 0.09644857 0.10168486 0.16527689 
-##         22         23         24         25 
-## 0.39157522 0.04126005 0.12060826 0.06664345</code></pre>
+We would generally need to determine the values for <span class="math inline">\(h_{ii}\)</span> to calculate this residual. The <span class="math inline">\(h_{ii}\)</span> values can be determined with the following:</p>
+<pre class="r"><code>SoftDrink.lm.HatValues &lt;- lm.influence(SoftDrink.lm)$hat
+head(SoftDrink.lm.HatValues,5)</code></pre>
+<pre><code>##          1          2          3          4          5 
+## 0.10180178 0.07070164 0.09873476 0.08537479 0.07501050</code></pre>
+<p>However we are able to leverage a function to determined the studentized residuals straight away:</p>
+<pre class="r"><code>SoftDrink.lm.StudentizedResiduals &lt;- rstandard(SoftDrink.lm)
+head(SoftDrink.lm.StudentizedResiduals,5)</code></pre>
+<pre><code>##           1           2           3           4           5 
+## -1.62767993  0.36484267 -0.01609165  1.57972040 -0.14176094</code></pre>
 </div>
+<div id="press-residuals" class="section level2">
+<h2>PRESS Residuals</h2>
+<p>The next flavor of residual is the <strong>PRESS</strong> residual which is the ordinary residual weighted by the diagonal elements of the hat matrix <span class="math inline">\(h_{ii}\)</span> it can be espressed as:</p>
+<p><span class="math display">\[
+e_{(i)}=y_i - \hat{y}_{(i)}
+\]</span>
+Additionally we can express it as:</p>
+<p><span class="math display">\[
+e_{(i)} = \frac{e_i}{1-h_{ii}}, \space i=1,2,\dots,n
+\]</span></p>
+<p>This last definition is what we will use to calculate the values.</p>
+<pre class="r"><code>SoftDrink.lm.PRESSResiduals &lt;- SoftDrink.lm.residuals / (1 - SoftDrink.lm.HatValues)
+head(SoftDrink.lm.PRESSResiduals,5)</code></pre>
+<pre><code>##           1           2           3           4           5 
+## -5.59796734  1.23360321 -0.05524867  5.38401290 -0.48043610</code></pre>
+</div>
+<div id="r-student-residuals" class="section level2">
+<h2>R-Student Residuals</h2>
+<p>With the last residual, R-Student Residuals, we use <span class="math inline">\(S_{(i)}^2\)</span> as an estimate of <span class="math inline">\(\sigma^2\)</span> based on the data with the <span class="math inline">\(i\)</span>-th observation removed:</p>
+<p><span class="math display">\[
+S_{(i)}^2 = \frac{(n-p)MS_{res}-e_i^2/(1-h_{ii})}{n-p-1}
+\]</span></p>
+<p>and placing this estimate into the following:</p>
+<p><span class="math display">\[
+t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
+\]</span></p>
+<p>However there is a package which makes it much easier:</p>
+<pre class="r"><code>library(MASS)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MPV&#39;:
+## 
+##     cement</code></pre>
+<pre class="r"><code>SoftDrink.lm.RStudentRessiduals &lt;- studres(SoftDrink.lm)
+head(SoftDrink.lm.RStudentRessiduals,5)</code></pre>
+<pre><code>##           1           2           3           4           5 
+## -1.69562881  0.35753764 -0.01572177  1.63916491 -0.13856493</code></pre>
+</div>
+<div id="combined-residuals-dataframe" class="section level2">
+<h2>Combined Residuals Dataframe</h2>
+<pre class="r"><code>SoftDrink.Residual_df &lt;- data.frame(
+    SoftDrink.lm.residuals,
+    SoftDrink.lm.StandardizedResiduals,
+    SoftDrink.lm.StudentizedResiduals,
+    SoftDrink.lm.HatValues,
+    SoftDrink.lm.PRESSResiduals,
+    SoftDrink.lm.RStudentRessiduals
+)
+
+colnames(SoftDrink.Residual_df) &lt;- c(
+    &quot;Residuals $e_i$&quot;,
+    &quot;Standardized Residuals $d_i$&quot;,
+    &quot;Studentized Residuals $r_i$&quot;, 
+    &quot;Hat Matrix Diagonals $h_{ii}$&quot;, 
+    &quot;PRESS Residuals $e_{(i)}$&quot;, 
+    &quot;R-Student Residuals $t_i$&quot;
+)
+
+library(knitr)
+
+kable(SoftDrink.Residual_df, caption=&quot;Soft Drink Linear Model Residuals&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-11">Table 1: </span>Soft Drink Linear Model Residuals</caption>
+<colgroup>
+<col width="10%" />
+<col width="18%" />
+<col width="18%" />
+<col width="19%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Residuals <span class="math inline">\(e_i\)</span></th>
+<th align="right">Standardized Residuals <span class="math inline">\(d_i\)</span></th>
+<th align="right">Studentized Residuals <span class="math inline">\(r_i\)</span></th>
+<th align="right">Hat Matrix Diagonals <span class="math inline">\(h_{ii}\)</span></th>
+<th align="right">PRESS Residuals <span class="math inline">\(e_{(i)}\)</span></th>
+<th align="right">R-Student Residuals <span class="math inline">\(t_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-5.0280843</td>
+<td align="right">-1.5426063</td>
+<td align="right">-1.6276799</td>
+<td align="right">0.1018018</td>
+<td align="right">-5.5979673</td>
+<td align="right">-1.6956288</td>
+</tr>
+<tr class="even">
+<td align="right">1.1463854</td>
+<td align="right">0.3517088</td>
+<td align="right">0.3648427</td>
+<td align="right">0.0707016</td>
+<td align="right">1.2336032</td>
+<td align="right">0.3575376</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0497937</td>
+<td align="right">-0.0152766</td>
+<td align="right">-0.0160917</td>
+<td align="right">0.0987348</td>
+<td align="right">-0.0552487</td>
+<td align="right">-0.0157218</td>
+</tr>
+<tr class="even">
+<td align="right">4.9243539</td>
+<td align="right">1.5107820</td>
+<td align="right">1.5797204</td>
+<td align="right">0.0853748</td>
+<td align="right">5.3840129</td>
+<td align="right">1.6391649</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4443983</td>
+<td align="right">-0.1363405</td>
+<td align="right">-0.1417609</td>
+<td align="right">0.0750105</td>
+<td align="right">-0.4804361</td>
+<td align="right">-0.1385649</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2895743</td>
+<td align="right">-0.0888408</td>
+<td align="right">-0.0908085</td>
+<td align="right">0.0428669</td>
+<td align="right">-0.3025434</td>
+<td align="right">-0.0887373</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8446235</td>
+<td align="right">0.2591288</td>
+<td align="right">0.2704250</td>
+<td align="right">0.0817987</td>
+<td align="right">0.9198675</td>
+<td align="right">0.2646477</td>
+</tr>
+<tr class="even">
+<td align="right">1.1566049</td>
+<td align="right">0.3548441</td>
+<td align="right">0.3667212</td>
+<td align="right">0.0637256</td>
+<td align="right">1.2353268</td>
+<td align="right">0.3593898</td>
+</tr>
+<tr class="odd">
+<td align="right">7.4197062</td>
+<td align="right">2.2763512</td>
+<td align="right">3.2137628</td>
+<td align="right">0.4982922</td>
+<td align="right">14.7888982</td>
+<td align="right">4.3107801</td>
+</tr>
+<tr class="even">
+<td align="right">2.3764129</td>
+<td align="right">0.7290788</td>
+<td align="right">0.8132543</td>
+<td align="right">0.1962959</td>
+<td align="right">2.9568258</td>
+<td align="right">0.8067758</td>
+</tr>
+<tr class="odd">
+<td align="right">2.2374930</td>
+<td align="right">0.6864584</td>
+<td align="right">0.7180797</td>
+<td align="right">0.0861326</td>
+<td align="right">2.4483782</td>
+<td align="right">0.7099391</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5930409</td>
+<td align="right">-0.1819438</td>
+<td align="right">-0.1932573</td>
+<td align="right">0.1136557</td>
+<td align="right">-0.6690864</td>
+<td align="right">-0.1889745</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0270093</td>
+<td align="right">0.3150844</td>
+<td align="right">0.3251794</td>
+<td align="right">0.0611246</td>
+<td align="right">1.0938718</td>
+<td align="right">0.3184692</td>
+</tr>
+<tr class="even">
+<td align="right">1.0675359</td>
+<td align="right">0.3275179</td>
+<td align="right">0.3411355</td>
+<td align="right">0.0782433</td>
+<td align="right">1.1581536</td>
+<td align="right">0.3341772</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6712018</td>
+<td align="right">0.2059234</td>
+<td align="right">0.2102914</td>
+<td align="right">0.0411108</td>
+<td align="right">0.6999785</td>
+<td align="right">0.2056632</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6629284</td>
+<td align="right">-0.2033851</td>
+<td align="right">-0.2227002</td>
+<td align="right">0.1659404</td>
+<td align="right">-0.7948214</td>
+<td align="right">-0.2178257</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4363603</td>
+<td align="right">0.1338745</td>
+<td align="right">0.1380393</td>
+<td align="right">0.0594320</td>
+<td align="right">0.4639328</td>
+<td align="right">0.1349240</td>
+</tr>
+<tr class="even">
+<td align="right">3.4486213</td>
+<td align="right">1.0580302</td>
+<td align="right">1.1129520</td>
+<td align="right">0.0962605</td>
+<td align="right">3.8159460</td>
+<td align="right">1.1193307</td>
+</tr>
+<tr class="odd">
+<td align="right">1.7931935</td>
+<td align="right">0.5501482</td>
+<td align="right">0.5787663</td>
+<td align="right">0.0964486</td>
+<td align="right">1.9846059</td>
+<td align="right">0.5698142</td>
+</tr>
+<tr class="even">
+<td align="right">-5.7879699</td>
+<td align="right">-1.7757377</td>
+<td align="right">-1.8735464</td>
+<td align="right">0.1016849</td>
+<td align="right">-6.4431397</td>
+<td align="right">-1.9966766</td>
+</tr>
+<tr class="odd">
+<td align="right">-2.6141789</td>
+<td align="right">-0.8020249</td>
+<td align="right">-0.8778426</td>
+<td align="right">0.1652769</td>
+<td align="right">-3.1317917</td>
+<td align="right">-0.8730870</td>
+</tr>
+<tr class="even">
+<td align="right">-3.6865279</td>
+<td align="right">-1.1310195</td>
+<td align="right">-1.4499954</td>
+<td align="right">0.3915752</td>
+<td align="right">-6.0591350</td>
+<td align="right">-1.4896247</td>
+</tr>
+<tr class="odd">
+<td align="right">-4.6075679</td>
+<td align="right">-1.4135927</td>
+<td align="right">-1.4436898</td>
+<td align="right">0.0412601</td>
+<td align="right">-4.8058578</td>
+<td align="right">-1.4824672</td>
+</tr>
+<tr class="even">
+<td align="right">-4.5728535</td>
+<td align="right">-1.4029424</td>
+<td align="right">-1.4960588</td>
+<td align="right">0.1206083</td>
+<td align="right">-5.2000187</td>
+<td align="right">-1.5422151</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2125839</td>
+<td align="right">-0.0652203</td>
+<td align="right">-0.0675086</td>
+<td align="right">0.0666435</td>
+<td align="right">-0.2277628</td>
+<td align="right">-0.0659633</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="plot-of-residuals-against-the-fitted-values-haty_i" class="section level1">
+<h1>4.2 Plot of Residuals against the Fitted Values <span class="math inline">\(\hat{y_i}\)</span></h1>
+<pre class="r"><code>#dev.new(width=100, height=100, unit=&quot;px&quot;)
+qqnorm(SoftDrink.lm.RStudentRessiduals,
+       ylab=&quot;R Student Residuals&quot;,
+       xlab=&quot;Normal Scores&quot;,
+       main=&quot;Delivery Time&quot;
+       , datax=TRUE
+)
+qqline(SoftDrink.lm.RStudentRessiduals, distribution=qnorm, datax=TRUE)</code></pre>
+<div class="figure"><span style="display:block;" id="fig:DeliveryTimeQQPlot"></span>
+<img src="{{< blogdown/postref >}}index_files/figure-html/DeliveryTimeQQPlot-1.png" alt="QQ Plot for Soft Drink Model" width="672" />
+<p class="caption">
+Figure 1: QQ Plot for Soft Drink Model
+</p>
+</div>
+<p>lkjlkj</p>
 </div>

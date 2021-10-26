@@ -1,16 +1,16 @@
 ---
-title: Model Adequacy Checking - Examples from Montgomery/Peck/Vining
-author: Jeremy Buss
+title: "Model Adequacy Checking - Examples from Montgomery/Peck/Vining"
+author: "Jeremy Buss"
 date: '2021-10-23'
 slug: []
 categories:
-  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
-  - Applied Stats
-  - Regression Analysis
+- Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+- Applied Stats
+- Regression Analysis
 tags:
-  - R
-  - linear regression
-draft: true
+- R
+- linear regression
+draft: yes
 katex: yes
 ---
 ```{r echo=FALSE}
@@ -107,11 +107,18 @@ head(SoftDrink.lm.StudentizedResiduals,5)
 
 ## PRESS Residuals
 
-The next flavor of residual is the **PRESS** residual which is the ordinary residual weighted by the diagonal elements of the hat matrix $h_{ii}$.
+The next flavor of residual is the **PRESS** residual which is the ordinary residual weighted by the diagonal elements of the hat matrix $h_{ii}$ it can be espressed as:
 
 $$
 e_{(i)}=y_i - \hat{y}_{(i)}
 $$
+Additionally we can express it as:
+
+$$
+e_{(i)} = \frac{e_i}{1-h_{ii}}, \space i=1,2,\dots,n
+$$
+
+This last definition is what we will use to calculate the values.
 
 ```{r}
 SoftDrink.lm.PRESSResiduals <- SoftDrink.lm.residuals / (1 - SoftDrink.lm.HatValues)
@@ -120,7 +127,65 @@ head(SoftDrink.lm.PRESSResiduals,5)
 
 ## R-Student Residuals
 
+With the last residual, R-Student Residuals, we use $S_{(i)}^2$ as an estimate of $\sigma^2$ based on the data with the $i$-th observation removed:
+
+$$
+S_{(i)}^2 = \frac{(n-p)MS_{res}-e_i^2/(1-h_{ii})}{n-p-1}
+$$
+
+and placing this estimate into the following:
+
+$$
+t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
+$$
+
+However there is a package which makes it much easier:
+
 ```{r}
-PRESS(SoftDrink.lm, verbose=FALSE)$residuals
+library(MASS)
+SoftDrink.lm.RStudentRessiduals <- studres(SoftDrink.lm)
+head(SoftDrink.lm.RStudentRessiduals,5)
 ```
 
+## Combined Residuals Dataframe
+
+```{r}
+SoftDrink.Residual_df <- data.frame(
+    SoftDrink.lm.residuals,
+    SoftDrink.lm.StandardizedResiduals,
+    SoftDrink.lm.StudentizedResiduals,
+    SoftDrink.lm.HatValues,
+    SoftDrink.lm.PRESSResiduals,
+    SoftDrink.lm.RStudentRessiduals
+)
+
+colnames(SoftDrink.Residual_df) <- c(
+    "Residuals $e_i$",
+    "Standardized Residuals $d_i$",
+    "Studentized Residuals $r_i$", 
+    "Hat Matrix Diagonals $h_{ii}$", 
+    "PRESS Residuals $e_{(i)}$", 
+    "R-Student Residuals $t_i$"
+)
+
+library(knitr)
+
+kable(SoftDrink.Residual_df, caption="Soft Drink Linear Model Residuals")
+```
+
+
+# 4.2 Plot of Residuals against the Fitted Values $\hat{y_i}$
+
+```{r DeliveryTimeQQPlot, fig.cap="QQ Plot for Soft Drink Model"}
+
+#dev.new(width=100, height=100, unit="px")
+qqnorm(SoftDrink.lm.RStudentRessiduals,
+       ylab="R Student Residuals",
+       xlab="Normal Scores",
+       main="Delivery Time"
+       , datax=TRUE
+)
+qqline(SoftDrink.lm.RStudentRessiduals, distribution=qnorm, datax=TRUE)
+```
+
+lkjlkj
