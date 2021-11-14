@@ -1,0 +1,155 @@
+---
+title: Diagnostics for Leverage and Influence
+author: Jeremy Buss
+date: '2021-11-13'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - linear regression
+draft: False
+katex: yes
+---
+
+## Introduction
+
+* **Outlier** - a data point whose response $y$ does not follow the general trend of the rest of the data
+  -   Often detected in y space by **R-student** residuals, $t_i$ which is more sensitive (become larger) in the presence of a discordant data point
+  -   A point with $|t_i| > 3$ is considered an outlier (in the y direction)
+  -   When sample size is not large, points with $|t_i| > 2$ should be examined with care
+* **Leverage** - a point which falls **horizontally (in the $x$ direction)** away from the center of the cloud are called **(high) leverage points** 
+  -   An observation with $h_{ii} > 2p / n$ is remote enough to be considered a **leverage point**
+  -   Remote leverage points have dramatic impact on model summary statistics such as $R^2$ and standard errors of coefficients
+  -   A point with high leverage has a potential to be influential, but generally need to investigate further
+* **Influential** - a point which has a noticeable impact on the model coefficients in that it "pulls" the regression model in it's direction
+  - A point with **large $h_{ii}$ and a large residual** is likely to be **influential**  
+
+### The Hat Matrix and Leverage:
+
+* The diagonal elements of the hat matrix $\mathbf{H}=\mathbf{X}(\mathbf{X^{\intercal}X})^{-1}\mathbf{X}^{\intercal}$ are given by:
+
+$$
+h_{ii}=\mathbf{x}_i^{\intercal}(\mathbf{X^{\intercal}X})^{-1}\mathbf{x}_i
+$$
+  where $\mathbf{x}_i$ is the $i$th row of $\mathbf{X}$
+
+* In simple linear regression,
+
+$$
+h_{ii} = \frac{1}{n} + \frac{( x_i - \overline{x})^2}{S_{xx}} 
+$$
+
+* $h_{ii}$ is a standardized measure of the distance of the $i$th observation from the center of the $x$-space
+* The average size of a hat diagonal is $\overline{h} = \frac{\sum_{i=1}^{n}h_{ii}}{n} = p/n$
+* An observation with $h_{ii}>2p/n$ is remote enough to be considered a *leverage point*
+* Not all leverage points are going to be influential on the regression coefficients
+
+## Measures of Influence
+
+There are a number of influence measures that measure the effect of deleting the $i$th observation
+
+### Cook's Distance $D_i$
+
+Cook's Distance measures the effect of the $i$th observation on coefficient vector **b**
+
+$$
+\begin{split}
+D_i & := \frac{(\mathbf{b}_{(i)}-\mathbf{b})^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}(\mathbf{b}_{(i)}-\mathbf{b})}{pMS_{res}}\\
+&=\frac{r_i^2}{p} \frac{Var(\hat{y}_i)}{Var(\hat{e}_i)} = \frac{r_i^2}{p} \frac{h_{ii}}{1-h_{ii}}, \space \space \space i=1,2,\dots,n
+\end{split}
+$$
+
+where $\mathbf{b}_{(i)}$ is the coefficient estimate obtained with the $i$th point removed, and $r_i$ is the $i$th studentized residual
+
+* What contributes to $D_i$:
+  - How well the model fits the $i$th observation (larger $r_i^2$ for poorer fit)
+  - How far point is away from remaining data (larger $h_{ii}$ for higher leverage)
+* Consider points with $D_i>1$ to be influential
+
+### $DFBETAS_{j,i}$
+
+Measures the effect on coefficient $b_j$ when the $i$th observation is removed
+
+* **how much regression coefficient $b_j$ changes in standard deviation units if the $i$th observation is removed**
+
+$$
+DFBETAS_{j,i} := \frac{b_j-b_{j(i)}}{\sqrt{S_{(i)}^2C_{jj}}} = \frac {r_{j,i}}{\sqrt{\mathbf{r}_j^{\intercal}\mathbf{r}_j}} \frac{t_i}{\sqrt{1-h_{ii}}}
+$$
+
+* $b_{j(i)}$: the $j$th coefficient computed without the $i$th observation
+* $S_{(i)}^2$: the estimate of $\sigma^2$ based on the data with no $i$th point
+* $C_{jj}$: the $j$th diagonal element of $(\mathbf{X}^{\intercal}\mathbf{X})^{-1}$
+* $\mathbf{r}_j^{\intercal}$: the $j$th row of the $p \times n$ matrix $\mathbf{R} = (\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}$
+  - In MLS we had $\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}$, with the previous definition of $\mathbf{R}$ this can be written as: $\mathbf{b}=\mathbf{Ry}$
+* $r_{j,i}$: the $ji$th element of $\mathbf{R}$
+* $t_i$: the $i$th R-student residual
+* The denominator provides a standardization since it estimates the standard error of $b_j$
+* $DFBETAS_{j,i}$ represents the combination of _leverage measures_ and the _impact of errors in the y direction_
+* The _n_ elements in $\mathbf{r}_j^{\intercal}$ produce the _leverage_ that the _n_ observations have on $b_j$
+* $\frac {r_{j,i}}{\sqrt{\mathbf{r}_j^{\intercal}\mathbf{r}_j}}$ is a _normalized_ measure of the impact of the $i$th observation on the $j$th coefficient.
+* The measure is swelled by the leverage score $h_{ii}$
+* Point $i$ is considered influential on the $j$ th coefficient if $|DFBETAS_{j,i}|>2 / \sqrt{n}$
+
+
+### $DFFITS_i$
+
+$DFFITS_i$ measures the **influence of the $i$th observation on the $i$th fitted value**, again in standard deviation units.
+
+$$
+DFFITS_i := \frac{\hat{y}_i - \hat{y}_{(i)}}{\sqrt{S_{(i)}^2 h_{ii}}} = \left( \frac{h_{ii}}{1-h_{ii}} \right )^{1/2} t_i
+$$
+where $\hat{y}_{(i)}$ is the fitted value of $y_i$ computed without the $i$th observation
+* The denominator provides a standardization since $Var(\hat{y}_i)=\sigma^2 h_{ii}$
+* $DFFITS_i$ is essentially the R-student residual _scaled_ by the leverage $[h_{ii}/(1-h_{ii})]^{1/2}$
+* A point with $|DFFITS_i|> 2 \sqrt{p/n}$ is considered influential
+
+### $COVRATIO_i$
+
+* $DFFITS_i$ and $DFBETAS_{j,i}$ reflect influence, but do not indicate whether or not the presence of the $i$th point appreciably sharpened the estimateion of the coefficient
+* A scalr measure of precision, called **generalized variance** of **b** is:
+
+$$
+GV(\mathbf{b}) = det(Var(\mathbf{b})) = det(\sigma^2(\mathbf{X}^\intercal \mathbf{X}) ^ {-1}))
+$$
+* To express the role of the $i$th observation on the **precision of estimateion**, we use
+
+$$
+COVRATIO_i := 
+\frac
+{\text{det} \left( \left ( \mathbf{X}_{(i)}^\intercal \mathbf{X}_{(i)} \right ) ^{-1} S_{(i)}^2\right )}
+{\text{det} \left( \left ( \mathbf{X}^\intercal \mathbf{X} \right ) ^{-1} MS_{res}\right )} 
+= \frac{\left( S_{(i)}^2 \right )^p}{(MS_{res})^p} 
+\left ( \frac{1}{1-h_{ii}} \right )
+$$
+
+* $\mathbf{X}_{(i)}$ denotes the $(n-1)\times p$ data matrix with the $i$th observation eliminated
+* If $COVRATIO_i$ > 1, the $i$th observation _improves_ the precision
+* If $COVRATIO_i$ < 1, the $i$th observation _degraded_ the precision
+* $\frac{1}{1-h_{ii}}$ is the ratio of $\text{det} \left( \left ( \mathbf{X}_{(i)}^\intercal \mathbf{X}_{(i)} \right ) ^{-1} \right )$ to $\text{det} \left( \left ( \mathbf{X}^\intercal \mathbf{X} \right ) ^{-1} \right )$
+* Higher leverage $h_{ii}$ leads to larger $COVRATIO_i$ and improves the precision unless the point is an outlier in $y$ space
+* If $i$th point is an outlier in $y$ space, $\frac{S_{(i)}^2}{MS_{res}} < 1$
+* Cutoffs: (provided that $n>3p$) 
+  - $COVRATIO_i > 1 + 3p/n$
+  - $COVRATIO_i < 1 - 3p/n$
+  
+## Treatment of Influential Points
+
+### Should an influential point be discarded?
+
+#### YES, if
+
+* There is an error in recording a measured value
+* The sample point is invalid or not part of the population intended to be sampled
+
+#### NO, if
+
+* The influential point is a valid observation 
+
+#### A Compromised Approach (Advanced)
+
+* Use **robust** estimation that **downweights** observations in proportion to residual magnitude or influence
+* A highly inflential observation will receive less weight than it would in a least-squares fit
+
+

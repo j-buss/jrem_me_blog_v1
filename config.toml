@@ -49,6 +49,10 @@ preserveTaxonomyNames = true
    
     description = "" # site description
     keywords = "" # site keywords
+    highlightjsVersion = "9.11.0"
+    highlightjsCDN = "//cdn.bootcss.com"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
 
 
     license= '<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"></a>'
@@ -59,11 +63,10 @@ preserveTaxonomyNames = true
 
 [markup]
   [markup.highlight]
-    codeFences = true
+    codeFences = false
     hl_Lines = ""
     lineNoStart = 1
     lineNos = false
     lineNumbersInTable = true
-    noClasses = true
-    style = "solarized-dark"
+    noClasses = false
     tabWidth = 4

@@ -10,7 +10,7 @@ categories:
 tags:
 - R
 - linear regression
-draft: yes
+draft: false
 katex: yes
 ---
 ```{r echo=FALSE}
@@ -143,8 +143,8 @@ However there is a package which makes it much easier:
 
 ```{r}
 library(MASS)
-SoftDrink.lm.RStudentRessiduals <- studres(SoftDrink.lm)
-head(SoftDrink.lm.RStudentRessiduals,5)
+SoftDrink.lm.RStudentResiduals <- studres(SoftDrink.lm)
+head(SoftDrink.lm.RStudentResiduals,5)
 ```
 
 ## Combined Residuals Dataframe
@@ -156,7 +156,7 @@ SoftDrink.Residual_df <- data.frame(
     SoftDrink.lm.StudentizedResiduals,
     SoftDrink.lm.HatValues,
     SoftDrink.lm.PRESSResiduals,
-    SoftDrink.lm.RStudentRessiduals
+    SoftDrink.lm.RStudentResiduals
 )
 
 colnames(SoftDrink.Residual_df) <- c(
@@ -176,16 +176,116 @@ kable(SoftDrink.Residual_df, caption="Soft Drink Linear Model Residuals")
 
 # 4.2 Plot of Residuals against the Fitted Values $\hat{y_i}$
 
+We use a type of plot called [QQ-plot](https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot). This "...is a graphical method for comparing two probability distributions by plotting their quantiles against each other"(Wikipedia)
+
 ```{r DeliveryTimeQQPlot, fig.cap="QQ Plot for Soft Drink Model"}
 
 #dev.new(width=100, height=100, unit="px")
-qqnorm(SoftDrink.lm.RStudentRessiduals,
+qqnorm(SoftDrink.lm.RStudentResiduals,
        ylab="R Student Residuals",
        xlab="Normal Scores",
        main="Delivery Time"
        , datax=TRUE
 )
-qqline(SoftDrink.lm.RStudentRessiduals, distribution=qnorm, datax=TRUE)
+qqline(SoftDrink.lm.RStudentResiduals, distribution=qnorm, datax=TRUE)
 ```
 
-lkjlkj
+# 4.3 Plot of Residuals against Fitted Value
+
+```{r}
+plot(
+    fitted(SoftDrink.lm), 
+    SoftDrink.lm.RStudentResiduals,
+    xlab="Fitted Values",
+    ylab="Externally Studentized Residual",
+    main="Versus Fits"
+)
+abline(h=0)
+```
+
+# 4.4 Residuals against Regressors
+
+```{r}
+
+plot(
+    SoftDrink$NumberCases,
+    SoftDrink.lm.RStudentResiduals,
+    xlab="Number of Cases",
+    ylab="Externally Studentized Residual",
+    main="Residuals Versus Number of Cases"
+)
+abline(h=0)
+```
+```{r}
+plot(
+    SoftDrink$Distance, 
+    SoftDrink.lm.RStudentResiduals,
+    xlab="Distance",
+    ylab="Externally Studentized Residual",
+    main="Residuals Versus Distance"
+)
+abline(h=0)
+```
+
+
+# 4.5 Partial Regression Plots
+
+```{r}
+SoftDrink.PrtlReg.Delivery.Distance.y.lm <- lm(DeliveryTime ~ Distance, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.Distance.y.lm.Residuals <- resid(SoftDrink.PrtlReg.Delivery.Distance.y.lm)
+SoftDrink.PrtlReg.Delivery.Distance.x.lm <- lm(NumberCases ~ Distance, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.Distance.x.lm.Residuals <- resid(SoftDrink.PrtlReg.Delivery.Distance.x.lm)
+
+plot(
+    SoftDrink.PrtlReg.Delivery.Distance.x.lm.Residuals, 
+    SoftDrink.PrtlReg.Delivery.Distance.y.lm.Residuals,
+    xlab="Cases",
+    ylab="Time",
+    main="Partial Regression Plot - Distance"
+)
+```
+
+```{r}
+SoftDrink.PrtlReg.Delivery.NumberCases.y.lm <- lm(DeliveryTime ~ NumberCases, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.NumberCases.y.lm.Residuals <- resid(SoftDrink.PrtlReg.Delivery.NumberCases.y.lm)
+SoftDrink.PrtlReg.Delivery.NumberCases.x.lm <- lm(Distance ~ NumberCases, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.NumberCases.x.lm.Residuals <- resid(SoftDrink.PrtlReg.Delivery.NumberCases.x.lm)
+
+plot(
+    SoftDrink.PrtlReg.Delivery.NumberCases.x.lm.Residuals, 
+    SoftDrink.PrtlReg.Delivery.NumberCases.y.lm.Residuals,
+    xlab="Cases",
+    ylab="Time",
+    main="Partial Regression Plot - Number Cases"
+)
+```
+
+# 4.6 Delivery Time Data - Residuals
+
+We add a new residual to our chart of residuals called the PRESS statistic 
+
+
+```{r}
+SoftDrink.Residual_df <- data.frame(
+    SoftDrink.lm.residuals,
+    SoftDrink.lm.StandardizedResiduals,
+    SoftDrink.lm.StudentizedResiduals,
+    SoftDrink.lm.HatValues,
+    SoftDrink.lm.PRESSResiduals,
+    SoftDrink.lm.RStudentResiduals,
+    SoftDrink.lm.PRESSResiduals^2
+)
+
+colnames(SoftDrink.Residual_df) <- c(
+    "Residuals $e_i$",
+    "Standardized Residuals $d_i$",
+    "Studentized Residuals $r_i$", 
+    "Hat Matrix Diagonals $h_{ii}$", 
+    "PRESS Residuals $e_{(i)}$", 
+    "R-Student Residuals $t_i$",
+    "PRESS Statistic $e_{(i)}^2$"
+)
+
+
+kable(SoftDrink.Residual_df, caption="Soft Drink Linear Model Residuals")
+```

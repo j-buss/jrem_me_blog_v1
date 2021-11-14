@@ -1,0 +1,180 @@
+---
+title: Diagnostics for Leverage and Influence
+author: Jeremy Buss
+date: '2021-11-13'
+slug: []
+categories:
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Applied Stats
+  - Regression Analysis
+tags:
+  - linear regression
+draft: False
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<ul>
+<li><strong>Outlier</strong> - a data point whose response <span class="math inline">\(y\)</span> does not follow the general trend of the rest of the data
+<ul>
+<li>Often detected in y space by <strong>R-student</strong> residuals, <span class="math inline">\(t_i\)</span> which is more sensitive (become larger) in the presence of a discordant data point</li>
+<li>A point with <span class="math inline">\(|t_i| &gt; 3\)</span> is considered an outlier (in the y direction)</li>
+<li>When sample size is not large, points with <span class="math inline">\(|t_i| &gt; 2\)</span> should be examined with care</li>
+</ul></li>
+<li><strong>Leverage</strong> - a point which falls <strong>horizontally (in the <span class="math inline">\(x\)</span> direction)</strong> away from the center of the cloud are called <strong>(high) leverage points</strong>
+<ul>
+<li>An observation with <span class="math inline">\(h_{ii} &gt; 2p / n\)</span> is remote enough to be considered a <strong>leverage point</strong></li>
+<li>Remote leverage points have dramatic impact on model summary statistics such as <span class="math inline">\(R^2\)</span> and standard errors of coefficients</li>
+<li>A point with high leverage has a potential to be influential, but generally need to investigate further</li>
+</ul></li>
+<li><strong>Influential</strong> - a point which has a noticeable impact on the model coefficients in that it “pulls” the regression model in it’s direction
+<ul>
+<li>A point with <strong>large <span class="math inline">\(h_{ii}\)</span> and a large residual</strong> is likely to be <strong>influential</strong></li>
+</ul></li>
+</ul>
+<div id="the-hat-matrix-and-leverage" class="section level3">
+<h3>The Hat Matrix and Leverage:</h3>
+<ul>
+<li>The diagonal elements of the hat matrix <span class="math inline">\(\mathbf{H}=\mathbf{X}(\mathbf{X^{\intercal}X})^{-1}\mathbf{X}^{\intercal}\)</span> are given by:</li>
+</ul>
+<p><span class="math display">\[
+h_{ii}=\mathbf{x}_i^{\intercal}(\mathbf{X^{\intercal}X})^{-1}\mathbf{x}_i
+\]</span>
+where <span class="math inline">\(\mathbf{x}_i\)</span> is the <span class="math inline">\(i\)</span>th row of <span class="math inline">\(\mathbf{X}\)</span></p>
+<ul>
+<li>In simple linear regression,</li>
+</ul>
+<p><span class="math display">\[
+h_{ii} = \frac{1}{n} + \frac{( x_i - \overline{x})^2}{S_{xx}} 
+\]</span></p>
+<ul>
+<li><span class="math inline">\(h_{ii}\)</span> is a standardized measure of the distance of the <span class="math inline">\(i\)</span>th observation from the center of the <span class="math inline">\(x\)</span>-space</li>
+<li>The average size of a hat diagonal is <span class="math inline">\(\overline{h} = \frac{\sum_{i=1}^{n}h_{ii}}{n} = p/n\)</span></li>
+<li>An observation with <span class="math inline">\(h_{ii}&gt;2p/n\)</span> is remote enough to be considered a <em>leverage point</em></li>
+<li>Not all leverage points are going to be influential on the regression coefficients</li>
+</ul>
+</div>
+</div>
+<div id="measures-of-influence" class="section level2">
+<h2>Measures of Influence</h2>
+<p>There are a number of influence measures that measure the effect of deleting the <span class="math inline">\(i\)</span>th observation</p>
+<div id="cooks-distance-d_i" class="section level3">
+<h3>Cook’s Distance <span class="math inline">\(D_i\)</span></h3>
+<p>Cook’s Distance measures the effect of the <span class="math inline">\(i\)</span>th observation on coefficient vector <strong>b</strong></p>
+<p><span class="math display">\[
+\begin{split}
+D_i &amp; := \frac{(\mathbf{b}_{(i)}-\mathbf{b})^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}(\mathbf{b}_{(i)}-\mathbf{b})}{pMS_{res}}\\
+&amp;=\frac{r_i^2}{p} \frac{Var(\hat{y}_i)}{Var(\hat{e}_i)} = \frac{r_i^2}{p} \frac{h_{ii}}{1-h_{ii}}, \space \space \space i=1,2,\dots,n
+\end{split}
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{b}_{(i)}\)</span> is the coefficient estimate obtained with the <span class="math inline">\(i\)</span>th point removed, and <span class="math inline">\(r_i\)</span> is the <span class="math inline">\(i\)</span>th studentized residual</p>
+<ul>
+<li>What contributes to <span class="math inline">\(D_i\)</span>:
+<ul>
+<li>How well the model fits the <span class="math inline">\(i\)</span>th observation (larger <span class="math inline">\(r_i^2\)</span> for poorer fit)</li>
+<li>How far point is away from remaining data (larger <span class="math inline">\(h_{ii}\)</span> for higher leverage)</li>
+</ul></li>
+<li>Consider points with <span class="math inline">\(D_i&gt;1\)</span> to be influential</li>
+</ul>
+</div>
+<div id="dfbetas_ji" class="section level3">
+<h3><span class="math inline">\(DFBETAS_{j,i}\)</span></h3>
+<p>Measures the effect on coefficient <span class="math inline">\(b_j\)</span> when the <span class="math inline">\(i\)</span>th observation is removed</p>
+<ul>
+<li><strong>how much regression coefficient <span class="math inline">\(b_j\)</span> changes in standard deviation units if the <span class="math inline">\(i\)</span>th observation is removed</strong></li>
+</ul>
+<p><span class="math display">\[
+DFBETAS_{j,i} := \frac{b_j-b_{j(i)}}{\sqrt{S_{(i)}^2C_{jj}}} = \frac {r_{j,i}}{\sqrt{\mathbf{r}_j^{\intercal}\mathbf{r}_j}} \frac{t_i}{\sqrt{1-h_{ii}}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(b_{j(i)}\)</span>: the <span class="math inline">\(j\)</span>th coefficient computed without the <span class="math inline">\(i\)</span>th observation</li>
+<li><span class="math inline">\(S_{(i)}^2\)</span>: the estimate of <span class="math inline">\(\sigma^2\)</span> based on the data with no <span class="math inline">\(i\)</span>th point</li>
+<li><span class="math inline">\(C_{jj}\)</span>: the <span class="math inline">\(j\)</span>th diagonal element of <span class="math inline">\((\mathbf{X}^{\intercal}\mathbf{X})^{-1}\)</span></li>
+<li><span class="math inline">\(\mathbf{r}_j^{\intercal}\)</span>: the <span class="math inline">\(j\)</span>th row of the <span class="math inline">\(p \times n\)</span> matrix <span class="math inline">\(\mathbf{R} = (\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\)</span>
+<ul>
+<li>In MLS we had <span class="math inline">\(\mathbf{b} = ( \mathbf{X}^\intercal \mathbf{X}) ^ {-1} \mathbf{X}^\intercal \mathbf{y}\)</span>, with the previous definition of <span class="math inline">\(\mathbf{R}\)</span> this can be written as: <span class="math inline">\(\mathbf{b}=\mathbf{Ry}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(r_{j,i}\)</span>: the <span class="math inline">\(ji\)</span>th element of <span class="math inline">\(\mathbf{R}\)</span></li>
+<li><span class="math inline">\(t_i\)</span>: the <span class="math inline">\(i\)</span>th R-student residual</li>
+<li>The denominator provides a standardization since it estimates the standard error of <span class="math inline">\(b_j\)</span></li>
+<li><span class="math inline">\(DFBETAS_{j,i}\)</span> represents the combination of <em>leverage measures</em> and the <em>impact of errors in the y direction</em></li>
+<li>The <em>n</em> elements in <span class="math inline">\(\mathbf{r}_j^{\intercal}\)</span> produce the <em>leverage</em> that the <em>n</em> observations have on <span class="math inline">\(b_j\)</span></li>
+<li><span class="math inline">\(\frac {r_{j,i}}{\sqrt{\mathbf{r}_j^{\intercal}\mathbf{r}_j}}\)</span> is a <em>normalized</em> measure of the impact of the <span class="math inline">\(i\)</span>th observation on the <span class="math inline">\(j\)</span>th coefficient.</li>
+<li>The measure is swelled by the leverage score <span class="math inline">\(h_{ii}\)</span></li>
+<li>Point <span class="math inline">\(i\)</span> is considered influential on the <span class="math inline">\(j\)</span> th coefficient if <span class="math inline">\(|DFBETAS_{j,i}|&gt;2 / \sqrt{n}\)</span></li>
+</ul>
+</div>
+<div id="dffits_i" class="section level3">
+<h3><span class="math inline">\(DFFITS_i\)</span></h3>
+<p><span class="math inline">\(DFFITS_i\)</span> measures the <strong>influence of the <span class="math inline">\(i\)</span>th observation on the <span class="math inline">\(i\)</span>th fitted value</strong>, again in standard deviation units.</p>
+<p><span class="math display">\[
+DFFITS_i := \frac{\hat{y}_i - \hat{y}_{(i)}}{\sqrt{S_{(i)}^2 h_{ii}}} = \left( \frac{h_{ii}}{1-h_{ii}} \right )^{1/2} t_i
+\]</span>
+where <span class="math inline">\(\hat{y}_{(i)}\)</span> is the fitted value of <span class="math inline">\(y_i\)</span> computed without the <span class="math inline">\(i\)</span>th observation
+* The denominator provides a standardization since <span class="math inline">\(Var(\hat{y}_i)=\sigma^2 h_{ii}\)</span>
+* <span class="math inline">\(DFFITS_i\)</span> is essentially the R-student residual <em>scaled</em> by the leverage <span class="math inline">\([h_{ii}/(1-h_{ii})]^{1/2}\)</span>
+* A point with <span class="math inline">\(|DFFITS_i|&gt; 2 \sqrt{p/n}\)</span> is considered influential</p>
+</div>
+<div id="covratio_i" class="section level3">
+<h3><span class="math inline">\(COVRATIO_i\)</span></h3>
+<ul>
+<li><span class="math inline">\(DFFITS_i\)</span> and <span class="math inline">\(DFBETAS_{j,i}\)</span> reflect influence, but do not indicate whether or not the presence of the <span class="math inline">\(i\)</span>th point appreciably sharpened the estimateion of the coefficient</li>
+<li>A scalr measure of precision, called <strong>generalized variance</strong> of <strong>b</strong> is:</li>
+</ul>
+<p><span class="math display">\[
+GV(\mathbf{b}) = det(Var(\mathbf{b})) = det(\sigma^2(\mathbf{X}^\intercal \mathbf{X}) ^ {-1}))
+\]</span>
+* To express the role of the <span class="math inline">\(i\)</span>th observation on the <strong>precision of estimateion</strong>, we use</p>
+<p><span class="math display">\[
+COVRATIO_i := 
+\frac
+{\text{det} \left( \left ( \mathbf{X}_{(i)}^\intercal \mathbf{X}_{(i)} \right ) ^{-1} S_{(i)}^2\right )}
+{\text{det} \left( \left ( \mathbf{X}^\intercal \mathbf{X} \right ) ^{-1} MS_{res}\right )} 
+= \frac{\left( S_{(i)}^2 \right )^p}{(MS_{res})^p} 
+\left ( \frac{1}{1-h_{ii}} \right )
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathbf{X}_{(i)}\)</span> denotes the <span class="math inline">\((n-1)\times p\)</span> data matrix with the <span class="math inline">\(i\)</span>th observation eliminated</li>
+<li>If <span class="math inline">\(COVRATIO_i\)</span> &gt; 1, the <span class="math inline">\(i\)</span>th observation <em>improves</em> the precision</li>
+<li>If <span class="math inline">\(COVRATIO_i\)</span> &lt; 1, the <span class="math inline">\(i\)</span>th observation <em>degraded</em> the precision</li>
+<li><span class="math inline">\(\frac{1}{1-h_{ii}}\)</span> is the ratio of <span class="math inline">\(\text{det} \left( \left ( \mathbf{X}_{(i)}^\intercal \mathbf{X}_{(i)} \right ) ^{-1} \right )\)</span> to <span class="math inline">\(\text{det} \left( \left ( \mathbf{X}^\intercal \mathbf{X} \right ) ^{-1} \right )\)</span></li>
+<li>Higher leverage <span class="math inline">\(h_{ii}\)</span> leads to larger <span class="math inline">\(COVRATIO_i\)</span> and improves the precision unless the point is an outlier in <span class="math inline">\(y\)</span> space</li>
+<li>If <span class="math inline">\(i\)</span>th point is an outlier in <span class="math inline">\(y\)</span> space, <span class="math inline">\(\frac{S_{(i)}^2}{MS_{res}} &lt; 1\)</span></li>
+<li>Cutoffs: (provided that <span class="math inline">\(n&gt;3p\)</span>)
+<ul>
+<li><span class="math inline">\(COVRATIO_i &gt; 1 + 3p/n\)</span></li>
+<li><span class="math inline">\(COVRATIO_i &lt; 1 - 3p/n\)</span></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="treatment-of-influential-points" class="section level2">
+<h2>Treatment of Influential Points</h2>
+<div id="should-an-influential-point-be-discarded" class="section level3">
+<h3>Should an influential point be discarded?</h3>
+<div id="yes-if" class="section level4">
+<h4>YES, if</h4>
+<ul>
+<li>There is an error in recording a measured value</li>
+<li>The sample point is invalid or not part of the population intended to be sampled</li>
+</ul>
+</div>
+<div id="no-if" class="section level4">
+<h4>NO, if</h4>
+<ul>
+<li>The influential point is a valid observation</li>
+</ul>
+</div>
+<div id="a-compromised-approach-advanced" class="section level4">
+<h4>A Compromised Approach (Advanced)</h4>
+<ul>
+<li>Use <strong>robust</strong> estimation that <strong>downweights</strong> observations in proportion to residual magnitude or influence</li>
+<li>A highly inflential observation will receive less weight than it would in a least-squares fit</li>
+</ul>
+</div>
+</div>
+</div>

@@ -10,7 +10,7 @@ categories:
 tags:
 - R
 - linear regression
-draft: yes
+draft: false
 katex: yes
 ---
 
@@ -118,8 +118,8 @@ t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
 <pre><code>## The following object is masked from &#39;package:MPV&#39;:
 ## 
 ##     cement</code></pre>
-<pre class="r"><code>SoftDrink.lm.RStudentRessiduals &lt;- studres(SoftDrink.lm)
-head(SoftDrink.lm.RStudentRessiduals,5)</code></pre>
+<pre class="r"><code>SoftDrink.lm.RStudentResiduals &lt;- studres(SoftDrink.lm)
+head(SoftDrink.lm.RStudentResiduals,5)</code></pre>
 <pre><code>##           1           2           3           4           5 
 ## -1.69562881  0.35753764 -0.01572177  1.63916491 -0.13856493</code></pre>
 </div>
@@ -131,7 +131,7 @@ head(SoftDrink.lm.RStudentRessiduals,5)</code></pre>
     SoftDrink.lm.StudentizedResiduals,
     SoftDrink.lm.HatValues,
     SoftDrink.lm.PRESSResiduals,
-    SoftDrink.lm.RStudentRessiduals
+    SoftDrink.lm.RStudentResiduals
 )
 
 colnames(SoftDrink.Residual_df) &lt;- c(
@@ -373,19 +373,357 @@ kable(SoftDrink.Residual_df, caption=&quot;Soft Drink Linear Model Residuals&quo
 </div>
 <div id="plot-of-residuals-against-the-fitted-values-haty_i" class="section level1">
 <h1>4.2 Plot of Residuals against the Fitted Values <span class="math inline">\(\hat{y_i}\)</span></h1>
+<p>We use a type of plot called <a href="https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot">QQ-plot</a>. This “…is a graphical method for comparing two probability distributions by plotting their quantiles against each other”(Wikipedia)</p>
 <pre class="r"><code>#dev.new(width=100, height=100, unit=&quot;px&quot;)
-qqnorm(SoftDrink.lm.RStudentRessiduals,
+qqnorm(SoftDrink.lm.RStudentResiduals,
        ylab=&quot;R Student Residuals&quot;,
        xlab=&quot;Normal Scores&quot;,
        main=&quot;Delivery Time&quot;
        , datax=TRUE
 )
-qqline(SoftDrink.lm.RStudentRessiduals, distribution=qnorm, datax=TRUE)</code></pre>
+qqline(SoftDrink.lm.RStudentResiduals, distribution=qnorm, datax=TRUE)</code></pre>
 <div class="figure"><span style="display:block;" id="fig:DeliveryTimeQQPlot"></span>
 <img src="{{< blogdown/postref >}}index_files/figure-html/DeliveryTimeQQPlot-1.png" alt="QQ Plot for Soft Drink Model" width="672" />
 <p class="caption">
 Figure 1: QQ Plot for Soft Drink Model
 </p>
 </div>
-<p>lkjlkj</p>
+</div>
+<div id="plot-of-residuals-against-fitted-value" class="section level1">
+<h1>4.3 Plot of Residuals against Fitted Value</h1>
+<pre class="r"><code>plot(
+    fitted(SoftDrink.lm), 
+    SoftDrink.lm.RStudentResiduals,
+    xlab=&quot;Fitted Values&quot;,
+    ylab=&quot;Externally Studentized Residual&quot;,
+    main=&quot;Versus Fits&quot;
+)
+abline(h=0)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="residuals-against-regressors" class="section level1">
+<h1>4.4 Residuals against Regressors</h1>
+<pre class="r"><code>plot(
+    SoftDrink$NumberCases,
+    SoftDrink.lm.RStudentResiduals,
+    xlab=&quot;Number of Cases&quot;,
+    ylab=&quot;Externally Studentized Residual&quot;,
+    main=&quot;Residuals Versus Number of Cases&quot;
+)
+abline(h=0)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>plot(
+    SoftDrink$Distance, 
+    SoftDrink.lm.RStudentResiduals,
+    xlab=&quot;Distance&quot;,
+    ylab=&quot;Externally Studentized Residual&quot;,
+    main=&quot;Residuals Versus Distance&quot;
+)
+abline(h=0)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="partial-regression-plots" class="section level1">
+<h1>4.5 Partial Regression Plots</h1>
+<pre class="r"><code>SoftDrink.PrtlReg.Delivery.Distance.y.lm &lt;- lm(DeliveryTime ~ Distance, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.Distance.y.lm.Residuals &lt;- resid(SoftDrink.PrtlReg.Delivery.Distance.y.lm)
+SoftDrink.PrtlReg.Delivery.Distance.x.lm &lt;- lm(NumberCases ~ Distance, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.Distance.x.lm.Residuals &lt;- resid(SoftDrink.PrtlReg.Delivery.Distance.x.lm)
+
+plot(
+    SoftDrink.PrtlReg.Delivery.Distance.x.lm.Residuals, 
+    SoftDrink.PrtlReg.Delivery.Distance.y.lm.Residuals,
+    xlab=&quot;Cases&quot;,
+    ylab=&quot;Time&quot;,
+    main=&quot;Partial Regression Plot - Distance&quot;
+)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>SoftDrink.PrtlReg.Delivery.NumberCases.y.lm &lt;- lm(DeliveryTime ~ NumberCases, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.NumberCases.y.lm.Residuals &lt;- resid(SoftDrink.PrtlReg.Delivery.NumberCases.y.lm)
+SoftDrink.PrtlReg.Delivery.NumberCases.x.lm &lt;- lm(Distance ~ NumberCases, data=SoftDrink)
+SoftDrink.PrtlReg.Delivery.NumberCases.x.lm.Residuals &lt;- resid(SoftDrink.PrtlReg.Delivery.NumberCases.x.lm)
+
+plot(
+    SoftDrink.PrtlReg.Delivery.NumberCases.x.lm.Residuals, 
+    SoftDrink.PrtlReg.Delivery.NumberCases.y.lm.Residuals,
+    xlab=&quot;Cases&quot;,
+    ylab=&quot;Time&quot;,
+    main=&quot;Partial Regression Plot - Number Cases&quot;
+)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="delivery-time-data---residuals" class="section level1">
+<h1>4.6 Delivery Time Data - Residuals</h1>
+<p>We add a new residual to our chart of residuals called the PRESS statistic</p>
+<pre class="r"><code>SoftDrink.Residual_df &lt;- data.frame(
+    SoftDrink.lm.residuals,
+    SoftDrink.lm.StandardizedResiduals,
+    SoftDrink.lm.StudentizedResiduals,
+    SoftDrink.lm.HatValues,
+    SoftDrink.lm.PRESSResiduals,
+    SoftDrink.lm.RStudentResiduals,
+    SoftDrink.lm.PRESSResiduals^2
+)
+
+colnames(SoftDrink.Residual_df) &lt;- c(
+    &quot;Residuals $e_i$&quot;,
+    &quot;Standardized Residuals $d_i$&quot;,
+    &quot;Studentized Residuals $r_i$&quot;, 
+    &quot;Hat Matrix Diagonals $h_{ii}$&quot;, 
+    &quot;PRESS Residuals $e_{(i)}$&quot;, 
+    &quot;R-Student Residuals $t_i$&quot;,
+    &quot;PRESS Statistic $e_{(i)}^2$&quot;
+)
+
+
+kable(SoftDrink.Residual_df, caption=&quot;Soft Drink Linear Model Residuals&quot;)</code></pre>
+<table style="width:100%;">
+<caption><span id="tab:unnamed-chunk-17">Table 2: </span>Soft Drink Linear Model Residuals</caption>
+<colgroup>
+<col width="8%" />
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+<col width="14%" />
+<col width="14%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Residuals <span class="math inline">\(e_i\)</span></th>
+<th align="right">Standardized Residuals <span class="math inline">\(d_i\)</span></th>
+<th align="right">Studentized Residuals <span class="math inline">\(r_i\)</span></th>
+<th align="right">Hat Matrix Diagonals <span class="math inline">\(h_{ii}\)</span></th>
+<th align="right">PRESS Residuals <span class="math inline">\(e_{(i)}\)</span></th>
+<th align="right">R-Student Residuals <span class="math inline">\(t_i\)</span></th>
+<th align="right">PRESS Statistic <span class="math inline">\(e_{(i)}^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-5.0280843</td>
+<td align="right">-1.5426063</td>
+<td align="right">-1.6276799</td>
+<td align="right">0.1018018</td>
+<td align="right">-5.5979673</td>
+<td align="right">-1.6956288</td>
+<td align="right">31.3372384</td>
+</tr>
+<tr class="even">
+<td align="right">1.1463854</td>
+<td align="right">0.3517088</td>
+<td align="right">0.3648427</td>
+<td align="right">0.0707016</td>
+<td align="right">1.2336032</td>
+<td align="right">0.3575376</td>
+<td align="right">1.5217769</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.0497937</td>
+<td align="right">-0.0152766</td>
+<td align="right">-0.0160917</td>
+<td align="right">0.0987348</td>
+<td align="right">-0.0552487</td>
+<td align="right">-0.0157218</td>
+<td align="right">0.0030524</td>
+</tr>
+<tr class="even">
+<td align="right">4.9243539</td>
+<td align="right">1.5107820</td>
+<td align="right">1.5797204</td>
+<td align="right">0.0853748</td>
+<td align="right">5.3840129</td>
+<td align="right">1.6391649</td>
+<td align="right">28.9875949</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.4443983</td>
+<td align="right">-0.1363405</td>
+<td align="right">-0.1417609</td>
+<td align="right">0.0750105</td>
+<td align="right">-0.4804361</td>
+<td align="right">-0.1385649</td>
+<td align="right">0.2308188</td>
+</tr>
+<tr class="even">
+<td align="right">-0.2895743</td>
+<td align="right">-0.0888408</td>
+<td align="right">-0.0908085</td>
+<td align="right">0.0428669</td>
+<td align="right">-0.3025434</td>
+<td align="right">-0.0887373</td>
+<td align="right">0.0915325</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8446235</td>
+<td align="right">0.2591288</td>
+<td align="right">0.2704250</td>
+<td align="right">0.0817987</td>
+<td align="right">0.9198675</td>
+<td align="right">0.2646477</td>
+<td align="right">0.8461562</td>
+</tr>
+<tr class="even">
+<td align="right">1.1566049</td>
+<td align="right">0.3548441</td>
+<td align="right">0.3667212</td>
+<td align="right">0.0637256</td>
+<td align="right">1.2353268</td>
+<td align="right">0.3593898</td>
+<td align="right">1.5260323</td>
+</tr>
+<tr class="odd">
+<td align="right">7.4197062</td>
+<td align="right">2.2763512</td>
+<td align="right">3.2137628</td>
+<td align="right">0.4982922</td>
+<td align="right">14.7888982</td>
+<td align="right">4.3107801</td>
+<td align="right">218.7115111</td>
+</tr>
+<tr class="even">
+<td align="right">2.3764129</td>
+<td align="right">0.7290788</td>
+<td align="right">0.8132543</td>
+<td align="right">0.1962959</td>
+<td align="right">2.9568258</td>
+<td align="right">0.8067758</td>
+<td align="right">8.7428191</td>
+</tr>
+<tr class="odd">
+<td align="right">2.2374930</td>
+<td align="right">0.6864584</td>
+<td align="right">0.7180797</td>
+<td align="right">0.0861326</td>
+<td align="right">2.4483782</td>
+<td align="right">0.7099391</td>
+<td align="right">5.9945558</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5930409</td>
+<td align="right">-0.1819438</td>
+<td align="right">-0.1932573</td>
+<td align="right">0.1136557</td>
+<td align="right">-0.6690864</td>
+<td align="right">-0.1889745</td>
+<td align="right">0.4476766</td>
+</tr>
+<tr class="odd">
+<td align="right">1.0270093</td>
+<td align="right">0.3150844</td>
+<td align="right">0.3251794</td>
+<td align="right">0.0611246</td>
+<td align="right">1.0938718</td>
+<td align="right">0.3184692</td>
+<td align="right">1.1965556</td>
+</tr>
+<tr class="even">
+<td align="right">1.0675359</td>
+<td align="right">0.3275179</td>
+<td align="right">0.3411355</td>
+<td align="right">0.0782433</td>
+<td align="right">1.1581536</td>
+<td align="right">0.3341772</td>
+<td align="right">1.3413199</td>
+</tr>
+<tr class="odd">
+<td align="right">0.6712018</td>
+<td align="right">0.2059234</td>
+<td align="right">0.2102914</td>
+<td align="right">0.0411108</td>
+<td align="right">0.6999785</td>
+<td align="right">0.2056632</td>
+<td align="right">0.4899698</td>
+</tr>
+<tr class="even">
+<td align="right">-0.6629284</td>
+<td align="right">-0.2033851</td>
+<td align="right">-0.2227002</td>
+<td align="right">0.1659404</td>
+<td align="right">-0.7948214</td>
+<td align="right">-0.2178257</td>
+<td align="right">0.6317411</td>
+</tr>
+<tr class="odd">
+<td align="right">0.4363603</td>
+<td align="right">0.1338745</td>
+<td align="right">0.1380393</td>
+<td align="right">0.0594320</td>
+<td align="right">0.4639328</td>
+<td align="right">0.1349240</td>
+<td align="right">0.2152336</td>
+</tr>
+<tr class="even">
+<td align="right">3.4486213</td>
+<td align="right">1.0580302</td>
+<td align="right">1.1129520</td>
+<td align="right">0.0962605</td>
+<td align="right">3.8159460</td>
+<td align="right">1.1193307</td>
+<td align="right">14.5614440</td>
+</tr>
+<tr class="odd">
+<td align="right">1.7931935</td>
+<td align="right">0.5501482</td>
+<td align="right">0.5787663</td>
+<td align="right">0.0964486</td>
+<td align="right">1.9846059</td>
+<td align="right">0.5698142</td>
+<td align="right">3.9386605</td>
+</tr>
+<tr class="even">
+<td align="right">-5.7879699</td>
+<td align="right">-1.7757377</td>
+<td align="right">-1.8735464</td>
+<td align="right">0.1016849</td>
+<td align="right">-6.4431397</td>
+<td align="right">-1.9966766</td>
+<td align="right">41.5140493</td>
+</tr>
+<tr class="odd">
+<td align="right">-2.6141789</td>
+<td align="right">-0.8020249</td>
+<td align="right">-0.8778426</td>
+<td align="right">0.1652769</td>
+<td align="right">-3.1317917</td>
+<td align="right">-0.8730870</td>
+<td align="right">9.8081193</td>
+</tr>
+<tr class="even">
+<td align="right">-3.6865279</td>
+<td align="right">-1.1310195</td>
+<td align="right">-1.4499954</td>
+<td align="right">0.3915752</td>
+<td align="right">-6.0591350</td>
+<td align="right">-1.4896247</td>
+<td align="right">36.7131169</td>
+</tr>
+<tr class="odd">
+<td align="right">-4.6075679</td>
+<td align="right">-1.4135927</td>
+<td align="right">-1.4436898</td>
+<td align="right">0.0412601</td>
+<td align="right">-4.8058578</td>
+<td align="right">-1.4824672</td>
+<td align="right">23.0962691</td>
+</tr>
+<tr class="even">
+<td align="right">-4.5728535</td>
+<td align="right">-1.4029424</td>
+<td align="right">-1.4960588</td>
+<td align="right">0.1206083</td>
+<td align="right">-5.2000187</td>
+<td align="right">-1.5422151</td>
+<td align="right">27.0401946</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.2125839</td>
+<td align="right">-0.0652203</td>
+<td align="right">-0.0675086</td>
+<td align="right">0.0666435</td>
+<td align="right">-0.2277628</td>
+<td align="right">-0.0659633</td>
+<td align="right">0.0518759</td>
+</tr>
+</tbody>
+</table>
 </div>

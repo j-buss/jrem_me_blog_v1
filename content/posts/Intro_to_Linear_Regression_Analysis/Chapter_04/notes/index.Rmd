@@ -266,6 +266,17 @@ $$
 
 which, if we use $MS_{Res}$ to estimate $\sigma^2$, is just the **studentized residual** discussed previously.
 
+## PRESS Statistic
+
+Sum of squared PRESS residuals, as a measure of model quality:
+
+$$
+\begin{align*}
+PRESS &= \sum_{i=1}^n [y_i - \hat{y_{(i)}}]^2\\
+&= \sum_{i=1}^n \left ( \frac{e_i}{1 - h_{ii}} \right )^2
+\end{align*}
+$$
+
 ## R-Student Residuals
 
 * $MS_{res}$ uses all $n$ observations to estimate $\sigma^2$
@@ -285,7 +296,7 @@ $$
 
 ## Residual Plots
 
-Normal probability (QQ-plot) of residuals:
+Normal probability ([QQ-plot](https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot)) of residuals:
 
 * $t_{test}$, $F_{test}$, CI and PI all depend on normality assumptions
 * Heavy tailed error distributions often generate outliers that "pull" the LS fit too much in their direction

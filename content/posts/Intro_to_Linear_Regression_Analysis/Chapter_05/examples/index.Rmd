@@ -1,0 +1,19 @@
+---
+title: "Transformations and Weighting to Correct Model Inadequacies - Examples from MVP"
+author: "Jeremy Buss"
+date: '2021-10-26'
+slug: []
+categories:
+- Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+- Applied Stats
+- Regression Analysis
+tags:
+- R
+- linear regression
+draft: true
+katex: yes
+---
+```{r echo=FALSE}
+library(blogdown)
+```
+

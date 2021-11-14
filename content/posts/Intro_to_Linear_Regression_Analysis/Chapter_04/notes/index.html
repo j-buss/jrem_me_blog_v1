@@ -255,6 +255,16 @@ Var[e_{(i)}]=Var \left [ \frac{e_i}{1-h_{ii}} \right ] = \frac{\sigma^2}{1-h_{ii
 <p>which, if we use <span class="math inline">\(MS_{Res}\)</span> to estimate <span class="math inline">\(\sigma^2\)</span>, is just the <strong>studentized residual</strong> discussed previously.</p>
 </div>
 </div>
+<div id="press-statistic" class="section level2">
+<h2>PRESS Statistic</h2>
+<p>Sum of squared PRESS residuals, as a measure of model quality:</p>
+<p><span class="math display">\[
+\begin{align*}
+PRESS &amp;= \sum_{i=1}^n [y_i - \hat{y_{(i)}}]^2\\
+&amp;= \sum_{i=1}^n \left ( \frac{e_i}{1 - h_{ii}} \right )^2
+\end{align*}
+\]</span></p>
+</div>
 <div id="r-student-residuals" class="section level2">
 <h2>R-Student Residuals</h2>
 <ul>
@@ -276,7 +286,7 @@ t_i = \frac{e_i}{\sqrt{S_{(i)}^2(1-h_{ii})}}
 </div>
 <div id="residual-plots" class="section level2">
 <h2>Residual Plots</h2>
-<p>Normal probability (QQ-plot) of residuals:</p>
+<p>Normal probability (<a href="https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot">QQ-plot</a>) of residuals:</p>
 <ul>
 <li><span class="math inline">\(t_{test}\)</span>, <span class="math inline">\(F_{test}\)</span>, CI and PI all depend on normality assumptions</li>
 <li>Heavy tailed error distributions often generate outliers that “pull” the LS fit too much in their direction</li>
