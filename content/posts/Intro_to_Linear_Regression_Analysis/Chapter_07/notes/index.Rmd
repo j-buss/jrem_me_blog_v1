@@ -1,0 +1,94 @@
+---
+title: Polynomial Regression
+author: Jeremy Buss
+date: '2021-11-14'
+slug: []
+categories:
+  - Applied Stats
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Regression Analysis
+tags:
+  - linear regression
+draft: False
+katex: yes
+---
+## Why Polynomial Regression
+
+* Polynomials are widely used in situations where the response surface is curvilinear
+* Many complex nonlinear relationships can be adequately modeled by polynomials over reasonably small ranges of the $x$'s
+
+### Polynomial Regression Models
+
+* A **second**-order polynomial in **one** variable or a **quadratic** model is
+$$
+y=\beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon
+$$
+
+* A **second**-order polynomial in **two** variables is
+$$
+y=\beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12} x_1 x_2 + \epsilon
+$$
+
+* In general, the $k$**th-order** polynomail model in **one** variable is
+$$
+y=\beta_0 + \beta_1 x + \beta_2 x^2 + \dots + \beta_{k}x^k + \epsilon
+$$
+* If we set $x_j=x^j$, this is just a multiple linear regression model with $k$ predictors $x_1, x_2, \dots, x_k$
+
+### Important Considerations
+
+#### Keep the order of the model as low as possible
+
+* Try transformation to keep the model first order
+* If fails, try a 2nd order model
+* Avoid higher-order polynomials($k > 2$) unless they can be justified for reasons outside the data
+* **Occam's Razor**: among competing models that predict equally well, shoose the "simplest" one, i.e., a **parsimonious** model:
+  - Avoid **overfitting** that leads to nearly perfect fit to the data, but bad prediction performance
+  
+#### Model Building Strategy
+
+* **Forward Selection**: successively fit models of increasing order until the $t$-test for the highest order term is non-significant
+* **Backward Elimination**: fit the highest order model and then delete terms one at a time until the highest order remaining term has a significant $t$ statistic
+* They do not necessarily lead to the same model
+
+#### Extrapolation
+
+* Can be extremely dangerous when the model is higher-order polynomial
+* The nature of the true underlying relationship may change or be completely different from the system that produced the data used to fit the model
+
+#### Ill-conditioning
+
+* **Ill-conditioning**: _as the order of the model increases_, $\mathbf{X}^{\intercal}\mathbf{X}$ _matrix inversion will become inaccurate_, and error may be introduced into the parameter estimates
+* Centering the predictions may remove some ill conditioning but not all
+* One solution is to use **orthogonal polynomials** 
+
+## Piecewise (Polynomial) Regression
+
+* We may find that a polynomial regression provides a poor fit, and increasing the order does not improve the situation
+* This may happen when _the regression function behaves differently in different parts of the range of $x$_
+* **Solution**: _piecewise_ polynomial regression that **fits separate polynomials over different regions of $x$**
+* The joint points of pieces are call **knots**
+* Example:
+$$
+y= 
+\begin{cases}
+   \beta_{01} + \beta_{11} x + \beta_{21} x^2 + \beta_{31} x^3 + \epsilon &\text{if } x < c \\
+   \beta_{02} + \beta_{12} x + \beta_{22} x^2 + \beta_{32} x^3 + \epsilon &\text{if } x \ge c
+\end{cases}
+$$
+
+* Using more knots leads to a more flexible piecewise polynomial
+* With $K$ different knots, we fit $K+1$ different polynomials
+* Piecewise polynomials of order $k$ are called **splines**; (e.g. order 3 is a **cubic spline**)
+* When fitting piecewise polynomial regression the function may be discontinuous at the knote
+  - We could add additional constraints: that it must be continuous or _1st and 2nd derivatives_ are continous at the knot
+  
+### Splines in Summary
+
+* Fewer continuity restrictions:
+  - more parameters in the model
+  _ better fit, but very easy to overfit
+* More continuity restrictions:
+  - the fit is worse
+  - smoother regression curve
+* Disadvanges: ill-conditioned $\mathbf{X}^{\intercal}\mathbf{X}$ if there are a lot of knots
