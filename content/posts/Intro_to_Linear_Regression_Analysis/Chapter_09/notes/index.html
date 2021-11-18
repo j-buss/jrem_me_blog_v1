@@ -56,14 +56,78 @@ katex: yes
 <p><span class="math display">\[
 \sum_{i=1}^k c_i \mathbf{x}_i \approx \mathbf{0}
 \]</span>
-- Example: for <span class="math inline">\(\mathbf{X}_2\)</span> we could have <span class="math inline">\(c_1=1\)</span> and <span class="math inline">\(c_2=-1\)</span> so that</p>
+- Example: for <span class="math inline">\(\mathbf{X}_2\)</span> we could have <span class="math inline">\(c_1=1\)</span> and <span class="math inline">\(c_2=-1\)</span> so that
+<span class="math display">\[
+\sum_{i=1}^k c_i \mathbf{x}_i =
+1 \times 
+\begin{bmatrix}
+1\\
+0.992
+\end{bmatrix} +
+-1 \times 
+\begin{bmatrix}
+0.992\\
+1
+\end{bmatrix}=
+\begin{bmatrix}
+0.008\\
+-0.008
+\end{bmatrix}
+\]</span></p>
 </div>
 </div>
-<div id="sources" class="section level2">
-<h2>Sources</h2>
+<div id="sources-of-multicollinearity" class="section level2">
+<h2>Sources of Multicollinearity</h2>
+<ol style="list-style-type: decimal">
+<li>Data collection method</li>
+<li>Constraints on the model or population</li>
+<li>Model specification</li>
+<li>A <span class="math inline">\(p &gt; n\)</span> model</li>
+</ol>
+<div id="data-collection" class="section level3">
+<h3>1. Data Collection</h3>
+<ul>
+<li>Multicollinearity occurs when only a subspace of the entire sample has been explored.</li>
+<li>May be able to reduce this multicollinearity through the sampling technique used
+<ul>
+<li>You can sample additional data in an additional subspace</li>
+</ul></li>
+</ul>
+</div>
+<div id="constraints" class="section level3">
+<h3>2. Constraints</h3>
+<p>Physical constraints are present, multicollinearity will exist regardless of collection method.</p>
+<p>For example the relationship between family income and house size.</p>
+</div>
+<div id="model-specification" class="section level3">
+<h3>3. Model Specification</h3>
+<ul>
+<li>Polynomial terms can cause ill-conditioning in <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span></li>
+<li>As the order of the model increases, <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span> matrix inversion will become inaccurate, and error can be introduced into the parameter estimates.</li>
+<li>If range on a regressor variable is small, adding <span class="math inline">\(x^2\)</span> term can result in significant multicollinearity</li>
+</ul>
+</div>
+<div id="pn-model" class="section level3">
+<h3>4. <span class="math inline">\(p&gt;n\)</span> Model</h3>
+<ul>
+<li>More regressor variables than observations</li>
+<li>The best way to counter this is to remove/reconstruct regressor variables.
+<ul>
+<li>Principal Component Regression</li>
+<li>Variable Selection</li>
+</ul></li>
+</ul>
+</div>
 </div>
 <div id="effects" class="section level2">
 <h2>Effects</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Large variances and covariances</strong> for the LSEs of the regression coefficients.</li>
+</ol>
+<p><span class="math display">\[
+\mathbf{X}_2^{\intercal}\mathbf{X}_2)^{-1} = \begin{bmatrix} 63.94 &amp; -63.44 \\ -63.44 &amp; 63.94 \end{bmatrix}
+\]</span>
+2. Tends to produce LSE <span class="math inline">\(b_j\)</span> that are <strong>too large in absolute value</strong></p>
 </div>
 <div id="diagnostics" class="section level2">
 <h2>Diagnostics</h2>

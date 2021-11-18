@@ -46,11 +46,66 @@ For an example let's define two matrices $\mathbf{X}_1$ and $\mathbf{X}_2$:
 $$
 \sum_{i=1}^k c_i \mathbf{x}_i \approx \mathbf{0}
 $$
-  - Example: for $\mathbf{X}_2$ we could have $c_1=1$ and $c_2=-1$ so that 
+  - Example: for $\mathbf{X}_2$ we could have $c_1=1$ and $c_2=-1$ so that
+$$
+\sum_{i=1}^k c_i \mathbf{x}_i =
+1 \times 
+\begin{bmatrix}
+1\\
+0.992
+\end{bmatrix} +
+-1 \times 
+\begin{bmatrix}
+0.992\\
+1
+\end{bmatrix}=
+\begin{bmatrix}
+0.008\\
+-0.008
+\end{bmatrix}
+$$
 
-## Sources
+## Sources of Multicollinearity
+
+1. Data collection method
+2. Constraints on the model or population
+3. Model specification
+4. A $p > n$ model
+
+### 1. Data Collection
+
+* Multicollinearity occurs when only a subspace of the entire sample has been explored.
+* May be able to reduce this multicollinearity through the sampling technique used
+  - You can sample additional data in an additional subspace
+
+### 2. Constraints
+
+Physical constraints are present, multicollinearity will exist regardless of collection method. 
+
+For example the relationship between family income and house size.
+
+### 3. Model Specification
+
+* Polynomial terms can cause ill-conditioning in $\mathbf{X}^{\intercal}\mathbf{X}$
+* As the order of the model increases, $\mathbf{X}^{\intercal}\mathbf{X}$ matrix inversion will become inaccurate, and error can be introduced into the parameter estimates.
+* If range on a regressor variable is small, adding $x^2$ term can result in significant multicollinearity
+
+### 4. $p>n$ Model
+
+* More regressor variables than observations
+* The best way to counter this is to remove/reconstruct regressor variables.
+  - Principal Component Regression
+  - Variable Selection
 
 ## Effects
+
+1. **Large variances and covariances** for the LSEs of the regression coefficients.
+
+$$
+\mathbf{X}_2^{\intercal}\mathbf{X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}
+$$
+2. Tends to produce LSE $b_j$ that are **too large in absolute value**
+
 
 ## Diagnostics
 
