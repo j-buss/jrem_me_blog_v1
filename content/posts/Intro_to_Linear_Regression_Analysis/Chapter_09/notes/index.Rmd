@@ -1,0 +1,57 @@
+---
+title: Multicollinearity
+author: Jeremy Buss
+date: '2021-11-17'
+slug: []
+categories:
+  - Applied Stats
+  - Introduction to Linear Regression Analysis - Montgomery/Peck/Vining
+  - Regression Analysis
+tags:
+  - linear regression
+draft: yes
+katex: yes
+---
+
+## Meaning
+
+### Dependency of Regressors:
+
+* In regression, we want to have regressors that are **NOT _moving with each other_**
+* Ideally we desire to have **orthogonal** regressors
+
+### What is Multicollinearity?
+
+* After unit length scaling, $\mathbf{X}^{\intercal}\mathbf{X}$ is the correlation matrix of regressors
+  - We remove the intercept term or the column of ones in the design matrix, i.e. $\mathbf{X} = [\mathbf{x}_1 \quad \mathbf{x}_2 \quad \dots \quad \mathbf{x}_k]$. The diagnostics will not be exactly the same as when  $\mathbf{X} = [\mathbf{1} \quad \mathbf{x}_1 \quad \mathbf{x}_2 \quad \dots \quad \mathbf{x}_k]$ is used, but the concepts and procedures are the same
+
+For an example let's define two matrices $\mathbf{X}_1$ and $\mathbf{X}_2$:
+
+* Uncorrelated Data:
+  - $\mathbf{X}_1^{\intercal}\mathbf{X}_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$
+  - ($\mathbf{X}_1^{\intercal}\mathbf{X}_1)^{-1} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$
+  - $Var(b_1)= \sigma^2 (\mathbf{X}_1^{\intercal}\mathbf{X}_1)_{11}^{-1}=\sigma^2$
+  - $Var(b_2)=\sigma^2$
+
+* Correlated Data:
+  - $\mathbf{X}_2^{\intercal}\mathbf{X}_2 = \begin{bmatrix} 1 & 0.992 \\ 0.992 & 1 \end{bmatrix}$
+  - ($\mathbf{X}_2^{\intercal}\mathbf{X}_2)^{-1} = \begin{bmatrix} 63.94 & -63.44 \\ -63.44 & 63.94 \end{bmatrix}$
+  - $Var(b_1)= \sigma^2 (\mathbf{X}_1^{\intercal}\mathbf{X}_1)_{11}^{-1}=63.94 \sigma^2$
+  - $Var(b_2) = 63.94 \sigma^2$
+
+* The variances of the estimates of the correlated regressors are **inflated**, leading to _more uncertainty and less precision_ about coefficient estimation.
+* **Multicollinearity** occurs when there are _**near** linear dependencies_ among the $\mathbf{x}_j$s, the columns of $\mathbf{X}$
+* _**Near** linear dependencies_: there is a set of constants $c_1, c_2, \dots, c_k$ (not all zero) such that:
+
+$$
+\sum_{i=1}^k c_i \mathbf{x}_i \approx \mathbf{0}
+$$
+  - Example: for $\mathbf{X}_2$ we could have $c_1=1$ and $c_2=-1$ so that 
+
+## Sources
+
+## Effects
+
+## Diagnostics
+
+## Solutions
