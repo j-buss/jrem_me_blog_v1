@@ -1,0 +1,47 @@
+---
+title: Statistical Learning
+author: Jeremy Buss
+date: '2022-01-01'
+slug: []
+categories: 
+  - Machine Learning
+  - Introduction to Statistical Learning - James/Witten/Hastie/Tibshirani
+tags:
+  - R
+draft: yes
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<ul>
+<li>Input Variable (X): predictor, independent variable, feature</li>
+<li>Output Variable(Y): response, dependent variable</li>
+<li>error term (<span class="math inline">\(\epsilon\)</span>): assumed independent of <span class="math inline">\(X, Y\)</span> w/ mean of zero</li>
+<li>General form of relationship between <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span>: <span class="math inline">\(Y=f(X) + \epsilon\)</span></li>
+<li>Estimated relationship: We don’t know <span class="math inline">\(f(X)\)</span> so we estimate it by using the data to fit a relationship <span class="math inline">\(\hat{Y}=\hat{f}(X)\)</span></li>
+<li>Two reasons to estimate an unknown function <span class="math inline">\(\hat{f}\)</span> relating input vs. output: Prediction and Inference</li>
+<li>Error is composed of 2 categories: Reducible and Irreducible</li>
+<li>Reducible Error: Potentially improve accuracy of <span class="math inline">\(\hat{f}\)</span> by using the most appropriate statistical learning techniques</li>
+<li>Irreducible Error: may contain unmeasured items that can’t be used to understand or predict <span class="math inline">\(Y\)</span></li>
+<li>2 Traits of Parametric Model:
+1 - Makes an assumption about the form of the model
+2 - Use data to estimate relatively few parameters of the assumed form</li>
+<li>Non-Parametric Model - No assumptions about the form of the model are made</li>
+<li>Overfitting: Model follows errors or noise too closely</li>
+<li>Advantage of Parametric Model: Assumed model requires few estimated parameters</li>
+<li>Disadvantage of Parametric Model: Assumed model form may not follow true form</li>
+<li>Advantage of Non-Parametric Model: No assumed form</li>
+<li>Disadvantage of Non-Parametric Model: Lots of data required to fit model</li>
+<li>Why would we ever choose to uyse a more restrictive model instead of a very flexible approach?
+<ul>
+<li>Restrictive Models are more interpretable
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-2-1.png" alt="Relative Interpretibility vs. Flexibility for Statistical Learning Models" width="672" />
+<p class="caption">
+Figure 1: Relative Interpretibility vs. Flexibility for Statistical Learning Models
+</p>
+</div></li>
+</ul></li>
+</ul>

@@ -1,0 +1,58 @@
+---
+title: Statistical Learning
+author: Jeremy Buss
+date: '2022-01-01'
+slug: []
+categories: 
+  - Machine Learning
+  - Introduction to Statistical Learning - James/Witten/Hastie/Tibshirani
+tags:
+  - R
+draft: yes
+katex: yes
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+```
+
+- Input Variable (X): predictor, independent variable, feature
+- Output Variable(Y): response, dependent variable
+- error term ($\epsilon$): assumed independent of $X, Y$ w/ mean of zero
+- General form of relationship between $X$s and $Y$: $Y=f(X) + \epsilon$
+- Estimated relationship: We don't know $f(X)$ so we estimate it by using the data to fit a relationship $\hat{Y}=\hat{f}(X)$
+- Two reasons to estimate an unknown function $\hat{f}$ relating input vs. output: Prediction and Inference
+- Error is composed of 2 categories: Reducible and Irreducible
+- Reducible Error: Potentially improve accuracy of $\hat{f}$ by using the most appropriate statistical learning techniques
+- Irreducible Error: may contain unmeasured items that can't be used to understand or predict $Y$
+- 2 Traits of Parametric Model: 
+  1 - Makes an assumption about the form of the model
+  2 - Use data to estimate relatively few parameters of the assumed form
+- Non-Parametric Model - No assumptions about the form of the model are made
+- Overfitting: Model follows errors or noise too closely
+- Advantage of Parametric Model: Assumed model requires few estimated parameters
+- Disadvantage of Parametric Model: Assumed model form may not follow true form
+- Advantage of Non-Parametric Model: No assumed form
+- Disadvantage of Non-Parametric Model: Lots of data required to fit model
+- Why would we ever choose to uyse a more restrictive model instead of a very flexible approach?
+  - Restrictive Models are more interpretable
+```{r fig.cap="Relative Interpretibility vs. Flexibility for Statistical Learning Models"}
+plot(1:10, 10:1,xlab="Flexibility",ylab="Interpretibility",type="n",xaxt="n",yaxt="n")
+text(1, 10, "Subset Selection", pos=4)
+text(1.5, 9, "Lasso", pos=4)
+text(4, 8, "Least Square", pos=1)
+text(4.5, 6, "Generative Additive Models", pos=4)
+text(5, 5, "Trees", pos=4)
+text(8, 2.2, "Bagging, Boosting", pos=2)
+text(9, 1.5, "Support Vector Machines", pos=2)
+text(10, 1, "Deep Learning", pos=2)
+xtick<-seq(1,10, by=9)
+ytick<-seq(1,10, by=9)
+tick_lables<-c("Low","High")
+axis(side=1, at=xtick, labels=FALSE)
+text(x=xtick, par("usr")[3], labels=tick_lables, pos=1,xpd=TRUE)
+axis(side=2, at=ytick, labels=FALSE)
+text(par("usr")[1], ytick, labels=tick_lables, pos=2,xpd=TRUE)
+```
+  
+  
