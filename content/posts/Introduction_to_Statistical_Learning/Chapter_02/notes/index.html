@@ -44,4 +44,31 @@ Figure 1: Relative Interpretibility vs. Flexibility for Statistical Learning Mo
 </p>
 </div></li>
 </ul></li>
+<li>Supervised: For each observation there is a response</li>
+<li>Unsupervised: For each observation there is not a response</li>
+<li>Quantitative Variable: Numerical Values</li>
+<li>Qualitative Variable: Take on values in one of K-classes</li>
+<li>Mean Squared Error: Common measure to assess quality of fit in regression</li>
+<li>Mean Squared Error (formula): <span class="math inline">\(MSE=\frac{1}{n}\sum_{i=1}^n \left (y_i-\hat{f}(x_i) \right)^2\)</span></li>
+<li>Training Data: Data use to train the model</li>
+<li>Test Data: Data held out to test the model after it has been fit; can be considered as “new data” since the model has never seen it</li>
+<li>MSE can be calculated with the training data and test data; Generally one tries to minimize the test MSE</li>
+<li>Degrees of Freedom: the numbe of independent pieces of information that went into calculating the estimate</li>
+<li>Training MSE Behavior: Generally decreases monotonically as the model flexibility increases</li>
+<li>Testing MSE Behavior: generally U-shaped as model flexibility increases</li>
+<li>Overfitting: Small training MSE, but large test MSE</li>
+<li>Cross Validation: aka “Rotation Estimate” or “out-of-sample” testing, basically partition full dataset into a set for training and a set for testing on an “unseen” set</li>
+<li>Bias-Variance Trade-off: the property of a model that t</li>
+<li>Bias-Variance Trade-off (formula): <span class="math inline">\(E \left ( y_0 - \hat{f}(x_0) \right )^2 = \text {Var} (\hat{f}(x_o)) + [\text{Bias} (\hat{f}(x_0))]^2 + \text{Var}(\epsilon)\)</span>; where <span class="math inline">\(E \left ( y_0 - \hat{f}(x_0) \right )^2\)</span> refers to the expected test MSE at <span class="math inline">\(x_0\)</span> and refers to the average test MSE that we would obtain if we repeatedly estimated <span class="math inline">\(f\)</span> using a large number of training sets, and tested each at <span class="math inline">\(x_0\)</span></li>
+<li>Bias Error: comes from erroneous assumptions in learning algorithm; High bias can cause an algorithm to miss relevant relations between features and target outputs; underfitting</li>
+<li>Variance Error: comes from sensitivity to small fluctuations in training set; High variance may result from algorithm modeling the random noise in the training data; overfitting</li>
+<li>Error Rate: proportion of mistakes made</li>
+<li>Error Rate (formula): <span class="math inline">\(\frac{1}{n}\sum_{i=1}^n I(y_i \ne \hat{y}_i)\)</span>; where <span class="math inline">\(I\)</span> is an indicator function that equals 1 if <span class="math inline">\(y_i \neq \hat{y}_i\)</span> else 0 if <span class="math inline">\(y_i = \hat{y}_i\)</span></li>
+<li>Bayes Classifier: Assign each observation to most likely class, given its predictor values</li>
+<li>Bayes Classifier (formula): Assign value for which <span class="math inline">\(\text{Pr}(Y=j|X=x_0)\)</span> is largest</li>
+<li>Bayes Decision Boundary: a line/plane etc. which denotes the probability of class membership to be equal between classes</li>
+<li>Bayes Error Rate: <span class="math inline">\(1 - E \left ( \underset{j}{max} \space \text{Pr}(Y=j|X) \right )\)</span></li>
+<li>Shortcoming of Bayes Classifier: For real data we don’t know the conditional distribution of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span>; so the Bayes Classifier is an unattainable “Gold Standard” to compare other models</li>
+<li>K-Nearest Neighbor Classifier (formula): Given positive integer <span class="math inline">\(K\)</span> and test observation <span class="math inline">\(x_0\)</span> it identifies the <span class="math inline">\(K\)</span> points in the training data set closest to <span class="math inline">\(x_0\)</span> represented by <span class="math inline">\(\mathcal{N}_0\)</span>; then estimates the conditional probability for class <span class="math inline">\(j\)</span> as the fraction of points in <span class="math inline">\(\mathcal{N}_0\)</span> whose values equal <span class="math inline">\(j\)</span>: <span class="math inline">\(\text{Pr}(Y=j|X=x_0)=\frac{1}{K}\sum_{i \in \mathcal{N}_0}I(y_i = j)\)</span>; KNN classifies the test observation <span class="math inline">\(x_0\)</span> to the class with the largest probability.</li>
+<li>Describe the size of <span class="math inline">\(K\)</span> in KNN and test/training error: Plot of error rate vs. <span class="math inline">\(1/K\)</span> resembles variance bias trade-off; if <span class="math inline">\(1/K\)</span> is too small has high training error / high test error; if <span class="math inline">\(1/K\)</span> is too big then test error is high and training error is low</li>
 </ul>
