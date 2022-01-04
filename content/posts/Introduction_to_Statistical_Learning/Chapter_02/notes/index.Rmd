@@ -68,7 +68,7 @@ text(par("usr")[1], ytick, labels=tick_lables, pos=2,xpd=TRUE)
 - Testing MSE Behavior: generally U-shaped as model flexibility increases
 - Overfitting: Small training MSE, but large test MSE
 - Cross Validation: aka "Rotation Estimate" or "out-of-sample" testing, basically partition full dataset into a set for training and a set for testing on an "unseen" set
-- Bias-Variance Trade-off: the property of a model that t
+- Bias-Variance Trade-off: the property of a model that the variance of the parameter estimated across samples can be reduced by increasing the bias in the estimated parameters
 - Bias-Variance Trade-off (formula): $E \left ( y_0 - \hat{f}(x_0) \right )^2 = \text {Var} (\hat{f}(x_o)) + [\text{Bias} (\hat{f}(x_0))]^2 + \text{Var}(\epsilon)$; where $E \left ( y_0 - \hat{f}(x_0) \right )^2$ refers to the expected test MSE at $x_0$ and refers to the average test MSE that we would obtain if we repeatedly estimated $f$ using a large number of training sets, and tested each at $x_0$
 - Bias Error: comes from erroneous assumptions in learning algorithm; High bias can cause an algorithm to miss relevant relations between features and target outputs; underfitting
 - Variance Error: comes from sensitivity to small fluctuations in training set; High variance may result from algorithm modeling the random noise in the training data; overfitting

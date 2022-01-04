@@ -1,0 +1,15 @@
+---
+title: Linear Regression
+author: Jeremy Buss
+date: '2022-01-03'
+slug: []
+categories: 
+  - Machine Learning
+  - Introduction to Statistical Learning - James/Witten/Hastie/Tibshirani
+tags:
+  - R
+draft: yes
+katex: yes
+---
+
+
