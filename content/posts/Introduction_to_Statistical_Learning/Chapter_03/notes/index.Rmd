@@ -12,4 +12,17 @@ draft: yes
 katex: yes
 ---
 
-
+- Interaction: two or more variables interact to affect a third variable in a non additive manner, i.e. two variables interact to have an affect more than the sum of their parts
+- Simple Linear Regression (formula): $Y = \beta_0 + \beta_1 X + \epsilon$
+- 2 Coefficients or parameters for Simple Linear Regression (SLR): 
+  - $\beta_0=$ Intercept
+  - $\beta_1=$ slope 
+- SLR estimate (formula): $\hat{y_i} = \hat{\beta}_0 + \hat{\beta}_1 x_i$
+- Residual: difference between the $i$th observed response and the $i$th response value predicted by our model
+- Residual (formula): $e_i = y_i - \hat{y}_i$
+- Residual Sum of Squares: the sum of squared residuals for all observations $i=1, 2, \dots, n$ a.k.a. $RSS$
+- Residual Sum of Squares (formula): 
+  - $RSS = e_1^2 + e_2^2 + \dots + e_n^2$ 
+  - $RSS = (y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_1)^2 + (y_2 - \hat{\beta}_0 - \hat{\beta}_1 x_2)^2 + \dots + (y_n - \hat{\beta}_0 - \hat{\beta}_1 x_n)^2 $
+-  Least Squares: an approach to estimate or choose values of $\hat{\beta}_0$ and $\hat{\beta}_1$ by minimizing the $RSS$
+- 
