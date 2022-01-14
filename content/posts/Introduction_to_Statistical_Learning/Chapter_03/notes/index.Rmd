@@ -48,4 +48,18 @@ katex: yes
 - Approximate 95% CI of SLR coeff: 
   - $\hat{\beta}_1 \pm 2 \cdot  \text{SE}(\hat{\beta}_1)$
   - $\hat{\beta}_0 \pm 2 \cdot  \text{SE}(\hat{\beta}_0)$
+- Hypothesis Test: a method of statistical inference used to determine possible conclusion from two different and likely conflicting hypothesis
+- Null Hypothesis for SLR: There is no relationship between $X$ and $Y$ or $\hat{\beta}_1=0$
+- Alternative Hypothesis for SLR: There is some relationship between $X$ and $Y$ or $\hat{\beta}_1 \ne 0$
+- t-statistic: $t = \frac{\hat{\beta}_1 - 0}{\text{SE}(\hat{\beta}_1)}$
+- t-distribution: any member of a family of continuous probability distributions that arise when estimating the mean of a normally distributed population in situations where the sample size is small and the population's standard deviation is unknown.
+- Who developed the t-distribution? English statistician William Sealy Gosset under the pseudonym "Student"
+- Why was the t-distribution first published under the pseudonym of "student"? Since William Sealy Gosset worked at Guinness at the time his employer didn't want competitors to know their steps
+- p-value: probability of obtaining test results at least as extreme as the results observed, under assumption that the null hypothesis is correct
+- Residual Standard Error: average amount response will deviate from true regression line; other words, if $\beta_0$ and $\beta_1$ were known perfectly; RSE is an estimate of standard deviation of $\epsilon$
+- $R^2$ (formula): $\frac{TSS-RSS}{TSS}$ or $1-\frac{RSS}{TSS}$
+- TSS (formula): $\sum_{i=1}^n(y_i-\bar{y})^2$
+- Total Sum of Squares: TSS; Total variance in $Y_i$; amount of variability inherent in response prior to regression performed
+- RSS: Amount of variability left unexplained after regression
+- $R^2$: proportion of variability in $Y$ that can be explained by $X$; $R^2=r^2$ in SLR
 - 
