@@ -24,5 +24,28 @@ katex: yes
 - Residual Sum of Squares (formula): 
   - $RSS = e_1^2 + e_2^2 + \dots + e_n^2$ 
   - $RSS = (y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_1)^2 + (y_2 - \hat{\beta}_0 - \hat{\beta}_1 x_2)^2 + \dots + (y_n - \hat{\beta}_0 - \hat{\beta}_1 x_n)^2 $
--  Least Squares: an approach to estimate or choose values of $\hat{\beta}_0$ and $\hat{\beta}_1$ by minimizing the $RSS$
+- Least Squares: an approach to estimate or choose values of $\hat{\beta}_0$ and $\hat{\beta}_1$ by minimizing the $RSS$
+- Least Squares coefficient estimates:
+  - $\hat{\beta}_1 = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2}$
+  - $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$
+- Expressions for sample means:
+  - $\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}}$
+  - $\frac{1}{n}\sum_{i=1}^{n} {x_i}={\overline{x}}$
+- Bias: Tendency of a statistic to over or under estimate a parameter
+- Standard Error of a statistic: is the standard deviation of its sampling distribution
+- Standard Error of the mean (formula): $\text{Var}(\hat{\mu})=\text{SE}(\hat{\mu})^2=\frac{\sigma^2}{n}$ or $\text{SE}(\hat{\mu})=\frac{\sigma}{\sqrt{n}}$; where $n$ = # of observations taken from statistical population and $\sigma$ is the standard deviation of the population
+- Standard Deviation of a population: $\sigma$
+- Standard Deviation of a sample: $\sigma_x$
+- Standard Deviation of the mean (a.k.a. standard error of mean): $\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$
+- Estimator of Standard Deviation of the mean (colloqually called standard error): $\hat{\sigma}_{\bar{x}}=\frac{\sigma_x}{\sqrt{n}}$
+- Standard Error of SLR Intercept: $\text{SE}(\hat{\beta}_0)^2=\sigma^2 \left [ \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \right ]$; where $\sigma^2=\text{Var}(\epsilon)$ and the errors $\epsilon_i$ are uncorrelated
+- Standard Error of SLR Slope: $\text{SE}(\hat{\beta}_1)^2=\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2}$; where $\sigma^2=\text{Var}(\epsilon)$ and the errors $\epsilon_i$ are uncorrelated
+- How do the values of $x$ affect the size of $\text{SE}(\hat{\beta}_1)$? The larger the spread of $x$ values (i.e. further from $\bar{x}$) the smaller the standard error of $\hat{\beta}_1$
+- What happens if $\bar{x}=0$? Then $\text{SE}(\hat{\beta}_0)=\text{SE}(\hat{\mu})$ and $\hat{\beta}_0=\bar{y}$
+- Residual Standard Error (formula): $\text{RSE}=\sqrt{\text{RSS}/n-2}$
+- How should SE of $\beta_1$ be depicted if we are estimating $\sigma$? $\widehat{\text{SE}}(\hat{\beta}_1)$ to indicate that an estimate has been made; i.e. $\sigma \approx \text{RSE}$, but generally for simplicity of notation this extra "hat" is dropped
+- Confidence Interval: Range of values such taht with a specific probability the range will contain the true unknown value of the parameter
+- Approximate 95% CI of SLR coeff: 
+  - $\hat{\beta}_1 \pm 2 \cdot  \text{SE}(\hat{\beta}_1)$
+  - $\hat{\beta}_0 \pm 2 \cdot  \text{SE}(\hat{\beta}_0)$
 - 

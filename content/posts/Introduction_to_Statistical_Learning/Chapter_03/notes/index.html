@@ -33,5 +33,34 @@ katex: yes
 <li>$RSS = (y_1 - _0 - _1 x_1)^2 + (y_2 - _0 - _1 x_2)^2 + + (y_n - _0 - _1 x_n)^2 $</li>
 </ul></li>
 <li>Least Squares: an approach to estimate or choose values of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> by minimizing the <span class="math inline">\(RSS\)</span></li>
+<li>Least Squares coefficient estimates:
+<ul>
+<li><span class="math inline">\(\hat{\beta}_1 = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2}\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}\)</span></li>
+</ul></li>
+<li>Expressions for sample means:
+<ul>
+<li><span class="math inline">\(\frac{1}{n}\sum_{i=1}^{n} {y_i}={\overline{y}}\)</span></li>
+<li><span class="math inline">\(\frac{1}{n}\sum_{i=1}^{n} {x_i}={\overline{x}}\)</span></li>
+</ul></li>
+<li>Bias: Tendency of a statistic to over or under estimate a parameter</li>
+<li>Standard Error of a statistic: is the standard deviation of its sampling distribution</li>
+<li>Standard Error of the mean (formula): <span class="math inline">\(\text{Var}(\hat{\mu})=\text{SE}(\hat{\mu})^2=\frac{\sigma^2}{n}\)</span> or <span class="math inline">\(\text{SE}(\hat{\mu})=\frac{\sigma}{\sqrt{n}}\)</span>; where <span class="math inline">\(n\)</span> = # of observations taken from statistical population and <span class="math inline">\(\sigma\)</span> is the standard deviation of the population</li>
+<li>Standard Deviation of a population: <span class="math inline">\(\sigma\)</span></li>
+<li>Standard Deviation of a sample: <span class="math inline">\(\sigma_x\)</span></li>
+<li>Standard Deviation of the mean (a.k.a. standard error of mean): <span class="math inline">\(\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}\)</span></li>
+<li>Estimator of Standard Deviation of the mean (colloqually called standard error): <span class="math inline">\(\hat{\sigma}_{\bar{x}}=\frac{\sigma_x}{\sqrt{n}}\)</span></li>
+<li>Standard Error of SLR Intercept: <span class="math inline">\(\text{SE}(\hat{\beta}_0)^2=\sigma^2 \left [ \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \right ]\)</span>; where <span class="math inline">\(\sigma^2=\text{Var}(\epsilon)\)</span> and the errors <span class="math inline">\(\epsilon_i\)</span> are uncorrelated</li>
+<li>Standard Error of SLR Slope: <span class="math inline">\(\text{SE}(\hat{\beta}_1)^2=\frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2}\)</span>; where <span class="math inline">\(\sigma^2=\text{Var}(\epsilon)\)</span> and the errors <span class="math inline">\(\epsilon_i\)</span> are uncorrelated</li>
+<li>How do the values of <span class="math inline">\(x\)</span> affect the size of <span class="math inline">\(\text{SE}(\hat{\beta}_1)\)</span>? The larger the spread of <span class="math inline">\(x\)</span> values (i.e. further from <span class="math inline">\(\bar{x}\)</span>) the smaller the standard error of <span class="math inline">\(\hat{\beta}_1\)</span></li>
+<li>What happens if <span class="math inline">\(\bar{x}=0\)</span>? Then <span class="math inline">\(\text{SE}(\hat{\beta}_0)=\text{SE}(\hat{\mu})\)</span> and <span class="math inline">\(\hat{\beta}_0=\bar{y}\)</span></li>
+<li>Residual Standard Error (formula): <span class="math inline">\(\text{RSE}=\sqrt{\text{RSS}/n-2}\)</span></li>
+<li>How should SE of <span class="math inline">\(\beta_1\)</span> be depicted if we are estimating <span class="math inline">\(\sigma\)</span>? <span class="math inline">\(\widehat{\text{SE}}(\hat{\beta}_1)\)</span> to indicate that an estimate has been made; i.e. <span class="math inline">\(\sigma \approx \text{RSE}\)</span>, but generally for simplicity of notation this extra “hat” is dropped</li>
+<li>Confidence Interval: Range of values such taht with a specific probability the range will contain the true unknown value of the parameter</li>
+<li>Approximate 95% CI of SLR coeff:
+<ul>
+<li><span class="math inline">\(\hat{\beta}_1 \pm 2 \cdot \text{SE}(\hat{\beta}_1)\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_0 \pm 2 \cdot \text{SE}(\hat{\beta}_0)\)</span></li>
+</ul></li>
 <li></li>
 </ul>
