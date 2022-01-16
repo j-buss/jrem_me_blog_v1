@@ -8,7 +8,7 @@ categories:
   - Introduction to Statistical Learning - James/Witten/Hastie/Tibshirani
 tags:
   - R
-draft: yes
+draft: no
 katex: yes
 ---
 
@@ -23,7 +23,7 @@ katex: yes
 - Residual Sum of Squares: the sum of squared residuals for all observations $i=1, 2, \dots, n$ a.k.a. $RSS$
 - Residual Sum of Squares (formula): 
   - $RSS = e_1^2 + e_2^2 + \dots + e_n^2$ 
-  - $RSS = (y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_1)^2 + (y_2 - \hat{\beta}_0 - \hat{\beta}_1 x_2)^2 + \dots + (y_n - \hat{\beta}_0 - \hat{\beta}_1 x_n)^2 $
+  - $RSS = (y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_1)^2 + (y_2 - \hat{\beta}_0 - \hat{\beta}_1 x_2)^2 + \dots + (y_n - \hat{\beta}_0 - \hat{\beta}_1 x_n)^2$
 - Least Squares: an approach to estimate or choose values of $\hat{\beta}_0$ and $\hat{\beta}_1$ by minimizing the $RSS$
 - Least Squares coefficient estimates:
   - $\hat{\beta}_1 = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2}$
@@ -49,8 +49,8 @@ katex: yes
   - $\hat{\beta}_1 \pm 2 \cdot  \text{SE}(\hat{\beta}_1)$
   - $\hat{\beta}_0 \pm 2 \cdot  \text{SE}(\hat{\beta}_0)$
 - Hypothesis Test: a method of statistical inference used to determine possible conclusion from two different and likely conflicting hypothesis
-- Null Hypothesis for SLR: There is no relationship between $X$ and $Y$ or $\hat{\beta}_1=0$
-- Alternative Hypothesis for SLR: There is some relationship between $X$ and $Y$ or $\hat{\beta}_1 \ne 0$
+- Null Hypothesis for SLR: There is no relationship between $X$ and $Y$ or $H_0:\hat{\beta}_1=0$
+- Alternative Hypothesis for SLR: There is some relationship between $X$ and $Y$ or $H_a: \hat{\beta}_1 \ne 0$
 - t-statistic: $t = \frac{\hat{\beta}_1 - 0}{\text{SE}(\hat{\beta}_1)}$
 - t-distribution: any member of a family of continuous probability distributions that arise when estimating the mean of a normally distributed population in situations where the sample size is small and the population's standard deviation is unknown.
 - Who developed the t-distribution? English statistician William Sealy Gosset under the pseudonym "Student"
@@ -62,4 +62,108 @@ katex: yes
 - Total Sum of Squares: TSS; Total variance in $Y_i$; amount of variability inherent in response prior to regression performed
 - RSS: Amount of variability left unexplained after regression
 - $R^2$: proportion of variability in $Y$ that can be explained by $X$; $R^2=r^2$ in SLR
+- Correlation between $(X,Y)$ (formula):$Corr(X,Y)=\frac{\sum_{i=1}^n(x_i-\bar{x})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}$
+- For SLR it can be shown that $R^2=r^2$
+- MLR Estimate (formula): $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_1+\hat{\beta}_2 x_2+\dots+\hat{\beta}_px_p$
+RSS for MLR (formula): $RSS = \sum_{i=1}^n(y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_p x_{ip})^2$
+- Null Hypothesis for MLR (formula):  $H_0:\hat{\beta}_1=\hat{\beta}_2=\dots=\hat{\beta}_p=0$
+- Alternative Hypothesis for MLR: At least one $B_j$ is non-zero
+- F-Statistic (formula): $F=\frac{(TSS-RSS)/p}{RSS/(n-p-1)}$
+- Value of F-Statistic if Null hypothesis is true: 1, because
+  - $E[(TSS - RSS)/p]=\sigma^2$
+  - $E[RSS/(n-p-1)]=\sigma^2$
+- Value of F-Statistic if Alternate Hypothesis is true: > 1, because
+  - $E[(TSS - RSS)/p]>\sigma^2$
+- Null Hypothesis MLR for subset of coefficients: $H_0:\hat{\beta}_{p-q+1}=\hat{\beta}_{p-q+2}=\dots=\hat{\beta}_p=0$; where for convenience we have put the variables chosen for omission at the end of the list
+and create a model with the $p-q$ variables
+- F-Statistic for subset model: $F=\frac{(RSS_0-RSS)/q}{RSS/(n-p-1)}$
+- Variable Selection: The task of determining which predictor is associated w/ the response, in order to cull the field of predictors
+- With regard to variable selection; if a model as $p$ variables how many possible models are there? $2^p$ because each p can be in or out
+- Name 4 statistics that can be used to judge the quality of a model:
+  1. Mallow's Cp
+  2. Akaike Information Criterion (AIC)
+  3. Bayesian Information Criterion (BIC)
+  4. Adjusted $R^2$
+- What are the 4 questions to ask when examining a MLR model?
+  1. Is at least one of the predictors important?
+  2. Do all the predictors help explain $Y$? or only a subset
+  3. How well does the model fit the data
+  4. Given a set of predictor values, what response value should we predict, and how accurate is our prediction?
+- Forward Selection: 
+  1. Begin with a null model (intercept only)
+  2. Fit $p$ simple linear regression models
+  3. Add to the null model the variable that results in the lowest $RSS$ 
+  4. Fit ($p$-1) 2 variable models
+  5. Add to the working model the variable that results in lowest $RSS$ for 2 variable model
+  6. Continue until stopping rule
+- Backward Selection: 
+  1. Start with all variables in the model
+  2. Remove variable with largest p-value (i.e. the variable that is least statistically significant)
+  3. New (p-1) variable model is fit
+  4. Variable with largest p-value is removed
+  5. Continue until stopping rule
+- Mixed Selection: Combination of forward and backward selection
+  - Start as in forward selection with null model and add variables that provide best fit 1-by-1
+  - Check p-values for all model variables; if one rises above a threshold it is removed
+  - Continue until all variables in the model have sufficiently low p-value and all variables outside model would have large p-values if added
+- Backward selection cannot be used if $p>n$
+- Forward selection can always be used
+- Forward selection is a greedy approach and might include variables early that later become redundant
+- Two of the most common numerical measures of model fit are the $RSE$ and $R^2$
+- For simple regression it can be shown that $R^2$ is equal to $r^2=(\text{Cor}(X,Y))^2$
+- For multiple regression it can be shwon that $R^2=(\text{Cor}(Y,\hat{Y}))^2$
+- $R^2$ always increases when more variables are added to the model
+- General formula for $RSE=\sqrt{\frac{1}{n-p-1}RSS}$
+- 3 Sources of error when making a prediction:
+  1. Coefficient estimates $\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_p$ are estimates for $\beta_0, \beta_1, \dots, \beta_p$ or rather the least squares plane: $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_1+\hat{\beta}_2 x_2+\dots+\hat{\beta}_px_p$ is an estimate for the true population plane: $f(X)=\beta_0+\beta_1 X_1 + \dots + \beta_p X_p$; The inaccuracy in the coefficient estimates is related to reducible error, computing a confidence interval can help determine how close $\hat{Y}$ is to $f(X)$
+  2. Assuming a linear model for $f(X)$ is almost always an approximation, so an additional source of potentially reducible error is model bias
+  3. Even if $\beta_0, \beta_1, \dots, \beta_p$ were known there is a random error $\epsilon$ that is irreducible error; i.e. prediction intervals are wider than confidence intervals as they have reducible error as well as irreducible error
+- Dummy Variable: a dichotomouse numeric variable that represents categorical data, typically 1 represents the presence of a qualitative attribute, and 0 represents the absence
+- If qualitative predictor has more than two levels then additional dummy variables need to be added
+- The "level" with no dummy variable is known as the baseline
+- Additive assumption for linear model: association between predictor $X_j$ and response $Y$ doesn't depend on other predictors
+- Linearity Assumption for linear model: change in response $Y$ associated with one-unit change in $X_j$ is constant regardless of value of $X_j$
+- Interaction term - the effect of one variable depends on the value of another variable; a.k.a. "synergy"
+- Interaction term (formula): 
+$$
+\begin{split}
+Y&=\beta_0+\beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2 + \epsilon\\
+&=\beta_0+(\beta_1 + \beta_3 X_2) X_1 + \beta_2 X_2 + \epsilon\\
+&=\beta_0+\tilde{\beta}_1 X_1 + \beta_2 X_2 + \epsilon\\
+\end{split}
+$$
+where $\tilde{\beta}_1 = \beta_1 + \beta_3 X_2$ and is a function of $X_2$ and the interaction between $X_1$ and $Y$ is no longer constant
+- Hierarchical principle: if we include an interaction in the model, we should also include the main effects, even if the p-values associated with their coefficients are not significant
+- Polynomial regression: extension of a simple linear model by adding extra predictors obtained by raising each of the original predictors to a power
+- 6 Common potential problems with linear regression:
+  1. Non-linearity of response-predictor relationships
+  2. Correlation of error terms
+  3. Non-constant variance of error terms
+  4. Outliers
+  5. High-leverage points
+  6. Collinearity
+- How can you assess the non-linearity of the data? Residual plots exhibit a clear non-linear pattern
+- Residual plot: plotting residuals versus $x_i$ or $\hat{y}_i$
+- How can you correct non-linearity in the data? by performing a non-linear transformation of the predictors, such as $log(X)$, $\sqrt{X}$, and $X^2$
+- Uncorrelated error terms: If $\epsilon_i$ is positive it provides little or no information about the sign of $\epsilon_{i+1}$
+- If the error terms are correlated then the estimated standard errors will tend to underestimate the true standard errors
+- In short if error terms are correlated, we may have overconfidence in our model
+- Homoscedastic: error terms are the same across all values of the independent variables
+- Heteroscedastic: error terms differ across values of an independent variable
+- 2 Possible solutions to heteroscedasticity:
+  1. Transform the response variable $Y$ such as $log(Y)$ or $\sqrt{Y}$
+  2. Weighted least squares
+- Weighted Least Squares: knowledge of the variance of observations is incorporated into the regression
+- Outliers: a point is an outlier if $y_i$ is far from value predicted by the model
+- studentized residuals: residual divided by it's estimated standard error
+- Outlier identification: if studentized residuals are greater than 3
+- What happens to measures of model fit if there are outliers in the data? $RSE$ increases and $R^2$ decreases
+- High leverage points: a measure of how far away the independent variable values of an observation are compared to those of other observations; in summary: unusual value of $x_i$; fairly easy to see in SLR, more difficult in MLR
+- Leverage Statistic or Hat value (formula): $h_i = \frac{1}{n} + \frac{(x_i-\bar{x})^2}{\sum_{i=1}^n(x_i^{\prime}-\bar{x})^2}$
+- Average Leverage (formula): $\frac{(p+1)}{n}$
+- Collinearity: a situation where 2 or more predictor variables are closely related to one another
+- Why is collinearity a problem?: It can be difficult to determine individual effects of collinear variables on the response
+- How does collinearity affect the standard error of $\beta_j$? standard errors for $\beta_j$ grow
+- How does collinearity affect the t-statistic?: since the t-statistic is calculated by dividing $\hat{\beta}_j$ by $\text{SE}({\hat{\beta}_j})$ so because the standard error increases the resulting t-statistic is reduced; therefore we may fail to reject the null hypothesis
+- What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient
 - 

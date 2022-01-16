@@ -8,7 +8,7 @@ categories:
   - Introduction to Statistical Learning - James/Witten/Hastie/Tibshirani
 tags:
   - R
-draft: yes
+draft: no
 katex: yes
 ---
 
@@ -30,7 +30,7 @@ katex: yes
 <li>Residual Sum of Squares (formula):
 <ul>
 <li><span class="math inline">\(RSS = e_1^2 + e_2^2 + \dots + e_n^2\)</span></li>
-<li>$RSS = (y_1 - _0 - _1 x_1)^2 + (y_2 - _0 - _1 x_2)^2 + + (y_n - _0 - _1 x_n)^2 $</li>
+<li><span class="math inline">\(RSS = (y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_1)^2 + (y_2 - \hat{\beta}_0 - \hat{\beta}_1 x_2)^2 + \dots + (y_n - \hat{\beta}_0 - \hat{\beta}_1 x_n)^2\)</span></li>
 </ul></li>
 <li>Least Squares: an approach to estimate or choose values of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> by minimizing the <span class="math inline">\(RSS\)</span></li>
 <li>Least Squares coefficient estimates:
@@ -63,8 +63,8 @@ katex: yes
 <li><span class="math inline">\(\hat{\beta}_0 \pm 2 \cdot \text{SE}(\hat{\beta}_0)\)</span></li>
 </ul></li>
 <li>Hypothesis Test: a method of statistical inference used to determine possible conclusion from two different and likely conflicting hypothesis</li>
-<li>Null Hypothesis for SLR: There is no relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> or <span class="math inline">\(\hat{\beta}_1=0\)</span></li>
-<li>Alternative Hypothesis for SLR: There is some relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> or <span class="math inline">\(\hat{\beta}_1 \ne 0\)</span></li>
+<li>Null Hypothesis for SLR: There is no relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> or <span class="math inline">\(H_0:\hat{\beta}_1=0\)</span></li>
+<li>Alternative Hypothesis for SLR: There is some relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> or <span class="math inline">\(H_a: \hat{\beta}_1 \ne 0\)</span></li>
 <li>t-statistic: <span class="math inline">\(t = \frac{\hat{\beta}_1 - 0}{\text{SE}(\hat{\beta}_1)}\)</span></li>
 <li>t-distribution: any member of a family of continuous probability distributions that arise when estimating the mean of a normally distributed population in situations where the sample size is small and the population’s standard deviation is unknown.</li>
 <li>Who developed the t-distribution? English statistician William Sealy Gosset under the pseudonym “Student”</li>
@@ -76,5 +76,129 @@ katex: yes
 <li>Total Sum of Squares: TSS; Total variance in <span class="math inline">\(Y_i\)</span>; amount of variability inherent in response prior to regression performed</li>
 <li>RSS: Amount of variability left unexplained after regression</li>
 <li><span class="math inline">\(R^2\)</span>: proportion of variability in <span class="math inline">\(Y\)</span> that can be explained by <span class="math inline">\(X\)</span>; <span class="math inline">\(R^2=r^2\)</span> in SLR</li>
+<li>Correlation between <span class="math inline">\((X,Y)\)</span> (formula):<span class="math inline">\(Corr(X,Y)=\frac{\sum_{i=1}^n(x_i-\bar{x})}{\sqrt{\sum_{i=1}^n(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^n(y_i-\bar{y})^2}}\)</span></li>
+<li>For SLR it can be shown that <span class="math inline">\(R^2=r^2\)</span></li>
+<li>MLR Estimate (formula): <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_1+\hat{\beta}_2 x_2+\dots+\hat{\beta}_px_p\)</span>
+RSS for MLR (formula): <span class="math inline">\(RSS = \sum_{i=1}^n(y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \hat{\beta}_2 x_{i2} - \dots - \hat{\beta}_p x_{ip})^2\)</span></li>
+<li>Null Hypothesis for MLR (formula): <span class="math inline">\(H_0:\hat{\beta}_1=\hat{\beta}_2=\dots=\hat{\beta}_p=0\)</span></li>
+<li>Alternative Hypothesis for MLR: At least one <span class="math inline">\(B_j\)</span> is non-zero</li>
+<li>F-Statistic (formula): <span class="math inline">\(F=\frac{(TSS-RSS)/p}{RSS/(n-p-1)}\)</span></li>
+<li>Value of F-Statistic if Null hypothesis is true: 1, because
+<ul>
+<li><span class="math inline">\(E[(TSS - RSS)/p]=\sigma^2\)</span></li>
+<li><span class="math inline">\(E[RSS/(n-p-1)]=\sigma^2\)</span></li>
+</ul></li>
+<li>Value of F-Statistic if Alternate Hypothesis is true: &gt; 1, because
+<ul>
+<li><span class="math inline">\(E[(TSS - RSS)/p]&gt;\sigma^2\)</span></li>
+</ul></li>
+<li>Null Hypothesis MLR for subset of coefficients: <span class="math inline">\(H_0:\hat{\beta}_{p-q+1}=\hat{\beta}_{p-q+2}=\dots=\hat{\beta}_p=0\)</span>; where for convenience we have put the variables chosen for omission at the end of the list
+and create a model with the <span class="math inline">\(p-q\)</span> variables</li>
+<li>F-Statistic for subset model: <span class="math inline">\(F=\frac{(RSS_0-RSS)/q}{RSS/(n-p-1)}\)</span></li>
+<li>Variable Selection: The task of determining which predictor is associated w/ the response, in order to cull the field of predictors</li>
+<li>With regard to variable selection; if a model as <span class="math inline">\(p\)</span> variables how many possible models are there? <span class="math inline">\(2^p\)</span> because each p can be in or out</li>
+<li>Name 4 statistics that can be used to judge the quality of a model:
+<ol style="list-style-type: decimal">
+<li>Mallow’s Cp</li>
+<li>Akaike Information Criterion (AIC)</li>
+<li>Bayesian Information Criterion (BIC)</li>
+<li>Adjusted <span class="math inline">\(R^2\)</span></li>
+</ol></li>
+<li>What are the 4 questions to ask when examining a MLR model?
+<ol style="list-style-type: decimal">
+<li>Is at least one of the predictors important?</li>
+<li>Do all the predictors help explain <span class="math inline">\(Y\)</span>? or only a subset</li>
+<li>How well does the model fit the data</li>
+<li>Given a set of predictor values, what response value should we predict, and how accurate is our prediction?</li>
+</ol></li>
+<li>Forward Selection:
+<ol style="list-style-type: decimal">
+<li>Begin with a null model (intercept only)</li>
+<li>Fit <span class="math inline">\(p\)</span> simple linear regression models</li>
+<li>Add to the null model the variable that results in the lowest <span class="math inline">\(RSS\)</span></li>
+<li>Fit (<span class="math inline">\(p\)</span>-1) 2 variable models</li>
+<li>Add to the working model the variable that results in lowest <span class="math inline">\(RSS\)</span> for 2 variable model</li>
+<li>Continue until stopping rule</li>
+</ol></li>
+<li>Backward Selection:
+<ol style="list-style-type: decimal">
+<li>Start with all variables in the model</li>
+<li>Remove variable with largest p-value (i.e. the variable that is least statistically significant)</li>
+<li>New (p-1) variable model is fit</li>
+<li>Variable with largest p-value is removed</li>
+<li>Continue until stopping rule</li>
+</ol></li>
+<li>Mixed Selection: Combination of forward and backward selection
+<ul>
+<li>Start as in forward selection with null model and add variables that provide best fit 1-by-1</li>
+<li>Check p-values for all model variables; if one rises above a threshold it is removed</li>
+<li>Continue until all variables in the model have sufficiently low p-value and all variables outside model would have large p-values if added</li>
+</ul></li>
+<li>Backward selection cannot be used if <span class="math inline">\(p&gt;n\)</span></li>
+<li>Forward selection can always be used</li>
+<li>Forward selection is a greedy approach and might include variables early that later become redundant</li>
+<li>Two of the most common numerical measures of model fit are the <span class="math inline">\(RSE\)</span> and <span class="math inline">\(R^2\)</span></li>
+<li>For simple regression it can be shown that <span class="math inline">\(R^2\)</span> is equal to <span class="math inline">\(r^2=(\text{Cor}(X,Y))^2\)</span></li>
+<li>For multiple regression it can be shwon that <span class="math inline">\(R^2=(\text{Cor}(Y,\hat{Y}))^2\)</span></li>
+<li><span class="math inline">\(R^2\)</span> always increases when more variables are added to the model</li>
+<li>General formula for <span class="math inline">\(RSE=\sqrt{\frac{1}{n-p-1}RSS}\)</span></li>
+<li>3 Sources of error when making a prediction:
+<ol style="list-style-type: decimal">
+<li>Coefficient estimates <span class="math inline">\(\hat{\beta}_0, \hat{\beta}_1, \dots, \hat{\beta}_p\)</span> are estimates for <span class="math inline">\(\beta_0, \beta_1, \dots, \beta_p\)</span> or rather the least squares plane: <span class="math inline">\(\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_1+\hat{\beta}_2 x_2+\dots+\hat{\beta}_px_p\)</span> is an estimate for the true population plane: <span class="math inline">\(f(X)=\beta_0+\beta_1 X_1 + \dots + \beta_p X_p\)</span>; The inaccuracy in the coefficient estimates is related to reducible error, computing a confidence interval can help determine how close <span class="math inline">\(\hat{Y}\)</span> is to <span class="math inline">\(f(X)\)</span></li>
+<li>Assuming a linear model for <span class="math inline">\(f(X)\)</span> is almost always an approximation, so an additional source of potentially reducible error is model bias</li>
+<li>Even if <span class="math inline">\(\beta_0, \beta_1, \dots, \beta_p\)</span> were known there is a random error <span class="math inline">\(\epsilon\)</span> that is irreducible error; i.e. prediction intervals are wider than confidence intervals as they have reducible error as well as irreducible error</li>
+</ol></li>
+<li>Dummy Variable: a dichotomouse numeric variable that represents categorical data, typically 1 represents the presence of a qualitative attribute, and 0 represents the absence</li>
+<li>If qualitative predictor has more than two levels then additional dummy variables need to be added</li>
+<li>The “level” with no dummy variable is known as the baseline</li>
+<li>Additive assumption for linear model: association between predictor <span class="math inline">\(X_j\)</span> and response <span class="math inline">\(Y\)</span> doesn’t depend on other predictors</li>
+<li>Linearity Assumption for linear model: change in response <span class="math inline">\(Y\)</span> associated with one-unit change in <span class="math inline">\(X_j\)</span> is constant regardless of value of <span class="math inline">\(X_j\)</span></li>
+<li>Interaction term - the effect of one variable depends on the value of another variable; a.k.a. “synergy”</li>
+<li>Interaction term (formula):
+<span class="math display">\[
+\begin{split}
+Y&amp;=\beta_0+\beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2 + \epsilon\\
+&amp;=\beta_0+(\beta_1 + \beta_3 X_2) X_1 + \beta_2 X_2 + \epsilon\\
+&amp;=\beta_0+\tilde{\beta}_1 X_1 + \beta_2 X_2 + \epsilon\\
+\end{split}
+\]</span>
+where <span class="math inline">\(\tilde{\beta}_1 = \beta_1 + \beta_3 X_2\)</span> and is a function of <span class="math inline">\(X_2\)</span> and the interaction between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(Y\)</span> is no longer constant</li>
+<li>Hierarchical principle: if we include an interaction in the model, we should also include the main effects, even if the p-values associated with their coefficients are not significant</li>
+<li>Polynomial regression: extension of a simple linear model by adding extra predictors obtained by raising each of the original predictors to a power</li>
+<li>6 Common potential problems with linear regression:
+<ol style="list-style-type: decimal">
+<li>Non-linearity of response-predictor relationships</li>
+<li>Correlation of error terms</li>
+<li>Non-constant variance of error terms</li>
+<li>Outliers</li>
+<li>High-leverage points</li>
+<li>Collinearity</li>
+</ol></li>
+<li>How can you assess the non-linearity of the data? Residual plots exhibit a clear non-linear pattern</li>
+<li>Residual plot: plotting residuals versus <span class="math inline">\(x_i\)</span> or <span class="math inline">\(\hat{y}_i\)</span></li>
+<li>How can you correct non-linearity in the data? by performing a non-linear transformation of the predictors, such as <span class="math inline">\(log(X)\)</span>, <span class="math inline">\(\sqrt{X}\)</span>, and <span class="math inline">\(X^2\)</span></li>
+<li>Uncorrelated error terms: If <span class="math inline">\(\epsilon_i\)</span> is positive it provides little or no information about the sign of <span class="math inline">\(\epsilon_{i+1}\)</span></li>
+<li>If the error terms are correlated then the estimated standard errors will tend to underestimate the true standard errors</li>
+<li>In short if error terms are correlated, we may have overconfidence in our model</li>
+<li>Homoscedastic: error terms are the same across all values of the independent variables</li>
+<li>Heteroscedastic: error terms differ across values of an independent variable</li>
+<li>2 Possible solutions to heteroscedasticity:
+<ol style="list-style-type: decimal">
+<li>Transform the response variable <span class="math inline">\(Y\)</span> such as <span class="math inline">\(log(Y)\)</span> or <span class="math inline">\(\sqrt{Y}\)</span></li>
+<li>Weighted least squares</li>
+</ol></li>
+<li>Weighted Least Squares: knowledge of the variance of observations is incorporated into the regression</li>
+<li>Outliers: a point is an outlier if <span class="math inline">\(y_i\)</span> is far from value predicted by the model</li>
+<li>studentized residuals: residual divided by it’s estimated standard error</li>
+<li>Outlier identification: if studentized residuals are greater than 3</li>
+<li>What happens to measures of model fit if there are outliers in the data? <span class="math inline">\(RSE\)</span> increases and <span class="math inline">\(R^2\)</span> decreases</li>
+<li>High leverage points: a measure of how far away the independent variable values of an observation are compared to those of other observations; in summary: unusual value of <span class="math inline">\(x_i\)</span>; fairly easy to see in SLR, more difficult in MLR</li>
+<li>Leverage Statistic or Hat value (formula): <span class="math inline">\(h_i = \frac{1}{n} + \frac{(x_i-\bar{x})^2}{\sum_{i=1}^n(x_i^{\prime}-\bar{x})^2}\)</span></li>
+<li>Average Leverage (formula): <span class="math inline">\(\frac{(p+1)}{n}\)</span></li>
+<li>Collinearity: a situation where 2 or more predictor variables are closely related to one another</li>
+<li>Why is collinearity a problem?: It can be difficult to determine individual effects of collinear variables on the response</li>
+<li>How does collinearity affect the standard error of <span class="math inline">\(\beta_j\)</span>? standard errors for <span class="math inline">\(\beta_j\)</span> grow</li>
+<li>How does collinearity affect the t-statistic?: since the t-statistic is calculated by dividing <span class="math inline">\(\hat{\beta}_j\)</span> by <span class="math inline">\(\text{SE}({\hat{\beta}_j})\)</span> so because the standard error increases the resulting t-statistic is reduced; therefore we may fail to reject the null hypothesis</li>
+<li>What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient</li>
 <li></li>
 </ul>
