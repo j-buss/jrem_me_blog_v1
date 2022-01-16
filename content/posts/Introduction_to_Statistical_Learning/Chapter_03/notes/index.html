@@ -199,6 +199,23 @@ where <span class="math inline">\(\tilde{\beta}_1 = \beta_1 + \beta_3 X_2\)</spa
 <li>Why is collinearity a problem?: It can be difficult to determine individual effects of collinear variables on the response</li>
 <li>How does collinearity affect the standard error of <span class="math inline">\(\beta_j\)</span>? standard errors for <span class="math inline">\(\beta_j\)</span> grow</li>
 <li>How does collinearity affect the t-statistic?: since the t-statistic is calculated by dividing <span class="math inline">\(\hat{\beta}_j\)</span> by <span class="math inline">\(\text{SE}({\hat{\beta}_j})\)</span> so because the standard error increases the resulting t-statistic is reduced; therefore we may fail to reject the null hypothesis</li>
-<li>What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient</li>
-<li></li>
+<li>What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient; reduced due to collinearity</li>
+<li>Variance Inflation Factor (VIF): Ratio of variance of <span class="math inline">\(\hat{\beta}_j\)</span> when fitting the full model divided by the variance of <span class="math inline">\(\hat{\beta}_j\)</span> if fit on its own</li>
+<li>Key values for VIF:
+<ol style="list-style-type: decimal">
+<li>If VIF = 1 then there is no collinearity</li>
+<li>If VIF &gt; 5 and especially 10 it means collinearity</li>
+</ol></li>
+<li>What is the VIF (formula): <span class="math inline">\(VIF(\hat{\beta}_j)=\frac{1}{1-R_{X_j|X\_j}^2}\)</span> where <span class="math inline">\(R_{X_j|X\_j}^2\)</span> is <span class="math inline">\(R^2\)</span> from a regression of <span class="math inline">\(X_j\)</span> onto all of the other predictors</li>
+<li>K-Nearest Neighbor Regression (formula):
+<span class="math display">\[
+\hat{f}(x_0)=\frac{1}{K}\sum_{x_0 \in \mathcal{N}_0}y_i
+\]</span>
+where given <span class="math inline">\(K\)</span> and prediction point <span class="math inline">\(x_0\)</span> the <span class="math inline">\(K\)</span> training observations that are closest to <span class="math inline">\(x_0\)</span> are in <span class="math inline">\(\mathcal{N}_0\)</span> then the estimate <span class="math inline">\(f(x_0)\)</span> uses the average of all training responses in <span class="math inline">\(\mathcal{N}_0\)</span></li>
+<li>How do we choose <span class="math inline">\(K\)</span> in K-Nearest Neighbor Regression?: suffers from variance bias tradeoff;
+<ul>
+<li>small <span class="math inline">\(k\)</span> is most flexible has low bias and high variance</li>
+<li>large <span class="math inline">\(k\)</span> has a smoother fit and high bias and low variance</li>
+</ul></li>
+<li>Curse of dimensionality: as the number of dimensions increase finding the <span class="math inline">\(K\)</span> nearest neighbors is difficult as they span many dimensions and therefore are spread appart</li>
 </ul>

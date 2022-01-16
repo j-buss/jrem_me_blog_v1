@@ -11,3 +11,16 @@ tags:
 draft: yes
 katex: yes
 ---
+- Classification: predicting a qualitative response
+- Classification Models:
+  1. Logistic Regression
+  2. Linear Discriminant Analysis
+  3. Quadratic Discriminant Analysis
+  4. Naive Bayes
+  5. K-nearest Neighbors
+- graph of $e^x$: ![e^x](e^x.png)
+- graph of $e^{-x}$ or $\frac{1}{e^x}$:![e^-x](e^-x.png)
+- graph of $\frac{e^x}{1+e^{x}}$: ![e^xovere^-x](e^xovere^-x.png)
+- Logistic Function (formula): $p(X)=\frac{e^{\beta_0+\beta_1X_1}}{1+e^{\beta_0+\beta_1X_1}}$
+- Maximum Likelihood Estimation (MLE): a method of estimating thep arameters of an assumed probabiliyt distribution given some observed data; achieved by maximizing a likelihood function so that under the assumed statistics model the observed data is most probable
+- Odds (formula): 

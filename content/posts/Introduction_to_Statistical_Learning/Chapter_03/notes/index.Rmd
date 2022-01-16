@@ -165,5 +165,19 @@ where $\tilde{\beta}_1 = \beta_1 + \beta_3 X_2$ and is a function of $X_2$ and t
 - Why is collinearity a problem?: It can be difficult to determine individual effects of collinear variables on the response
 - How does collinearity affect the standard error of $\beta_j$? standard errors for $\beta_j$ grow
 - How does collinearity affect the t-statistic?: since the t-statistic is calculated by dividing $\hat{\beta}_j$ by $\text{SE}({\hat{\beta}_j})$ so because the standard error increases the resulting t-statistic is reduced; therefore we may fail to reject the null hypothesis
-- What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient
+- What is the Power of a hypothesis test? the probability of correctly detecting a non-zero coefficient; reduced due to collinearity
+- Variance Inflation Factor (VIF): Ratio of variance of $\hat{\beta}_j$ when fitting the full model divided by the variance of $\hat{\beta}_j$ if fit on its own
+- Key values for VIF: 
+  1. If VIF = 1 then there is no collinearity
+  2. If VIF > 5 and especially 10 it means collinearity
+- What is the VIF (formula): $VIF(\hat{\beta}_j)=\frac{1}{1-R_{X_j|X\_j}^2}$ where $R_{X_j|X\_j}^2$ is $R^2$ from a regression of $X_j$ onto all of the other predictors
 - 
+K-Nearest Neighbor Regression (formula): 
+$$
+\hat{f}(x_0)=\frac{1}{K}\sum_{x_0 \in \mathcal{N}_0}y_i
+$$
+where given $K$ and prediction point $x_0$ the $K$ training observations that are closest to $x_0$ are in $\mathcal{N}_0$ then the estimate $f(x_0)$ uses the average of all training responses in $\mathcal{N}_0$
+- How do we choose $K$ in K-Nearest Neighbor Regression?: suffers from variance bias tradeoff; 
+  - small $k$ is most flexible has low bias and high variance
+  - large $k$ has a smoother fit and high bias and low variance
+- Curse of dimensionality: as the number of dimensions increase finding the $K$ nearest neighbors is difficult as they span many dimensions and therefore are spread appart
