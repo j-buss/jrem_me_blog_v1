@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Introduction and Linear Algebra Review
 author: Jeremy Buss
 date: '2022-01-01'
 slug: []
@@ -25,6 +25,20 @@ katex: yes
 - With these row and column conventions the entire matrix $\mathbf{X}$ can be written as:
   - Using Column Vectors: $\mathbf{X}=\begin{pmatrix} \mathbf{x}_1 & \mathbf{x}_2 & \dots & \mathbf{x}_p  \end{pmatrix}$
   - Using Row Vectors: $\mathbf{X} = \begin{pmatrix} x^{\intercal}_{1}\\x^{\intercal}_{2}\\\vdots\\x^{\intercal}_{n} \end{pmatrix}$
+- order: refers to the number of rows and columns of a matrix
+- rank of matrix: the number of linearly independent rows/columns
+- column rank: the number of linearly independent columns
+- row rank: the number of linearly independent rows
+- Matrix $\mathbf{A}$ is full rank: if $\text{rank}(\mathbf{A})=min(n,p)$
+- full rank if $n<p$: implies full row rank $\text{rank}(\mathbf{A})=n$
+- full rank if $n>p$: implies full column rank $\text{rank}(\mathbf{A})=p$
+
 - $\intercal$: transpose of a matrix
 - $\mathbf{X}^{\intercal}=$ $\begin{pmatrix} x_{11}&x_{21}&\dots&x_{n1} \\x_{12}&x_{22}&\dots&x_{n2}\\\vdots&\vdots&\ddots&\vdots\\x_{1p}&x_{2p}&\dots&x_{np} \end{pmatrix}$
 - $x_i^{\intercal} = \begin{pmatrix} x_{i1}&x_{i2}&\dots&x_{ip} \end{pmatrix}$
+- $(\mathbf{A}^\intercal)^\intercal=\mathbf{A}$
+- $(\mathbf{A}+\mathbf{B})^\intercal=\mathbf{A}^\intercal+\mathbf{B}^\intercal$
+- $(b\mathbf{A})^\intercal=b\mathbf{A}^\intercal$ where $b$ is a scalar
+- $(\mathbf{A}\mathbf{B})^\intercal=\mathbf{B}^\intercal\mathbf{A}^\intercal$
+- $(\mathbf{A}^{-1})^\intercal=(\mathbf{A}^\intercal)^{-1}$
+- trace of a square matrix $\mathbf{A}$ is the sum of the diagonals or $\text{tr}(\mathbf{A})=\sum_{j=1}^p a_{jj}$

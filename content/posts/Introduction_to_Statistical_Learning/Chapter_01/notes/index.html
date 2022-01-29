@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Introduction and Linear Algebra Review
 author: Jeremy Buss
 date: '2022-01-01'
 slug: []
@@ -18,23 +18,36 @@ katex: yes
 <div id="notation-and-simple-matrix-algebra" class="section level2">
 <h2>Notation and Simple Matrix Algebra</h2>
 <ul>
-<li>n: number of observations</li>
-<li><span class="math inline">\(x_{ij}\)</span>: the <span class="math inline">\(j\)</span>-th variable of the <span class="math inline">\(i\)</span>th observation where <span class="math inline">\(i=1,2,\dots,n\)</span> and <span class="math inline">\(j=1,2,\dots,p\)</span></li>
-<li>p: number of variables</li>
-<li><span class="math inline">\(\mathbf{X}\)</span>: is a matrix of size <span class="math inline">\(n \times p\)</span> whose <span class="math inline">\((i,j)\)</span>th element is <span class="math inline">\(x_{ij}\)</span></li>
-<li><span class="math inline">\(\mathbf{X}=\)</span> <span class="math inline">\(\begin{pmatrix} x_{11}&amp;x_{12}&amp;\dots&amp;x_{1p} \\x_{21}&amp;x_{22}&amp;\dots&amp;x_{2p}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\x_{n1}&amp;x_{n2}&amp;\dots&amp;x_{np} \end{pmatrix}\)</span></li>
-<li>Row vector of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(x_i = \begin{pmatrix} x_{i1}\\x_{i2}\\\vdots\\x_{ip} \end{pmatrix}\)</span>;
+<li><p>n: number of observations</p></li>
+<li><p><span class="math inline">\(x_{ij}\)</span>: the <span class="math inline">\(j\)</span>-th variable of the <span class="math inline">\(i\)</span>th observation where <span class="math inline">\(i=1,2,\dots,n\)</span> and <span class="math inline">\(j=1,2,\dots,p\)</span></p></li>
+<li><p>p: number of variables</p></li>
+<li><p><span class="math inline">\(\mathbf{X}\)</span>: is a matrix of size <span class="math inline">\(n \times p\)</span> whose <span class="math inline">\((i,j)\)</span>th element is <span class="math inline">\(x_{ij}\)</span></p></li>
+<li><p><span class="math inline">\(\mathbf{X}=\)</span> <span class="math inline">\(\begin{pmatrix} x_{11}&amp;x_{12}&amp;\dots&amp;x_{1p} \\x_{21}&amp;x_{22}&amp;\dots&amp;x_{2p}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\x_{n1}&amp;x_{n2}&amp;\dots&amp;x_{np} \end{pmatrix}\)</span></p></li>
+<li><p>Row vector of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(x_i = \begin{pmatrix} x_{i1}\\x_{i2}\\\vdots\\x_{ip} \end{pmatrix}\)</span>;</p>
 <ul>
 <li>*Note: even though it is a <strong>row</strong> vector the default orientation is as a column</li>
 </ul></li>
-<li>Column vector of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(\mathbf{x}_j = \begin{pmatrix} x_{1j}\\x_{2j}\\\vdots\\x_{nj} \end{pmatrix}\)</span></li>
-<li>With these row and column conventions the entire matrix <span class="math inline">\(\mathbf{X}\)</span> can be written as:
+<li><p>Column vector of <span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(\mathbf{x}_j = \begin{pmatrix} x_{1j}\\x_{2j}\\\vdots\\x_{nj} \end{pmatrix}\)</span></p></li>
+<li><p>With these row and column conventions the entire matrix <span class="math inline">\(\mathbf{X}\)</span> can be written as:</p>
 <ul>
 <li>Using Column Vectors: <span class="math inline">\(\mathbf{X}=\begin{pmatrix} \mathbf{x}_1 &amp; \mathbf{x}_2 &amp; \dots &amp; \mathbf{x}_p \end{pmatrix}\)</span></li>
 <li>Using Row Vectors: <span class="math inline">\(\mathbf{X} = \begin{pmatrix} x^{\intercal}_{1}\\x^{\intercal}_{2}\\\vdots\\x^{\intercal}_{n} \end{pmatrix}\)</span></li>
 </ul></li>
-<li><span class="math inline">\(\intercal\)</span>: transpose of a matrix</li>
-<li><span class="math inline">\(\mathbf{X}^{\intercal}=\)</span> <span class="math inline">\(\begin{pmatrix} x_{11}&amp;x_{21}&amp;\dots&amp;x_{n1} \\x_{12}&amp;x_{22}&amp;\dots&amp;x_{n2}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\x_{1p}&amp;x_{2p}&amp;\dots&amp;x_{np} \end{pmatrix}\)</span></li>
-<li><span class="math inline">\(x_i^{\intercal} = \begin{pmatrix} x_{i1}&amp;x_{i2}&amp;\dots&amp;x_{ip} \end{pmatrix}\)</span></li>
+<li><p>order: refers to the number of rows and columns of a matrix</p></li>
+<li><p>rank of matrix: the number of linearly independent rows/columns</p></li>
+<li><p>column rank: the number of linearly independent columns</p></li>
+<li><p>row rank: the number of linearly independent rows</p></li>
+<li><p>Matrix <span class="math inline">\(\mathbf{A}\)</span> is full rank: if <span class="math inline">\(\text{rank}(\mathbf{A})=min(n,p)\)</span></p></li>
+<li><p>full rank if <span class="math inline">\(n&lt;p\)</span>: implies full row rank <span class="math inline">\(\text{rank}(\mathbf{A})=n\)</span></p></li>
+<li><p>full rank if <span class="math inline">\(n&gt;p\)</span>: implies full column rank <span class="math inline">\(\text{rank}(\mathbf{A})=p\)</span></p></li>
+<li><p><span class="math inline">\(\intercal\)</span>: transpose of a matrix</p></li>
+<li><p><span class="math inline">\(\mathbf{X}^{\intercal}=\)</span> <span class="math inline">\(\begin{pmatrix} x_{11}&amp;x_{21}&amp;\dots&amp;x_{n1} \\x_{12}&amp;x_{22}&amp;\dots&amp;x_{n2}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\x_{1p}&amp;x_{2p}&amp;\dots&amp;x_{np} \end{pmatrix}\)</span></p></li>
+<li><p><span class="math inline">\(x_i^{\intercal} = \begin{pmatrix} x_{i1}&amp;x_{i2}&amp;\dots&amp;x_{ip} \end{pmatrix}\)</span></p></li>
+<li><p><span class="math inline">\((\mathbf{A}^\intercal)^\intercal=\mathbf{A}\)</span></p></li>
+<li><p><span class="math inline">\((\mathbf{A}+\mathbf{B})^\intercal=\mathbf{A}^\intercal+\mathbf{B}^\intercal\)</span></p></li>
+<li><p><span class="math inline">\((b\mathbf{A})^\intercal=b\mathbf{A}^\intercal\)</span> where <span class="math inline">\(b\)</span> is a scalar</p></li>
+<li><p><span class="math inline">\((\mathbf{A}\mathbf{B})^\intercal=\mathbf{B}^\intercal\mathbf{A}^\intercal\)</span></p></li>
+<li><p><span class="math inline">\((\mathbf{A}^{-1})^\intercal=(\mathbf{A}^\intercal)^{-1}\)</span></p></li>
+<li><p>trace of a square matrix <span class="math inline">\(\mathbf{A}\)</span> is the sum of the diagonals or <span class="math inline">\(\text{tr}(\mathbf{A})=\sum_{j=1}^p a_{jj}\)</span></p></li>
 </ul>
 </div>
