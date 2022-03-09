@@ -108,7 +108,7 @@ a_{11}+b_{11}&amp;a_{12}+b_{12}\\\\a_{21}+b_{21}&amp;a_{22}+b_{22}
 <ul>
 <li><p>Matrix Addition shorthand:
 <span class="math display">\[
-C = A + B
+\mathbf{C} = \mathbf{A} + \mathbf{B}
 \Leftrightarrow
 c_{ij} = a_{ij} + b_{ij}
 \]</span></p></li>
@@ -126,7 +126,7 @@ a_{11}-b_{11}&amp;a_{12}-b_{12}\\\\a_{21}-b_{21}&amp;a_{22}-b_{22}
 \]</span></p></li>
 <li><p>Matrix subtraction shorthand:
 <span class="math display">\[
-C = A - B
+\mathbf{C} = \mathbf{A} - \mathbf{B}
 \Leftrightarrow
 c_{ij} = a_{ij} - b_{ij}
 \]</span></p></li>
@@ -146,14 +146,98 @@ c_{ij} = a_{ij} - b_{ij}
 \]</span></p></li>
 <li><p>span: is the linear combination of some set of vectors. for example the span of <span class="math inline">\(\hat{i}\)</span> and <span class="math inline">\(\hat{j}\)</span> is the two dimensional plane; <span class="math inline">\(a\hat{i}+b\hat{j}\)</span> where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are real numbers; i.e. what vectors can you make from a combination of these vectors?</p></li>
 <li><p>Linearly Dependent: vectors are linearly dependent if one of the vectors is a scalar multiple of the other or linear combination of the other vectors in the set</p></li>
-<li><p>the basis of a vector space is a set of linearly independent vectors that span the full space</p></li>
-<li><p>Transformation matrix: A matrix which contains in columns where the basis vectors end at. For example if the normal matrix describing <span class="math inline">\(\hat{i}\)</span> and <span class="math inline">\(\hat{j}\)</span> is: <span class="math inline">\(\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}\)</span> then after a transformation by rotating by 90<span class="math inline">\(\deg\)</span> counterclockwise would be <span class="math inline">\(\begin{bmatrix}0&amp;-1\\1&amp;0\end{bmatrix}\)</span></p></li>
-<li><p>A transformation is linear if it satisfies two properties: Depicting the transformation as the function <span class="math inline">\(L\)</span></p>
+<li><p>basis: within a vector space it is a set of linearly independent vectors that span the full space</p></li>
+<li><p>Transformation matrix: A matrix which contains in columns where the basis vectors end at. For example if the normal matrix describing <span class="math inline">\(\hat{i}\)</span> and <span class="math inline">\(\hat{j}\)</span> is: <span class="math inline">\(\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}\)</span> then after a transformation by rotating by 90<span class="math inline">\(^\circ\)</span> counterclockwise would be <span class="math inline">\(\begin{bmatrix}0&amp;-1\\1&amp;0\end{bmatrix}\)</span></p></li>
+<li><p>Matrix-Vector multiplication:
+With matrix</p></li>
+</ul>
+<p><span class="math display">\[
+\mathbf{A}=
+\begin{bmatrix}
+a_{11}&amp;\dots&amp;a_{1n}\\
+\vdots&amp;\ddots&amp;\vdots\\
+a_{m1}&amp;\dots&amp;a_{mn}\\
+\end{bmatrix}_{m \times n}
+\]</span>
+and matrix</p>
+<p><span class="math display">\[
+\mathbf{B}=
+\begin{bmatrix}
+b_{11}&amp;\dots&amp;b_{1p}\\
+\vdots&amp;\ddots&amp;\vdots\\
+b_{n1}&amp;\dots&amp;b_{np}\\
+\end{bmatrix}_{n \times p}
+\]</span></p>
+<p>becomes:</p>
+$$
+<span class="math display">\[\begin{split}
+
+\mathbf{AB}&amp;=
+\begin{bmatrix}
+a_{11}&amp;\dots&amp;a_{1n}\\
+\vdots&amp;\ddots&amp;\vdots\\
+a_{m1}&amp;\dots&amp;a_{mn}\\
+\end{bmatrix}
+\begin{bmatrix}
+b_{11}&amp;\dots&amp;b_{1p}\\
+\vdots&amp;\ddots&amp;\vdots\\
+b_{n1}&amp;\dots&amp;b_{np}\\
+\end{bmatrix}\\
+&amp;=
+\begin{bmatrix}
+\sum_{j=1}^na_{1j}b_{j1}&amp;\sum_{j=1}^na_{1j}b_{j2}&amp;\dots&amp;\sum_{j=1}^na_{1j}b_{jp}\\
+\sum_{j=1}^na_{2j}b_{j1}&amp;\sum_{j=1}^na_{2j}b_{j2}&amp;\dots&amp;\sum_{j=1}^na_{2j}b_{jp}\\
+\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+\sum_{j=1}^na_{mj}b_{j1}&amp;\sum_{j=1}^na_{mj}b_{j2}&amp;\dots&amp;\sum_{j=1}^na_{mj}b_{jp}\\
+\\
+\end{bmatrix}_{m \times p}
+\end{split}\]</span>
+<p>$$</p>
+<ul>
+<li>Matrix Matrix Mutiplication:
+With matrix</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{A}=
+\begin{bmatrix}
+a_{11}&amp;\dots&amp;a_{1p}\\
+\vdots&amp;\ddots&amp;\vdots\\
+a_{n1}&amp;\dots&amp;a_{np}\\
+\end{bmatrix}_{n \times p}
+\]</span>
+and vector</p>
+<p><span class="math display">\[ \mathbf{x} = 
+\begin{bmatrix}
+x_1\\\vdots\\x_p
+\end{bmatrix}_{p \times 1}
+\]</span>
+becomes:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{Ax}&amp;=
+\begin{bmatrix}
+a_{11}&amp;\dots&amp;a_{1p}\\
+\vdots&amp;\ddots&amp;\vdots\\
+a_{n1}&amp;\dots&amp;a_{np}\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\\vdots\\x_p
+\end{bmatrix}\\
+&amp;=
+\begin{bmatrix}
+\sum_{j=1}^pa_{1j}x_j\\
+\vdots\\
+\sum_{j=1}^pa_{nj}x_j\\
+\end{bmatrix}_{n \times 1}
+\end{split}
+\]</span></p>
+<ul>
+<li>A transformation is linear if it satisfies two properties: Depicting the transformation as the function <span class="math inline">\(L\)</span>
 <ol style="list-style-type: decimal">
 <li>Additivity: <span class="math inline">\(L(\mathbf{a}+\mathbf{b})=L(\mathbf{a})+L(\mathbf{b})\)</span></li>
 <li>Scaling <span class="math inline">\(bL(\mathbf{v})=L(b\mathbf{v})\)</span></li>
 </ol></li>
-<li><p>How to find a transformed vector?: Simply multiply the vector by the change in basis matrix</p></li>
+<li>How to find a transformed vector?: Simply multiply the vector by the change in basis matrix</li>
 </ul>
 <p><span class="math display">\[
 \begin{bmatrix}
@@ -171,9 +255,11 @@ b\\d
 =\begin{bmatrix}
 ax+by\\cx+dy
 \end{bmatrix}
-\]</span>
-- What is the “intuition” behind multiplying a matrix and a vector? A matrix represents a specific linear transformation and muliplying a vector by that matrix is finding the resultant vector transformation
-- What is the “intuition” behind multiplying two matrices? The composition of two transformations; for example a shear and a rotation: (applied right to left as in function notation <span class="math inline">\(f(g(x))\)</span>)
+\]</span></p>
+<ul>
+<li>What is the “intuition” behind multiplying a matrix and a vector? A matrix represents a specific linear transformation and muliplying a vector by that matrix is finding the resultant vector transformation</li>
+<li></li>
+<li>What is the “intuition” behind multiplying two matrices? The composition of two transformations; for example a shear and a rotation: (applied right to left as in function notation <span class="math inline">\(f(g(x))\)</span>)
 <span class="math display">\[
 \begin{bmatrix}
 1&amp;1\\0&amp;1
@@ -185,20 +271,21 @@ ax+by\\cx+dy
 \begin{bmatrix}
 1&amp;-1\\1&amp;0
 \end{bmatrix}
-\]</span>
-- Multiplication:
-- What is the intuition behind a determinant? The change in area after the transformation by a matrix; note the special case if the determinant is zero, the area changed to 0 (e.g. 2D squished to a line); if the determinant is negative then the orientation of space has been “flipped” (and <span class="math inline">\(\hat{j}\)</span> would be to the “right” of <span class="math inline">\(\hat{i}\)</span> or in 3D from right hand to left hand rule)
-- How can we summarize a set of linear equations?
+\]</span></li>
+<li>Multiplication:</li>
+<li>What is the intuition behind a determinant? The change in area after the transformation by a matrix; note the special case if the determinant is zero, the area changed to 0 (e.g. 2D squished to a line); if the determinant is negative then the orientation of space has been “flipped” (and <span class="math inline">\(\hat{j}\)</span> would be to the “right” of <span class="math inline">\(\hat{i}\)</span> or in 3D from right hand to left hand rule)</li>
+<li>How can we summarize a set of linear equations?
 <span class="math display">\[
 \begin{split}
 \mathbf{A} \mathbf{x} = \mathbf{v}\\
 \mathbf{A} ^{\intercal}\mathbf{A} \mathbf{x} = \mathbf{A} ^{\intercal}\mathbf{v}\\
 \mathbf{x} = \mathbf{A} ^{\intercal}\mathbf{v}
 \end{split}
-\]</span>
-- Dot product geometric interpretation: one of the vectors can be seen as the transformation matrix for <span class="math inline">\(\hat{i}\)</span> and <span class="math inline">\(\hat{j}\)</span> from many dimensions to 1. Therefore the operation is matrix / vector multiplication (where the first matrix is actually the first vector “tipped” on it’s side)
+\]</span></li>
+<li>Dot product geometric interpretation: one of the vectors can be seen as the transformation matrix for <span class="math inline">\(\hat{i}\)</span> and <span class="math inline">\(\hat{j}\)</span> from many dimensions to 1. Therefore the operation is matrix / vector multiplication (where the first matrix is actually the first vector “tipped” on it’s side)
 #### Dot Product:
-a multiplication step that results in a scalar; calculated 2 ways</p>
+a multiplication step that results in a scalar; calculated 2 ways</li>
+</ul>
 <div id="a.-each-member-of-a-vector-is-multipled-by-the-corresponding-member-of-the-other-vector" class="section level5">
 <h5>A. each member of a vector is multipled by the corresponding member of the other vector;</h5>
 <p><span class="math display">\[

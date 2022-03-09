@@ -102,7 +102,7 @@ $$
 
 - Matrix Addition shorthand:
 $$
-C = A + B
+\mathbf{C} = \mathbf{A} + \mathbf{B}
 \Leftrightarrow
 c_{ij} = a_{ij} + b_{ij}
 $$ 
@@ -122,7 +122,7 @@ $$
 
 - Matrix subtraction shorthand:
 $$
-C = A - B
+\mathbf{C} = \mathbf{A} - \mathbf{B}
 \Leftrightarrow
 c_{ij} = a_{ij} - b_{ij}
 $$ 
@@ -142,8 +142,98 @@ $$
 $$
 - span: is the linear combination of some set of vectors. for example the span of $\hat{i}$ and $\hat{j}$ is the two dimensional plane; $a\hat{i}+b\hat{j}$ where $a$ and $b$ are real numbers; i.e. what vectors can you make from a combination of these vectors?
 - Linearly Dependent: vectors are linearly dependent if one of the vectors is a scalar multiple of the other or linear combination of the other vectors in the set
-- the basis of a vector space is a set of linearly independent vectors that span the full space
-- Transformation matrix: A matrix which contains in columns where the basis vectors end at. For example if the normal matrix describing $\hat{i}$ and $\hat{j}$ is: $\begin{bmatrix}1&0\\0&1\end{bmatrix}$ then after a transformation by rotating by 90$\deg$ counterclockwise would be $\begin{bmatrix}0&-1\\1&0\end{bmatrix}$
+- basis: within a vector space it is a set of linearly independent vectors that span the full space
+- Transformation matrix: A matrix which contains in columns where the basis vectors end at. For example if the normal matrix describing $\hat{i}$ and $\hat{j}$ is: $\begin{bmatrix}1&0\\0&1\end{bmatrix}$ then after a transformation by rotating by 90$^\circ$ counterclockwise would be $\begin{bmatrix}0&-1\\1&0\end{bmatrix}$
+
+- Matrix-Vector multiplication:
+With matrix
+
+$$
+\mathbf{A}=
+\begin{bmatrix}
+a_{11}&\dots&a_{1n}\\
+\vdots&\ddots&\vdots\\
+a_{m1}&\dots&a_{mn}\\
+\end{bmatrix}_{m \times n}
+$$
+and matrix  
+
+$$
+\mathbf{B}=
+\begin{bmatrix}
+b_{11}&\dots&b_{1p}\\
+\vdots&\ddots&\vdots\\
+b_{n1}&\dots&b_{np}\\
+\end{bmatrix}_{n \times p}
+$$
+
+becomes: 
+
+$$
+\begin{split}
+
+\mathbf{AB}&=
+\begin{bmatrix}
+a_{11}&\dots&a_{1n}\\
+\vdots&\ddots&\vdots\\
+a_{m1}&\dots&a_{mn}\\
+\end{bmatrix}
+\begin{bmatrix}
+b_{11}&\dots&b_{1p}\\
+\vdots&\ddots&\vdots\\
+b_{n1}&\dots&b_{np}\\
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\sum_{j=1}^na_{1j}b_{j1}&\sum_{j=1}^na_{1j}b_{j2}&\dots&\sum_{j=1}^na_{1j}b_{jp}\\
+\sum_{j=1}^na_{2j}b_{j1}&\sum_{j=1}^na_{2j}b_{j2}&\dots&\sum_{j=1}^na_{2j}b_{jp}\\
+\vdots&\vdots&\ddots&\vdots\\
+\sum_{j=1}^na_{mj}b_{j1}&\sum_{j=1}^na_{mj}b_{j2}&\dots&\sum_{j=1}^na_{mj}b_{jp}\\
+\\
+\end{bmatrix}_{m \times p}
+\end{split}
+$$
+
+- Matrix Matrix Multiplication:
+With matrix
+
+$$
+\mathbf{A}=
+\begin{bmatrix}
+a_{11}&\dots&a_{1p}\\
+\vdots&\ddots&\vdots\\
+a_{n1}&\dots&a_{np}\\
+\end{bmatrix}_{n \times p}
+$$
+and vector 
+
+$$ \mathbf{x} = 
+\begin{bmatrix}
+x_1\\\vdots\\x_p
+\end{bmatrix}_{p \times 1}
+$$
+becomes: 
+
+$$
+\begin{split}
+\mathbf{Ax}&=
+\begin{bmatrix}
+a_{11}&\dots&a_{1p}\\
+\vdots&\ddots&\vdots\\
+a_{n1}&\dots&a_{np}\\
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\\vdots\\x_p
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\sum_{j=1}^pa_{1j}x_j\\
+\vdots\\
+\sum_{j=1}^pa_{nj}x_j\\
+\end{bmatrix}_{n \times 1}
+\end{split}
+$$
+
 - A transformation is linear if it satisfies two properties: Depicting the transformation as the function $L$
   1. Additivity: $L(\mathbf{a}+\mathbf{b})=L(\mathbf{a})+L(\mathbf{b})$
   2. Scaling $bL(\mathbf{v})=L(b\mathbf{v})$
@@ -166,7 +256,9 @@ b\\d
 ax+by\\cx+dy
 \end{bmatrix}
 $$
+
 - What is the "intuition" behind multiplying a matrix and a vector? A matrix represents a specific linear transformation and muliplying a vector by that matrix is finding the resultant vector transformation
+- 
 - What is the "intuition" behind multiplying two matrices? The composition of two transformations; for example a shear and a rotation: (applied right to left as in function notation $f(g(x))$)
 $$
 \begin{bmatrix}
@@ -180,9 +272,8 @@ $$
 1&-1\\1&0
 \end{bmatrix}
 $$
-- Multiplication: 
 - What is the intuition behind a determinant? The change in area after the transformation by a matrix; note the special case if the determinant is zero, the area changed to 0 (e.g. 2D squished to a line); if the determinant is negative then the orientation of space has been "flipped" (and $\hat{j}$ would be to the "right" of $\hat{i}$ or in 3D from right hand to left hand rule)
-- How can we summarize a set of linear equations? 
+- How can we summarize the framework for solving a set of linear equations? 
 $$
 \begin{split}
 \mathbf{A} \mathbf{x} = \mathbf{v}\\
