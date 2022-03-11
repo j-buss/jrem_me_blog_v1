@@ -1,0 +1,136 @@
+---
+title: Chapter 2 - Solving Linear Equations
+author: Jeremy Buss
+date: '2022-03-11'
+slug: []
+categories: 
+  - Linear Algebra
+  - Introduction to Linear Algebra - Gilbert Strang
+draft: yes
+katex: yes
+---
+
+The following are my personal notes from taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm)
+
+## 2.1 Vectors and Linear Equations
+
+- 2-D System of equations in row form: results in lines on a graph meeting at a point
+- 2-D System of equations in column form: each column is a vector with tail at origin, arrow point at coordinates and combination of column vectors on left equals column vector of right
+- $A\mathbf{x}$ as a combination of column vectors: $A\mathbf{x} = x_1 (\mathbf{column 1}) + x_2 (\mathbf{column 2}) +x_3 (\mathbf{column 3})$
+- $A\mathbf{x}$ from dot product:
+$$
+A\mathbf{x} = 
+\begin{bmatrix}
+(\mathbf{row 1}) \cdot \mathbf{x} \\
+\begin{bmatrix}
+-1 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\\
+\begin{bmatrix}
+0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\end{bmatrix}
+$$
+
+## 1.2 Lengths and Dot Products
+
+- Dot Product: a multiplication step that results in a scalar; each member of a vector is multipled by the corresponding member of the other vector
+- Dot Product (formula):
+$$
+\mathbf{u}\cdot\mathbf{v}= 
+\begin{bmatrix}
+u_{1}\\\\u_{2}\\\\u_{3}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+v_{1}\\\\v_{2}\\\\v_{3}
+\end{bmatrix}
+=
+u_{1} \cdot v_{1} + u_{2} \cdot v_{2} + u_{3} \cdot v_{3}
+$$
+- Vector Length: the square root of the vector dotted with itself
+- Vector Length (formula): 
+
+$$
+\Vert \mathbf{u} \Vert = \sqrt{\mathbf{u} \cdot \mathbf{u}}  = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
+$$
+
+- Unit Vector: A vector whose length equals one
+- Unit Vector (formula): $\mathbf{u} = \frac{\mathbf{v}}{\Vert \mathbf{v} \Vert}$
+- Cosine Formula: If $\mathbf{u}$ and $\mathbf{v}$ are non-zero vectors then $\frac{\mathbf{v} \cdot \mathbf{w}}{\Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert} = \cos {\theta}$
+- Schwartz Inequality: $\vert \mathbf{v} \cdot \mathbf{w} \vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert$
+- Triangle Inequality: $\Vert \mathbf{v} + \mathbf{w} \Vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert$
+
+## 1.3 Matrices
+
+- Matrix multiplied by vector as "combination of columns"
+$$
+Ax = 
+\begin{bmatrix}
+1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix}
+$$
+Think of $\mathbf{x}$ as "tipped" to the left, with each one of the elements of $\mathbf{x}$ multiplying one of the columns of $A$
+
+$$
+\begin{align*}
+Ax &= 
+\begin{bmatrix}
+1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+&=
+x_1
+\begin{bmatrix}
+1 \\ -1 \\ 0 
+\end{bmatrix}
++ x_2
+\begin{bmatrix}
+0 \\ 1 \\ -1
+\end{bmatrix}
++ x_3
+\begin{bmatrix}
+0 \\ 0 \\ 1
+\end{bmatrix} \\
+&= 
+\begin{bmatrix}
+x_1 \\ x_2 - x_1 \\ x_3
+\end{bmatrix}
+\end{align*}
+$$
+- Matrix multiplied by vector as "rows at a time" or "dot product"
+$$
+\begin{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\\
+\begin{bmatrix}
+-1 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\\
+\begin{bmatrix}
+0 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\end{bmatrix}
+$$

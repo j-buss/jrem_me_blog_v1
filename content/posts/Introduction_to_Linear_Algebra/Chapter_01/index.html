@@ -1,0 +1,158 @@
+---
+title: Chapter 1 - Introduction to Vectors
+author: Jeremy Buss
+date: '2022-03-09'
+slug: []
+categories: 
+  - Linear Algebra
+  - Introduction to Linear Algebra - Gilbert Strang
+draft: yes
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The following are my personal notes from taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm">Introduction to Linear Algebra - MIT OCW 18.06</a></p>
+<div id="vectors-and-linear-combinations" class="section level2">
+<h2>1.1 Vectors and Linear Combinations</h2>
+<ul>
+<li>Linear combination: use any combination of 2 operations: vector addition and scalar multiplication to create a new vector</li>
+<li>Linear combination (formula):
+<span class="math display">\[
+c\mathbf{v} + d\mathbf{w} = c \begin{bmatrix} 1 \\ 1  \end{bmatrix} + d \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} c + 2d \\ c + 3d \end{bmatrix}
+\]</span></li>
+<li>For a given vector <span class="math inline">\(\mathbf{v}\)</span>, where <span class="math inline">\(c\)</span> is any real number, then all the vectors <span class="math inline">\(c\mathbf{v}\)</span> lie on a line</li>
+<li>Vector Addition: each value is added to the corresponding value on the other vector; all the vectors must be the same size</li>
+</ul>
+<p><span class="math display">\[
+\overrightarrow{u}+\overrightarrow{v}= 
+\begin{bmatrix}
+u_{1}\\\\u_{2}\\\\u_{3}
+\end{bmatrix}
++
+\begin{bmatrix}
+v_{1}\\\\v_{2}\\\\v_{3}
+\end{bmatrix}
+=
+\begin{bmatrix}
+u_{1}+v_{1}\\\\u_{2}+v_{2}\\\\u_{3}+v_{3}
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li>Scalar Multiplications:
+multiply each item in the vector by the scalar</li>
+</ul>
+<p><span class="math display">\[
+\alpha \cdot \overrightarrow{u}= 
+\begin{bmatrix}
+\alpha \cdot u_{1}\\\\ \alpha \cdot u_{2}\\\\ \alpha \cdot u_{3}
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li>Representing a vector in a plane: tail on origin <span class="math inline">\((\mathbf{0,0,0})\)</span> and each of the vector components is the coordinates of the arrow generally mapping to <span class="math inline">\(\begin{bmatrix} x \\ y \\ z \\ \end{bmatrix}\)</span></li>
+<li>In 3-dimensions, <span class="math inline">\(\forall c \in R\)</span>, <span class="math inline">\(c\mathbf{u}\)</span> fills a line through the origin <span class="math inline">\((\mathbf{0,0,0})\)</span></li>
+<li>In 3-dimensions, <span class="math inline">\(\forall c,d \in R\)</span>, <span class="math inline">\(c\mathbf{u} + d\mathbf{v}\)</span> fills a plane through the origin <span class="math inline">\((\mathbf{0,0,0})\)</span></li>
+<li>In 3-dimensions, <span class="math inline">\(\forall c,d,e \in R\)</span>, <span class="math inline">\(c\mathbf{u} + d\mathbf{v} + e\mathbf{w}\)</span> fills the entire 3-D space</li>
+</ul>
+</div>
+<div id="lengths-and-dot-products" class="section level2">
+<h2>1.2 Lengths and Dot Products</h2>
+<ul>
+<li>Dot Product: a multiplication step that results in a scalar; each member of a vector is multipled by the corresponding member of the other vector</li>
+<li>Dot Product (formula):
+<span class="math display">\[
+\mathbf{u}\cdot\mathbf{v}= 
+\begin{bmatrix}
+u_{1}\\\\u_{2}\\\\u_{3}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+v_{1}\\\\v_{2}\\\\v_{3}
+\end{bmatrix}
+=
+u_{1} \cdot v_{1} + u_{2} \cdot v_{2} + u_{3} \cdot v_{3}
+\]</span></li>
+<li>Vector Length: the square root of the vector dotted with itself</li>
+<li>Vector Length (formula):</li>
+</ul>
+<p><span class="math display">\[
+\Vert \mathbf{u} \Vert = \sqrt{\mathbf{u} \cdot \mathbf{u}}  = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
+\]</span></p>
+<ul>
+<li>Unit Vector: A vector whose length equals one</li>
+<li>Unit Vector (formula): <span class="math inline">\(\mathbf{u} = \frac{\mathbf{v}}{\Vert \mathbf{v} \Vert}\)</span></li>
+<li>Cosine Formula: If <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are non-zero vectors then <span class="math inline">\(\frac{\mathbf{v} \cdot \mathbf{w}}{\Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert} = \cos {\theta}\)</span></li>
+<li>Schwartz Inequality: <span class="math inline">\(\vert \mathbf{v} \cdot \mathbf{w} \vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert\)</span></li>
+<li>Triangle Inequality: <span class="math inline">\(\Vert \mathbf{v} + \mathbf{w} \Vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert\)</span></li>
+</ul>
+</div>
+<div id="matrices" class="section level2">
+<h2>1.3 Matrices</h2>
+<ul>
+<li>Matrix multiplied by vector as “combination of columns”
+<span class="math display">\[
+Ax = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \\ -1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix}
+\]</span>
+Think of <span class="math inline">\(\mathbf{x}\)</span> as “tipped” to the left, with each one of the elements of <span class="math inline">\(\mathbf{x}\)</span> multiplying one of the columns of <span class="math inline">\(A\)</span></li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+Ax &amp;= 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \\ -1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+&amp;=
+x_1
+\begin{bmatrix}
+1 \\ -1 \\ 0 
+\end{bmatrix}
++ x_2
+\begin{bmatrix}
+0 \\ 1 \\ -1
+\end{bmatrix}
++ x_3
+\begin{bmatrix}
+0 \\ 0 \\ 1
+\end{bmatrix} \\
+&amp;= 
+\begin{bmatrix}
+x_1 \\ x_2 - x_1 \\ x_3
+\end{bmatrix}
+\end{align*}
+\]</span>
+- Matrix multiplied by vector as “rows at a time” or “dot product”
+<span class="math display">\[
+\begin{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\\
+\begin{bmatrix}
+-1 &amp; 1 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\\
+\begin{bmatrix}
+0 &amp; -1 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix} \\
+\end{bmatrix}
+\]</span></p>
+</div>
