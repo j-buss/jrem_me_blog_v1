@@ -14,131 +14,248 @@ katex: yes
 
 
 <p>The following are my personal notes from taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm">Introduction to Linear Algebra - MIT OCW 18.06</a></p>
+<div id="matrix-laws" class="section level2">
+<h2>Matrix Laws:</h2>
+<div id="multiplication" class="section level3">
+<h3>Multiplication:</h3>
+<ul>
+<li>Dimensions of Matrix Multiplication:
+<ul>
+<li>1st matrix must have same number of rows as columns in 2nd matrix</li>
+<li>Example:
+<ul>
+<li><span class="math inline">\(A\)</span> has dimensions <span class="math inline">\((m \times n)\)</span></li>
+<li><span class="math inline">\(B\)</span> has dimensions <span class="math inline">\((n \times p)\)</span></li>
+<li>Results in matrix <span class="math inline">\(AB\)</span> with dimensions <span class="math inline">\((m \times p)\)</span></li>
+</ul></li>
+</ul></li>
+<li>Associative: <span class="math inline">\(A(BC) = (AB)C\)</span></li>
+<li>Commutative: <span class="math inline">\(AB \ne BA\)</span></li>
+<li>Distributive from the left: <span class="math inline">\(A(B + C) = AB + AC\)</span></li>
+<li>Distributive from the right: <span class="math inline">\((A + B)C = AC + BC\)</span></li>
+<li>If <span class="math inline">\(A\)</span> is square, then <span class="math inline">\(A^p = AAA \dots A\)</span> (<span class="math inline">\(p\)</span> factors)</li>
+<li><span class="math inline">\((A^p)(A^q)=A^{p+q}\)</span></li>
+<li><span class="math inline">\((A^p)^q = A^{pq}\)</span></li>
+</ul>
+</div>
+<div id="addition" class="section level3">
+<h3>Addition:</h3>
+<ul>
+<li>Dimensions of Matrix Addition:
+<ul>
+<li>Matrices must have the same dimensions</li>
+<li>Example:
+<ul>
+<li><span class="math inline">\(A\)</span> has dimensions <span class="math inline">\((m \times n)\)</span></li>
+<li><span class="math inline">\(B\)</span> has dimensions <span class="math inline">\((m \times n)\)</span></li>
+<li>Results in matrix <span class="math inline">\(A + B\)</span> with dimensions <span class="math inline">\((m \times n)\)</span></li>
+</ul></li>
+</ul></li>
+<li>Associative: <span class="math inline">\(A + (B + C) = (A + B) + C\)</span></li>
+<li>Commutative: <span class="math inline">\(A + B = B + A\)</span></li>
+<li>Distributive: <span class="math inline">\(c(A + B) = cA + cB\)</span></li>
+</ul>
+</div>
+</div>
 <div id="vectors-and-linear-equations" class="section level2">
 <h2>2.1 Vectors and Linear Equations</h2>
 <ul>
 <li>2-D System of equations in row form: results in lines on a graph meeting at a point</li>
 <li>2-D System of equations in column form: each column is a vector with tail at origin, arrow point at coordinates and combination of column vectors on left equals column vector of right</li>
 <li><span class="math inline">\(A\mathbf{x}\)</span> as a combination of column vectors: <span class="math inline">\(A\mathbf{x} = x_1 (\mathbf{column 1}) + x_2 (\mathbf{column 2}) +x_3 (\mathbf{column 3})\)</span></li>
-<li><span class="math inline">\(A\mathbf{x}\)</span> from dot product:
-<span class="math display">\[
+<li><span class="math inline">\(A\mathbf{x}\)</span> from dot product:</li>
+</ul>
+<p><span class="math display">\[
 A\mathbf{x} = 
 \begin{bmatrix}
 (\mathbf{row 1}) \cdot \mathbf{x} \\
-\begin{bmatrix}
--1 &amp; 1 &amp; 0
+(\mathbf{row 2}) \cdot \mathbf{x} \\
+(\mathbf{row 3}) \cdot \mathbf{x} \\
 \end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
-\begin{bmatrix}
-0 &amp; -1 &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\end{bmatrix}
-\]</span></li>
-</ul>
-</div>
-<div id="lengths-and-dot-products" class="section level2">
-<h2>1.2 Lengths and Dot Products</h2>
-<ul>
-<li>Dot Product: a multiplication step that results in a scalar; each member of a vector is multipled by the corresponding member of the other vector</li>
-<li>Dot Product (formula):
-<span class="math display">\[
-\mathbf{u}\cdot\mathbf{v}= 
-\begin{bmatrix}
-u_{1}\\\\u_{2}\\\\u_{3}
-\end{bmatrix}
-\cdot
-\begin{bmatrix}
-v_{1}\\\\v_{2}\\\\v_{3}
-\end{bmatrix}
-=
-u_{1} \cdot v_{1} + u_{2} \cdot v_{2} + u_{3} \cdot v_{3}
-\]</span></li>
-<li>Vector Length: the square root of the vector dotted with itself</li>
-<li>Vector Length (formula):</li>
-</ul>
-<p><span class="math display">\[
-\Vert \mathbf{u} \Vert = \sqrt{\mathbf{u} \cdot \mathbf{u}}  = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
 \]</span></p>
 <ul>
-<li>Unit Vector: A vector whose length equals one</li>
-<li>Unit Vector (formula): <span class="math inline">\(\mathbf{u} = \frac{\mathbf{v}}{\Vert \mathbf{v} \Vert}\)</span></li>
-<li>Cosine Formula: If <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are non-zero vectors then <span class="math inline">\(\frac{\mathbf{v} \cdot \mathbf{w}}{\Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert} = \cos {\theta}\)</span></li>
-<li>Schwartz Inequality: <span class="math inline">\(\vert \mathbf{v} \cdot \mathbf{w} \vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert\)</span></li>
-<li>Triangle Inequality: <span class="math inline">\(\Vert \mathbf{v} + \mathbf{w} \Vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert\)</span></li>
+<li><p>Row Exchange for 2x2 matrix:
+<span class="math inline">\(\begin{bmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{bmatrix}\)</span></p></li>
+<li><p>Rotate 90<span class="math inline">\(\degree\)</span> 2x2 matrix:
+<span class="math inline">\(\begin{bmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{bmatrix}\)</span></p></li>
+<li><p>Rotate 180<span class="math inline">\(\degree\)</span> 2x2 matrix:
+<span class="math inline">\(\begin{bmatrix} -1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span></p></li>
 </ul>
 </div>
-<div id="matrices" class="section level2">
-<h2>1.3 Matrices</h2>
+<div id="the-idea-of-elimination" class="section level2">
+<h2>2.2 The Idea of Elimination</h2>
 <ul>
-<li>Matrix multiplied by vector as “combination of columns”
-<span class="math display">\[
-Ax = 
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 \\ -1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix}
-\]</span>
-Think of <span class="math inline">\(\mathbf{x}\)</span> as “tipped” to the left, with each one of the elements of <span class="math inline">\(\mathbf{x}\)</span> multiplying one of the columns of <span class="math inline">\(A\)</span></li>
+<li>Pivot: First nonzero in the row that does the elimination</li>
+<li>Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by pivot</li>
+<li>Multiplier (formula):<span class="math inline">\(l_{21} = \frac{A_{21}}{A_{11}}\)</span></li>
+<li>Thru elimination <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> becomes <span class="math inline">\(U\mathbf{x} = \mathbf{c}\)</span></li>
 </ul>
-<p><span class="math display">\[
+</div>
+<div id="elimination-using-matrices" class="section level2">
+<h2>2.3 Elimination Using Matrices</h2>
+<ul>
+<li>Permutation Matrix: Identity Matrix with some rows exchanged</li>
+<li>Augmented Matrix: Coefficient Matrix <span class="math inline">\(A\)</span> with solution <span class="math inline">\(\mathbf{b}\)</span> “tacked” on <span class="math inline">\(\begin{bmatrix} A &amp; \mathbf{b}\end{bmatrix}\)</span></li>
+<li>Elimination with matrices example. For system:
+<span class="math display">\[
 \begin{align*}
-Ax &amp;= 
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 \\ -1 &amp; 1 &amp; 0 \\ 0 &amp; -1 &amp; 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-&amp;=
-x_1
-\begin{bmatrix}
-1 \\ -1 \\ 0 
-\end{bmatrix}
-+ x_2
-\begin{bmatrix}
-0 \\ 1 \\ -1
-\end{bmatrix}
-+ x_3
-\begin{bmatrix}
-0 \\ 0 \\ 1
-\end{bmatrix} \\
-&amp;= 
-\begin{bmatrix}
-x_1 \\ x_2 - x_1 \\ x_3
-\end{bmatrix}
+x-2y&amp;=1\\
+3x+2y &amp;= 11
 \end{align*}
 \]</span>
-- Matrix multiplied by vector as “rows at a time” or “dot product”
+Multiply augmented matrix <span class="math inline">\(E_{21} [ A \ b]\)</span>
 <span class="math display">\[
 \begin{bmatrix}
-\begin{bmatrix}
-1 &amp; 0 &amp; 0
+1 &amp; 0 \\
+-3 &amp; 1
 \end{bmatrix}
 \begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
+1 &amp; -2 &amp; 1 \\
+-3 &amp; 1 &amp; 11
+\end{bmatrix} 
+\Rightarrow 
 \begin{bmatrix}
--1 &amp; 1 &amp; 0
+1 &amp; -2 &amp; 1 \\
+0 &amp; 8 &amp; 8
+\end{bmatrix}
+\]</span></li>
+</ul>
+</div>
+<div id="rules-for-matrix-operations" class="section level2">
+<h2>2.4 Rules for Matrix Operations</h2>
+<p>Matrix Multiplication can be done in 4 ways (description):</p>
+<ol style="list-style-type: decimal">
+<li>Inner Product: Element <span class="math inline">\(AB_{ij}\)</span> is result of row <span class="math inline">\(i\)</span> of <span class="math inline">\(A\)</span> and column <span class="math inline">\(j\)</span> of <span class="math inline">\(B\)</span>; “default” dot product method</li>
+<li>Combination of <span class="math inline">\(A\)</span>: Visualize columns of <span class="math inline">\(B\)</span> “falling” to the left into <span class="math inline">\(A\)</span> and each element multiplying a column of <span class="math inline">\(A\)</span> resulting in a column of <span class="math inline">\(AB\)</span></li>
+<li>Combination of <span class="math inline">\(B\)</span>: Visualize rows of <span class="math inline">\(A\)</span> “falling” into matrix <span class="math inline">\(B\)</span> resulting in a row of <span class="math inline">\(AB\)</span></li>
+<li>Outer Product: Multiply 1 column of <span class="math inline">\(A\)</span> with 1 row of <span class="math inline">\(B\)</span> resulting in a matrix to be added with <span class="math inline">\(n\)</span> others</li>
+</ol>
+<p>Matrix Multiplication can be done in 4 ways (formula):</p>
+<ol style="list-style-type: decimal">
+<li><p>Inner Product:
+<span class="math display">\[
+\begin{bmatrix}
+\ast \\
+a_{i1} &amp; a_{i2} &amp; \cdots &amp; a_{i5}\\
+\ast \\
+\ast
 \end{bmatrix}
 \begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
+\ast &amp; \ast &amp; b_{1j} &amp; \ast &amp; \ast &amp; \ast \\
+ &amp;  &amp; b_{2j} &amp; \\
+  &amp;  &amp; \vdots &amp; \\
+&amp;  &amp; b_{5j} &amp; 
+\end{bmatrix} 
+= 
 \begin{bmatrix}
-0 &amp; -1 &amp; 1
+ &amp;  &amp; \ast &amp; &amp; &amp;  \\
+\ast &amp; \ast &amp; (AB)_{ij} &amp; \ast &amp; \ast &amp; \ast  \\
+&amp;  &amp; \ast &amp; &amp; &amp;  \\
+&amp;  &amp; \ast &amp; &amp; &amp;  \\
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Combination of <span class="math inline">\(A\)</span>:
+<span class="math display">\[
+AB = A \begin{bmatrix} \mathbf{b}_1 \cdots \mathbf{b}_p \end{bmatrix} = \begin{bmatrix} A\mathbf{b}_1 \cdots A\mathbf{b}_p \end{bmatrix}
+\]</span>
+where <span class="math inline">\(\mathbf{b}\)</span> is a column of matrix <span class="math inline">\(B\)</span>; which has <span class="math inline">\(p\)</span> columns</p></li>
+<li><p>Combination of <span class="math inline">\(B\)</span>:
+<span class="math display">\[
+\begin{bmatrix}
+a_1 \\
+\cdots \\
+a_m
+\end{bmatrix}
+B
+=
+\begin{bmatrix}
+a_1 \ B \\
+\cdots \\
+a_m \ B
+\end{bmatrix}
+\]</span>
+where <span class="math inline">\(a_i\)</span> is a row of matrix <span class="math inline">\(A\)</span> that has <span class="math inline">\(m\)</span> rows</p></li>
+<li><p>Outer Product:
+<span class="math display">\[
+\begin{bmatrix}
+\vert &amp;  &amp; \vert \\
+\mathbf{a}_1 &amp; \cdots &amp; \mathbf{a}_n\\
+\vert &amp;  &amp; \vert
 \end{bmatrix}
 \begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
+\;- \; b_1 -  \\
+\vdots  \\
+\;- \; b_n -  \\
+\end{bmatrix} =
+\begin{bmatrix}
+\vert &amp; \;- \; b_1 -\\
+\mathbf{a}_1 \\
+\vert 
+\end{bmatrix} + 
+\begin{bmatrix}
+\vert &amp; - \ b_j \ - \\
+\mathbf{a}_j \\
+\vert 
+\end{bmatrix} + 
+\begin{bmatrix}
+\vert &amp; - \ b_n \ - \\
+\mathbf{a}_n \\
+\vert 
+\end{bmatrix}
+\]</span>
+Where:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> is a matrix with dimensions <span class="math inline">\(m \times n\)</span> and <span class="math inline">\(B\)</span> is a matrix with dimensions <span class="math inline">\(n \times p\)</span></li>
+<li><span class="math inline">\(j \; \forall \; 1\dots n\)</span></li>
+<li><span class="math inline">\(\mathbf{a}_i\)</span> represents the <span class="math inline">\(i\)</span>-th column of matrix <span class="math inline">\(A\)</span></li>
+<li><span class="math inline">\(b_i\)</span> represents the <span class="math inline">\(i\)</span>-th row of matrix <span class="math inline">\(B\)</span></li>
+</ul></li>
+</ol>
+<ul>
+<li>Block Multiplication: If blocks of <span class="math inline">\(A\)</span> can multiply blocks of <span class="math inline">\(B\)</span>, then block multiplication of <span class="math inline">\(AB\)</span> is allowed</li>
+</ul>
+<p><span class="math display">\[
+\begin{bmatrix}
+A_{11} &amp; A_{12} \\
+A_{21} &amp; A_{22} \\
+\end{bmatrix}
+\begin{bmatrix}
+B_{11} \\
+B_{21}
+\end{bmatrix}=
+\begin{bmatrix}
+A_{11}B_{11} + A_{12}B_{21} \\
+A_{21}B_{11} + A_{22}B_{21} \\
 \end{bmatrix}
 \]</span></p>
+</div>
+<div id="inverse-matrices" class="section level2">
+<h2>2.5 Inverse Matrices</h2>
+<ul>
+<li>Matrix <span class="math inline">\(A\)</span> is invertible: if there exists a matrix <span class="math inline">\(A^{-1}\)</span> that inverts <span class="math inline">\(A\)</span> from both the right and the left</li>
+<li>Matrix <span class="math inline">\(A\)</span> is invertible (formula): <span class="math inline">\(A^{-1}A=I\)</span> and <span class="math inline">\(AA^{-1}=I\)</span></li>
+<li>Solve for <span class="math inline">\(\mathbf{X}\)</span> in <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> by multiplying by <span class="math inline">\(A^{-1}\)</span>
+<span class="math display">\[
+\begin{align*}
+A\mathbf{x}&amp;=\mathbf{b}\\
+A^{-1}A\mathbf{x}&amp;=A^{-1}\mathbf{b}\\
+I\mathbf{x}&amp;=A^{-1}\mathbf{b}\\
+\mathbf{x}&amp;=A^{-1}\mathbf{b}
+\end{align*}
+\]</span></li>
+<li>Matrix Invertibility Tests:
+<ol style="list-style-type: decimal">
+<li>By Algorithm: <span class="math inline">\(A\)</span> must have <span class="math inline">\(n\)</span> nonzero pivots; where <span class="math inline">\(n\)</span> is the number of columns in <span class="math inline">\(A\)</span></li>
+<li>By Algebra: determinant of <span class="math inline">\(A\)</span> must be nonzero</li>
+<li>By Equation: for the equation <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span> there must be only one solution where <span class="math inline">\(\mathbf{x}=\mathbf{0}\)</span></li>
+</ol></li>
+<li>Product of 2 invertible matrices: <span class="math inline">\((AB)^{-1}=B^{-1}A^{-1}\)</span></li>
+<li>Product of 3 invertible matrices: <span class="math inline">\((ABC)^{-1}=C^{-1}B^{-1}A^{-1}\)</span></li>
+<li>Gauss-Jordan Elimination: Augment coefficient matrix (generally <span class="math inline">\(A\)</span>) with the identity matrix <span class="math inline">\(I\)</span>; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form</li>
+<li>Gauss-Jordan Elimination (formula): Perform elimination translating <span class="math inline">\(\begin{bmatrix} A &amp; I\end{bmatrix} \rightarrow \begin{bmatrix} I &amp; A^{-1} \end{bmatrix}\)</span></li>
+<li>Reduced Row Echelon Form: The Matrix that results after elimination with 1’s in the pivots and 0’s above and below them</li>
+</ul>
+</div>
+<div id="elimination-factorization-a-lu" class="section level2">
+<h2>2.6 Elimination = Factorization: <span class="math inline">\(A \; = \; LU\)</span></h2>
 </div>

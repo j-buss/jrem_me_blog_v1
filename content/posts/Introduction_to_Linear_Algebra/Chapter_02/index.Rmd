@@ -12,125 +12,223 @@ katex: yes
 
 The following are my personal notes from taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm)
 
+## Matrix Laws:
+### Multiplication:
+- Dimensions of Matrix Multiplication:
+  - 1st matrix must have same number of rows as columns in 2nd matrix
+  - Example: 
+    - $A$ has dimensions $(m \times n)$
+    - $B$ has dimensions $(n \times p)$
+    - Results in matrix $AB$ with dimensions $(m \times p)$
+- Associative: $A(BC) = (AB)C$
+- Commutative: $AB \ne BA$
+- Distributive from the left: $A(B + C) = AB + AC$
+- Distributive from the right: $(A + B)C = AC + BC$
+- If $A$ is square, then $A^p = AAA \dots A$ ($p$ factors)
+- $(A^p)(A^q)=A^{p+q}$
+- $(A^p)^q = A^{pq}$
+
+
+### Addition:
+- Dimensions of Matrix Addition:
+  - Matrices must have the same dimensions
+  - Example: 
+    - $A$ has dimensions $(m \times n)$
+    - $B$ has dimensions $(m \times n)$
+    - Results in matrix $A + B$ with dimensions $(m \times n)$
+- Associative: $A + (B + C) = (A + B) + C$
+- Commutative: $A + B = B + A$
+- Distributive: $c(A + B) = cA + cB$
+
 ## 2.1 Vectors and Linear Equations
 
 - 2-D System of equations in row form: results in lines on a graph meeting at a point
 - 2-D System of equations in column form: each column is a vector with tail at origin, arrow point at coordinates and combination of column vectors on left equals column vector of right
 - $A\mathbf{x}$ as a combination of column vectors: $A\mathbf{x} = x_1 (\mathbf{column 1}) + x_2 (\mathbf{column 2}) +x_3 (\mathbf{column 3})$
 - $A\mathbf{x}$ from dot product:
+
 $$
 A\mathbf{x} = 
 \begin{bmatrix}
 (\mathbf{row 1}) \cdot \mathbf{x} \\
-\begin{bmatrix}
--1 & 1 & 0
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
-\begin{bmatrix}
-0 & -1 & 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
+(\mathbf{row 2}) \cdot \mathbf{x} \\
+(\mathbf{row 3}) \cdot \mathbf{x} \\
 \end{bmatrix}
 $$
 
-## 1.2 Lengths and Dot Products
+- Row Exchange for 2x2 matrix: 
+$\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$
 
-- Dot Product: a multiplication step that results in a scalar; each member of a vector is multipled by the corresponding member of the other vector
-- Dot Product (formula):
-$$
-\mathbf{u}\cdot\mathbf{v}= 
-\begin{bmatrix}
-u_{1}\\\\u_{2}\\\\u_{3}
-\end{bmatrix}
-\cdot
-\begin{bmatrix}
-v_{1}\\\\v_{2}\\\\v_{3}
-\end{bmatrix}
-=
-u_{1} \cdot v_{1} + u_{2} \cdot v_{2} + u_{3} \cdot v_{3}
-$$
-- Vector Length: the square root of the vector dotted with itself
-- Vector Length (formula): 
+- Rotate 90$\degree$ 2x2 matrix: 
+$\begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$
 
-$$
-\Vert \mathbf{u} \Vert = \sqrt{\mathbf{u} \cdot \mathbf{u}}  = \sqrt{u_{1}^2+u_{2}^2+u_{3}^2}
-$$
+- Rotate 180$\degree$ 2x2 matrix: 
+$\begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$
 
-- Unit Vector: A vector whose length equals one
-- Unit Vector (formula): $\mathbf{u} = \frac{\mathbf{v}}{\Vert \mathbf{v} \Vert}$
-- Cosine Formula: If $\mathbf{u}$ and $\mathbf{v}$ are non-zero vectors then $\frac{\mathbf{v} \cdot \mathbf{w}}{\Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert} = \cos {\theta}$
-- Schwartz Inequality: $\vert \mathbf{v} \cdot \mathbf{w} \vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert$
-- Triangle Inequality: $\Vert \mathbf{v} + \mathbf{w} \Vert \le \Vert \mathbf{v} \Vert \Vert \mathbf{w} \Vert$
+## 2.2 The Idea of Elimination
 
-## 1.3 Matrices
+- Pivot: First nonzero in the row that does the elimination
+- Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by pivot
+- Multiplier (formula):$l_{21} = \frac{A_{21}}{A_{11}}$
+- Thru elimination $A\mathbf{x}=\mathbf{b}$ becomes $U\mathbf{x} = \mathbf{c}$
 
-- Matrix multiplied by vector as "combination of columns"
-$$
-Ax = 
-\begin{bmatrix}
-1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix}
-$$
-Think of $\mathbf{x}$ as "tipped" to the left, with each one of the elements of $\mathbf{x}$ multiplying one of the columns of $A$
+## 2.3 Elimination Using Matrices
 
+- Permutation Matrix: Identity Matrix with some rows exchanged
+- Augmented Matrix: Coefficient Matrix $A$ with solution $\mathbf{b}$ "tacked" on $\begin{bmatrix} A &  \mathbf{b}\end{bmatrix}$
+- Elimination with matrices example. For system:
 $$
 \begin{align*}
-Ax &= 
-\begin{bmatrix}
-1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-&=
-x_1
-\begin{bmatrix}
-1 \\ -1 \\ 0 
-\end{bmatrix}
-+ x_2
-\begin{bmatrix}
-0 \\ 1 \\ -1
-\end{bmatrix}
-+ x_3
-\begin{bmatrix}
-0 \\ 0 \\ 1
-\end{bmatrix} \\
-&= 
-\begin{bmatrix}
-x_1 \\ x_2 - x_1 \\ x_3
-\end{bmatrix}
+x-2y&=1\\
+3x+2y &= 11
 \end{align*}
 $$
-- Matrix multiplied by vector as "rows at a time" or "dot product"
+Multiply augmented matrix $E_{21} [ A \ b]$
 $$
 \begin{bmatrix}
-\begin{bmatrix}
-1 & 0 & 0
+1 & 0 \\
+-3 & 1
 \end{bmatrix}
 \begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
+1 & -2 & 1 \\
+-3 & 1 & 11
+\end{bmatrix} 
+\Rightarrow 
 \begin{bmatrix}
--1 & 1 & 0
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
-\\
-\begin{bmatrix}
-0 & -1 & 1
-\end{bmatrix}
-\begin{bmatrix}
-x_1 \\ x_2 \\ x_3
-\end{bmatrix} \\
+1 & -2 & 1 \\
+0 & 8 & 8
 \end{bmatrix}
 $$
+
+## 2.4 Rules for Matrix Operations
+
+Matrix Multiplication can be done in 4 ways (description):
+
+1. Inner Product: Element $AB_{ij}$ is result of row $i$ of $A$ and column $j$ of $B$; "default" dot product method
+2. Combination of $A$: Visualize columns of $B$ "falling" to the left into $A$ and each element multiplying a column of $A$ resulting in a column of $AB$
+3. Combination of $B$: Visualize rows of $A$ "falling" into matrix $B$ resulting in a row of $AB$
+4. Outer Product: Multiply 1 column of $A$ with 1 row of $B$ resulting in a matrix to be added with $n$ others
+
+Matrix Multiplication can be done in 4 ways (formula):
+
+1. Inner Product:
+$$
+\begin{bmatrix}
+\ast \\
+a_{i1} & a_{i2} & \cdots & a_{i5}\\
+\ast \\
+\ast
+\end{bmatrix}
+\begin{bmatrix}
+\ast & \ast & b_{1j} & \ast & \ast & \ast \\
+ &  & b_{2j} & \\
+  &  & \vdots & \\
+   &  & b_{5j} & 
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+ &  & \ast & & &  \\
+\ast & \ast & (AB)_{ij} & \ast & \ast & \ast  \\
+&  & \ast & & &  \\
+&  & \ast & & &  \\
+\end{bmatrix}
+$$
+
+2. Combination of $A$: 
+$$
+AB = A \begin{bmatrix} \mathbf{b}_1 \cdots \mathbf{b}_p \end{bmatrix} = \begin{bmatrix} A\mathbf{b}_1 \cdots A\mathbf{b}_p \end{bmatrix}
+$$
+where $\mathbf{b}$ is a column of matrix $B$; which has $p$ columns
+
+3. Combination of $B$:
+$$
+\begin{bmatrix}
+a_1 \\
+\cdots \\
+a_m
+\end{bmatrix}
+B
+=
+\begin{bmatrix}
+a_1 \ B \\
+\cdots \\
+a_m \ B
+\end{bmatrix}
+$$
+where $a_i$ is a row of matrix $A$ that has $m$ rows
+4. Outer Product: 
+$$
+\begin{bmatrix}
+\vert &  & \vert \\
+\mathbf{a}_1 & \cdots & \mathbf{a}_n\\
+\vert &  & \vert
+\end{bmatrix}
+\begin{bmatrix}
+\;- \; b_1 -  \\
+\vdots  \\
+\;- \; b_n -  \\
+\end{bmatrix} =
+\begin{bmatrix}
+\vert & \;- \; b_1 -\\
+\mathbf{a}_1 \\
+\vert 
+\end{bmatrix} + 
+\begin{bmatrix}
+\vert & - \ b_j \ - \\
+\mathbf{a}_j \\
+\vert 
+\end{bmatrix} + 
+\begin{bmatrix}
+\vert & - \ b_n \ - \\
+\mathbf{a}_n \\
+\vert 
+\end{bmatrix}
+$$
+Where: 
+    - $A$ is a matrix with dimensions $m \times n$ and $B$ is a matrix with dimensions $n \times p$
+    - $j \; \forall \; 1\dots n$
+    - $\mathbf{a}_i$ represents the $i$-th column of matrix $A$
+    - $b_i$ represents the $i$-th row of matrix $B$
+
+- Block Multiplication: If blocks of $A$ can multiply blocks of $B$, then block multiplication of $AB$ is allowed
+
+$$
+\begin{bmatrix}
+A_{11} & A_{12} \\
+A_{21} & A_{22} \\
+\end{bmatrix}
+\begin{bmatrix}
+B_{11} \\
+B_{21}
+\end{bmatrix}=
+\begin{bmatrix}
+A_{11}B_{11} + A_{12}B_{21} \\
+A_{21}B_{11} + A_{22}B_{21} \\
+\end{bmatrix}
+$$
+
+## 2.5 Inverse Matrices
+
+- Matrix $A$ is invertible: if there exists a matrix $A^{-1}$ that inverts $A$ from both the right and the left
+- Matrix $A$ is invertible (formula): $A^{-1}A=I$ and $AA^{-1}=I$
+- Solve for $\mathbf{X}$ in $A\mathbf{x}=\mathbf{b}$ by multiplying by $A^{-1}$
+$$
+\begin{align*}
+A\mathbf{x}&=\mathbf{b}\\
+A^{-1}A\mathbf{x}&=A^{-1}\mathbf{b}\\
+I\mathbf{x}&=A^{-1}\mathbf{b}\\
+\mathbf{x}&=A^{-1}\mathbf{b}
+\end{align*}
+$$
+- Matrix Invertibility Tests:
+  1. By Algorithm: $A$ must have $n$ nonzero pivots; where $n$ is the number of columns in $A$
+  2. By Algebra: determinant of $A$ must be nonzero
+  3. By Equation: for the equation $A\mathbf{x}=\mathbf{0}$ there must be only one solution where $\mathbf{x}=\mathbf{0}$
+- Product of 2 invertible matrices: $(AB)^{-1}=B^{-1}A^{-1}$
+- Product of 3 invertible matrices: $(ABC)^{-1}=C^{-1}B^{-1}A^{-1}$
+- Gauss-Jordan Elimination: Augment coefficient matrix (generally $A$) with the identity matrix $I$; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form
+- Gauss-Jordan Elimination (formula): Perform elimination translating $\begin{bmatrix} A & I\end{bmatrix} \rightarrow \begin{bmatrix} I & A^{-1} \end{bmatrix}$
+- Reduced Row Echelon Form: The Matrix that results after elimination  with 1's in the pivots and 0's above and below them
+
+## 2.6 Elimination = Factorization: $A \; = \; LU$
+
