@@ -1,0 +1,202 @@
+---
+title: Chapter 3 - Vector Spaces and Subspaces
+author: Jeremy Buss
+date: '2022-03-16'
+slug: []
+categories: 
+  - Linear Algebra
+  - Introduction to Linear Algebra - Gilbert Strang
+draft: no
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The following are my personal notes from taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm">Introduction to Linear Algebra - MIT OCW 18.06</a></p>
+<div id="spaces-of-vectors" class="section level2">
+<h2>3.1 Spaces of Vectors</h2>
+<ul>
+<li>The space <span class="math inline">\(\R^n\)</span> consists of all column vectors <span class="math inline">\(v\)</span> with <span class="math inline">\(n\)</span> components</li>
+<li>If <span class="math inline">\(\mathbf{v}\)</span> and <span class="math inline">\(\mathbf{w}\)</span> are in the vector space <span class="math inline">\(S\)</span> every combination <span class="math inline">\(c\mathbf{v} + d\mathbf{w}\)</span> must be in <span class="math inline">\(S\)</span>; <span class="math inline">\(\forall c,d \in \R\)</span></li>
+<li>A subspace is a vector space inside of another vector space</li>
+<li>A subspace of a vector space is a set of vectors (including <span class="math inline">\(\mathbf{0}\)</span>) that satisfies 2 requirements: If <span class="math inline">\(\mathbf{v}\)</span> and <span class="math inline">\(\mathbf{w}\)</span> are vectors in the subspace and <span class="math inline">\(c\)</span> is any scalar then:
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{v}+\mathbf{w}\)</span> is in the subspace</li>
+<li><span class="math inline">\(c\mathbf{v}\)</span> is in the subspace</li>
+</ol></li>
+<li>A subspace is closed under addition and scalar multiplication</li>
+<li>All subspaces of <span class="math inline">\(\R^3\)</span>
+<ul>
+<li><strong>L</strong> Any line through (0,0,0)</li>
+<li><strong>P</strong> Any plane through (0,0,0)</li>
+<li><strong>Z</strong> The single vector (0,0,0)</li>
+<li><strong><span class="math inline">\(\R^3\)</span></strong> The whole space</li>
+</ul></li>
+<li>The Column Space of <span class="math inline">\(A\)</span> contains all linear combinations of the columns of <span class="math inline">\(A\)</span>.</li>
+<li><span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> can be solved when <span class="math inline">\(\mathbf{b}\)</span> is in the column space <span class="math inline">\(\mathbf{C}(A)\)</span></li>
+<li>If there are 2 subspaces, for example <strong>P</strong> and <strong>L</strong>, then the union <span class="math inline">\(P \cup L\)</span> is not a subspace</li>
+<li>If there are 2 subspaces, for example <strong>P</strong> and <strong>L</strong>, then the intersection <span class="math inline">\(P \cap L\)</span> is a subspace<br />
+</li>
+<li>If <span class="math inline">\(A\)</span> is a matrix with dimensions <span class="math inline">\(m \times n\)</span> then the column space <span class="math inline">\(\mathbf{C}(A)\)</span> is a subspace of <span class="math inline">\(\R^m\)</span></li>
+</ul>
+</div>
+<div id="the-nullspace-of-a-solving-amathbfx-0-and-rmathbfx0" class="section level2">
+<h2>3.2 The Nullspace of A: Solving <span class="math inline">\(A\mathbf{x} = 0\)</span> and <span class="math inline">\(R\mathbf{x}=0\)</span></h2>
+<ul>
+<li>The Nullspace <span class="math inline">\(N(A)\)</span> consists of all solutions to <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span>. These vectors <span class="math inline">\(\mathbf{x}\)</span> are in <span class="math inline">\(\R^n\)</span> (i.e. for the matrix <span class="math inline">\(A\)</span> that has dimensions <span class="math inline">\(m \times n\)</span> this is the number of columns of <span class="math inline">\(A\)</span>)</li>
+<li>Using elimination from <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span> to <span class="math inline">\(R\)</span> doesn’t change the nullspace; in other words <span class="math inline">\(N(A)=N(U)=N(R)\)</span></li>
+<li>Reduced Row Echelon Form <span class="math inline">\(R = \text{rref}(A)\)</span> has all pivots = 1, with zeros above and below</li>
+<li>rref continues elimination from the upper triangular matrix <span class="math inline">\(U\)</span> by doing two more steps:
+<ol style="list-style-type: decimal">
+<li>Use pivot rows to eliminate upware in <span class="math inline">\(R\)</span></li>
+<li>Divide the whole pivot row by its pivot</li>
+</ol></li>
+<li>Rank (<span class="math inline">\(r\)</span>): is the number of pivots or number of nonzero rows in <span class="math inline">\(R\)</span>; there are <span class="math inline">\(n-r\)</span> free columns</li>
+<li>If the column <span class="math inline">\(j\)</span> of <span class="math inline">\(R\)</span> is free (no pivot), there is a <strong>special solution</strong> to <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span> with <span class="math inline">\(x_j=1\)</span></li>
+<li>Every matrix with <span class="math inline">\(m&lt;n\)</span> has nonzero solutions to <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span> in its nullspace</li>
+<li>2 ways to tell about a subspace:
+<ol style="list-style-type: decimal">
+<li>Given a few vectors make combinations and “build it up”</li>
+<li>Given a few equations that need to be satisfied</li>
+</ol></li>
+<li>When solving with elimination (<span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span>) we are not changing the <span class="math inline">\(\mathbf{0}\)</span> vector and therefore not changing the nullspace, but we are changing the column space</li>
+<li>Steps to finding solutions to (<span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span>):
+<ol style="list-style-type: decimal">
+<li>Reduce <span class="math inline">\(A\)</span> to its rref <span class="math inline">\(R\)</span></li>
+<li>Find the special solutions to <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span></li>
+</ol></li>
+<li>The Nullspace contains all linear combinations of the special solutions</li>
+<li>There are 1 special solutions for each free variable</li>
+<li>rref has Identity in pivot rows/columns</li>
+<li>Thinking of the Nullspace solutions in block form:</li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+R &amp;= 
+\begin{bmatrix}
+I &amp; F\\
+0 &amp; 0
+\end{bmatrix}
+\\
+N &amp;= 
+\begin{bmatrix}
+-F\\
+I
+\end{bmatrix}
+\end{align*}
+\]</span>
+Where <span class="math inline">\(RN=\mathbf{0}\)</span></p>
+<ul>
+<li>The solution to the nullspace, when thinking of the Nullspace in block form then becomes:
+<span class="math display">\[
+\begin{align*}
+R\mathbf{x} &amp;= \mathbf{0}
+\\
+\begin{bmatrix}
+I &amp; F\\
+0 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+x_{pivot} \\
+x_{free}
+\end{bmatrix}
+&amp;= \mathbf{0}
+\\
+x_{pivot}&amp;=-F x_{free}
+\end{align*}
+\]</span></li>
+</ul>
+</div>
+<div id="the-complete-solution-to-amathbfx-mathbfb" class="section level2">
+<h2>3.3 The Complete Solution to <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></h2>
+<ul>
+<li><p>The complete solution to <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is <span class="math inline">\(x_{p} + x_n\)</span>; where <span class="math inline">\(x_p\)</span> is a particular solution and <span class="math inline">\(x_n\)</span> is any solution in the nullspace</p></li>
+<li><p>Elimination on <span class="math inline">\(\begin{bmatrix} A &amp; \mathbf{b} \end{bmatrix}\)</span> leads to <span class="math inline">\(\begin{bmatrix} R &amp; \mathbf{d} \end{bmatrix}\)</span>. Where by <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is equivalent to <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span></p></li>
+<li><p><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> and <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span> are solvable only when all zero rows of <span class="math inline">\(R\)</span> have zeros in <span class="math inline">\(\mathbf{d}\)</span></p></li>
+<li><p>When <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span> is solvable, one very particular solution <span class="math inline">\(x_p\)</span> has all free variables equal to zero</p></li>
+<li><p>If <span class="math inline">\(A\)</span> is full column rank (i.e. <span class="math inline">\(r=n\)</span>):</p>
+<ol style="list-style-type: decimal">
+<li>All columns of <span class="math inline">\(A\)</span> are pivot columns</li>
+<li>No free variables</li>
+<li><span class="math inline">\(\mathbf{N}(A)= \{\mathbf{0}\}\)</span></li>
+<li>If <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> has a solution there is only 1</li>
+</ol></li>
+<li><p>If <span class="math inline">\(A\)</span> is full row rank (i.e. <span class="math inline">\(r=m\)</span>):</p>
+<ol style="list-style-type: decimal">
+<li>All rows of <span class="math inline">\(A\)</span> have pivots; <span class="math inline">\(R\)</span> has no zero rows</li>
+<li>The column space is the whole space <span class="math inline">\(\R^m\)</span></li>
+<li>There are <span class="math inline">\(n-r=n-m\)</span> special solutions in the <span class="math inline">\(\mathbf{N}(A)\)</span></li>
+<li>If <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> has a solution for every <span class="math inline">\(\mathbf{b}\)</span></li>
+</ol></li>
+<li><p>Summary of 4 possibilities for linear equations by rank:</p>
+<ol style="list-style-type: decimal">
+<li>Full Rank
+<ul>
+<li><span class="math inline">\(r=m\)</span> and <span class="math inline">\(r=n\)</span></li>
+<li>Square and invertible</li>
+<li><span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> has 1 solution</li>
+</ul></li>
+<li>Full Row Rank
+<ul>
+<li><span class="math inline">\(r=m\)</span> and <span class="math inline">\(r &lt; n\)</span></li>
+<li>Short and wide</li>
+<li><span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> has <span class="math inline">\(\infty\)</span> solution</li>
+</ul></li>
+<li>Full Column Rank
+<ul>
+<li><span class="math inline">\(r&lt;m\)</span> and <span class="math inline">\(r = n\)</span></li>
+<li>Tall and thin</li>
+<li><span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> has 0 or 1 solutions</li>
+</ul></li>
+<li>Not full rank
+<ul>
+<li><span class="math inline">\(r&lt;m\)</span> and <span class="math inline">\(r &lt; n\)</span></li>
+<li><span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> has 0 or <span class="math inline">\(\infty\)</span> solutions</li>
+</ul></li>
+</ol></li>
+</ul>
+</div>
+<div id="independence-basis-and-dimension" class="section level2">
+<h2>3.4 Independence, Basis and Dimension</h2>
+<ul>
+<li>Linearly Independent: Vectors <span class="math inline">\(v_1, v_2, \dots, v_n\)</span> are independent if <span class="math inline">\(c_1 v_1 + c_2 v_2 + \dots + c_n v_n = 0\)</span> only happens when <span class="math inline">\(c_i=0\)</span> <span class="math inline">\(\forall i \in \{1, \dots, n\}\)</span></li>
+<li>Full column rank (independence): columns of <span class="math inline">\(A\)</span> are independent when:
+<ol style="list-style-type: decimal">
+<li>Rank is <span class="math inline">\(r=n\)</span></li>
+<li><span class="math inline">\(n\)</span> pivots and no free variables</li>
+<li><span class="math inline">\(\mathbf{N}(A) = \{\mathbf{0}\}\)</span></li>
+</ol></li>
+<li>A set of vectors <strong>span a space</strong> if their linear combinations fill the space</li>
+<li>Basis: sequence of vectors with two properties:
+<ol style="list-style-type: decimal">
+<li>They are linearly independent</li>
+<li>They span the space</li>
+</ol></li>
+<li>The vectors <span class="math inline">\(v_1, v_2, \dots, v_n\)</span> are a <strong>basis for <span class="math inline">\(\R^n\)</span></strong> exactly when they are the columns of an <span class="math inline">\(n\)</span> by <span class="math inline">\(n\)</span> invertible matrix</li>
+<li>Any set of <span class="math inline">\(n\)</span> vectors in <span class="math inline">\(\R^n\)</span> must be linearly dependent if <span class="math inline">\(n&gt;m\)</span></li>
+<li>There are infinitely many different bases of <span class="math inline">\(\R^n\)</span></li>
+<li>The dimension of a space is the number of vectors in every basis</li>
+<li>The rank of a matrix equals the dimensions of the column space</li>
+<li>If the dimension of the space is <span class="math inline">\(d\)</span> and you have <span class="math inline">\(d\)</span> independent vectors; they will span the space</li>
+<li>Row Space of a matrix: is the subspace of <span class="math inline">\(\R^n\)</span> spanned by the rows</li>
+<li>Row Space (formula): <span class="math inline">\(\mathbf{C}(A^{\intercal})\)</span>; i.e. the column space of <span class="math inline">\(A^{\intercal}\)</span></li>
+<li>The pivot columns of <span class="math inline">\(A\)</span> are a basis for its column space</li>
+<li>The pivot rows of <span class="math inline">\(A\)</span> are a basis for its row space</li>
+<li>If <span class="math inline">\(v_1, \dots, v_m\)</span> and <span class="math inline">\(w_1, \dots, w_n\)</span> are both bases for the same vector space, then <span class="math inline">\(m=n\)</span></li>
+</ul>
+</div>
+<div id="dimensions-of-the-four-subspaces" class="section level2">
+<h2>3.5 Dimensions of the Four Subspaces</h2>
+<ul>
+<li>Row space: <span class="math inline">\(\mathbf{C}(A^{\intercal})\)</span>, a subspace of <span class="math inline">\(\R^n\)</span> with dimension <span class="math inline">\(r\)</span></li>
+<li>Column space: <span class="math inline">\(\mathbf{C}(A)\)</span> a subspace of <span class="math inline">\(\R^m\)</span> with dimension <span class="math inline">\(r\)</span></li>
+<li>Nullspace: <span class="math inline">\(\mathbf{N}(A)\)</span> a subspace of <span class="math inline">\(\R^n\)</span> with dimension <span class="math inline">\(n-r\)</span></li>
+<li>Left Nullspace: <span class="math inline">\(\mathbf{N}(A^{\intercal})\)</span> a subspace of <span class="math inline">\(\R^m\)</span> with dimension <span class="math inline">\(m-r\)</span></li>
+<li>The dimension of the row space is rank <span class="math inline">\(r\)</span>; the nonzero rows of <span class="math inline">\(R\)</span> form a basis.</li>
+<li>The dimension of the column space is the rank <span class="math inline">\(r\)</span>; the pivot columns form a basis</li>
+<li>The nullspace has dimension <span class="math inline">\(n-r\)</span>; the special solutions form a basis</li>
+<li>Rank Theorem: The number of independent columns = the number of independent rows</li>
+<li>Every matrix with rank 1 is one column times one row: <span class="math inline">\(A = \mathbf{u}\mathbf{v}^{\intercal}\)</span></li>
+</ul>
+</div>

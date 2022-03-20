@@ -6,7 +6,7 @@ slug: []
 categories: 
   - Linear Algebra
   - Introduction to Linear Algebra - Gilbert Strang
-draft: yes
+draft: no
 katex: yes
 ---
 
@@ -67,15 +67,17 @@ $\begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$
 
 ## 2.2 The Idea of Elimination
 
-- Pivot: First nonzero in the row that does the elimination
-- Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by pivot
-- Multiplier (formula):$l_{21} = \frac{A_{21}}{A_{11}}$
+- Pivot: First nonzero coefficient in a row; generally used to eliminate other coefficients above or below it
+- Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by the pivot above
+- Multiplier (formula):$\ell_{21} = \frac{A_{21}}{A_{11}}$
 - Thru elimination $A\mathbf{x}=\mathbf{b}$ becomes $U\mathbf{x} = \mathbf{c}$
 
 ## 2.3 Elimination Using Matrices
 
-- Permutation Matrix: Identity Matrix with some rows exchanged
-- Augmented Matrix: Coefficient Matrix $A$ with solution $\mathbf{b}$ "tacked" on $\begin{bmatrix} A &  \mathbf{b}\end{bmatrix}$
+- Permutation Matrix: Identity Matrix with some rows exchanged; used to multiply other matrices to algebraically switch their rows
+- Augmented Matrix: A coefficient matrix with another vector or matrix "tacked" on; For example $A$ with solution $\mathbf{b}$ such as $\begin{bmatrix} A &  \mathbf{b}\end{bmatrix}$
+- Elimination Matrix: identity matrix with an element below the diagonal replaced by the corresponding multiplier
+- Elimination Matrix (formula): For an example multiplier $\ell_{21}=3$ the corresponding elimination matrix would place the multiplier in the position of the multiplier subscript with a sign change; becoming $E_{21}=\begin{bmatrix} 1 & 0 \\-3 & 1\end{bmatrix}$
 - Elimination with matrices example. For system:
 $$
 \begin{align*}
@@ -91,7 +93,7 @@ $$
 \end{bmatrix}
 \begin{bmatrix}
 1 & -2 & 1 \\
--3 & 1 & 11
+3 & 2 & 11
 \end{bmatrix} 
 \Rightarrow 
 \begin{bmatrix}
@@ -104,9 +106,9 @@ $$
 
 Matrix Multiplication can be done in 4 ways (description):
 
-1. Inner Product: Element $AB_{ij}$ is result of row $i$ of $A$ and column $j$ of $B$; "default" dot product method
-2. Combination of $A$: Visualize columns of $B$ "falling" to the left into $A$ and each element multiplying a column of $A$ resulting in a column of $AB$
-3. Combination of $B$: Visualize rows of $A$ "falling" into matrix $B$ resulting in a row of $AB$
+1. Inner Product: Element $AB_{ij}$ is the result of an inner product between row $i$ of $A$ and column $j$ of $B$; generally this is the "default" method taught for matrix multiplication
+2. Combination of $A$: Visualize columns of $B$ "falling" to the left into $A$ and each element of the column of $B$ multiplies a column of $A$; resulting in a column of $AB$
+3. Combination of $B$: Visualize rows of $A$ "falling" into matrix $B$ where each element of the $A$ row multiplies a given row vector of $B$ resulting in a row of $AB$
 4. Outer Product: Multiply 1 column of $A$ with 1 row of $B$ resulting in a matrix to be added with $n$ others
 
 Matrix Multiplication can be done in 4 ways (formula):
@@ -211,7 +213,9 @@ $$
 
 - Matrix $A$ is invertible: if there exists a matrix $A^{-1}$ that inverts $A$ from both the right and the left
 - Matrix $A$ is invertible (formula): $A^{-1}A=I$ and $AA^{-1}=I$
-- Solve for $\mathbf{X}$ in $A\mathbf{x}=\mathbf{b}$ by multiplying by $A^{-1}$
+- Solve for $\mathbf{x}$ in $A\mathbf{x}=\mathbf{b}$:
+
+  Multiply from the left by $A^{-1}$
 $$
 \begin{align*}
 A\mathbf{x}&=\mathbf{b}\\
@@ -222,13 +226,89 @@ I\mathbf{x}&=A^{-1}\mathbf{b}\\
 $$
 - Matrix Invertibility Tests:
   1. By Algorithm: $A$ must have $n$ nonzero pivots; where $n$ is the number of columns in $A$
-  2. By Algebra: determinant of $A$ must be nonzero
-  3. By Equation: for the equation $A\mathbf{x}=\mathbf{0}$ there must be only one solution where $\mathbf{x}=\mathbf{0}$
-- Product of 2 invertible matrices: $(AB)^{-1}=B^{-1}A^{-1}$
-- Product of 3 invertible matrices: $(ABC)^{-1}=C^{-1}B^{-1}A^{-1}$
-- Gauss-Jordan Elimination: Augment coefficient matrix (generally $A$) with the identity matrix $I$; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form
+  2. By Algebra: the determinant of $A$ must be nonzero
+  3. By Equation: for the equation $A\mathbf{x}=\mathbf{0}$ there must be only one solution; where $\mathbf{x}=\mathbf{0}$
+- The inverse of the Product of 2 invertible matrices: $(AB)^{-1}=B^{-1}A^{-1}$
+- The inverse of the Product of 3 invertible matrices: $(ABC)^{-1}=C^{-1}B^{-1}A^{-1}$
+- Gauss-Jordan Elimination: Start with the coefficient matrix (generally $A$) and augment with the identity matrix $I$; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form
 - Gauss-Jordan Elimination (formula): Perform elimination translating $\begin{bmatrix} A & I\end{bmatrix} \rightarrow \begin{bmatrix} I & A^{-1} \end{bmatrix}$
 - Reduced Row Echelon Form: The Matrix that results after elimination  with 1's in the pivots and 0's above and below them
 
 ## 2.6 Elimination = Factorization: $A \; = \; LU$
 
+- Elimination for 3x3 matrix (formula): $E_{32}E_{31}E_{21}A=U$
+- Inverse of Elimination (formula):
+$$
+\begin{align*}
+E_{32}E_{31}E_{21}A&=U\\
+E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}(E_{32}E_{31}E_{21})A&=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}U\\
+IA&=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}U\\
+A&=LU\\
+\end{align*}
+$$
+- Describe the factorization represented by $A=LU$
+  - $U$ is an upper triangular matrix with pivots along diagonal
+  - $L$ is a lower triangular matrix 1's on it's diagonals
+  - Multipliers $\ell_{ij}$ needed for elimination are below diagonals of $L$ directly in the same location for their row and column designations
+- Triangular Factorization (2 ways): 
+  1. $A=LU$
+  2. $A=LDU$
+- Transform of $U$ into $DU$:
+  - Each row of $U$ is divided by the pivot found in that row
+  - $D$ is a diagonal matrix with the pivots from $U$ along the diagonal and 0's off diagonal
+- Transform of $U$ into $DU$ (formula):
+$$
+\begin{bmatrix}
+u_{11} & u_{12} & \cdots & u_{1n}\\
+0 & u_{22} & \cdots & u_{2n}\\
+ &  & \ddots & \vdots\\
+ & & & u_{mn}
+\end{bmatrix} = 
+\begin{bmatrix}
+u_{11} & & & \\
+ &u_{22} & & \\
+ &  & \ddots & \\
+ & & & u_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+1 & u_{12}/u_{11} & \cdots & u_{1n}/u_{11}\\
+0 & 1 & \cdots & u_{2n}/u_{22}\\
+ &  & \ddots & \vdots\\
+ & & & 1
+\end{bmatrix}
+$$
+
+- Cost of elimination on $A$ requires about $\frac{1}{3}n^3$ multiplications and $\frac{1}{3}n^3$ subtractions
+- The cost of elimination on the right hand side needs $n^2$ multiplications and $n^2$ subtractions
+
+## 2.7 Transposes and Permutations
+
+- $(A\mathbf{x})^{\intercal} = \mathbf{x}^{\intercal} A^{\intercal}$
+- $(AB)^{\intercal} = B^{\intercal} A^{\intercal}$
+- $(A^{-1})^{\intercal} = (A^{\intercal})^{-1}$
+- Inner Product [w/ transpose] (formula): $\mathbf{x} \cdot \mathbf{y} = \mathbf{x}^{\intercal}\mathbf{y}$
+- Outer Product [w/ transpose] (formula): column times row = $\mathbf{x} \mathbf{y}^{\intercal}$
+- $(A^{\intercal})_{ij}=A_{ji}$
+- Symmetric Matrix: $S^{\intercal}=S$ so each element $s_{ij}=s_{ji}$
+- Any matrix multiplied by it's transpose is symmetric; i.e. $A$: $A^{\intercal}A=S$
+- $A^{\intercal}A$ is symmetric (formula): $(A^{\intercal}A)^{\intercal} = A^{\intercal}(A^{\intercal})^{\intercal} = A^{\intercal}A$
+- The $A=LDU$ factorization can be re-written when a matrix is symmetric: $A=LDU \rightarrow S=LDL^\intercal$
+- There are 6 Permutation Matrices of size 3x3:
+  1. $I=\begin{bmatrix} 1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1 \end{bmatrix}$; with inverse $I^{-1}=I$
+  
+  2. $P_{21} = \begin{bmatrix} 0 & 1 & 0\\1 & 0 & 0\\0 & 0 & 1 \end{bmatrix}$; with inverse
+  $P_{21}^{-1}=P_{21}$
+  
+  3. $P_{31} = \begin{bmatrix} 0 & 0 & 1\\0 & 1 & 0\\1 & 0 & 0 \end{bmatrix}$; with inverse
+  $P_{31}^{-1}=P_{31}$
+  
+  4. $P_{32}=\begin{bmatrix} 1 & 0 & 0\\0 & 0 & 1\\0 & 1 & 0 \end{bmatrix}$; with inverse $P_{32}^{-1} = P_{32}$
+  
+  5. $P_{32}P_{21}=\begin{bmatrix} 0 & 1 & 0\\0 & 0 & 1\\1 & 0 & 0 \end{bmatrix}$; with inverse $(P_{32}P_{21})^{-1} = P_{21}^{-1}P_{32}^{-1}=P_{21}P_{32}$
+  
+  6. $P_{21}P_{32}=\begin{bmatrix} 0 & 0 & 1\\1 & 0 & 0\\0 & 1 & 0 \end{bmatrix}$; with inverse $(P_{21}P_{32})^{-1} = P_{32}^{-1}P_{21}^{-1}=P_{32}P_{21}$
+  
+- $P^{-1}=P^{\intercal}$ as well as $P^{\intercal}P=I$
+
+- If permutations are required, then $A=LU$ becomes $PA=LU$
+  

@@ -6,7 +6,7 @@ slug: []
 categories: 
   - Linear Algebra
   - Introduction to Linear Algebra - Gilbert Strang
-draft: yes
+draft: no
 katex: yes
 ---
 
@@ -85,17 +85,19 @@ A\mathbf{x} =
 <div id="the-idea-of-elimination" class="section level2">
 <h2>2.2 The Idea of Elimination</h2>
 <ul>
-<li>Pivot: First nonzero in the row that does the elimination</li>
-<li>Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by pivot</li>
-<li>Multiplier (formula):<span class="math inline">\(l_{21} = \frac{A_{21}}{A_{11}}\)</span></li>
+<li>Pivot: First nonzero coefficient in a row; generally used to eliminate other coefficients above or below it</li>
+<li>Multiplier: entry to eliminate a coefficient; calculated from coefficient divided by the pivot above</li>
+<li>Multiplier (formula):<span class="math inline">\(\ell_{21} = \frac{A_{21}}{A_{11}}\)</span></li>
 <li>Thru elimination <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> becomes <span class="math inline">\(U\mathbf{x} = \mathbf{c}\)</span></li>
 </ul>
 </div>
 <div id="elimination-using-matrices" class="section level2">
 <h2>2.3 Elimination Using Matrices</h2>
 <ul>
-<li>Permutation Matrix: Identity Matrix with some rows exchanged</li>
-<li>Augmented Matrix: Coefficient Matrix <span class="math inline">\(A\)</span> with solution <span class="math inline">\(\mathbf{b}\)</span> “tacked” on <span class="math inline">\(\begin{bmatrix} A &amp; \mathbf{b}\end{bmatrix}\)</span></li>
+<li>Permutation Matrix: Identity Matrix with some rows exchanged; used to multiply other matrices to algebraically switch their rows</li>
+<li>Augmented Matrix: A coefficient matrix with another vector or matrix “tacked” on; For example <span class="math inline">\(A\)</span> with solution <span class="math inline">\(\mathbf{b}\)</span> such as <span class="math inline">\(\begin{bmatrix} A &amp; \mathbf{b}\end{bmatrix}\)</span></li>
+<li>Elimination Matrix: identity matrix with an element below the diagonal replaced by the corresponding multiplier</li>
+<li>Elimination Matrix (formula): For an example multiplier <span class="math inline">\(\ell_{21}=3\)</span> the corresponding elimination matrix would place the multiplier in the position of the multiplier subscript with a sign change; becoming <span class="math inline">\(E_{21}=\begin{bmatrix} 1 &amp; 0 \\-3 &amp; 1\end{bmatrix}\)</span></li>
 <li>Elimination with matrices example. For system:
 <span class="math display">\[
 \begin{align*}
@@ -111,7 +113,7 @@ Multiply augmented matrix <span class="math inline">\(E_{21} [ A \ b]\)</span>
 \end{bmatrix}
 \begin{bmatrix}
 1 &amp; -2 &amp; 1 \\
--3 &amp; 1 &amp; 11
+3 &amp; 2 &amp; 11
 \end{bmatrix} 
 \Rightarrow 
 \begin{bmatrix}
@@ -125,9 +127,9 @@ Multiply augmented matrix <span class="math inline">\(E_{21} [ A \ b]\)</span>
 <h2>2.4 Rules for Matrix Operations</h2>
 <p>Matrix Multiplication can be done in 4 ways (description):</p>
 <ol style="list-style-type: decimal">
-<li>Inner Product: Element <span class="math inline">\(AB_{ij}\)</span> is result of row <span class="math inline">\(i\)</span> of <span class="math inline">\(A\)</span> and column <span class="math inline">\(j\)</span> of <span class="math inline">\(B\)</span>; “default” dot product method</li>
-<li>Combination of <span class="math inline">\(A\)</span>: Visualize columns of <span class="math inline">\(B\)</span> “falling” to the left into <span class="math inline">\(A\)</span> and each element multiplying a column of <span class="math inline">\(A\)</span> resulting in a column of <span class="math inline">\(AB\)</span></li>
-<li>Combination of <span class="math inline">\(B\)</span>: Visualize rows of <span class="math inline">\(A\)</span> “falling” into matrix <span class="math inline">\(B\)</span> resulting in a row of <span class="math inline">\(AB\)</span></li>
+<li>Inner Product: Element <span class="math inline">\(AB_{ij}\)</span> is the result of an inner product between row <span class="math inline">\(i\)</span> of <span class="math inline">\(A\)</span> and column <span class="math inline">\(j\)</span> of <span class="math inline">\(B\)</span>; generally this is the “default” method taught for matrix multiplication</li>
+<li>Combination of <span class="math inline">\(A\)</span>: Visualize columns of <span class="math inline">\(B\)</span> “falling” to the left into <span class="math inline">\(A\)</span> and each element of the column of <span class="math inline">\(B\)</span> multiplies a column of <span class="math inline">\(A\)</span>; resulting in a column of <span class="math inline">\(AB\)</span></li>
+<li>Combination of <span class="math inline">\(B\)</span>: Visualize rows of <span class="math inline">\(A\)</span> “falling” into matrix <span class="math inline">\(B\)</span> where each element of the <span class="math inline">\(A\)</span> row multiplies a given row vector of <span class="math inline">\(B\)</span> resulting in a row of <span class="math inline">\(AB\)</span></li>
 <li>Outer Product: Multiply 1 column of <span class="math inline">\(A\)</span> with 1 row of <span class="math inline">\(B\)</span> resulting in a matrix to be added with <span class="math inline">\(n\)</span> others</li>
 </ol>
 <p>Matrix Multiplication can be done in 4 ways (formula):</p>
@@ -232,9 +234,10 @@ A_{21}B_{11} + A_{22}B_{21} \\
 <div id="inverse-matrices" class="section level2">
 <h2>2.5 Inverse Matrices</h2>
 <ul>
-<li>Matrix <span class="math inline">\(A\)</span> is invertible: if there exists a matrix <span class="math inline">\(A^{-1}\)</span> that inverts <span class="math inline">\(A\)</span> from both the right and the left</li>
-<li>Matrix <span class="math inline">\(A\)</span> is invertible (formula): <span class="math inline">\(A^{-1}A=I\)</span> and <span class="math inline">\(AA^{-1}=I\)</span></li>
-<li>Solve for <span class="math inline">\(\mathbf{X}\)</span> in <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> by multiplying by <span class="math inline">\(A^{-1}\)</span>
+<li><p>Matrix <span class="math inline">\(A\)</span> is invertible: if there exists a matrix <span class="math inline">\(A^{-1}\)</span> that inverts <span class="math inline">\(A\)</span> from both the right and the left</p></li>
+<li><p>Matrix <span class="math inline">\(A\)</span> is invertible (formula): <span class="math inline">\(A^{-1}A=I\)</span> and <span class="math inline">\(AA^{-1}=I\)</span></p></li>
+<li><p>Solve for <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span>:</p>
+<p>Multiply from the left by <span class="math inline">\(A^{-1}\)</span>
 <span class="math display">\[
 \begin{align*}
 A\mathbf{x}&amp;=\mathbf{b}\\
@@ -242,20 +245,99 @@ A^{-1}A\mathbf{x}&amp;=A^{-1}\mathbf{b}\\
 I\mathbf{x}&amp;=A^{-1}\mathbf{b}\\
 \mathbf{x}&amp;=A^{-1}\mathbf{b}
 \end{align*}
-\]</span></li>
-<li>Matrix Invertibility Tests:
+\]</span></p></li>
+<li><p>Matrix Invertibility Tests:</p>
 <ol style="list-style-type: decimal">
 <li>By Algorithm: <span class="math inline">\(A\)</span> must have <span class="math inline">\(n\)</span> nonzero pivots; where <span class="math inline">\(n\)</span> is the number of columns in <span class="math inline">\(A\)</span></li>
-<li>By Algebra: determinant of <span class="math inline">\(A\)</span> must be nonzero</li>
-<li>By Equation: for the equation <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span> there must be only one solution where <span class="math inline">\(\mathbf{x}=\mathbf{0}\)</span></li>
+<li>By Algebra: the determinant of <span class="math inline">\(A\)</span> must be nonzero</li>
+<li>By Equation: for the equation <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span> there must be only one solution; where <span class="math inline">\(\mathbf{x}=\mathbf{0}\)</span></li>
 </ol></li>
-<li>Product of 2 invertible matrices: <span class="math inline">\((AB)^{-1}=B^{-1}A^{-1}\)</span></li>
-<li>Product of 3 invertible matrices: <span class="math inline">\((ABC)^{-1}=C^{-1}B^{-1}A^{-1}\)</span></li>
-<li>Gauss-Jordan Elimination: Augment coefficient matrix (generally <span class="math inline">\(A\)</span>) with the identity matrix <span class="math inline">\(I\)</span>; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form</li>
-<li>Gauss-Jordan Elimination (formula): Perform elimination translating <span class="math inline">\(\begin{bmatrix} A &amp; I\end{bmatrix} \rightarrow \begin{bmatrix} I &amp; A^{-1} \end{bmatrix}\)</span></li>
-<li>Reduced Row Echelon Form: The Matrix that results after elimination with 1’s in the pivots and 0’s above and below them</li>
+<li><p>The inverse of the Product of 2 invertible matrices: <span class="math inline">\((AB)^{-1}=B^{-1}A^{-1}\)</span></p></li>
+<li><p>The inverse of the Product of 3 invertible matrices: <span class="math inline">\((ABC)^{-1}=C^{-1}B^{-1}A^{-1}\)</span></p></li>
+<li><p>Gauss-Jordan Elimination: Start with the coefficient matrix (generally <span class="math inline">\(A\)</span>) and augment with the identity matrix <span class="math inline">\(I\)</span>; Perform Gaussian Elimination and keep going until in Reduced Row Echelon Form</p></li>
+<li><p>Gauss-Jordan Elimination (formula): Perform elimination translating <span class="math inline">\(\begin{bmatrix} A &amp; I\end{bmatrix} \rightarrow \begin{bmatrix} I &amp; A^{-1} \end{bmatrix}\)</span></p></li>
+<li><p>Reduced Row Echelon Form: The Matrix that results after elimination with 1’s in the pivots and 0’s above and below them</p></li>
 </ul>
 </div>
 <div id="elimination-factorization-a-lu" class="section level2">
 <h2>2.6 Elimination = Factorization: <span class="math inline">\(A \; = \; LU\)</span></h2>
+<ul>
+<li><p>Elimination for 3x3 matrix (formula): <span class="math inline">\(E_{32}E_{31}E_{21}A=U\)</span></p></li>
+<li><p>Inverse of Elimination (formula):
+<span class="math display">\[
+\begin{align*}
+E_{32}E_{31}E_{21}A&amp;=U\\
+E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}(E_{32}E_{31}E_{21})A&amp;=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}U\\
+IA&amp;=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}U\\
+A&amp;=LU\\
+\end{align*}
+\]</span></p></li>
+<li><p>Describe the factorization represented by <span class="math inline">\(A=LU\)</span></p>
+<ul>
+<li><span class="math inline">\(U\)</span> is an upper triangular matrix with pivots along diagonal</li>
+<li><span class="math inline">\(L\)</span> is a lower triangular matrix 1’s on it’s diagonals</li>
+<li>Multipliers <span class="math inline">\(\ell_{ij}\)</span> needed for elimination are below diagonals of <span class="math inline">\(L\)</span> directly in the same location for their row and column designations</li>
+</ul></li>
+<li><p>Triangular Factorization (2 ways):</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(A=LU\)</span></li>
+<li><span class="math inline">\(A=LDU\)</span></li>
+</ol></li>
+<li><p>Transform of <span class="math inline">\(U\)</span> into <span class="math inline">\(DU\)</span>:</p>
+<ul>
+<li>Each row of <span class="math inline">\(U\)</span> is divided by the pivot found in that row</li>
+<li><span class="math inline">\(D\)</span> is a diagonal matrix with the pivots from <span class="math inline">\(U\)</span> along the diagonal and 0’s off diagonal</li>
+</ul></li>
+<li><p>Transform of <span class="math inline">\(U\)</span> into <span class="math inline">\(DU\)</span> (formula):
+<span class="math display">\[
+\begin{bmatrix}
+u_{11} &amp; u_{12} &amp; \cdots &amp; u_{1n}\\
+0 &amp; u_{22} &amp; \cdots &amp; u_{2n}\\
+ &amp;  &amp; \ddots &amp; \vdots\\
+ &amp; &amp; &amp; u_{mn}
+\end{bmatrix} = 
+\begin{bmatrix}
+u_{11} &amp; &amp; &amp; \\
+ &amp;u_{22} &amp; &amp; \\
+ &amp;  &amp; \ddots &amp; \\
+ &amp; &amp; &amp; u_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; u_{12}/u_{11} &amp; \cdots &amp; u_{1n}/u_{11}\\
+0 &amp; 1 &amp; \cdots &amp; u_{2n}/u_{22}\\
+ &amp;  &amp; \ddots &amp; \vdots\\
+ &amp; &amp; &amp; 1
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Cost of elimination on <span class="math inline">\(A\)</span> requires about <span class="math inline">\(\frac{1}{3}n^3\)</span> multiplications and <span class="math inline">\(\frac{1}{3}n^3\)</span> subtractions</p></li>
+<li><p>The cost of elimination on the right hand side needs <span class="math inline">\(n^2\)</span> multiplications and <span class="math inline">\(n^2\)</span> subtractions</p></li>
+</ul>
+</div>
+<div id="transposes-and-permutations" class="section level2">
+<h2>2.7 Transposes and Permutations</h2>
+<ul>
+<li><p><span class="math inline">\((A\mathbf{x})^{\intercal} = \mathbf{x}^{\intercal} A^{\intercal}\)</span></p></li>
+<li><p><span class="math inline">\((AB)^{\intercal} = B^{\intercal} A^{\intercal}\)</span></p></li>
+<li><p><span class="math inline">\((A^{-1})^{\intercal} = (A^{\intercal})^{-1}\)</span></p></li>
+<li><p>Inner Product [w/ transpose] (formula): <span class="math inline">\(\mathbf{x} \cdot \mathbf{y} = \mathbf{x}^{\intercal}\mathbf{y}\)</span></p></li>
+<li><p>Outer Product [w/ transpose] (formula): column times row = <span class="math inline">\(\mathbf{x} \mathbf{y}^{\intercal}\)</span></p></li>
+<li><p><span class="math inline">\((A^{\intercal})_{ij}=A_{ji}\)</span></p></li>
+<li><p>Symmetric Matrix: <span class="math inline">\(S^{\intercal}=S\)</span> so each element <span class="math inline">\(s_{ij}=s_{ji}\)</span></p></li>
+<li><p>Any matrix multiplied by it’s transpose is symmetric; i.e. <span class="math inline">\(A\)</span>: <span class="math inline">\(A^{\intercal}A=S\)</span></p></li>
+<li><p><span class="math inline">\(A^{\intercal}A\)</span> is symmetric (formula): <span class="math inline">\((A^{\intercal}A)^{\intercal} = A^{\intercal}(A^{\intercal})^{\intercal} = A^{\intercal}A\)</span></p></li>
+<li><p>The <span class="math inline">\(A=LDU\)</span> factorization can be re-written when a matrix is symmetric: <span class="math inline">\(A=LDU \rightarrow S=LDL^\intercal\)</span></p></li>
+<li><p>There are 6 Permutation Matrices of size 3x3:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(I=\begin{bmatrix} 1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 1 \end{bmatrix}\)</span>; with inverse <span class="math inline">\(I^{-1}=I\)</span></p></li>
+<li><p><span class="math inline">\(P_{21} = \begin{bmatrix} 0 &amp; 1 &amp; 0\\1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 \end{bmatrix}\)</span>; with inverse
+<span class="math inline">\(P_{21}^{-1}=P_{21}\)</span></p></li>
+<li><p><span class="math inline">\(P_{31} = \begin{bmatrix} 0 &amp; 0 &amp; 1\\0 &amp; 1 &amp; 0\\1 &amp; 0 &amp; 0 \end{bmatrix}\)</span>; with inverse
+<span class="math inline">\(P_{31}^{-1}=P_{31}\)</span></p></li>
+<li><p><span class="math inline">\(P_{32}=\begin{bmatrix} 1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1\\0 &amp; 1 &amp; 0 \end{bmatrix}\)</span>; with inverse <span class="math inline">\(P_{32}^{-1} = P_{32}\)</span></p></li>
+<li><p><span class="math inline">\(P_{32}P_{21}=\begin{bmatrix} 0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 1\\1 &amp; 0 &amp; 0 \end{bmatrix}\)</span>; with inverse <span class="math inline">\((P_{32}P_{21})^{-1} = P_{21}^{-1}P_{32}^{-1}=P_{21}P_{32}\)</span></p></li>
+<li><p><span class="math inline">\(P_{21}P_{32}=\begin{bmatrix} 0 &amp; 0 &amp; 1\\1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0 \end{bmatrix}\)</span>; with inverse <span class="math inline">\((P_{21}P_{32})^{-1} = P_{32}^{-1}P_{21}^{-1}=P_{32}P_{21}\)</span></p></li>
+</ol></li>
+<li><p><span class="math inline">\(P^{-1}=P^{\intercal}\)</span> as well as <span class="math inline">\(P^{\intercal}P=I\)</span></p></li>
+<li><p>If permutations are required, then <span class="math inline">\(A=LU\)</span> becomes <span class="math inline">\(PA=LU\)</span></p></li>
+</ul>
 </div>

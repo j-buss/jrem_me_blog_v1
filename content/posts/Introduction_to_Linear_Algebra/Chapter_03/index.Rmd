@@ -1,0 +1,164 @@
+---
+title: Chapter 3 - Vector Spaces and Subspaces
+author: Jeremy Buss
+date: '2022-03-16'
+slug: []
+categories: 
+  - Linear Algebra
+  - Introduction to Linear Algebra - Gilbert Strang
+draft: no
+katex: yes
+---
+
+The following are my personal notes from taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm)
+
+## 3.1 Spaces of Vectors
+
+- The space $\R^n$ consists of all column vectors $v$ with $n$ components
+- If $\mathbf{v}$ and $\mathbf{w}$ are in the vector space $S$ every combination $c\mathbf{v} + d\mathbf{w}$ must be in $S$; $\forall c,d \in \R$
+- A subspace is a vector space inside of another vector space
+- A subspace of a vector space is a set of vectors (including $\mathbf{0}$) that satisfies 2 requirements: If $\mathbf{v}$ and $\mathbf{w}$ are vectors in the subspace and $c$ is any scalar then:
+  1. $\mathbf{v}+\mathbf{w}$ is in the subspace
+  2. $c\mathbf{v}$ is in the subspace
+- A subspace is closed under addition and scalar multiplication
+- All subspaces of $\R^3$
+  - **L** Any line through (0,0,0)
+  - **P** Any plane through (0,0,0)
+  - **Z** The single vector (0,0,0)
+  - **$\R^3$** The whole space
+- The Column Space of $A$ contains all linear combinations of the columns of $A$. 
+- $A\mathbf{x}=\mathbf{b}$ can be solved when $\mathbf{b}$ is in the column space $\mathbf{C}(A)$
+- If there are 2 subspaces, for example **P** and **L**, then the union $P \cup L$ is not a subspace
+- If there are 2 subspaces, for example **P** and **L**, then the intersection $P \cap L$ is a subspace  
+- If $A$ is a matrix with dimensions $m \times n$ then the column space $\mathbf{C}(A)$ is a subspace of $\R^m$
+
+  
+## 3.2 The Nullspace of A: Solving $A\mathbf{x} = 0$ and $R\mathbf{x}=0$
+
+- The Nullspace $N(A)$ consists of all solutions to $A\mathbf{x}=\mathbf{0}$. These vectors $\mathbf{x}$ are in $\R^n$ (i.e. for the matrix $A$ that has dimensions $m \times n$ this is the number of columns of $A$)
+- Using elimination from $A$ to $U$ to $R$ doesn't change the nullspace; in other words $N(A)=N(U)=N(R)$
+- Reduced Row Echelon Form $R = \text{rref}(A)$ has all pivots = 1, with zeros above and below
+- rref continues elimination from the upper triangular matrix $U$ by doing two more steps:
+  1. Use pivot rows to eliminate upware in $R$
+  2. Divide the whole pivot row by its pivot
+- Rank ($r$): is the number of pivots or number of nonzero rows in $R$; there are $n-r$ free columns
+- If the column $j$ of $R$ is free (no pivot), there is a **special solution** to $A\mathbf{x}=\mathbf{0}$ with $x_j=1$
+- Every matrix with $m<n$ has nonzero solutions to $A\mathbf{x}=\mathbf{0}$ in its nullspace
+- 2 ways to tell about a subspace:
+  1. Given a few vectors make combinations and "build it up"
+  2. Given a few equations that need to be satisfied
+- When solving with elimination ($A\mathbf{x}=\mathbf{0}$) we are not changing the $\mathbf{0}$ vector and therefore not changing the nullspace, but we are changing the column space
+- Steps to finding solutions to ($A\mathbf{x}=\mathbf{0}$):
+  1. Reduce $A$ to its rref $R$
+  2. Find the special solutions to $A\mathbf{x}=\mathbf{0}$
+- The Nullspace contains all linear combinations of the special solutions
+- There are 1 special solutions for each free variable
+- rref has Identity in pivot rows/columns
+- Thinking of the Nullspace solutions in block form:
+
+$$
+\begin{align*}
+R &= 
+\begin{bmatrix}
+I & F\\
+0 & 0
+\end{bmatrix}
+\\
+N &= 
+\begin{bmatrix}
+-F\\
+I
+\end{bmatrix}
+\end{align*}
+$$
+Where $RN=\mathbf{0}$
+
+- The solution to the nullspace, when thinking of the Nullspace in block form then becomes:
+$$
+\begin{align*}
+R\mathbf{x} &= \mathbf{0}
+\\
+\begin{bmatrix}
+I & F\\
+0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_{pivot} \\
+x_{free}
+\end{bmatrix}
+&= \mathbf{0}
+\\
+x_{pivot}&=-F x_{free}
+\end{align*}
+$$
+
+## 3.3 The Complete Solution to $A\mathbf{x} = \mathbf{b}$
+- The complete solution to $A\mathbf{x} = \mathbf{b}$ is $x_{p} + x_n$; where $x_p$ is a particular solution and $x_n$ is any solution in the nullspace
+- Elimination on $\begin{bmatrix} A & \mathbf{b} \end{bmatrix}$ leads to $\begin{bmatrix} R & \mathbf{d} \end{bmatrix}$. Where by $A\mathbf{x} = \mathbf{b}$ is equivalent to $R\mathbf{x} = \mathbf{d}$
+- $A\mathbf{x} = \mathbf{b}$ and  $R\mathbf{x} = \mathbf{d}$ are solvable only when all zero rows of $R$ have zeros in $\mathbf{d}$
+- When $R\mathbf{x} = \mathbf{d}$ is solvable, one very particular solution $x_p$ has all free variables equal to zero
+
+- If $A$ is full column rank (i.e. $r=n$):
+  1. All columns of $A$ are pivot columns
+  2. No free variables
+  3. $\mathbf{N}(A)= \{\mathbf{0}\}$
+  4. If $A\mathbf{x} = \mathbf{b}$ has a solution there is only 1
+- If $A$ is full row rank (i.e. $r=m$):
+  1. All rows of $A$ have pivots; $R$ has no zero rows
+  2. The column space is the whole space $\R^m$
+  3. There are $n-r=n-m$ special solutions in the $\mathbf{N}(A)$
+  4. If $A\mathbf{x} = \mathbf{b}$ has a solution for every $\mathbf{b}$
+
+- Summary of 4 possibilities for linear equations by rank:
+  1. Full Rank
+      - $r=m$ and $r=n$
+      - Square and invertible
+      - $A\mathbf{x}=\mathbf{b}$ has 1 solution
+  2. Full Row Rank
+      - $r=m$ and $r < n$
+      - Short and wide
+      - $A\mathbf{x}=\mathbf{b}$ has $\infty$ solution
+  3. Full Column Rank
+      - $r<m$ and $r = n$
+      - Tall and thin
+      - $A\mathbf{x}=\mathbf{b}$ has 0 or 1 solutions
+  4. Not full rank
+      - $r<m$ and $r < n$
+      - $A\mathbf{x}=\mathbf{b}$ has 0 or $\infty$ solutions
+      
+## 3.4 Independence, Basis and Dimension
+
+- Linearly Independent: Vectors $v_1, v_2, \dots, v_n$ are independent if $c_1 v_1 + c_2 v_2 + \dots + c_n v_n = 0$ only happens when $c_i=0$ $\forall i \in \{1, \dots, n\}$ 
+- Full column rank (independence): columns of $A$ are independent when: 
+  1. Rank is $r=n$
+  2. $n$ pivots and no free variables
+  3. $\mathbf{N}(A) = \{\mathbf{0}\}$
+- A set of vectors **span a space** if their linear combinations fill the space
+- Basis: sequence of vectors with two properties:
+  1. They are linearly independent
+  2. They span the space
+- The vectors $v_1, v_2, \dots, v_n$ are a **basis for $\R^n$** exactly when they are the columns of an $n$ by $n$ invertible matrix
+- Any set of $n$ vectors in $\R^n$ must be linearly dependent if $n>m$
+- There are infinitely many different bases of $\R^n$
+- The dimension of a space is the number of vectors in every basis
+- The rank of a matrix equals the dimensions of the column space
+- If the dimension of the space is $d$ and you have $d$ independent vectors; they will span the space
+- Row Space of a matrix: is the subspace of $\R^n$ spanned by the rows
+- Row Space (formula): $\mathbf{C}(A^{\intercal})$; i.e. the column space of $A^{\intercal}$
+- The pivot columns of $A$ are a basis for its column space
+- The pivot rows of $A$ are a basis for its row space
+- If $v_1, \dots, v_m$ and $w_1, \dots, w_n$ are both bases for the same vector space, then $m=n$
+
+
+## 3.5 Dimensions of the Four Subspaces
+
+- Row space: $\mathbf{C}(A^{\intercal})$, a subspace of $\R^n$ with dimension $r$
+- Column space: $\mathbf{C}(A)$ a subspace of $\R^m$ with dimension $r$
+- Nullspace: $\mathbf{N}(A)$ a subspace of $\R^n$ with dimension $n-r$
+- Left Nullspace: $\mathbf{N}(A^{\intercal})$ a subspace of $\R^m$ with dimension $m-r$
+- The dimension of the row space is rank $r$; the nonzero rows of $R$ form a basis.
+- The dimension of the column space is the rank $r$; the pivot columns form a basis
+- The nullspace has dimension $n-r$; the special solutions form a basis
+- Rank Theorem: The number of independent columns = the number of independent rows
+- Every matrix with rank 1 is one column times one row: $A = \mathbf{u}\mathbf{v}^{\intercal}$
+
