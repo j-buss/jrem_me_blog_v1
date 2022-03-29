@@ -1,0 +1,108 @@
+---
+title: Chapter 4 - Orthogonality
+author: Jeremy Buss
+date: '2022-03-22'
+slug: []
+categories: 
+  - Linear Algebra
+  - Introduction to Linear Algebra - Gilbert Strang
+draft: no
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The following are my personal notes from taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm">Introduction to Linear Algebra - MIT OCW 18.06</a></p>
+<div id="orthogonality-of-the-four-subspaces" class="section level2">
+<h2>4.1 Orthogonality of the Four Subspaces</h2>
+<ul>
+<li>Orthogonal vectors: <span class="math inline">\(\mathbf{v}^{\intercal}\mathbf{w}=0\)</span></li>
+<li><span class="math inline">\(\Vert \mathbf{v} \Vert ^{2} + \Vert \mathbf{w} \Vert ^{2} = \Vert \mathbf{v} + \mathbf{w} \Vert ^{2}\)</span></li>
+<li>Orthogonal subspaces: Two subspaces <span class="math inline">\(V\)</span> and <span class="math inline">\(W\)</span> are orthogonal if <span class="math inline">\(\mathbf{v}^{\intercal}\mathbf{w}=0; \; \forall \mathbf{v} \in V \; and \; \forall \mathbf{w} \in W\)</span></li>
+<li>Every vector  in the nullspace is perpendicualr to every row of <span class="math inline">\(A\)</span>, because <span class="math inline">\(A\mathbf{x}=\mathbf{0}\)</span></li>
+<li>The nullspace <span class="math inline">\(\mathbf{N}(A)\)</span> and the row space <span class="math inline">\(\mathbf{C}(A)\)</span> are orthogonal subspaces of <span class="math inline">\(\R^n\)</span></li>
+<li>nullspace <span class="math inline">\(\mathbf{N}(A)\)</span> and the row space <span class="math inline">\(\mathbf{C}(A)\)</span> relationship:
+<span class="math display">\[
+A\mathbf{x} =
+\begin{bmatrix}
+\mathbf{row\;1}\\
+\vdots\\
+\mathbf{row\;m}\\
+\end{bmatrix}
+\begin{bmatrix}\\
+\mathbf{x}\\
+\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\
+\vdots
+\\
+0
+\end{bmatrix}
+\begin{matrix}
+\longleftarrow
+\\
+\\
+\longleftarrow
+\end{matrix}
+\begin{matrix}
+(\mathbf{row\;1})\cdot  x \; \text{is zero}\\
+\\
+(\mathbf{row\;m})\cdot  x \; \text{is zero}\\
+\end{matrix}
+\]</span></li>
+<li>Nullspace orthogonal to row space proof: <span class="math inline">\(\mathbf{x}^{\intercal}(A^{\intercal}\mathbf{y}) = (A\mathbf{x})^{\intercal} \mathbf{y} = \mathbf{0}^{\intercal}\mathbf{y}=0\)</span></li>
+<li>Every vector <span class="math inline">\(\mathbf{y}\)</span> in the nullspace of <span class="math inline">\(A^{\intercal}\)</span> is perpendicular to every column of <span class="math inline">\(A\)</span></li>
+<li>The left nullspace <span class="math inline">\(\mathbf{N}(A^{\intercal})\)</span> and the column space <span class="math inline">\(\mathbf{C}(A)\)</span> are orthogonal in <span class="math inline">\(\R^n\)</span></li>
+<li><span class="math inline">\(\mathbf{C}(A)\perp\mathbf{N}(A^{\intercal})\)</span></li>
+</ul>
+<p><span class="math display">\[
+A^{\intercal}\mathbf{y} =
+\begin{bmatrix}
+(\mathbf{column\;1})^{\intercal}\\
+\vdots\\
+(\mathbf{column\;n})^{\intercal}\\
+\end{bmatrix}
+\begin{bmatrix}\\
+\mathbf{y}\\
+\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\
+\vdots
+\\
+0
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li>Fundamental Theorem of Linear Algebra Part 2:
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{N}(A)\)</span> is the orthogonal complement of the row space <span class="math inline">\(\mathbf{C}(A^{\intercal})\)</span> in <span class="math inline">\(\R^n\)</span></li>
+<li><span class="math inline">\(\mathbf{N}(A^{\intercal})\)</span> is the orthogonal complement of the column space <span class="math inline">\(\mathbf{C}(A})\)</span> in <span class="math inline">\(\R^m\)</span></li>
+</ol></li>
+<li>Any <span class="math inline">\(n\)</span> independent vectors in <span class="math inline">\(\R^n\)</span> must span <span class="math inline">\(\R^n\)</span>. So they are a basis</li>
+<li>Any <span class="math inline">\(n\)</span> vectors that span <span class="math inline">\(\R^n\)</span> must be independent. So they are a basis.</li>
+<li>If the <span class="math inline">\(n\)</span> columns of <span class="math inline">\(A\)</span> are independent, they span <span class="math inline">\(\R^n\)</span>. So <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> is solvable.</li>
+<li>If the <span class="math inline">\(n\)</span> columns span <span class="math inline">\(\R^n\)</span>, they are independent. So <span class="math inline">\(A\mathbf{x}=\mathbf{b}\)</span> has only one solution.</li>
+</ul>
+<div class="figure">
+<img src="images/FourSubspacesOrthogonal.png" style="width:150.0%" alt="" />
+<p class="caption">The Big Picture - Four Subspaces Orthogonality</p>
+</div>
+<div class="figure">
+<img src="images/FourSubspacesOrthogonalRelationship.png" style="width:130.0%" alt="" />
+<p class="caption">The Big Picture - Four Subspaces Orthogonal Relationship</p>
+</div>
+</div>
+<div id="projections" class="section level2">
+<h2>4.2 Projections</h2>
+</div>
+<div id="least-squares-approximations" class="section level2">
+<h2>4.3 Least Squares Approximations</h2>
+</div>
+<div id="orthonormal-bases-and-gram-schmidt" class="section level2">
+<h2>4.4 Orthonormal Bases and Gram-Schmidt</h2>
+</div>

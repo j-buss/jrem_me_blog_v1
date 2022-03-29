@@ -112,6 +112,7 @@ x_{pivot}&amp;=-F x_{free}
 <h2>3.3 The Complete Solution to <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></h2>
 <ul>
 <li><p>The complete solution to <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is <span class="math inline">\(x_{p} + x_n\)</span>; where <span class="math inline">\(x_p\)</span> is a particular solution and <span class="math inline">\(x_n\)</span> is any solution in the nullspace</p></li>
+<li><p>The particular solution can be found by setting the free variables to zero, then the pivot variables are read from <span class="math inline">\(\mathbf{d}\)</span> (if the matrix <span class="math inline">\(R\)</span> is in rref)</p></li>
 <li><p>Elimination on <span class="math inline">\(\begin{bmatrix} A &amp; \mathbf{b} \end{bmatrix}\)</span> leads to <span class="math inline">\(\begin{bmatrix} R &amp; \mathbf{d} \end{bmatrix}\)</span>. Where by <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is equivalent to <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span></p></li>
 <li><p><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> and <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span> are solvable only when all zero rows of <span class="math inline">\(R\)</span> have zeros in <span class="math inline">\(\mathbf{d}\)</span></p></li>
 <li><p>When <span class="math inline">\(R\mathbf{x} = \mathbf{d}\)</span> is solvable, one very particular solution <span class="math inline">\(x_p\)</span> has all free variables equal to zero</p></li>
@@ -199,4 +200,26 @@ x_{pivot}&amp;=-F x_{free}
 <li>Rank Theorem: The number of independent columns = the number of independent rows</li>
 <li>Every matrix with rank 1 is one column times one row: <span class="math inline">\(A = \mathbf{u}\mathbf{v}^{\intercal}\)</span></li>
 </ul>
+<div class="figure">
+<img src="images/FourSubspaces.png" style="width:120.0%" alt="" />
+<p class="caption">The Big Picture - Four Subspaces</p>
+</div>
+<div id="graphs-nodes-edges" class="section level3">
+<h3>Graphs: Nodes, Edges</h3>
+<ul>
+<li>Example:
+<img src="images/network_graph.png" alt="Network Graph" /></li>
+<li>The following matrix gives the network graph:</li>
+<li>Define a matrix with number of rows equal to the number of edges, columns the number of nodes
+<span class="math display">\[
+\begin{bmatrix}
+-1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; -1 &amp; 1 &amp; 0 \\
+-1 &amp; 0 &amp; 1 &amp; 0 \\
+-1 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; -1 &amp; 1 \\
+\end{bmatrix}
+\]</span></li>
+</ul>
+</div>
 </div>

@@ -94,6 +94,7 @@ $$
 
 ## 3.3 The Complete Solution to $A\mathbf{x} = \mathbf{b}$
 - The complete solution to $A\mathbf{x} = \mathbf{b}$ is $x_{p} + x_n$; where $x_p$ is a particular solution and $x_n$ is any solution in the nullspace
+- The particular solution can be found by setting the free variables to zero, then the pivot variables are read from $\mathbf{d}$ (if the matrix $R$ is in rref)
 - Elimination on $\begin{bmatrix} A & \mathbf{b} \end{bmatrix}$ leads to $\begin{bmatrix} R & \mathbf{d} \end{bmatrix}$. Where by $A\mathbf{x} = \mathbf{b}$ is equivalent to $R\mathbf{x} = \mathbf{d}$
 - $A\mathbf{x} = \mathbf{b}$ and  $R\mathbf{x} = \mathbf{d}$ are solvable only when all zero rows of $R$ have zeros in $\mathbf{d}$
 - When $R\mathbf{x} = \mathbf{d}$ is solvable, one very particular solution $x_p$ has all free variables equal to zero
@@ -161,4 +162,22 @@ $$
 - The nullspace has dimension $n-r$; the special solutions form a basis
 - Rank Theorem: The number of independent columns = the number of independent rows
 - Every matrix with rank 1 is one column times one row: $A = \mathbf{u}\mathbf{v}^{\intercal}$
+
+![The Big Picture - Four Subspaces](images/FourSubspaces.png){width=120%}
+
+### Graphs: Nodes, Edges
+
+- Example:
+![Network Graph](images/network_graph.png)
+- The following matrix gives the network graph:
+- Define a matrix with number of rows equal to the number of edges, columns the number of nodes
+$$
+\begin{bmatrix}
+-1 & 1 & 0 & 0 \\
+0 & -1 & 1 & 0 \\
+-1 & 0 & 1 & 0 \\
+-1 & 0 & 0 & 1 \\
+0 & 0 & -1 & 1 \\
+\end{bmatrix}
+$$
 
