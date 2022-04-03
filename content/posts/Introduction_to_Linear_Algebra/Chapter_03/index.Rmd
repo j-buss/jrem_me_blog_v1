@@ -169,7 +169,6 @@ $$
 
 - Example:
 ![Network Graph](images/network_graph.png)
-- The following matrix gives the network graph:
 - Define a matrix with number of rows equal to the number of edges, columns the number of nodes
 $$
 \begin{bmatrix}
@@ -180,4 +179,8 @@ $$
 0 & 0 & -1 & 1 \\
 \end{bmatrix}
 $$
+- Incidence Matrix: logical matrix that shows the relationship between two classes of objects
+- A loop of an incidence matrix depict linearly dependent rows
+- Tree: a graph with no loops
+- Euler's formula: # Nodes - # Edges + # Loops = 1
 
