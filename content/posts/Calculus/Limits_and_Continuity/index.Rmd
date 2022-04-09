@@ -94,16 +94,16 @@ taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https:
 \displaystyle{\lim_{x \rightarrow -\infty}} a{x^n}+\dots+bx+c&= -1 \times sign(a) \times \infty\\
 \end{align*}
 \]
-- Continuous Function: If \(f(x)$ is continuous at $a$ then \(\displaystyle{\lim_{x \rightarrow a}} f(x)=f(a)\)
-- Continuous Function and Composition: If $f(x)$ is continuous at $b$ and \(\displaystyle{\lim_{x \rightarrow a}} g(x)=b\) then \(\displaystyle{\lim_{x \rightarrow a}} f(g(x))=f \left ( \displaystyle{\lim_{x \rightarrow a}} g(x)\right ) = f(b)\)
+- Continuous Function: If \(f(x)\) is continuous at \(a\) then \(\displaystyle{\lim_{x \rightarrow a}} f(x)=f(a)\)
+- Continuous Function and Composition: If \(f(x)\) is continuous at \(b\) and \(\displaystyle{\lim_{x \rightarrow a}} g(x)=b\) then \(\displaystyle{\lim_{x \rightarrow a}} f(g(x))=f \left ( \displaystyle{\lim_{x \rightarrow a}} g(x)\right ) = f(b)\)
 - L'Hospital's Rule: If \(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\frac{0}{0}\) or \(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\frac{\pm \infty}{\pm \infty}\) then,
 \(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\displaystyle{\lim_{x \rightarrow a}} \frac{f'(x)}{g'(x)} a\) is a number, \(\infty\) or \(-\infty\)
 - What is the strategy to determine the limit in general (and for piecewise function in particular)? Compute the two one-sided limits, compare and leverage the relationship between one-sided limits and the limit; (i.e. if both one-sided exist and equal, then limit exists)
 - Some Continuous Function Examples:
-  - Polynomials for all $x$
-  - Rational function, except for $x$'s that give division by zero
-  - \(\sqrt[n]{x}\) ($n$ odd) for all $x$
-  - \(\sqrt[n]{x}\) ($n$ even) for all $x \ge 0$
+  - Polynomials for all \(x\)
+  - Rational function, except for \(x\)'s that give division by zero
+  - \(\sqrt[n]{x}\) (\(n\) odd) for all \(x\)
+  - \(\sqrt[n]{x}\) (\(n\) even) for all \(x \ge 0\)
   - \( \rm{e}^x \) for all \(x\)
   - \( \ln{x}\) for \(x > 0\)
   - \( \cos(x)\) and \(\sin(x)\) for all \( x \)

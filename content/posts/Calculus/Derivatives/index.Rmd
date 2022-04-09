@@ -1,0 +1,85 @@
+---
+title: Derivatives
+author: Jeremy Buss
+date: '2022-04-09'
+slug: []
+categories: 
+  - Calculus
+draft: no
+katex: yes
+---
+\(\gdef\ddx{\frac{d}{dx}}\)
+\(\gdef\fx{f(x)}\)
+\(\gdef\fpx{f'(x)}\)
+
+The following are my personal notes from relearning calculus using the following resources:
+
+- [Khan Academy AP Calculus BC](https://www.khanacademy.org/math/ap-calculus-bc)
+- [Paul's Online Notes](https://tutorial.math.lamar.edu/)
+taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm)
+
+## Definition and Notation
+- If \(y=f(x)\) then the derivative is defined to be \(f'(x) = \displaystyle{\lim_{h \rightarrow 0}} \frac{f(x+h)-f(x)}{h}\)
+- If \(y=f(x)\) then all of the following are equivalent notations for the derivative: \(f'(x)=y'=\frac{df}{dx}=\frac{dy}{dx}=\frac{d}{dx}(f(x))=Df(x)\)
+- If \(y=f(x)\) then all of the following are equivalent notations for derivative evaluated at \(x=a\):
+\(f'(a)=y'\vert_{x=a}=\frac{df}{dx}\biggm\vert_{x=a}=\frac{dy}{dx}\biggm\vert_{x=a}=Df(a)\)
+
+## Interpretation of the Derivative
+1. If \(y=f(x)\) then \(m=f'(a)\) is the slope of the tangent line to \(y=f(x)\) at \(x=a\)
+2. \(f'(a)\) is the instantaneous rate of change of \(f(x)\) at \(x=a\)
+3. If \(f(x)\) is the position of an object at time \(x\) then \(f'(a)\) is the velocity of the object at \(x=a\)
+
+
+## Basic Properties and Formulas
+If \(f(x)\) and \(g(x)\) are differentiable functions (the derivative exists), \(c\) and \(n\) are any real numbers:
+
+- Scalar Multiplication: \((cf(x))'=c(f'(x))\)
+- Sum: \((f(x)\pm g(x))'=f'(x)\pm g'(x)\)
+- Product Rule: \((f(x)g(x))'=f(x)'g(x)+ f(x)g'(x)\)
+- Quotient Rule: \(\frac{d}{dx} \left ( \frac{f(x)}{g(x)}\right ) = \frac{f(x)'g(x) - f(x)g'(x)}{[g(x)]^2} \)
+- Constant: \(\frac{d}{dx}(c)=0\)
+- Power Rule: \(\frac{d}{dx}(x^n)=nx^{n-1}\)
+- Chain Rule: \(\frac{d}{dx}(f(g(x)))=f'(g(x))g'(x)\)
+
+
+## Common Derivatives
+
+- \(\ddx(x)=1\)
+- \(\ddx(\sin x)=\cos x\)
+- \(\ddx(\cos x) = -\sin x\)
+- \(\ddx(\tan x) = \sec ^2 x\)
+- \(\ddx(\sec x) = \sec x \tan x  \)
+- \(\ddx(\csc x) = -\csc x \cot x \)
+- \(\ddx( \cot x) = -\csc^2 x \)
+- \(\ddx( \sin ^{-1} x) = \frac{1}{\sqrt{1-x^2}}\)
+- \(\ddx( \cos ^{-1} x) = - \frac{1}{\sqrt{1-x^2}}\)
+- \(\ddx( \tan^{-1} x) = \frac{1}{1+x^2}\)
+- \(\ddx( a^x) = a^x \ln (a)\)
+- \(\ddx(\textrm{e}^x) = \textrm{e}^x \)
+- \(\ddx(\ln(x)) = \frac{1}{x},\; x>0 \)
+- \(\ddx(\ln \vert x \vert) = \frac{1}{x},\; x \ne 0\)
+- \(\ddx(\log_a(x)) = \frac{1}{x \ln {a}}, \; x > 0 \)
+
+## Chain Rule Variants
+
+- \(\ddx([\fx^n) = n[\fx]^{n-1} \fpx  \)
+- \(\ddx \left ( \textrm{e}^{\fx} \right ) = \fpx \textrm{e}^{\fx} \)
+- \(\ddx(\ln[\fx]) =\frac{\fpx}{\fx} \)
+- \(\ddx() = \)
+- \(\ddx() = \)
+- \(\ddx() = \)
+- \(\ddx() = \)
+- \(\ddx() = \)
+
+## Higher Order Derivatives
+
+## Critical Points
+
+## Increasing/Decreasing
+
+## Concave Up/Concave Down
+
+## Inflection Points
+
+## Extrema
+

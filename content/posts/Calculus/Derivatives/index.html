@@ -1,0 +1,104 @@
+---
+title: Derivatives
+author: Jeremy Buss
+date: '2022-04-09'
+slug: []
+categories: 
+  - Calculus
+draft: no
+katex: yes
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p><span class="math inline">\(\gdef\ddx{\frac{d}{dx}}\)</span>
+<span class="math inline">\(\gdef\fx{f(x)}\)</span>
+<span class="math inline">\(\gdef\fpx{f&#39;(x)}\)</span></p>
+<p>The following are my personal notes from relearning calculus using the following resources:</p>
+<ul>
+<li><a href="https://www.khanacademy.org/math/ap-calculus-bc">Khan Academy AP Calculus BC</a></li>
+<li><a href="https://tutorial.math.lamar.edu/">Paul’s Online Notes</a>
+taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm">Introduction to Linear Algebra - MIT OCW 18.06</a></li>
+</ul>
+<div id="definition-and-notation" class="section level2">
+<h2>Definition and Notation</h2>
+<ul>
+<li>If <span class="math inline">\(y=f(x)\)</span> then the derivative is defined to be <span class="math inline">\(f&#39;(x) = \displaystyle{\lim_{h \rightarrow 0}} \frac{f(x+h)-f(x)}{h}\)</span></li>
+<li>If <span class="math inline">\(y=f(x)\)</span> then all of the following are equivalent notations for the derivative: <span class="math inline">\(f&#39;(x)=y&#39;=\frac{df}{dx}=\frac{dy}{dx}=\frac{d}{dx}(f(x))=Df(x)\)</span></li>
+<li>If <span class="math inline">\(y=f(x)\)</span> then all of the following are equivalent notations for derivative evaluated at <span class="math inline">\(x=a\)</span>:
+<span class="math inline">\(f&#39;(a)=y&#39;\vert_{x=a}=\frac{df}{dx}\biggm\vert_{x=a}=\frac{dy}{dx}\biggm\vert_{x=a}=Df(a)\)</span></li>
+</ul>
+</div>
+<div id="interpretation-of-the-derivative" class="section level2">
+<h2>Interpretation of the Derivative</h2>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(y=f(x)\)</span> then <span class="math inline">\(m=f&#39;(a)\)</span> is the slope of the tangent line to <span class="math inline">\(y=f(x)\)</span> at <span class="math inline">\(x=a\)</span></li>
+<li><span class="math inline">\(f&#39;(a)\)</span> is the instantaneous rate of change of <span class="math inline">\(f(x)\)</span> at <span class="math inline">\(x=a\)</span></li>
+<li>If <span class="math inline">\(f(x)\)</span> is the position of an object at time <span class="math inline">\(x\)</span> then <span class="math inline">\(f&#39;(a)\)</span> is the velocity of the object at <span class="math inline">\(x=a\)</span></li>
+</ol>
+</div>
+<div id="basic-properties-and-formulas" class="section level2">
+<h2>Basic Properties and Formulas</h2>
+<p>If <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(g(x)\)</span> are differentiable functions (the derivative exists), <span class="math inline">\(c\)</span> and <span class="math inline">\(n\)</span> are any real numbers:</p>
+<ul>
+<li>Scalar Multiplication: <span class="math inline">\((cf(x))&#39;=c(f&#39;(x))\)</span></li>
+<li>Sum: <span class="math inline">\((f(x)\pm g(x))&#39;=f&#39;(x)\pm g&#39;(x)\)</span></li>
+<li>Product Rule: <span class="math inline">\((f(x)g(x))&#39;=f(x)&#39;g(x)+ f(x)g&#39;(x)\)</span></li>
+<li>Quotient Rule: <span class="math inline">\(\frac{d}{dx} \left ( \frac{f(x)}{g(x)}\right ) = \frac{f(x)&#39;g(x) - f(x)g&#39;(x)}{[g(x)]^2}\)</span></li>
+<li>Constant: <span class="math inline">\(\frac{d}{dx}(c)=0\)</span></li>
+<li>Power Rule: <span class="math inline">\(\frac{d}{dx}(x^n)=nx^{n-1}\)</span></li>
+<li>Chain Rule: <span class="math inline">\(\frac{d}{dx}(f(g(x)))=f&#39;(g(x))g&#39;(x)\)</span></li>
+</ul>
+</div>
+<div id="common-derivatives" class="section level2">
+<h2>Common Derivatives</h2>
+<ul>
+<li><span class="math inline">\(\ddx(x)=1\)</span></li>
+<li><span class="math inline">\(\ddx(\sin x)=\cos x\)</span></li>
+<li><span class="math inline">\(\ddx(\cos x) = -\sin x\)</span></li>
+<li><span class="math inline">\(\ddx(\tan x) = \sec ^2 x\)</span></li>
+<li><span class="math inline">\(\ddx(\sec x) = \sec x \tan x\)</span></li>
+<li><span class="math inline">\(\ddx(\csc x) = -\csc x \cot x\)</span></li>
+<li><span class="math inline">\(\ddx( \cot x) = -\csc^2 x\)</span></li>
+<li><span class="math inline">\(\ddx( \sin ^{-1} x) = \frac{1}{\sqrt{1-x^2}}\)</span></li>
+<li><span class="math inline">\(\ddx( \cos ^{-1} x) = - \frac{1}{\sqrt{1-x^2}}\)</span></li>
+<li><span class="math inline">\(\ddx( \tan^{-1} x) = \frac{1}{1+x^2}\)</span></li>
+<li><span class="math inline">\(\ddx( a^x) = a^x \ln (a)\)</span></li>
+<li><span class="math inline">\(\ddx(\textrm{e}^x) = \textrm{e}^x\)</span></li>
+<li><span class="math inline">\(\ddx(\ln(x)) = \frac{1}{x},\; x&gt;0\)</span></li>
+<li><span class="math inline">\(\ddx(\ln \vert x \vert) = \frac{1}{x},\; x \ne 0\)</span></li>
+<li><span class="math inline">\(\ddx(\log_a(x)) = \frac{1}{x \ln {a}}, \; x &gt; 0\)</span></li>
+</ul>
+</div>
+<div id="chain-rule-variants" class="section level2">
+<h2>Chain Rule Variants</h2>
+<ul>
+<li><span class="math inline">\(\ddx([\fx^n) = n[\fx]^{n-1} \fpx\)</span></li>
+<li><span class="math inline">\(\ddx \left ( \textrm{e}^{\fx} \right ) = \fpx \textrm{e}^{\fx}\)</span></li>
+<li><span class="math inline">\(\ddx(\ln[\fx]) =\frac{\fpx}{\fx}\)</span></li>
+<li><span class="math inline">\(\ddx() =\)</span></li>
+<li><span class="math inline">\(\ddx() =\)</span></li>
+<li><span class="math inline">\(\ddx() =\)</span></li>
+<li><span class="math inline">\(\ddx() =\)</span></li>
+<li><span class="math inline">\(\ddx() =\)</span></li>
+</ul>
+</div>
+<div id="higher-order-derivatives" class="section level2">
+<h2>Higher Order Derivatives</h2>
+</div>
+<div id="critical-points" class="section level2">
+<h2>Critical Points</h2>
+</div>
+<div id="increasingdecreasing" class="section level2">
+<h2>Increasing/Decreasing</h2>
+</div>
+<div id="concave-upconcave-down" class="section level2">
+<h2>Concave Up/Concave Down</h2>
+</div>
+<div id="inflection-points" class="section level2">
+<h2>Inflection Points</h2>
+</div>
+<div id="extrema" class="section level2">
+<h2>Extrema</h2>
+</div>

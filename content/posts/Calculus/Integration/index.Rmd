@@ -1,0 +1,26 @@
+---
+title: Integration
+author: Jeremy Buss
+date: '2022-04-09'
+slug: []
+categories: 
+  - Calculus
+draft: no
+katex: yes
+---
+
+The following are my personal notes from relearning calculus using the following resources:
+
+- [Khan Academy AP Calculus BC](https://www.khanacademy.org/math/ap-calculus-bc)
+- [Paul's Online Notes](https://tutorial.math.lamar.edu/)
+taking the online class: [Introduction to Linear Algebra - MIT OCW 18.06](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/index.htm)
+
+## Definition
+
+## Fundamental Theorem of Calculus
+
+## Properties
+
+## Common Integrals
+
+## Standard Integration Techniques
