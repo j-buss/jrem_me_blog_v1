@@ -22,7 +22,7 @@ taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-
 <h2>Strategy to Find Limits</h2>
 <p><img src="images/Stategy_to_Find_Limits.png" /></p>
 <ul>
-<li><p><span class="math inline">\(\frac{0}{0}\)</span> is much different than <span class="math inline">\(\frac{b}{0}\)</span></p></li>
+<li><p>When finding limits, the answer of <span class="math inline">\(\frac{0}{0}\)</span> is much different than <span class="math inline">\(\frac{b}{0}\)</span></p></li>
 <li><p>Squeeze Theorem - Alternate Names:</p>
 <ol style="list-style-type: decimal">
 <li>Pinching Theorem</li>
@@ -33,8 +33,97 @@ taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-
 <ul>
 <li><span class="math inline">\(g(x) \le f(x) \le h(x)\)</span></li>
 <li>and also suppose that</li>
-<li><span class="math inline">\(\displaystyle{\lim_{x \rarr a} g(x)=\lim_{x \rarr a} h(x) = L}\)</span></li>
-<li>Then <span class="math inline">\(\displaystyle{\lim_{x \rarr a} f(x)= L}\)</span></li>
+<li><span class="math inline">\(\displaystyle{\lim_{x \rightarrow a} g(x)=\lim_{x \rightarrow a} h(x) = L}\)</span></li>
+<li>Then <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a} f(x)= L}\)</span></li>
 </ul></li>
+<li><p>Types of discontinuity:</p>
+<ol style="list-style-type: decimal">
+<li>Point Removal Discontinuity - a point is “missing” from the function</li>
+<li>Jump Continuity - Have to lift pencil; the left and right limits are not the same</li>
+<li>Asymptotic Discontinuity - functions head towards asymptote; limit is undefined</li>
+</ol></li>
+<li><p>Limit (precise definition): We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(x) = L\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span> there is a <span class="math inline">\(\delta &gt; 0\)</span> such that whenever <span class="math inline">\(0 &lt; \lvert x - a \rvert &lt; \delta\)</span> then <span class="math inline">\(\lvert f(x) - L \rvert &lt; \epsilon\)</span></p></li>
+<li><p>Limit (working definition): We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(x) = L\)</span> if we can make <span class="math inline">\(f(x)\)</span> as close to <span class="math inline">\(L\)</span> as we want by taking <span class="math inline">\(x\)</span> sufficiently close to <span class="math inline">\(a\)</span> (on either side of <span class="math inline">\(a\)</span>) without letting <span class="math inline">\(x=a\)</span></p></li>
+<li><p>Right Hand Limit: <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a^+}} f(x) = L\)</span>; the same definition as the limit except it requires <span class="math inline">\(x&gt;a\)</span></p></li>
+<li><p>Left Hand Limit: <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a^-}} f(x) = L\)</span>; the same definition as the limit except it requires <span class="math inline">\(x&lt;a\)</span></p></li>
+<li><p>Limit at inftyity: We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow \infty}} f(x) = L\)</span> if we can make <span class="math inline">\(f(x)\)</span> as close to <span class="math inline">\(L\)</span> as we want by taking <span class="math inline">\(x\)</span> large enough and positive</p></li>
+<li><p>Limit at Negative inftyity: We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow \infty^-}} f(x) = L\)</span> if we can make <span class="math inline">\(f(x)\)</span> as close to <span class="math inline">\(L\)</span> as we want by taking <span class="math inline">\(x\)</span> large enough and negative</p></li>
+<li><p>inftyite Limit: We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(x) = \infty\)</span> if we can make <span class="math inline">\(f(x)\)</span> arbitrarily large (an positive) by taking <span class="math inline">\(x\)</span> sufficiently close to <span class="math inline">\(a\)</span> (on either side of <span class="math inline">\(a\)</span>) without letting <span class="math inline">\(x=a\)</span></p></li>
+<li><p>Negative inftyite Limit: We say <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(x) = -\infty\)</span> if we can make <span class="math inline">\(f(x)\)</span> arbitrarily large (and negative) by taking <span class="math inline">\(x\)</span> sufficiently close to <span class="math inline">\(a\)</span> (on either side of <span class="math inline">\(a\)</span>) without letting <span class="math inline">\(x=a\)</span></p></li>
+<li><p>Relationship between Limit and One Sided Limits:
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} f(x) = L \implies \displaystyle{\lim_{x \rightarrow a^+}} f(x) = \displaystyle{\lim_{x \rightarrow a^-}} f(x) = L\]</span></p></li>
+<li><p>Relationship between One Sided Limits and Limit (Exists):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a^+}} f(x) = \displaystyle{\lim_{x \rightarrow a^-}} f(x) = L \implies \displaystyle{\lim_{x \rightarrow a}} f(x) = L\]</span></p></li>
+<li><p>Relationship between One Sided Limits and Limit (Doesn’t Exist): <span class="math display">\[\displaystyle{\lim_{x \rightarrow a^+}} f(x) \ne \displaystyle{\lim_{x \rightarrow a^-}} f(x) \implies \displaystyle{\lim_{x \rightarrow a}} f(x) \text{ \\Does Not Exist}\]</span></p></li>
+<li><p>Limit Property (scalar Multiplication):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} [cf(x)]=c\displaystyle{\lim_{x \rightarrow a}}f(x)\]</span></p></li>
+<li><p>Limit Property (Limit Addition):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} [f(x) \pm g(x)] = \displaystyle{\lim_{x \rightarrow a}}f(x) \pm \displaystyle{\lim_{x \rightarrow a}}g(x)\]</span></p></li>
+<li><p>Limit Property (Limit Multiplication):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} [f(x) g(x)] = \displaystyle{\lim_{x \rightarrow a}}f(x) \displaystyle{\lim_{x \rightarrow a}}g(x)\]</span></p></li>
+<li><p>Limit Property (Limit Division):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} \left[ \frac{f(x)}{g(x)} \right] = \frac{\displaystyle{\lim_{x \rightarrow a}}f(x)}{\displaystyle{\lim_{x \rightarrow a}}g(x)} \text{\; Provided\;} \displaystyle{\lim_{x \rightarrow a}}g(x) \ne 0\]</span></p></li>
+<li><p>Limit Property (Limit Exponent):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} [f(x)]^n = \left [ \displaystyle{\lim_{x \rightarrow a}} f(x) \right ]^n\]</span></p></li>
+<li><p>Limit Property (Limit Root):
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow a}} [ \sqrt[n]{f(x)} ] =  \sqrt[n]{\displaystyle{\lim_{x \rightarrow a}} f(x)}\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [<span class="math inline">\(\rm{e}^x\)</span>]:
+<span class="math display">\[
+\begin{align*}
+\displaystyle{\lim_{x \rightarrow \infty}} \rm {e}^x &amp;= \infty\\
+\displaystyle{\lim_{x \rightarrow -\infty}} \rm {e}^x &amp;= 0\\
+\end{align*}
+\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [<span class="math inline">\(\rm{ln}(x)\)</span>]:
+<span class="math display">\[
+\begin{align*}
+\displaystyle{\lim_{x \rightarrow \infty}} \rm {ln}(x) &amp;= \infty\\
+\displaystyle{\lim_{x \rightarrow 0^+}} \rm {ln}(x) &amp;= -\infty\\
+\end{align*}
+\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [<span class="math inline">\(x^n\)</span> <span class="math inline">\(n\)</span> is odd]:
+<span class="math display">\[
+\begin{align*}
+\displaystyle{\lim_{x \rightarrow \infty}} x^n &amp;= \infty\\
+\displaystyle{\lim_{x \rightarrow -\infty}} x^n &amp;= -\infty\\
+\end{align*}
+\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [fraction with exponent]:</p>
+<ul>
+<li>If <span class="math inline">\(r&gt;0\)</span> then
+<ul>
+<li><span class="math inline">\(\displaystyle{\lim_{x \rightarrow \infty}} \frac{b}{x^r}=0\)</span></li>
+<li><span class="math inline">\(\displaystyle{\lim_{x \rightarrow -\infty}} \frac{b}{x^r}=0\)</span> when <span class="math inline">\(x^r\)</span> is real for negative <span class="math inline">\(x\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [<span class="math inline">\(x^n\)</span> <span class="math inline">\(n\)</span> is even]:
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow \pm \infty}} {x^n}=\infty\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [polynomial <span class="math inline">\(n\)</span> is even]:
+<span class="math display">\[\displaystyle{\lim_{x \rightarrow \pm \infty}} a{x^n}+\dots+bx+c=sign(a)\times\infty\]</span></p></li>
+<li><p>Limit Evaluations at <span class="math inline">\(\pm \infty\)</span> [polynomial <span class="math inline">\(n\)</span> is odd]:
+<span class="math display">\[
+\begin{align*}
+\displaystyle{\lim_{x \rightarrow \infty}} a{x^n}+\dots+bx+c&amp;=sign(a) \times \infty\\
+\displaystyle{\lim_{x \rightarrow -\infty}} a{x^n}+\dots+bx+c&amp;= -1 \times sign(a) \times \infty\\
+\end{align*}
+\]</span></p></li>
+<li><p>Continuous Function: If (f(x)$ is continuous at <span class="math inline">\(a\)</span> then <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(x)=f(a)\)</span></p></li>
+<li><p>Continuous Function and Composition: If <span class="math inline">\(f(x)\)</span> is continuous at <span class="math inline">\(b\)</span> and <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} g(x)=b\)</span> then <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} f(g(x))=f \left ( \displaystyle{\lim_{x \rightarrow a}} g(x)\right ) = f(b)\)</span></p></li>
+<li><p>L’Hospital’s Rule: If <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\frac{0}{0}\)</span> or <span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\frac{\pm \infty}{\pm \infty}\)</span> then,
+<span class="math inline">\(\displaystyle{\lim_{x \rightarrow a}} \frac{f(x)}{g(x)}=\displaystyle{\lim_{x \rightarrow a}} \frac{f&#39;(x)}{g&#39;(x)} a\)</span> is a number, <span class="math inline">\(\infty\)</span> or <span class="math inline">\(-\infty\)</span></p></li>
+<li><p>What is the strategy to determine the limit in general (and for piecewise function in particular)? Compute the two one-sided limits, compare and leverage the relationship between one-sided limits and the limit; (i.e. if both one-sided exist and equal, then limit exists)</p></li>
+<li><p>Some Continuous Function Examples:</p>
+<ul>
+<li>Polynomials for all <span class="math inline">\(x\)</span></li>
+<li>Rational function, except for <span class="math inline">\(x\)</span>’s that give division by zero</li>
+<li><span class="math inline">\(\sqrt[n]{x}\)</span> (<span class="math inline">\(n\)</span> odd) for all <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(\sqrt[n]{x}\)</span> (<span class="math inline">\(n\)</span> even) for all <span class="math inline">\(x \ge 0\)</span></li>
+<li><span class="math inline">\(\rm{e}^x\)</span> for all <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(\ln{x}\)</span> for <span class="math inline">\(x &gt; 0\)</span></li>
+<li><span class="math inline">\(\cos(x)\)</span> and <span class="math inline">\(\sin(x)\)</span> for all <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(\tan(x)\)</span> and <span class="math inline">\(\sec(x)\)</span> provided <span class="math inline">\(x \ne \dots,-\frac{3 \pi}{2},-\frac{\pi}{2},\frac{\pi}{2},\frac{3 \pi}{2},\dots\)</span></li>
+<li><span class="math inline">\(\cot(x)\)</span> and <span class="math inline">\(\csc(x)\)</span> provided <span class="math inline">\(x \ne \dots,-2 \pi,-\pi,0,\pi,2\pi,\dots\)</span></li>
+</ul></li>
+<li><p>Intermediate Value Theorem: Suppose that <span class="math inline">\(f(x)\)</span> is continuous on <span class="math inline">\([a,b]\)</span> and let <span class="math inline">\(M\)</span> be any number between <span class="math inline">\(f(a)\)</span> and <span class="math inline">\(f(b)\)</span>. Then there exists a number <span class="math inline">\(x\)</span> such that <span class="math inline">\(a&lt;c&lt;b\)</span> and <span class="math inline">\(f(c)=M\)</span></p></li>
 </ul>
 </div>
