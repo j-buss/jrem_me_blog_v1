@@ -54,51 +54,115 @@ taking the online class: <a href="https://ocw.mit.edu/courses/mathematics/18-06-
 <div id="common-derivatives" class="section level2">
 <h2>Common Derivatives</h2>
 <ul>
-<li><span class="math inline">\(\ddx(x)=1\)</span></li>
-<li><span class="math inline">\(\ddx(\sin x)=\cos x\)</span></li>
-<li><span class="math inline">\(\ddx(\cos x) = -\sin x\)</span></li>
-<li><span class="math inline">\(\ddx(\tan x) = \sec ^2 x\)</span></li>
-<li><span class="math inline">\(\ddx(\sec x) = \sec x \tan x\)</span></li>
-<li><span class="math inline">\(\ddx(\csc x) = -\csc x \cot x\)</span></li>
-<li><span class="math inline">\(\ddx( \cot x) = -\csc^2 x\)</span></li>
-<li><span class="math inline">\(\ddx( \sin ^{-1} x) = \frac{1}{\sqrt{1-x^2}}\)</span></li>
-<li><span class="math inline">\(\ddx( \cos ^{-1} x) = - \frac{1}{\sqrt{1-x^2}}\)</span></li>
-<li><span class="math inline">\(\ddx( \tan^{-1} x) = \frac{1}{1+x^2}\)</span></li>
-<li><span class="math inline">\(\ddx( a^x) = a^x \ln (a)\)</span></li>
-<li><span class="math inline">\(\ddx(\textrm{e}^x) = \textrm{e}^x\)</span></li>
-<li><span class="math inline">\(\ddx(\ln(x)) = \frac{1}{x},\; x&gt;0\)</span></li>
-<li><span class="math inline">\(\ddx(\ln \vert x \vert) = \frac{1}{x},\; x \ne 0\)</span></li>
-<li><span class="math inline">\(\ddx(\log_a(x)) = \frac{1}{x \ln {a}}, \; x &gt; 0\)</span></li>
+<li><p><span class="math inline">\(\ddx(x)=1\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\sin x)=\cos x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\cos x) = -\sin x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\tan x) = \sec ^2 x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\sec x) = \sec x \tan x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\csc x) = -\csc x \cot x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx( \cot x) = -\csc^2 x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx( \sin ^{-1} x) = \frac{1}{\sqrt{1-x^2}}\)</span></p></li>
+<li><p><span class="math inline">\(\ddx( \cos ^{-1} x) = - \frac{1}{\sqrt{1-x^2}}\)</span></p></li>
+<li><p><span class="math inline">\(\ddx( \tan^{-1} x) = \frac{1}{1+x^2}\)</span></p></li>
+<li><p><span class="math inline">\(\ddx( a^x) = a^x \ln (a)\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\textrm{e}^x) = \textrm{e}^x\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\ln(x)) = \frac{1}{x},\; x&gt;0\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\ln \vert x \vert) = \frac{1}{x},\; x \ne 0\)</span></p></li>
+<li><p><span class="math inline">\(\ddx(\log_a(x)) = \frac{1}{x \ln {a}}, \; x &gt; 0\)</span></p></li>
 </ul>
 </div>
 <div id="chain-rule-variants" class="section level2">
 <h2>Chain Rule Variants</h2>
 <ul>
-<li><span class="math inline">\(\ddx([\fx^n) = n[\fx]^{n-1} \fpx\)</span></li>
+<li><span class="math inline">\(\ddx([\fx^n]) = n[\fx]^{n-1} \fpx\)</span></li>
 <li><span class="math inline">\(\ddx \left ( \textrm{e}^{\fx} \right ) = \fpx \textrm{e}^{\fx}\)</span></li>
 <li><span class="math inline">\(\ddx(\ln[\fx]) =\frac{\fpx}{\fx}\)</span></li>
-<li><span class="math inline">\(\ddx() =\)</span></li>
-<li><span class="math inline">\(\ddx() =\)</span></li>
-<li><span class="math inline">\(\ddx() =\)</span></li>
-<li><span class="math inline">\(\ddx() =\)</span></li>
-<li><span class="math inline">\(\ddx() =\)</span></li>
+<li><span class="math inline">\(\ddx(\sin[\fx]) = \fpx \cos [\fx]\)</span></li>
+<li><span class="math inline">\(\ddx(\cos [\fx]) = -\fpx\sin[\fx]\)</span></li>
+<li><span class="math inline">\(\ddx(\tan[\fx]) = \fpx \sec^2[\fx]\)</span></li>
+<li><span class="math inline">\(\ddx(\sec[\fx]) = \fpx \sec[\fx]\tan[\fx]\)</span></li>
+<li><span class="math inline">\(\ddx(\tan ^{-1}[\fx]) = \frac{\fpx}{1 + [\fx]^2}\)</span></li>
 </ul>
 </div>
 <div id="higher-order-derivatives" class="section level2">
 <h2>Higher Order Derivatives</h2>
+<ul>
+<li>Second Derivative is denoted as <span class="math inline">\(f&#39;&#39;(x)=f^{(2)}(x) = \frac{d^2f}{dx^2}\)</span></li>
+<li>Second Derivative is defined as <span class="math inline">\(f&#39;&#39;(x)=(\fpx)&#39;\)</span> i.e. the derivative of the first derivative, <span class="math inline">\(\fpx\)</span></li>
+<li>nth Derivative is denoted as <span class="math inline">\(f^{(n)}(x) = \frac{d^nf}{dx^n}\)</span></li>
+<li>nth Derivative is defined as <span class="math inline">\(f^{(n)}(x)=(f^{(n-1)}(x))&#39;\)</span> i.e. the derivative of the <span class="math inline">\((n-1)^{\text{st}}\)</span> derivative, <span class="math inline">\(f^{(n-1)}(x)\)</span></li>
+</ul>
 </div>
 <div id="critical-points" class="section level2">
 <h2>Critical Points</h2>
+<ul>
+<li><span class="math inline">\(x=c\)</span> is a critical point of <span class="math inline">\(f(x)\)</span> provided either:
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(f&#39;(c)=0\)</span></li>
+<li><span class="math inline">\(f&#39;(c)\)</span> doesn’t exist</li>
+</ol></li>
+</ul>
 </div>
 <div id="increasingdecreasing" class="section level2">
 <h2>Increasing/Decreasing</h2>
+<ul>
+<li>If <span class="math inline">\(\fpx&gt;0\)</span> for all <span class="math inline">\(x\)</span> in an interval <span class="math inline">\(I\)</span> then <span class="math inline">\(\fx\)</span> is increasing on the interval <span class="math inline">\(I\)</span></li>
+<li>If <span class="math inline">\(\fpx&lt;0\)</span> for all <span class="math inline">\(x\)</span> in an interval <span class="math inline">\(I\)</span> then <span class="math inline">\(\fx\)</span> is decreasing on the interval <span class="math inline">\(I\)</span></li>
+<li>If <span class="math inline">\(\fpx=0\)</span> for all <span class="math inline">\(x\)</span> in an interval <span class="math inline">\(I\)</span> then <span class="math inline">\(\fx\)</span> is constant on the interval <span class="math inline">\(I\)</span></li>
+</ul>
 </div>
 <div id="concave-upconcave-down" class="section level2">
 <h2>Concave Up/Concave Down</h2>
+<ul>
+<li>If <span class="math inline">\(f&#39;&#39;(x)&gt;0\)</span> for all <span class="math inline">\(x\)</span> in an interval <span class="math inline">\(I\)</span> then <span class="math inline">\(\fx\)</span> is concave up on the interval <span class="math inline">\(I\)</span></li>
+<li>If <span class="math inline">\(f&#39;&#39;(x)&lt;0\)</span> for all <span class="math inline">\(x\)</span> in an interval <span class="math inline">\(I\)</span> then <span class="math inline">\(\fx\)</span> is concave down on the interval <span class="math inline">\(I\)</span></li>
+</ul>
 </div>
 <div id="inflection-points" class="section level2">
 <h2>Inflection Points</h2>
+<ul>
+<li><span class="math inline">\(x=c\)</span> is an inflection point of <span class="math inline">\(f(x)\)</span> if the concavity changes at <span class="math inline">\(x=c\)</span></li>
+</ul>
 </div>
 <div id="extrema" class="section level2">
 <h2>Extrema</h2>
+<ul>
+<li><span class="math inline">\(x=c\)</span> is an absolute maximum of <span class="math inline">\(f(x)\)</span> if <span class="math inline">\(f(c) \ge \fx\)</span> for all <span class="math inline">\(x\)</span> in the domain</li>
+<li><span class="math inline">\(x=c\)</span> is an absolute minimum of <span class="math inline">\(f(x)\)</span> if <span class="math inline">\(f(c) \le \fx\)</span> for all <span class="math inline">\(x\)</span> in the domain</li>
+<li>Fermat’s Theorem: If <span class="math inline">\(f(x)\)</span> has a relative (or local) extrema at <span class="math inline">\(x=c\)</span>, then <span class="math inline">\(x=c\)</span> is a critical point of <span class="math inline">\(\fx\)</span></li>
+<li>Extreme Value Theorem: If <span class="math inline">\(f(x)\)</span> is continuous on the closed interval <span class="math inline">\([a,b]\)</span> then there exist numbers <span class="math inline">\(c\)</span> and <span class="math inline">\(d\)</span> so that:
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(a \le c, d \le b\)</span></li>
+<li><span class="math inline">\(f(c)\)</span> is the absolute max in <span class="math inline">\([a,b]\)</span></li>
+<li><span class="math inline">\(f(d)\)</span> is the absolute max in <span class="math inline">\([a,b]\)</span></li>
+</ol></li>
+<li>Finding Absolute Extrema: To find absolute extrema of the continuous function <span class="math inline">\(\fx\)</span> on the interval <span class="math inline">\([a,b]\)</span> use the following:
+<ol style="list-style-type: decimal">
+<li>Find all critical points of <span class="math inline">\(\fx\)</span> in <span class="math inline">\([a,b]\)</span></li>
+<li>Evaluate <span class="math inline">\(\fx\)</span> at all points found in step 1</li>
+<li>Evaluate <span class="math inline">\(f(a)\)</span> and <span class="math inline">\(f(b)\)</span></li>
+<li>Identify the absolute max and absolute miniumum from evaluations in steps 2 &amp; 3</li>
+</ol></li>
+<li><span class="math inline">\(x=c\)</span> is a relative (or local) maximum of <span class="math inline">\(f(x)\)</span> if <span class="math inline">\(f(c) \ge \fx\)</span> for all <span class="math inline">\(x\)</span> near <span class="math inline">\(c\)</span></li>
+<li><span class="math inline">\(x=c\)</span> is a relative (or local) minimum of <span class="math inline">\(f(x)\)</span> if <span class="math inline">\(f(c) \le \fx\)</span> for all <span class="math inline">\(x\)</span> near <span class="math inline">\(c\)</span></li>
+<li>First Derivative Test: If <span class="math inline">\(x=c\)</span> is a critical point of <span class="math inline">\(f(x)\)</span> then <span class="math inline">\(x=c\)</span> is:
+<ol style="list-style-type: decimal">
+<li>a relative maximum of <span class="math inline">\(\fx\)</span> if <span class="math inline">\(\fpx &gt;0\)</span> to the left of <span class="math inline">\(x=c\)</span> and <span class="math inline">\(\fpx &lt;0\)</span> to the right of <span class="math inline">\(x=c\)</span></li>
+<li>a relative minimum of <span class="math inline">\(\fx\)</span> if <span class="math inline">\(\fpx &lt;0\)</span> to the left of <span class="math inline">\(x=c\)</span> and <span class="math inline">\(\fpx &gt;0\)</span> to the right of <span class="math inline">\(x=c\)</span></li>
+<li>Not a relative extrema of <span class="math inline">\(\fx\)</span> if <span class="math inline">\(\fpx\)</span> is the same sign on both sides of <span class="math inline">\(x=c\)</span></li>
+</ol></li>
+<li>Second Derivative Test: If <span class="math inline">\(x=c\)</span> is a critical point of <span class="math inline">\(f(x)\)</span> such that <span class="math inline">\(f&#39;(c)=0\)</span> then <span class="math inline">\(x=c\)</span> is:
+<ol style="list-style-type: decimal">
+<li>a relative maximum of <span class="math inline">\(\fx\)</span> if <span class="math inline">\(f&#39;&#39;(c)&lt;0\)</span></li>
+<li>a relative minimum of <span class="math inline">\(\fx\)</span> if <span class="math inline">\(f&#39;&#39;(c)&gt;0\)</span></li>
+<li>may be a relative maximum, relative minimum, or neigher if <span class="math inline">\(f&#39;&#39;(c)=0\)</span></li>
+</ol></li>
+<li>Finding Relative Extrema and/or Classify Critical Points:
+<ol style="list-style-type: decimal">
+<li>Find all critical points of <span class="math inline">\(\fx\)</span></li>
+<li>Use the first derivative test or the second derivative test on each critical point</li>
+</ol></li>
+<li>Mean Value Theorem: If <span class="math inline">\(\fx\)</span> is continuous on the closed interval <span class="math inline">\([a,b]\)</span> and differentiable on the open interval <span class="math inline">\((a,b)\)</span> then there is a number <span class="math inline">\(a &lt; c&lt; b\)</span> such that <span class="math inline">\(f&#39;(c)= \frac{f(b)-f(a)}{b-a}\)</span></li>
+<li>Newton’s Method: If <span class="math inline">\(x_n\)</span> is the <span class="math inline">\(n^{\text{th}}\)</span> guess for the root/solution of <span class="math inline">\(\fx=0\)</span> then <span class="math inline">\((n+1)^{st}\)</span> guess is <span class="math inline">\(x_{n+1}=x_n - \frac{f(x_n)}{f&#39;(x_n)}\)</span> provided <span class="math inline">\(f&#39;(x_n)\)</span> exists</li>
+</ul>
 </div>

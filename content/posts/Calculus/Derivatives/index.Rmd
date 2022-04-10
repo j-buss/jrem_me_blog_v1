@@ -52,6 +52,7 @@ If \(f(x)\) and \(g(x)\) are differentiable functions (the derivative exists), \
 - \(\ddx(\csc x) = -\csc x \cot x \)
 - \(\ddx( \cot x) = -\csc^2 x \)
 - \(\ddx( \sin ^{-1} x) = \frac{1}{\sqrt{1-x^2}}\)
+
 - \(\ddx( \cos ^{-1} x) = - \frac{1}{\sqrt{1-x^2}}\)
 - \(\ddx( \tan^{-1} x) = \frac{1}{1+x^2}\)
 - \(\ddx( a^x) = a^x \ln (a)\)
@@ -62,24 +63,65 @@ If \(f(x)\) and \(g(x)\) are differentiable functions (the derivative exists), \
 
 ## Chain Rule Variants
 
-- \(\ddx([\fx^n) = n[\fx]^{n-1} \fpx  \)
+- \(\ddx([\fx^n]) = n[\fx]^{n-1} \fpx  \)
 - \(\ddx \left ( \textrm{e}^{\fx} \right ) = \fpx \textrm{e}^{\fx} \)
 - \(\ddx(\ln[\fx]) =\frac{\fpx}{\fx} \)
-- \(\ddx() = \)
-- \(\ddx() = \)
-- \(\ddx() = \)
-- \(\ddx() = \)
-- \(\ddx() = \)
+- \(\ddx(\sin[\fx]) = \fpx \cos [\fx]\)
+- \(\ddx(\cos [\fx]) = -\fpx\sin[\fx] \)
+- \(\ddx(\tan[\fx]) = \fpx \sec^2[\fx]\)
+- \(\ddx(\sec[\fx]) = \fpx \sec[\fx]\tan[\fx]\)
+- \(\ddx(\tan ^{-1}[\fx]) = \frac{\fpx}{1 + [\fx]^2} \)
 
 ## Higher Order Derivatives
 
+- Second Derivative is denoted as \( f''(x)=f^{(2)}(x) = \frac{d^2f}{dx^2} \)
+- Second Derivative is defined as \( f''(x)=(\fpx)'\) i.e. the derivative of the first derivative, \(\fpx\)
+- nth Derivative is denoted as \( f^{(n)}(x) = \frac{d^nf}{dx^n} \)
+- nth Derivative is defined as \( f^{(n)}(x)=(f^{(n-1)}(x))'\) i.e. the derivative of the \((n-1)^{\text{st}}\) derivative, \(f^{(n-1)}(x)\)
+
 ## Critical Points
 
+- \( x=c \) is a critical point of \( f(x) \) provided either:
+  1. \( f'(c)=0 \)
+  2. \( f'(c) \) doesn't exist
+
 ## Increasing/Decreasing
+- If \(\fpx>0\) for all \(x\) in an interval \(I\) then \(\fx\) is increasing on the interval \(I\)
+- If \(\fpx<0\) for all \(x\) in an interval \(I\) then \(\fx\) is decreasing on the interval \(I\)
+- If \(\fpx=0\) for all \(x\) in an interval \(I\) then \(\fx\) is constant on the interval \(I\)
 
 ## Concave Up/Concave Down
+- If \(f''(x)>0\) for all \(x\) in an interval \(I\) then \(\fx\) is concave up on the interval \(I\)
+- If \(f''(x)<0\) for all \(x\) in an interval \(I\) then \(\fx\) is concave down on the interval \(I\)
 
 ## Inflection Points
+- \( x=c \) is an inflection point of \( f(x) \) if the concavity changes at \( x=c \)
 
 ## Extrema
-
+- \( x=c \) is an absolute maximum of \( f(x) \) if \( f(c) \ge \fx \) for all \(x\) in the domain
+- \( x=c \) is an absolute minimum of \( f(x) \) if \( f(c) \le \fx \) for all \(x\) in the domain
+- Fermat's Theorem: If \( f(x) \) has a relative (or local) extrema at \(x=c\), then \(x=c\) is a critical point of \(\fx\)
+- Extreme Value Theorem: If \( f(x) \) is continuous on the closed interval \([a,b]\) then there exist numbers \(c\) and \(d\) so that:
+  1. \(a \le c, d \le b\)
+  2. \(f(c)\) is the absolute max in \([a,b]\)
+  3. \(f(d)\) is the absolute max in \([a,b]\)
+- Finding Absolute Extrema: To find absolute extrema of the continuous function \(\fx\) on the interval \([a,b]\) use the following:
+  1. Find all critical points of \(\fx\) in \([a,b]\)
+  2. Evaluate \(\fx\) at all points found in step 1
+  3. Evaluate \(f(a)\) and \(f(b)\)
+  4. Identify the absolute max and absolute miniumum from evaluations in steps 2 & 3
+- \( x=c \) is a relative (or local) maximum of \( f(x) \) if \( f(c) \ge \fx \) for all \(x\) near \(c\)
+- \( x=c \) is a relative (or local) minimum of \( f(x) \) if \( f(c) \le \fx \) for all \(x\) near \(c\)
+- First Derivative Test: If \( x=c \) is a critical point of \( f(x) \) then \( x=c \) is:
+  1. a relative maximum of \( \fx \) if \(\fpx >0 \) to the left of \( x=c \) and \(\fpx <0 \) to the right of \( x=c \)
+  2. a relative minimum of \( \fx \) if \(\fpx <0 \) to the left of \( x=c \) and \(\fpx >0 \) to the right of \( x=c \)
+  3. Not a relative extrema of \(\fx\) if \(\fpx\) is the same sign on both sides of \(x=c\)
+- Second Derivative Test: If \( x=c \) is a critical point of \( f(x) \) such that \(f'(c)=0\) then \( x=c \) is:
+  1. a relative maximum of \( \fx \) if \(f''(c)<0 \)
+  2. a relative minimum of \( \fx \) if \(f''(c)>0 \)
+  3. may be a relative maximum, relative minimum, or neigher if \(f''(c)=0 \)
+- Finding Relative Extrema and/or Classify Critical Points:
+  1. Find all critical points of \(\fx\)
+  2. Use the first derivative test or the second derivative test on each critical point
+- Mean Value Theorem: If \(\fx\) is continuous on the closed interval \([a,b]\) and differentiable on the open interval \( (a,b) \) then there is a number \( a < c< b\) such that \(f'(c)= \frac{f(b)-f(a)}{b-a}\)
+- Newton's Method: If \(x_n\) is the \(n^{\text{th}}\) guess for the root/solution of \(\fx=0\) then \((n+1)^{st}\) guess is \(x_{n+1}=x_n - \frac{f(x_n)}{f'(x_n)}\) provided \(f'(x_n)\) exists
